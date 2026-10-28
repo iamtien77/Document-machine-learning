@@ -82,6 +82,18 @@ Trường hợp dùng CV hoặc refit trên train+validation phải ghi rõ mẫ
 - **Tương thích inference:** cùng schema, đơn vị đo, thứ tự cột và cách xử lý giá trị mới. Kiểm artifact có thể load trong môi trường được hỗ trợ; không nạp artifact kiểu pickle/joblib từ nguồn không tin cậy và không giả định tương thích giữa các phiên bản scikit-learn. [9]
 - **Failure modes:** nhãn nhiễu, lớp hiếm không đủ mẫu, group/time leakage, tuning lặp quá lâu trên một validation set, metric không gắn chi phí, train-serving skew sau triển khai.
 
+### Key words
+
+| Thuật ngữ | Là gì? | Tác dụng trực tiếp | Vai trò trong quy trình |
+|---|---|---|---|
+| **Fit** | Học tham số mô hình hoặc thống kê của transformer từ dữ liệu train. | Rút ra tham số hoặc thống kê từ dữ liệu | Bước học trên train; transformer phải fit trong fold tương ứng |
+| **Validation / CV** | Dữ liệu hoặc các fold dùng chọn cấu hình; CV luân phiên nhiều split train/validation. | Ước lượng hiệu quả cấu hình trên dữ liệu chưa dùng để fit vòng đó | Bước chọn mô hình và hyperparameter trước test cuối |
+| **Hyperparameter** | Thiết lập chọn trước mỗi lần fit, như `k`, `C`, độ sâu cây. | Điều khiển cách mô hình được học chứ không được gradient học trực tiếp | Đầu vào của quá trình tìm kiếm cấu hình bằng validation |
+| **Baseline** | Mốc đơn giản để biết mô hình phức tạp có cải thiện thực sự không. | Đặt mốc chất lượng tối thiểu cần vượt | Bước kiểm tra giá trị thực của mô hình phức tạp hơn |
+| **Data leakage** | Thông tin không hợp lệ từ test/tương lai/nhãn đi vào train hoặc lựa chọn mô hình. | Làm đánh giá quá lạc quan vì mô hình thấy thông tin không hợp lệ | Rủi ro phải chặn ở split, preprocessing và tuning |
+| **Calibration** | Fit/kiểm sự phù hợp giữa xác suất dự đoán và tần suất thật trên dữ liệu hợp lệ. | Làm xác suất đầu ra gần với tần suất quan sát | Bước bổ sung sau fit nếu quyết định cần xác suất đáng tin |
+| **Artifact** | Pipeline, tham số và cấu hình đã khóa để inference dùng lại. | Đảm bảo dùng đúng preprocessing và tham số khi triển khai | Đầu ra được lưu sau training để inference nạp lại |
+
 ### Nguồn
 
 - [1] [PDF Chương 2: Supervised Learning](<../Tài liệu học tập/ML_Chapter2_new.pdf>)

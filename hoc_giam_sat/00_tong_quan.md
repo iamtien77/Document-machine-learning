@@ -36,6 +36,8 @@ Ví dụ: hệ thống lọc thư rác có thể ưu tiên precision của lớp
 
 Tài liệu bổ sung: [13 Bài thực hành xuyên suốt](13_thuc_hanh_xuyen_suot.md), [14 LDA/QDA và Gaussian Process](14_lda_qda_gaussian_process.md), [15 Chọn thuật toán](15_chon_thuat_toan.md).
 
+Thuật toán trong PDF chương 2 có thêm [18 Polynomial Regression](18_hoi_quy_da_thuc.md) và [19 AdaBoost](19_adaboost.md). Các file [16 Training phase](16_training_phase.md) và [17 Inference phase](17_inference_phase.md) mô tả ranh giới giữa học mô hình và dùng mô hình.
+
 | Giai đoạn | Câu hỏi cần trả lời | Sản phẩm kiểm tra được |
 |---|---|---|
 | Trước train | Dự đoán cái gì, tại thời điểm nào, dữ liệu nào hợp lệ? | Định nghĩa target, schema, split, baseline, metric |
@@ -55,6 +57,29 @@ Phân biệt ba dạng target: **binary** (`0/1`), **multiclass** (mỗi mẫu t
 - Cân nhắc trade-off giữa chất lượng, tính giải thích, chi phí train/inference và khả năng bảo trì. Failure mode chung: nhãn sai, lệch phân phối, mất cân bằng lớp, dữ liệu trùng qua các tập.
 
 **Lộ trình đề xuất:** nắm split/leakage → chạy dummy baseline → linear/logistic → cây/kNN/Naive Bayes → ensemble/SVM/MLP → đánh giá xác suất và triển khai. Độ phức tạp tăng khi baseline chưa đạt mục tiêu, không tăng chỉ vì thuật toán mới hơn.
+
+### Key words nền tảng
+
+Các thuật ngữ sau được dùng xuyên suốt các bài. Trong mỗi bài thuật toán, bảng **Key words** giải thích thêm ý nghĩa cụ thể của thuật ngữ trong mô hình đó. [1][2][5]
+
+| Thuật ngữ | Là gì? | Tác dụng trực tiếp | Vai trò trong quy trình |
+|---|---|---|---|
+| **Sample / mẫu** | Một đơn vị quan sát, thường là một hàng dữ liệu. | Cung cấp một ví dụ để học hoặc dự đoán. | Cần xác định đúng đơn vị mẫu trước khi chia train/test; các hàng cùng người hoặc cùng phiên có thể cần chia theo nhóm. |
+| **Feature / đặc trưng** | Thông tin đầu vào đo được cho một mẫu, ký hiệu thường là `x`. | Cho mô hình căn cứ để dự đoán. | Được thu thập, làm sạch và biến đổi giống nhau lúc train và inference. |
+| **Target / label / nhãn** | Giá trị đúng cần dự đoán, ký hiệu thường là `y`; có thể là số hoặc lớp. | Cung cấp tín hiệu để tính lỗi trong học giám sát. | Phải có quy tắc gán nhãn rõ ràng và không được vô tình đưa vào feature. |
+| **Train set** | Phần dữ liệu được phép dùng để học tham số và thống kê tiền xử lý. | Tạo mô hình đã fit. | Chỉ phần train của mỗi split/fold được dùng trong bước `fit`. |
+| **Validation set / CV** | Dữ liệu giữ riêng trong quá trình chọn cấu hình; CV lặp nhiều lượt chia. | Ước lượng cấu hình nào tổng quát tốt hơn. | Dùng chọn thuật toán, hyperparameter, ngưỡng và điểm dừng; dùng nhiều lần có thể gây overfit vào validation. |
+| **Test set** | Tập giữ riêng đến khi quy trình chọn mô hình hoàn tất. | Cho ước lượng cuối về chất lượng trên dữ liệu chưa thấy. | Dùng đánh giá cuối, không dùng để chọn cấu hình hoặc sửa mô hình rồi vẫn báo cùng điểm test như đánh giá độc lập. |
+| **Baseline** | Cách dự đoán đơn giản làm mốc, ví dụ luôn đoán lớp phổ biến. | Cho biết mô hình mới cải thiện được bao nhiêu. | Được chạy trước mô hình phức tạp để kiểm giá trị thực của việc học. |
+| **Parameter / tham số** | Giá trị mô hình học từ train, như hệ số hồi quy hoặc trọng số mạng. | Quyết định hàm dự đoán đã học. | Được cập nhật trong `fit` và lưu trong artifact để inference. |
+| **Hyperparameter / siêu tham số** | Thiết lập chọn trước khi fit, như `k` của KNN hoặc độ sâu cây. | Điều khiển hình dạng và cách học của mô hình. | Chọn bằng validation/CV rồi fit lại theo quy trình đã chốt. |
+| **Transformer / pipeline** | Transformer biến đổi dữ liệu; pipeline ghép tuần tự biến đổi và mô hình. | Giữ các bước xử lý đầu vào nhất quán. | Fit transformer trên train trong từng fold, sau đó lưu chung với mô hình để inference. |
+| **Loss / hàm mất mát** | Biểu thức lượng hóa mức sai của dự đoán khi tối ưu. | Tạo tín hiệu cập nhật tham số hoặc chọn split. | Thuộc training; không nhất thiết trùng metric dùng báo cáo cho người dùng. |
+| **Metric / thước đo** | Công thức đánh giá chất lượng, như MAE, F1 hoặc ROC-AUC. | Tóm tắt một khía cạnh hiệu quả của mô hình. | Phải chọn theo mục tiêu và chi phí lỗi của bài toán; tính trên tập đánh giá phù hợp. |
+| **Data leakage / rò rỉ dữ liệu** | Thông tin không hợp lệ từ tương lai, test hoặc nhãn lọt vào quá trình học/chọn mô hình. | Làm điểm đánh giá cao giả tạo. | Cần chặn bằng cách chia dữ liệu trước và fit tiền xử lý đúng trong từng fold. |
+| **Overfitting / học quá khớp** | Mô hình khớp dữ liệu đã thấy nhưng kém trên dữ liệu mới. | Làm chất lượng ngoài train giảm. | Được phát hiện qua validation và kiểm soát bằng độ phức tạp, regularization hoặc thêm dữ liệu phù hợp. |
+| **Inference / suy luận** | Áp mô hình đã fit vào đầu vào mới để lấy dự đoán. | Tạo score, xác suất hoặc giá trị dự đoán. | Dùng đúng schema, transformer và phiên bản artifact đã lưu. |
+| **Threshold / ngưỡng** | Mức cắt biến score hoặc xác suất thành quyết định lớp. | Thay đổi tỷ lệ bỏ sót và báo động nhầm. | Chọn theo chi phí lỗi trên validation, rồi áp cố định trong inference cho đến khi cập nhật có kiểm soát. |
 
 ## Nguồn
 

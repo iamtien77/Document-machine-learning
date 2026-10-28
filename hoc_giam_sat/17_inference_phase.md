@@ -79,6 +79,19 @@ Ví dụ dự đoán giá nhà: diện tích, vị trí, số phòng có thể l
 - **Bảo trì:** theo dõi model age, phân phối đầu vào/đầu ra, latency và metric thật khi nhãn đến; kiểm lỗi theo nhóm. Drift chỉ mở cuộc điều tra, còn retrain cần đánh giá lại có kiểm soát. [5][6]
 - **Failure modes:** feature lúc serving khác lúc train, nạp sai phiên bản artifact, đảo thứ tự lớp trong `predict_proba`, coi score SVM là xác suất, threshold cũ khi chi phí thay đổi, nhãn online đến trễ hoặc bị chọn lọc.
 
+### Key words
+
+| Thuật ngữ | Là gì? | Tác dụng trực tiếp | Vai trò trong quy trình |
+|---|---|---|---|
+| **Inference / suy luận** | Dùng mô hình đã fit để dự đoán cho đầu vào mới, không tự học tham số. | Tạo dự đoán cho mẫu mới từ tham số đã học | Giai đoạn vận hành sau training |
+| **Serving** | Hệ thống nhận yêu cầu và trả dự đoán theo hợp đồng đầu vào/đầu ra. | Đưa mô hình vào luồng xử lý request thực tế | Lớp giao tiếp, kiểm đầu vào và trả kết quả ở môi trường vận hành |
+| **Schema** | Quy tắc về tên, kiểu, đơn vị, miền giá trị và sự hiện diện của feature. | Ngăn dữ liệu sai kiểu hoặc thiếu cột đi vào mô hình | Hợp đồng dữ liệu cần kiểm trước khi dự đoán |
+| **Score vs probability** | Score là điểm của mô hình; probability cần nằm trong `[0,1]` và còn phải kiểm calibration nếu dùng như rủi ro thực. | Tránh hiểu nhầm điểm xếp hạng thành rủi ro định lượng | Phân biệt đầu ra mô hình trước khi đặt ngưỡng hoặc hiển thị |
+| **Threshold** | Ngưỡng đổi score/xác suất thành quyết định lớp. | Chuyển đầu ra liên tục thành quyết định theo chi phí lỗi | Quy tắc ra quyết định tại inference |
+| **`prediction_id`** | ID của một dự đoán, dùng nối nhãn đến muộn với đúng model version. | Cho phép nối dự đoán, phiên bản và nhãn đến muộn | Khóa theo dõi để đánh giá chất lượng vận hành |
+| **Drift / skew** | Drift là thay đổi phân phối theo thời gian; training-serving skew là khác biệt giữa dữ liệu/feature lúc train và lúc phục vụ. | Phát hiện dữ liệu thực tế đổi khác dữ liệu huấn luyện | Tín hiệu giám sát sau triển khai, cần điều tra nguyên nhân |
+| **Fallback / rollback** | Fallback xử lý request khi mô hình không thể dự đoán; rollback đưa hệ thống về phiên bản trước khi bản mới có lỗi. | Duy trì xử lý an toàn khi lỗi và khôi phục bản ổn định | Cơ chế vận hành khi request hoặc phiên bản mới gặp sự cố |
+
 ### Nguồn
 
 - [1] [PDF Chương 2: Supervised Learning](<../Tài liệu học tập/ML_Chapter2_new.pdf>)
