@@ -1,0 +1,676 @@
+2026-09-30 12:27:14,374 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-09-30 12:27:17,201 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'blocks': 1}
+2026-09-30 19:22:54,546 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-09-30 19:22:55,667 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'blocks': 1}
+2026-10-01 08:49:19,371 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-01 08:49:20,377 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'blocks': 1}
+2026-10-02 10:05:04,235 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:05:09,361 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'blocks': 1}
+2026-10-02 10:16:21,087 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:16:36,502 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:37,139 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:37,141 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:37,142 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:37,143 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:37,147 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:37,733 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:37,734 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:37,737 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:37,738 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:37,739 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:38,447 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:38,450 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:38,451 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:38,453 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:16:42,752 Google translation counters: {'segments': 3, 'duplicates': 0, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:16:43,388 Google translation counters: {'segments': 3, 'duplicates': 0, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:16:43,391 Google translation counters: {'segments': 3, 'duplicates': 0, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:16:43,392 Google translation counters: {'segments': 3, 'duplicates': 0, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:16:49,096 Google translation counters: {'segments': 4, 'duplicates': 0, 'requests': 3, 'batch_hits': 1}
+2026-10-02 10:16:49,723 Google translation counters: {'segments': 4, 'duplicates': 0, 'requests': 3, 'batch_hits': 1}
+2026-10-02 10:16:49,727 Google translation counters: {'segments': 4, 'duplicates': 0, 'requests': 3, 'batch_hits': 1}
+2026-10-02 10:16:49,728 Google translation counters: {'segments': 4, 'duplicates': 0, 'requests': 3, 'batch_hits': 1}
+2026-10-02 10:16:49,773 Google translation counters: {'segments': 4, 'duplicates': 0, 'requests': 3, 'batch_hits': 1}
+2026-10-02 10:16:49,774 Google translation counters: {'segments': 4, 'duplicates': 0, 'requests': 3, 'batch_hits': 1}
+2026-10-02 10:16:55,844 Google translation counters: {'segments': 7, 'duplicates': 0, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:16:56,482 Google translation counters: {'segments': 7, 'duplicates': 0, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:16:56,490 Google translation counters: {'segments': 7, 'duplicates': 0, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:16:56,492 Google translation counters: {'segments': 7, 'duplicates': 0, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:16:56,493 Google translation counters: {'segments': 7, 'duplicates': 0, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:17:01,583 Google translation counters: {'segments': 8, 'duplicates': 0, 'requests': 5, 'batch_hits': 2}
+2026-10-02 10:17:02,154 Google translation counters: {'segments': 8, 'duplicates': 0, 'requests': 5, 'batch_hits': 2}
+2026-10-02 10:17:02,157 Google translation counters: {'segments': 8, 'duplicates': 0, 'requests': 5, 'batch_hits': 2}
+2026-10-02 10:17:02,161 Google translation counters: {'segments': 9, 'duplicates': 0, 'requests': 5, 'batch_hits': 2, 'cache_hits': 1}
+2026-10-02 10:17:02,653 Google translation counters: {'segments': 9, 'duplicates': 0, 'requests': 5, 'batch_hits': 2, 'cache_hits': 1}
+2026-10-02 10:17:02,739 Google translation counters: {'segments': 9, 'duplicates': 0, 'requests': 5, 'batch_hits': 2, 'cache_hits': 1}
+2026-10-02 10:17:02,741 Google translation counters: {'segments': 9, 'duplicates': 0, 'requests': 5, 'batch_hits': 2, 'cache_hits': 1}
+2026-10-02 10:17:02,742 Google translation counters: {'segments': 9, 'duplicates': 0, 'requests': 5, 'batch_hits': 2, 'cache_hits': 1}
+2026-10-02 10:17:07,756 Google translation counters: {'segments': 15, 'duplicates': 0, 'requests': 6, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:08,422 Google translation counters: {'segments': 15, 'duplicates': 0, 'requests': 6, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:08,425 Google translation counters: {'segments': 15, 'duplicates': 0, 'requests': 6, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:08,427 Google translation counters: {'segments': 15, 'duplicates': 0, 'requests': 6, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:08,429 Google translation counters: {'segments': 15, 'duplicates': 0, 'requests': 6, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:09,142 Google translation counters: {'segments': 15, 'duplicates': 0, 'requests': 6, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:09,145 Google translation counters: {'segments': 15, 'duplicates': 0, 'requests': 6, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:09,146 Google translation counters: {'segments': 15, 'duplicates': 0, 'requests': 6, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:14,520 Google translation counters: {'segments': 16, 'duplicates': 0, 'requests': 7, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:15,124 Google translation counters: {'segments': 16, 'duplicates': 0, 'requests': 7, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:15,128 Google translation counters: {'segments': 16, 'duplicates': 0, 'requests': 7, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:15,130 Google translation counters: {'segments': 16, 'duplicates': 0, 'requests': 7, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:15,551 Google translation counters: {'segments': 16, 'duplicates': 0, 'requests': 7, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:15,554 Google translation counters: {'segments': 16, 'duplicates': 0, 'requests': 7, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:20,225 Google translation counters: {'segments': 17, 'duplicates': 0, 'requests': 8, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:20,831 Google translation counters: {'segments': 17, 'duplicates': 0, 'requests': 8, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:20,834 Google translation counters: {'segments': 17, 'duplicates': 0, 'requests': 8, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:20,835 Google translation counters: {'segments': 17, 'duplicates': 0, 'requests': 8, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:20,836 Google translation counters: {'segments': 17, 'duplicates': 0, 'requests': 8, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:26,444 Google translation counters: {'segments': 18, 'duplicates': 0, 'requests': 9, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:27,208 Google translation counters: {'segments': 18, 'duplicates': 0, 'requests': 9, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:27,213 Google translation counters: {'segments': 18, 'duplicates': 0, 'requests': 9, 'batch_hits': 3, 'cache_hits': 1}
+2026-10-02 10:17:32,778 Google translation counters: {'segments': 41, 'duplicates': 0, 'requests': 10, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:33,435 Google translation counters: {'segments': 41, 'duplicates': 0, 'requests': 10, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:33,437 Google translation counters: {'segments': 41, 'duplicates': 0, 'requests': 10, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:33,438 Google translation counters: {'segments': 41, 'duplicates': 0, 'requests': 10, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:33,441 Google translation counters: {'segments': 41, 'duplicates': 0, 'requests': 10, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:33,442 Google translation counters: {'segments': 41, 'duplicates': 0, 'requests': 10, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:33,893 Google translation counters: {'segments': 41, 'duplicates': 0, 'requests': 10, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:33,894 Google translation counters: {'segments': 41, 'duplicates': 0, 'requests': 10, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:38,938 Google translation counters: {'segments': 42, 'duplicates': 0, 'requests': 11, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:42,327 Google translation counters: {'segments': 42, 'duplicates': 0, 'requests': 11, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:42,327 Google translation counters: {'segments': 42, 'duplicates': 0, 'requests': 11, 'batch_hits': 4, 'cache_hits': 2}
+2026-10-02 10:17:42,331 Google translation counters: {'segments': 43, 'duplicates': 0, 'requests': 11, 'batch_hits': 4, 'cache_hits': 3}
+2026-10-02 10:17:47,290 Google translation counters: {'segments': 43, 'duplicates': 0, 'requests': 11, 'batch_hits': 4, 'cache_hits': 3}
+2026-10-02 10:17:49,988 Google translation counters: {'segments': 54, 'duplicates': 0, 'requests': 12, 'batch_hits': 5, 'cache_hits': 3}
+2026-10-02 10:17:51,287 Google translation counters: {'segments': 54, 'duplicates': 0, 'requests': 12, 'batch_hits': 5, 'cache_hits': 3}
+2026-10-02 10:17:51,290 Google translation counters: {'segments': 54, 'duplicates': 0, 'requests': 12, 'batch_hits': 5, 'cache_hits': 3}
+2026-10-02 10:17:51,307 Google translation counters: {'segments': 54, 'duplicates': 0, 'requests': 12, 'batch_hits': 5, 'cache_hits': 3}
+2026-10-02 10:17:56,768 Google translation counters: {'segments': 56, 'duplicates': 0, 'requests': 13, 'batch_hits': 6, 'cache_hits': 3}
+2026-10-02 10:17:58,000 Google translation counters: {'segments': 56, 'duplicates': 0, 'requests': 13, 'batch_hits': 6, 'cache_hits': 3}
+2026-10-02 10:18:09,866 Google translation counters: {'segments': 129, 'duplicates': 0, 'requests': 15, 'batch_hits': 8, 'cache_hits': 3}
+2026-10-02 10:18:14,261 Google translation counters: {'segments': 129, 'duplicates': 0, 'requests': 15, 'batch_hits': 8, 'cache_hits': 3}
+2026-10-02 10:18:14,266 Google translation counters: {'segments': 129, 'duplicates': 0, 'requests': 15, 'batch_hits': 8, 'cache_hits': 3}
+2026-10-02 10:18:16,619 Google translation counters: {'segments': 147, 'duplicates': 0, 'requests': 16, 'batch_hits': 9, 'cache_hits': 3}
+2026-10-02 10:18:17,244 Google translation counters: {'segments': 147, 'duplicates': 0, 'requests': 16, 'batch_hits': 9, 'cache_hits': 3}
+2026-10-02 10:18:22,790 Google translation counters: {'segments': 150, 'duplicates': 0, 'requests': 17, 'batch_hits': 10, 'cache_hits': 3}
+2026-10-02 10:20:03,730 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:20:06,773 Google translation counters: {'segments': 3, 'duplicates': 0, 'cache_hits': 1, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:20:07,448 Google translation counters: {'segments': 3, 'duplicates': 0, 'cache_hits': 1, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:20:07,513 Google translation counters: {'segments': 3, 'duplicates': 0, 'cache_hits': 1, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:20:14,092 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:20:14,766 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:20:14,770 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:20:14,771 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:20:14,774 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:20:15,296 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:20:20,822 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 1, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:20:25,055 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 1, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:20:25,089 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 1, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:20:27,720 Google translation counters: {'segments': 36, 'duplicates': 0, 'cache_hits': 1, 'requests': 4, 'batch_hits': 3}
+2026-10-02 10:20:34,665 Google translation counters: {'segments': 36, 'duplicates': 0, 'cache_hits': 1, 'requests': 4, 'batch_hits': 3}
+2026-10-02 10:20:37,371 Google translation counters: {'segments': 64, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 4}
+2026-10-02 10:20:41,171 Google translation counters: {'segments': 64, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 4}
+2026-10-02 10:20:41,183 Google translation counters: {'segments': 64, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 4}
+2026-10-02 10:20:41,183 Google translation counters: {'segments': 64, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 4}
+2026-10-02 10:20:41,187 Google translation counters: {'segments': 64, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 4}
+2026-10-02 10:20:44,578 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:20:47,707 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:20:47,716 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:20:47,717 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:20:47,730 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:20:52,160 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:20:52,172 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:20:53,602 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 2, 'requests': 7, 'batch_hits': 4}
+2026-10-02 10:20:58,297 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 2, 'requests': 7, 'batch_hits': 4}
+2026-10-02 10:20:58,311 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 2, 'requests': 7, 'batch_hits': 4}
+2026-10-02 10:20:58,311 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 2, 'requests': 7, 'batch_hits': 4}
+2026-10-02 10:21:03,161 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 2, 'requests': 7, 'batch_hits': 4}
+2026-10-02 10:21:03,526 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 2, 'requests': 7, 'batch_hits': 4}
+2026-10-02 10:21:04,945 Google translation counters: {'segments': 76, 'duplicates': 0, 'cache_hits': 2, 'requests': 8, 'batch_hits': 5}
+2026-10-02 10:21:09,713 Google translation counters: {'segments': 76, 'duplicates': 0, 'cache_hits': 2, 'requests': 8, 'batch_hits': 5}
+2026-10-02 10:21:09,902 Google translation counters: {'segments': 76, 'duplicates': 0, 'cache_hits': 2, 'requests': 8, 'batch_hits': 5}
+2026-10-02 10:21:09,903 Google translation counters: {'segments': 76, 'duplicates': 0, 'cache_hits': 2, 'requests': 8, 'batch_hits': 5}
+2026-10-02 10:21:11,792 Google translation counters: {'segments': 86, 'duplicates': 0, 'cache_hits': 3, 'requests': 9, 'batch_hits': 6}
+2026-10-02 10:21:12,520 Google translation counters: {'segments': 86, 'duplicates': 0, 'cache_hits': 3, 'requests': 9, 'batch_hits': 6}
+2026-10-02 10:21:12,646 Google translation counters: {'segments': 86, 'duplicates': 0, 'cache_hits': 3, 'requests': 9, 'batch_hits': 6}
+2026-10-02 10:21:12,648 Google translation counters: {'segments': 86, 'duplicates': 0, 'cache_hits': 3, 'requests': 9, 'batch_hits': 6}
+2026-10-02 10:21:12,649 Google translation counters: {'segments': 86, 'duplicates': 0, 'cache_hits': 3, 'requests': 9, 'batch_hits': 6}
+2026-10-02 10:21:17,471 Google translation counters: {'segments': 96, 'duplicates': 0, 'cache_hits': 4, 'requests': 10, 'batch_hits': 6}
+2026-10-02 10:21:32,212 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:21:32,259 Google translation counters: {'segments': 3, 'duplicates': 0, 'cache_hits': 3}
+2026-10-02 10:21:32,926 Google translation counters: {'segments': 3, 'duplicates': 0, 'cache_hits': 3}
+2026-10-02 10:21:32,989 Google translation counters: {'segments': 3, 'duplicates': 0, 'cache_hits': 3}
+2026-10-02 10:21:33,087 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 14}
+2026-10-02 10:21:33,708 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 14}
+2026-10-02 10:21:33,712 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 14}
+2026-10-02 10:21:33,714 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 14}
+2026-10-02 10:21:33,718 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 14}
+2026-10-02 10:21:34,190 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 14}
+2026-10-02 10:21:34,600 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 35}
+2026-10-02 10:21:35,310 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 35}
+2026-10-02 10:21:35,322 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 35}
+2026-10-02 10:21:35,348 Google translation counters: {'segments': 36, 'duplicates': 0, 'cache_hits': 36}
+2026-10-02 10:21:35,945 Google translation counters: {'segments': 36, 'duplicates': 0, 'cache_hits': 36}
+2026-10-02 10:21:36,083 Google translation counters: {'segments': 64, 'duplicates': 0, 'cache_hits': 64}
+2026-10-02 10:21:36,689 Google translation counters: {'segments': 64, 'duplicates': 0, 'cache_hits': 64}
+2026-10-02 10:21:36,693 Google translation counters: {'segments': 64, 'duplicates': 0, 'cache_hits': 64}
+2026-10-02 10:21:36,695 Google translation counters: {'segments': 64, 'duplicates': 0, 'cache_hits': 64}
+2026-10-02 10:21:36,698 Google translation counters: {'segments': 64, 'duplicates': 0, 'cache_hits': 64}
+2026-10-02 10:21:36,703 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 65}
+2026-10-02 10:21:37,196 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 65}
+2026-10-02 10:21:37,201 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 65}
+2026-10-02 10:21:37,202 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 65}
+2026-10-02 10:21:37,207 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 65}
+2026-10-02 10:21:37,698 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 65}
+2026-10-02 10:21:37,703 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 65}
+2026-10-02 10:21:37,711 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 66}
+2026-10-02 10:21:38,102 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 66}
+2026-10-02 10:21:38,103 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 66}
+2026-10-02 10:21:38,104 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 66}
+2026-10-02 10:21:38,556 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 66}
+2026-10-02 10:21:38,650 Google translation counters: {'segments': 66, 'duplicates': 0, 'cache_hits': 66}
+2026-10-02 10:21:38,739 Google translation counters: {'segments': 76, 'duplicates': 0, 'cache_hits': 76}
+2026-10-02 10:21:39,480 Google translation counters: {'segments': 76, 'duplicates': 0, 'cache_hits': 76}
+2026-10-02 10:21:39,644 Google translation counters: {'segments': 76, 'duplicates': 0, 'cache_hits': 76}
+2026-10-02 10:21:39,645 Google translation counters: {'segments': 76, 'duplicates': 0, 'cache_hits': 76}
+2026-10-02 10:21:39,730 Google translation counters: {'segments': 86, 'duplicates': 0, 'cache_hits': 86}
+2026-10-02 10:21:40,409 Google translation counters: {'segments': 86, 'duplicates': 0, 'cache_hits': 86}
+2026-10-02 10:21:40,533 Google translation counters: {'segments': 86, 'duplicates': 0, 'cache_hits': 86}
+2026-10-02 10:21:40,534 Google translation counters: {'segments': 86, 'duplicates': 0, 'cache_hits': 86}
+2026-10-02 10:21:40,535 Google translation counters: {'segments': 86, 'duplicates': 0, 'cache_hits': 86}
+2026-10-02 10:21:44,529 Google translation counters: {'segments': 96, 'duplicates': 0, 'cache_hits': 87, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:21:45,280 Google translation counters: {'segments': 96, 'duplicates': 0, 'cache_hits': 87, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:21:45,415 Google translation counters: {'segments': 96, 'duplicates': 0, 'cache_hits': 87, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:21:50,797 Google translation counters: {'segments': 105, 'duplicates': 0, 'cache_hits': 88, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:21:53,146 Google translation counters: {'segments': 105, 'duplicates': 0, 'cache_hits': 88, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:21:53,299 Google translation counters: {'segments': 105, 'duplicates': 0, 'cache_hits': 88, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:21:57,117 Google translation counters: {'segments': 114, 'duplicates': 0, 'cache_hits': 92, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:22:03,087 Google translation counters: {'segments': 114, 'duplicates': 0, 'cache_hits': 92, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:22:03,394 Google translation counters: {'segments': 114, 'duplicates': 0, 'cache_hits': 92, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:22:04,868 Google translation counters: {'segments': 124, 'duplicates': 0, 'cache_hits': 93, 'requests': 4, 'batch_hits': 4}
+2026-10-02 10:22:06,216 Google translation counters: {'segments': 124, 'duplicates': 0, 'cache_hits': 93, 'requests': 4, 'batch_hits': 4}
+2026-10-02 10:22:06,220 Google translation counters: {'segments': 124, 'duplicates': 0, 'cache_hits': 93, 'requests': 4, 'batch_hits': 4}
+2026-10-02 10:22:11,575 Google translation counters: {'segments': 134, 'duplicates': 0, 'cache_hits': 93, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:22:16,257 Google translation counters: {'segments': 134, 'duplicates': 0, 'cache_hits': 93, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:22:16,457 Google translation counters: {'segments': 134, 'duplicates': 0, 'cache_hits': 93, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:22:16,475 Google translation counters: {'segments': 134, 'duplicates': 0, 'cache_hits': 93, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:22:22,661 Google translation counters: {'segments': 134, 'duplicates': 0, 'cache_hits': 93, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:22:22,880 Google translation counters: {'segments': 134, 'duplicates': 0, 'cache_hits': 93, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:22:22,898 Google translation counters: {'segments': 134, 'duplicates': 0, 'cache_hits': 93, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:22:22,904 Google translation counters: {'segments': 134, 'duplicates': 0, 'cache_hits': 93, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:22:23,131 Google translation counters: {'segments': 134, 'duplicates': 0, 'cache_hits': 93, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:22:23,970 Google translation counters: {'segments': 142, 'duplicates': 0, 'cache_hits': 93, 'requests': 6, 'batch_hits': 6}
+2026-10-02 10:22:25,175 Google translation counters: {'segments': 142, 'duplicates': 0, 'cache_hits': 93, 'requests': 6, 'batch_hits': 6}
+2026-10-02 10:22:25,182 Google translation counters: {'segments': 142, 'duplicates': 0, 'cache_hits': 93, 'requests': 6, 'batch_hits': 6}
+2026-10-02 10:22:25,185 Google translation counters: {'segments': 142, 'duplicates': 0, 'cache_hits': 93, 'requests': 6, 'batch_hits': 6}
+2026-10-02 10:22:30,123 Google translation counters: {'segments': 144, 'duplicates': 0, 'cache_hits': 93, 'requests': 7, 'batch_hits': 7}
+2026-10-02 10:22:33,490 Google translation counters: {'segments': 144, 'duplicates': 0, 'cache_hits': 93, 'requests': 7, 'batch_hits': 7}
+2026-10-02 10:22:36,549 Google translation counters: {'segments': 176, 'duplicates': 1, 'cache_hits': 93, 'requests': 8, 'batch_hits': 8}
+2026-10-02 10:22:41,452 Google translation counters: {'segments': 176, 'duplicates': 1, 'cache_hits': 93, 'requests': 8, 'batch_hits': 8}
+2026-10-02 10:22:41,761 Google translation counters: {'segments': 176, 'duplicates': 1, 'cache_hits': 93, 'requests': 8, 'batch_hits': 8}
+2026-10-02 10:22:41,762 Google translation counters: {'segments': 176, 'duplicates': 1, 'cache_hits': 93, 'requests': 8, 'batch_hits': 8}
+2026-10-02 10:22:41,765 Google translation counters: {'segments': 176, 'duplicates': 1, 'cache_hits': 93, 'requests': 8, 'batch_hits': 8}
+2026-10-02 10:22:41,767 Google translation counters: {'segments': 176, 'duplicates': 1, 'cache_hits': 93, 'requests': 8, 'batch_hits': 8}
+2026-10-02 10:22:44,055 Google translation counters: {'segments': 193, 'duplicates': 1, 'cache_hits': 93, 'requests': 9, 'batch_hits': 9}
+2026-10-02 10:22:45,184 Google translation counters: {'segments': 193, 'duplicates': 1, 'cache_hits': 93, 'requests': 9, 'batch_hits': 9}
+2026-10-02 10:22:45,473 Google translation counters: {'segments': 193, 'duplicates': 1, 'cache_hits': 93, 'requests': 9, 'batch_hits': 9}
+2026-10-02 10:22:45,634 Google translation counters: {'segments': 205, 'duplicates': 1, 'cache_hits': 105, 'requests': 9, 'batch_hits': 9}
+2026-10-02 10:22:52,178 Google translation counters: {'segments': 205, 'duplicates': 1, 'cache_hits': 105, 'requests': 9, 'batch_hits': 9}
+2026-10-02 10:22:52,184 Google translation counters: {'segments': 205, 'duplicates': 1, 'cache_hits': 105, 'requests': 9, 'batch_hits': 9}
+2026-10-02 10:22:52,186 Google translation counters: {'segments': 205, 'duplicates': 1, 'cache_hits': 105, 'requests': 9, 'batch_hits': 9}
+2026-10-02 10:22:52,191 Google translation counters: {'segments': 206, 'duplicates': 1, 'cache_hits': 106, 'requests': 9, 'batch_hits': 9}
+2026-10-02 10:23:05,030 Google translation counters: {'segments': 206, 'duplicates': 1, 'cache_hits': 106, 'requests': 9, 'batch_hits': 9}
+2026-10-02 10:23:06,987 Google translation counters: {'segments': 231, 'duplicates': 1, 'cache_hits': 107, 'requests': 10, 'batch_hits': 10}
+2026-10-02 10:23:12,665 Google translation counters: {'segments': 231, 'duplicates': 1, 'cache_hits': 107, 'requests': 10, 'batch_hits': 10}
+2026-10-02 10:23:12,853 Google translation counters: {'segments': 231, 'duplicates': 1, 'cache_hits': 107, 'requests': 10, 'batch_hits': 10}
+2026-10-02 10:23:14,280 Google translation counters: {'segments': 245, 'duplicates': 2, 'cache_hits': 109, 'requests': 11, 'batch_hits': 11}
+2026-10-02 10:23:17,659 Google translation counters: {'segments': 245, 'duplicates': 2, 'cache_hits': 109, 'requests': 11, 'batch_hits': 11}
+2026-10-02 10:23:17,663 Google translation counters: {'segments': 245, 'duplicates': 2, 'cache_hits': 109, 'requests': 11, 'batch_hits': 11}
+2026-10-02 10:23:17,665 Google translation counters: {'segments': 245, 'duplicates': 2, 'cache_hits': 109, 'requests': 11, 'batch_hits': 11}
+2026-10-02 10:23:20,954 Google translation counters: {'segments': 254, 'duplicates': 2, 'cache_hits': 110, 'requests': 12, 'batch_hits': 12}
+2026-10-02 10:23:25,522 Google translation counters: {'segments': 254, 'duplicates': 2, 'cache_hits': 110, 'requests': 12, 'batch_hits': 12}
+2026-10-02 10:23:26,813 Google translation counters: {'segments': 278, 'duplicates': 2, 'cache_hits': 112, 'requests': 13, 'batch_hits': 13}
+2026-10-02 10:23:30,594 Google translation counters: {'segments': 278, 'duplicates': 2, 'cache_hits': 112, 'requests': 13, 'batch_hits': 13}
+2026-10-02 10:23:30,669 Google translation counters: {'segments': 278, 'duplicates': 2, 'cache_hits': 112, 'requests': 13, 'batch_hits': 13}
+2026-10-02 10:23:30,955 Google translation counters: {'segments': 278, 'duplicates': 2, 'cache_hits': 112, 'requests': 13, 'batch_hits': 13}
+2026-10-02 10:23:34,003 Google translation counters: {'segments': 284, 'duplicates': 2, 'cache_hits': 112, 'requests': 14, 'batch_hits': 14}
+2026-10-02 10:23:35,632 Google translation counters: {'segments': 284, 'duplicates': 2, 'cache_hits': 112, 'requests': 14, 'batch_hits': 14}
+2026-10-02 10:23:35,797 Google translation counters: {'segments': 284, 'duplicates': 2, 'cache_hits': 112, 'requests': 14, 'batch_hits': 14}
+2026-10-02 10:23:35,799 Google translation counters: {'segments': 284, 'duplicates': 2, 'cache_hits': 112, 'requests': 14, 'batch_hits': 14}
+2026-10-02 10:23:35,800 Google translation counters: {'segments': 284, 'duplicates': 2, 'cache_hits': 112, 'requests': 14, 'batch_hits': 14}
+2026-10-02 10:23:40,212 Google translation counters: {'segments': 294, 'duplicates': 2, 'cache_hits': 113, 'requests': 15, 'batch_hits': 15}
+2026-10-02 10:23:41,348 Google translation counters: {'segments': 294, 'duplicates': 2, 'cache_hits': 113, 'requests': 15, 'batch_hits': 15}
+2026-10-02 10:23:41,384 Google translation counters: {'segments': 294, 'duplicates': 2, 'cache_hits': 113, 'requests': 15, 'batch_hits': 15}
+2026-10-02 10:23:41,385 Google translation counters: {'segments': 294, 'duplicates': 2, 'cache_hits': 113, 'requests': 15, 'batch_hits': 15}
+2026-10-02 10:23:41,390 Google translation counters: {'segments': 294, 'duplicates': 2, 'cache_hits': 113, 'requests': 15, 'batch_hits': 15}
+2026-10-02 10:23:41,391 Google translation counters: {'segments': 294, 'duplicates': 2, 'cache_hits': 113, 'requests': 15, 'batch_hits': 15}
+2026-10-02 10:23:46,383 Google translation counters: {'segments': 299, 'duplicates': 2, 'cache_hits': 113, 'requests': 16, 'batch_hits': 16}
+2026-10-02 10:23:51,022 Google translation counters: {'segments': 299, 'duplicates': 2, 'cache_hits': 113, 'requests': 16, 'batch_hits': 16}
+2026-10-02 10:23:51,107 Google translation counters: {'segments': 299, 'duplicates': 2, 'cache_hits': 113, 'requests': 16, 'batch_hits': 16}
+2026-10-02 10:23:51,108 Google translation counters: {'segments': 299, 'duplicates': 2, 'cache_hits': 113, 'requests': 16, 'batch_hits': 16}
+2026-10-02 10:23:57,849 Google translation counters: {'segments': 299, 'duplicates': 2, 'cache_hits': 113, 'requests': 16, 'batch_hits': 16}
+2026-10-02 10:23:57,852 Google translation counters: {'segments': 299, 'duplicates': 2, 'cache_hits': 113, 'requests': 16, 'batch_hits': 16}
+2026-10-02 10:24:01,301 Google translation counters: {'segments': 311, 'duplicates': 3, 'cache_hits': 115, 'requests': 17, 'batch_hits': 17}
+2026-10-02 10:24:03,567 Google translation counters: {'segments': 311, 'duplicates': 3, 'cache_hits': 115, 'requests': 17, 'batch_hits': 17}
+2026-10-02 10:24:03,613 Google translation counters: {'segments': 311, 'duplicates': 3, 'cache_hits': 115, 'requests': 17, 'batch_hits': 17}
+2026-10-02 10:24:07,546 Google translation counters: {'segments': 321, 'duplicates': 3, 'cache_hits': 116, 'requests': 18, 'batch_hits': 18}
+2026-10-02 10:24:11,920 Google translation counters: {'segments': 321, 'duplicates': 3, 'cache_hits': 116, 'requests': 18, 'batch_hits': 18}
+2026-10-02 10:24:12,216 Google translation counters: {'segments': 321, 'duplicates': 3, 'cache_hits': 116, 'requests': 18, 'batch_hits': 18}
+2026-10-02 10:24:12,296 Google translation counters: {'segments': 321, 'duplicates': 3, 'cache_hits': 116, 'requests': 18, 'batch_hits': 18}
+2026-10-02 10:24:13,884 Google translation counters: {'segments': 330, 'duplicates': 3, 'cache_hits': 116, 'requests': 19, 'batch_hits': 19}
+2026-10-02 10:24:19,013 Google translation counters: {'segments': 330, 'duplicates': 3, 'cache_hits': 116, 'requests': 19, 'batch_hits': 19}
+2026-10-02 10:24:19,019 Google translation counters: {'segments': 330, 'duplicates': 3, 'cache_hits': 116, 'requests': 19, 'batch_hits': 19}
+2026-10-02 10:24:19,033 Google translation counters: {'segments': 330, 'duplicates': 3, 'cache_hits': 116, 'requests': 19, 'batch_hits': 19}
+2026-10-02 10:24:19,048 Google translation counters: {'segments': 330, 'duplicates': 3, 'cache_hits': 116, 'requests': 19, 'batch_hits': 19}
+2026-10-02 10:24:19,806 Google translation counters: {'segments': 331, 'duplicates': 3, 'cache_hits': 116, 'requests': 20, 'batch_hits': 19}
+2026-10-02 10:24:24,330 Google translation counters: {'segments': 331, 'duplicates': 3, 'cache_hits': 116, 'requests': 20, 'batch_hits': 19}
+2026-10-02 10:24:26,102 Google translation counters: {'segments': 355, 'duplicates': 9, 'cache_hits': 119, 'requests': 21, 'batch_hits': 20}
+2026-10-02 10:24:31,572 Google translation counters: {'segments': 355, 'duplicates': 9, 'cache_hits': 119, 'requests': 21, 'batch_hits': 20}
+2026-10-02 10:24:31,757 Google translation counters: {'segments': 355, 'duplicates': 9, 'cache_hits': 119, 'requests': 21, 'batch_hits': 20}
+2026-10-02 10:24:33,665 Google translation counters: {'segments': 362, 'duplicates': 9, 'cache_hits': 119, 'requests': 22, 'batch_hits': 21}
+2026-10-02 10:24:38,796 Google translation counters: {'segments': 362, 'duplicates': 9, 'cache_hits': 119, 'requests': 22, 'batch_hits': 21}
+2026-10-02 10:24:39,679 Google translation counters: {'segments': 362, 'duplicates': 9, 'cache_hits': 119, 'requests': 22, 'batch_hits': 21}
+2026-10-02 10:24:41,028 Google translation counters: {'segments': 369, 'duplicates': 9, 'cache_hits': 119, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:24:49,439 Google translation counters: {'segments': 369, 'duplicates': 9, 'cache_hits': 119, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:24:49,937 Google translation counters: {'segments': 369, 'duplicates': 9, 'cache_hits': 119, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:24:51,516 Google translation counters: {'segments': 386, 'duplicates': 9, 'cache_hits': 120, 'requests': 24, 'batch_hits': 23}
+2026-10-02 10:24:57,663 Google translation counters: {'segments': 386, 'duplicates': 9, 'cache_hits': 120, 'requests': 24, 'batch_hits': 23}
+2026-10-02 10:24:57,691 Google translation counters: {'segments': 386, 'duplicates': 9, 'cache_hits': 120, 'requests': 24, 'batch_hits': 23}
+2026-10-02 10:24:57,701 Google translation counters: {'segments': 386, 'duplicates': 9, 'cache_hits': 120, 'requests': 24, 'batch_hits': 23}
+2026-10-02 10:24:58,997 Google translation counters: {'segments': 387, 'duplicates': 9, 'cache_hits': 120, 'requests': 25, 'batch_hits': 23}
+2026-10-02 10:25:05,238 Google translation counters: {'segments': 387, 'duplicates': 9, 'cache_hits': 120, 'requests': 25, 'batch_hits': 23}
+2026-10-02 10:25:05,435 Google translation counters: {'segments': 387, 'duplicates': 9, 'cache_hits': 120, 'requests': 25, 'batch_hits': 23}
+2026-10-02 10:25:05,710 Google translation counters: {'segments': 387, 'duplicates': 9, 'cache_hits': 120, 'requests': 25, 'batch_hits': 23}
+2026-10-02 10:25:07,172 Google translation counters: {'segments': 408, 'duplicates': 9, 'cache_hits': 120, 'requests': 26, 'batch_hits': 24}
+2026-10-02 10:25:07,860 Google translation counters: {'segments': 408, 'duplicates': 9, 'cache_hits': 120, 'requests': 26, 'batch_hits': 24}
+2026-10-02 10:25:07,902 Google translation counters: {'segments': 408, 'duplicates': 9, 'cache_hits': 120, 'requests': 26, 'batch_hits': 24}
+2026-10-02 10:25:12,804 Google translation counters: {'segments': 418, 'duplicates': 9, 'cache_hits': 120, 'requests': 27, 'batch_hits': 25}
+2026-10-02 10:25:13,454 Google translation counters: {'segments': 418, 'duplicates': 9, 'cache_hits': 120, 'requests': 27, 'batch_hits': 25}
+2026-10-02 10:25:19,591 Google translation counters: {'segments': 441, 'duplicates': 9, 'cache_hits': 120, 'requests': 28, 'batch_hits': 26}
+2026-10-02 10:25:25,714 Google translation counters: {'segments': 441, 'duplicates': 9, 'cache_hits': 120, 'requests': 28, 'batch_hits': 26}
+2026-10-02 10:25:25,836 Google translation counters: {'segments': 441, 'duplicates': 9, 'cache_hits': 120, 'requests': 28, 'batch_hits': 26}
+2026-10-02 10:25:25,839 Google translation counters: {'segments': 441, 'duplicates': 9, 'cache_hits': 120, 'requests': 28, 'batch_hits': 26}
+2026-10-02 10:25:27,804 Google translation counters: {'segments': 458, 'duplicates': 13, 'cache_hits': 121, 'requests': 29, 'batch_hits': 27}
+2026-10-02 10:25:31,138 Google translation counters: {'segments': 458, 'duplicates': 13, 'cache_hits': 121, 'requests': 29, 'batch_hits': 27}
+2026-10-02 10:25:31,389 Google translation counters: {'segments': 458, 'duplicates': 13, 'cache_hits': 121, 'requests': 29, 'batch_hits': 27}
+2026-10-02 10:25:31,391 Google translation counters: {'segments': 458, 'duplicates': 13, 'cache_hits': 121, 'requests': 29, 'batch_hits': 27}
+2026-10-02 10:25:34,176 Google translation counters: {'segments': 465, 'duplicates': 14, 'cache_hits': 121, 'requests': 30, 'batch_hits': 28}
+2026-10-02 10:25:36,058 Google translation counters: {'segments': 465, 'duplicates': 14, 'cache_hits': 121, 'requests': 30, 'batch_hits': 28}
+2026-10-02 10:25:36,200 Google translation counters: {'segments': 465, 'duplicates': 14, 'cache_hits': 121, 'requests': 30, 'batch_hits': 28}
+2026-10-02 10:25:36,319 Google translation counters: {'segments': 465, 'duplicates': 14, 'cache_hits': 121, 'requests': 30, 'batch_hits': 28}
+2026-10-02 10:25:36,321 Google translation counters: {'segments': 465, 'duplicates': 14, 'cache_hits': 121, 'requests': 30, 'batch_hits': 28}
+2026-10-02 10:25:40,405 Google translation counters: {'segments': 476, 'duplicates': 16, 'cache_hits': 122, 'requests': 31, 'batch_hits': 29}
+2026-10-02 10:25:42,867 Google translation counters: {'segments': 476, 'duplicates': 16, 'cache_hits': 122, 'requests': 31, 'batch_hits': 29}
+2026-10-02 10:25:43,189 Google translation counters: {'segments': 476, 'duplicates': 16, 'cache_hits': 122, 'requests': 31, 'batch_hits': 29}
+2026-10-02 10:25:46,668 Google translation counters: {'segments': 503, 'duplicates': 16, 'cache_hits': 122, 'requests': 32, 'batch_hits': 30}
+2026-10-02 10:25:51,782 Google translation counters: {'segments': 503, 'duplicates': 16, 'cache_hits': 122, 'requests': 32, 'batch_hits': 30}
+2026-10-02 10:25:51,942 Google translation counters: {'segments': 503, 'duplicates': 16, 'cache_hits': 122, 'requests': 32, 'batch_hits': 30}
+2026-10-02 10:25:52,786 Google translation counters: {'segments': 511, 'duplicates': 16, 'cache_hits': 122, 'requests': 33, 'batch_hits': 31}
+2026-10-02 10:25:55,655 Google translation counters: {'segments': 511, 'duplicates': 16, 'cache_hits': 122, 'requests': 33, 'batch_hits': 31}
+2026-10-02 10:25:59,579 Google translation counters: {'segments': 559, 'duplicates': 16, 'cache_hits': 122, 'requests': 34, 'batch_hits': 32}
+2026-10-02 10:26:05,403 Google translation counters: {'segments': 559, 'duplicates': 16, 'cache_hits': 122, 'requests': 34, 'batch_hits': 32}
+2026-10-02 10:26:05,406 Google translation counters: {'segments': 559, 'duplicates': 16, 'cache_hits': 122, 'requests': 34, 'batch_hits': 32}
+2026-10-02 10:26:07,119 Google translation counters: {'segments': 570, 'duplicates': 16, 'cache_hits': 122, 'requests': 35, 'batch_hits': 33}
+2026-10-02 10:26:11,326 Google translation counters: {'segments': 570, 'duplicates': 16, 'cache_hits': 122, 'requests': 35, 'batch_hits': 33}
+2026-10-02 10:26:11,478 Google translation counters: {'segments': 570, 'duplicates': 16, 'cache_hits': 122, 'requests': 35, 'batch_hits': 33}
+2026-10-02 10:26:11,480 Google translation counters: {'segments': 570, 'duplicates': 16, 'cache_hits': 122, 'requests': 35, 'batch_hits': 33}
+2026-10-02 10:26:11,522 Google translation counters: {'segments': 570, 'duplicates': 16, 'cache_hits': 122, 'requests': 35, 'batch_hits': 33}
+2026-10-02 10:26:13,844 Google translation counters: {'segments': 592, 'duplicates': 19, 'cache_hits': 124, 'requests': 36, 'batch_hits': 34}
+2026-10-02 10:26:17,865 Google translation counters: {'segments': 592, 'duplicates': 19, 'cache_hits': 124, 'requests': 36, 'batch_hits': 34}
+2026-10-02 10:26:17,979 Google translation counters: {'segments': 592, 'duplicates': 19, 'cache_hits': 124, 'requests': 36, 'batch_hits': 34}
+2026-10-02 10:26:17,981 Google translation counters: {'segments': 592, 'duplicates': 19, 'cache_hits': 124, 'requests': 36, 'batch_hits': 34}
+2026-10-02 10:26:17,984 Google translation counters: {'segments': 592, 'duplicates': 19, 'cache_hits': 124, 'requests': 36, 'batch_hits': 34}
+2026-10-02 10:26:17,986 Google translation counters: {'segments': 592, 'duplicates': 19, 'cache_hits': 124, 'requests': 36, 'batch_hits': 34}
+2026-10-02 10:26:17,988 Google translation counters: {'segments': 592, 'duplicates': 19, 'cache_hits': 124, 'requests': 36, 'batch_hits': 34}
+2026-10-02 10:26:20,011 Google translation counters: {'segments': 607, 'duplicates': 19, 'cache_hits': 124, 'requests': 37, 'batch_hits': 35}
+2026-10-02 10:26:24,208 Google translation counters: {'segments': 607, 'duplicates': 19, 'cache_hits': 124, 'requests': 37, 'batch_hits': 35}
+2026-10-02 10:26:24,272 Google translation counters: {'segments': 607, 'duplicates': 19, 'cache_hits': 124, 'requests': 37, 'batch_hits': 35}
+2026-10-02 10:26:26,917 Google translation counters: {'segments': 641, 'duplicates': 20, 'cache_hits': 126, 'requests': 38, 'batch_hits': 36}
+2026-10-02 10:26:31,649 Google translation counters: {'segments': 641, 'duplicates': 20, 'cache_hits': 126, 'requests': 38, 'batch_hits': 36}
+2026-10-02 10:26:31,995 Google translation counters: {'segments': 641, 'duplicates': 20, 'cache_hits': 126, 'requests': 38, 'batch_hits': 36}
+2026-10-02 10:26:31,996 Google translation counters: {'segments': 641, 'duplicates': 20, 'cache_hits': 126, 'requests': 38, 'batch_hits': 36}
+2026-10-02 10:26:31,997 Google translation counters: {'segments': 641, 'duplicates': 20, 'cache_hits': 126, 'requests': 38, 'batch_hits': 36}
+2026-10-02 10:26:32,000 Google translation counters: {'segments': 641, 'duplicates': 20, 'cache_hits': 126, 'requests': 38, 'batch_hits': 36}
+2026-10-02 10:26:33,845 Google translation counters: {'segments': 648, 'duplicates': 20, 'cache_hits': 126, 'requests': 39, 'batch_hits': 37}
+2026-10-02 10:26:37,087 Google translation counters: {'segments': 648, 'duplicates': 20, 'cache_hits': 126, 'requests': 39, 'batch_hits': 37}
+2026-10-02 10:26:37,100 Google translation counters: {'segments': 648, 'duplicates': 20, 'cache_hits': 126, 'requests': 39, 'batch_hits': 37}
+2026-10-02 10:26:37,101 Google translation counters: {'segments': 648, 'duplicates': 20, 'cache_hits': 126, 'requests': 39, 'batch_hits': 37}
+2026-10-02 10:26:37,110 Google translation counters: {'segments': 648, 'duplicates': 20, 'cache_hits': 126, 'requests': 39, 'batch_hits': 37}
+2026-10-02 10:26:39,503 Google translation counters: {'segments': 649, 'duplicates': 20, 'cache_hits': 126, 'requests': 40, 'batch_hits': 37}
+2026-10-02 10:26:40,067 Google translation counters: {'segments': 649, 'duplicates': 20, 'cache_hits': 126, 'requests': 40, 'batch_hits': 37}
+2026-10-02 10:26:40,071 Google translation counters: {'segments': 649, 'duplicates': 20, 'cache_hits': 126, 'requests': 40, 'batch_hits': 37}
+2026-10-02 10:26:40,073 Google translation counters: {'segments': 649, 'duplicates': 20, 'cache_hits': 126, 'requests': 40, 'batch_hits': 37}
+2026-10-02 10:26:40,077 Google translation counters: {'segments': 649, 'duplicates': 20, 'cache_hits': 126, 'requests': 40, 'batch_hits': 37}
+2026-10-02 10:26:40,099 Google translation counters: {'segments': 649, 'duplicates': 20, 'cache_hits': 126, 'requests': 40, 'batch_hits': 37}
+2026-10-02 10:26:40,663 Google translation counters: {'segments': 649, 'duplicates': 20, 'cache_hits': 126, 'requests': 40, 'batch_hits': 37}
+2026-10-02 10:26:40,664 Google translation counters: {'segments': 649, 'duplicates': 20, 'cache_hits': 126, 'requests': 40, 'batch_hits': 37}
+2026-10-02 10:26:40,665 Google translation counters: {'segments': 649, 'duplicates': 20, 'cache_hits': 126, 'requests': 40, 'batch_hits': 37}
+2026-10-02 10:31:37,588 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:31:41,713 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:31:42,392 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:31:42,467 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:31:42,468 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:31:48,749 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:31:53,290 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:31:53,384 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:31:53,385 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:31:55,848 Google translation counters: {'segments': 28, 'duplicates': 0, 'cache_hits': 2, 'requests': 3, 'batch_hits': 2}
+2026-10-02 10:32:00,218 Google translation counters: {'segments': 28, 'duplicates': 0, 'cache_hits': 2, 'requests': 3, 'batch_hits': 2}
+2026-10-02 10:32:01,048 Google translation counters: {'segments': 28, 'duplicates': 0, 'cache_hits': 2, 'requests': 3, 'batch_hits': 2}
+2026-10-02 10:32:01,052 Google translation counters: {'segments': 28, 'duplicates': 0, 'cache_hits': 2, 'requests': 3, 'batch_hits': 2}
+2026-10-02 10:32:03,820 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 2, 'requests': 4, 'batch_hits': 3}
+2026-10-02 10:32:07,719 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 2, 'requests': 4, 'batch_hits': 3}
+2026-10-02 10:32:07,976 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 2, 'requests': 4, 'batch_hits': 3}
+2026-10-02 10:32:10,624 Google translation counters: {'segments': 54, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 4}
+2026-10-02 10:32:14,444 Google translation counters: {'segments': 54, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 4}
+2026-10-02 10:32:14,446 Google translation counters: {'segments': 54, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 4}
+2026-10-02 10:32:16,854 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 5}
+2026-10-02 10:32:19,928 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 5}
+2026-10-02 10:32:20,040 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 5}
+2026-10-02 10:32:20,041 Google translation counters: {'segments': 65, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 5}
+2026-10-02 10:32:24,163 Google translation counters: {'segments': 104, 'duplicates': 1, 'cache_hits': 3, 'requests': 7, 'batch_hits': 6}
+2026-10-02 10:32:25,273 Google translation counters: {'segments': 104, 'duplicates': 1, 'cache_hits': 3, 'requests': 7, 'batch_hits': 6}
+2026-10-02 10:32:25,301 Google translation counters: {'segments': 104, 'duplicates': 1, 'cache_hits': 3, 'requests': 7, 'batch_hits': 6}
+2026-10-02 10:32:25,302 Google translation counters: {'segments': 104, 'duplicates': 1, 'cache_hits': 3, 'requests': 7, 'batch_hits': 6}
+2026-10-02 10:32:29,811 Google translation counters: {'segments': 108, 'duplicates': 1, 'cache_hits': 3, 'requests': 8, 'batch_hits': 7}
+2026-10-02 10:32:30,459 Google translation counters: {'segments': 108, 'duplicates': 1, 'cache_hits': 3, 'requests': 8, 'batch_hits': 7}
+2026-10-02 10:32:30,463 Google translation counters: {'segments': 108, 'duplicates': 1, 'cache_hits': 3, 'requests': 8, 'batch_hits': 7}
+2026-10-02 10:32:36,631 Google translation counters: {'segments': 120, 'duplicates': 1, 'cache_hits': 3, 'requests': 9, 'batch_hits': 8}
+2026-10-02 10:32:37,201 Google translation counters: {'segments': 120, 'duplicates': 1, 'cache_hits': 3, 'requests': 9, 'batch_hits': 8}
+2026-10-02 10:32:37,205 Google translation counters: {'segments': 120, 'duplicates': 1, 'cache_hits': 3, 'requests': 9, 'batch_hits': 8}
+2026-10-02 10:32:42,832 Google translation counters: {'segments': 123, 'duplicates': 1, 'cache_hits': 4, 'requests': 10, 'batch_hits': 9}
+2026-10-02 10:32:47,511 Google translation counters: {'segments': 123, 'duplicates': 1, 'cache_hits': 4, 'requests': 10, 'batch_hits': 9}
+2026-10-02 10:32:47,726 Google translation counters: {'segments': 123, 'duplicates': 1, 'cache_hits': 4, 'requests': 10, 'batch_hits': 9}
+2026-10-02 10:32:49,185 Google translation counters: {'segments': 154, 'duplicates': 1, 'cache_hits': 8, 'requests': 11, 'batch_hits': 10}
+2026-10-02 10:32:53,274 Google translation counters: {'segments': 154, 'duplicates': 1, 'cache_hits': 8, 'requests': 11, 'batch_hits': 10}
+2026-10-02 10:32:53,297 Google translation counters: {'segments': 154, 'duplicates': 1, 'cache_hits': 8, 'requests': 11, 'batch_hits': 10}
+2026-10-02 10:32:53,301 Google translation counters: {'segments': 154, 'duplicates': 1, 'cache_hits': 8, 'requests': 11, 'batch_hits': 10}
+2026-10-02 10:32:53,311 Google translation counters: {'segments': 154, 'duplicates': 1, 'cache_hits': 8, 'requests': 11, 'batch_hits': 10}
+2026-10-02 10:32:53,315 Google translation counters: {'segments': 154, 'duplicates': 1, 'cache_hits': 8, 'requests': 11, 'batch_hits': 10}
+2026-10-02 10:32:55,414 Google translation counters: {'segments': 158, 'duplicates': 1, 'cache_hits': 8, 'requests': 12, 'batch_hits': 11}
+2026-10-02 10:32:59,574 Google translation counters: {'segments': 158, 'duplicates': 1, 'cache_hits': 8, 'requests': 12, 'batch_hits': 11}
+2026-10-02 10:32:59,578 Google translation counters: {'segments': 158, 'duplicates': 1, 'cache_hits': 8, 'requests': 12, 'batch_hits': 11}
+2026-10-02 10:33:02,148 Google translation counters: {'segments': 178, 'duplicates': 1, 'cache_hits': 10, 'requests': 13, 'batch_hits': 12}
+2026-10-02 10:33:06,120 Google translation counters: {'segments': 178, 'duplicates': 1, 'cache_hits': 10, 'requests': 13, 'batch_hits': 12}
+2026-10-02 10:33:06,357 Google translation counters: {'segments': 178, 'duplicates': 1, 'cache_hits': 10, 'requests': 13, 'batch_hits': 12}
+2026-10-02 10:33:06,359 Google translation counters: {'segments': 178, 'duplicates': 1, 'cache_hits': 10, 'requests': 13, 'batch_hits': 12}
+2026-10-02 10:33:09,389 Google translation counters: {'segments': 184, 'duplicates': 1, 'cache_hits': 10, 'requests': 14, 'batch_hits': 13}
+2026-10-02 10:33:12,954 Google translation counters: {'segments': 184, 'duplicates': 1, 'cache_hits': 10, 'requests': 14, 'batch_hits': 13}
+2026-10-02 10:33:13,610 Google translation counters: {'segments': 184, 'duplicates': 1, 'cache_hits': 10, 'requests': 14, 'batch_hits': 13}
+2026-10-02 10:33:16,258 Google translation counters: {'segments': 190, 'duplicates': 1, 'cache_hits': 11, 'requests': 15, 'batch_hits': 14}
+2026-10-02 10:33:21,344 Google translation counters: {'segments': 190, 'duplicates': 1, 'cache_hits': 11, 'requests': 15, 'batch_hits': 14}
+2026-10-02 10:33:21,401 Google translation counters: {'segments': 190, 'duplicates': 1, 'cache_hits': 11, 'requests': 15, 'batch_hits': 14}
+2026-10-02 10:33:23,331 Google translation counters: {'segments': 220, 'duplicates': 3, 'cache_hits': 15, 'requests': 16, 'batch_hits': 15}
+2026-10-02 10:33:28,794 Google translation counters: {'segments': 220, 'duplicates': 3, 'cache_hits': 15, 'requests': 16, 'batch_hits': 15}
+2026-10-02 10:33:29,007 Google translation counters: {'segments': 220, 'duplicates': 3, 'cache_hits': 15, 'requests': 16, 'batch_hits': 15}
+2026-10-02 10:33:29,008 Google translation counters: {'segments': 220, 'duplicates': 3, 'cache_hits': 15, 'requests': 16, 'batch_hits': 15}
+2026-10-02 10:33:30,745 Google translation counters: {'segments': 225, 'duplicates': 3, 'cache_hits': 15, 'requests': 17, 'batch_hits': 16}
+2026-10-02 10:33:34,640 Google translation counters: {'segments': 225, 'duplicates': 3, 'cache_hits': 15, 'requests': 17, 'batch_hits': 16}
+2026-10-02 10:33:34,661 Google translation counters: {'segments': 225, 'duplicates': 3, 'cache_hits': 15, 'requests': 17, 'batch_hits': 16}
+2026-10-02 10:33:37,449 Google translation counters: {'segments': 230, 'duplicates': 3, 'cache_hits': 16, 'requests': 18, 'batch_hits': 17}
+2026-10-02 10:33:41,822 Google translation counters: {'segments': 230, 'duplicates': 3, 'cache_hits': 16, 'requests': 18, 'batch_hits': 17}
+2026-10-02 10:33:42,013 Google translation counters: {'segments': 230, 'duplicates': 3, 'cache_hits': 16, 'requests': 18, 'batch_hits': 17}
+2026-10-02 10:33:43,705 Google translation counters: {'segments': 236, 'duplicates': 3, 'cache_hits': 16, 'requests': 19, 'batch_hits': 18}
+2026-10-02 10:33:47,857 Google translation counters: {'segments': 236, 'duplicates': 3, 'cache_hits': 16, 'requests': 19, 'batch_hits': 18}
+2026-10-02 10:33:48,189 Google translation counters: {'segments': 236, 'duplicates': 3, 'cache_hits': 16, 'requests': 19, 'batch_hits': 18}
+2026-10-02 10:33:48,191 Google translation counters: {'segments': 236, 'duplicates': 3, 'cache_hits': 16, 'requests': 19, 'batch_hits': 18}
+2026-10-02 10:33:50,448 Google translation counters: {'segments': 245, 'duplicates': 3, 'cache_hits': 16, 'requests': 20, 'batch_hits': 19}
+2026-10-02 10:33:54,805 Google translation counters: {'segments': 245, 'duplicates': 3, 'cache_hits': 16, 'requests': 20, 'batch_hits': 19}
+2026-10-02 10:33:54,807 Google translation counters: {'segments': 245, 'duplicates': 3, 'cache_hits': 16, 'requests': 20, 'batch_hits': 19}
+2026-10-02 10:33:57,175 Google translation counters: {'segments': 266, 'duplicates': 11, 'cache_hits': 18, 'requests': 21, 'batch_hits': 20}
+2026-10-02 10:34:01,290 Google translation counters: {'segments': 266, 'duplicates': 11, 'cache_hits': 18, 'requests': 21, 'batch_hits': 20}
+2026-10-02 10:34:01,292 Google translation counters: {'segments': 266, 'duplicates': 11, 'cache_hits': 18, 'requests': 21, 'batch_hits': 20}
+2026-10-02 10:34:04,442 Google translation counters: {'segments': 276, 'duplicates': 11, 'cache_hits': 19, 'requests': 22, 'batch_hits': 21}
+2026-10-02 10:34:07,953 Google translation counters: {'segments': 276, 'duplicates': 11, 'cache_hits': 19, 'requests': 22, 'batch_hits': 21}
+2026-10-02 10:34:07,966 Google translation counters: {'segments': 276, 'duplicates': 11, 'cache_hits': 19, 'requests': 22, 'batch_hits': 21}
+2026-10-02 10:34:07,988 Google translation counters: {'segments': 276, 'duplicates': 11, 'cache_hits': 19, 'requests': 22, 'batch_hits': 21}
+2026-10-02 10:34:07,998 Google translation counters: {'segments': 276, 'duplicates': 11, 'cache_hits': 19, 'requests': 22, 'batch_hits': 21}
+2026-10-02 10:34:10,663 Google translation counters: {'segments': 279, 'duplicates': 11, 'cache_hits': 20, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:34:14,279 Google translation counters: {'segments': 279, 'duplicates': 11, 'cache_hits': 20, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:34:14,285 Google translation counters: {'segments': 279, 'duplicates': 11, 'cache_hits': 20, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:34:14,288 Google translation counters: {'segments': 279, 'duplicates': 11, 'cache_hits': 20, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:34:14,292 Google translation counters: {'segments': 279, 'duplicates': 11, 'cache_hits': 20, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:34:14,399 Google translation counters: {'segments': 280, 'duplicates': 11, 'cache_hits': 21, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:34:17,403 Google translation counters: {'segments': 280, 'duplicates': 11, 'cache_hits': 21, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:34:17,553 Google translation counters: {'segments': 280, 'duplicates': 11, 'cache_hits': 21, 'requests': 23, 'batch_hits': 22}
+2026-10-02 10:34:19,411 Google translation counters: {'segments': 290, 'duplicates': 11, 'cache_hits': 21, 'requests': 24, 'batch_hits': 23}
+2026-10-02 10:34:20,621 Google translation counters: {'segments': 290, 'duplicates': 11, 'cache_hits': 21, 'requests': 24, 'batch_hits': 23}
+2026-10-02 10:34:20,671 Google translation counters: {'segments': 290, 'duplicates': 11, 'cache_hits': 21, 'requests': 24, 'batch_hits': 23}
+2026-10-02 10:34:26,094 Google translation counters: {'segments': 302, 'duplicates': 11, 'cache_hits': 21, 'requests': 25, 'batch_hits': 24}
+2026-10-02 10:34:27,917 Google translation counters: {'segments': 302, 'duplicates': 11, 'cache_hits': 21, 'requests': 25, 'batch_hits': 24}
+2026-10-02 10:34:33,628 Google translation counters: {'segments': 312, 'duplicates': 11, 'cache_hits': 22, 'requests': 26, 'batch_hits': 25}
+2026-10-02 10:34:35,654 Google translation counters: {'segments': 312, 'duplicates': 11, 'cache_hits': 22, 'requests': 26, 'batch_hits': 25}
+2026-10-02 10:34:40,208 Google translation counters: {'segments': 321, 'duplicates': 11, 'cache_hits': 22, 'requests': 27, 'batch_hits': 26}
+2026-10-02 10:34:42,476 Google translation counters: {'segments': 321, 'duplicates': 11, 'cache_hits': 22, 'requests': 27, 'batch_hits': 26}
+2026-10-02 10:34:42,880 Google translation counters: {'segments': 321, 'duplicates': 11, 'cache_hits': 22, 'requests': 27, 'batch_hits': 26}
+2026-10-02 10:34:45,870 Google translation counters: {'segments': 331, 'duplicates': 11, 'cache_hits': 22, 'requests': 28, 'batch_hits': 27}
+2026-10-02 10:34:50,988 Google translation counters: {'segments': 331, 'duplicates': 11, 'cache_hits': 22, 'requests': 28, 'batch_hits': 27}
+2026-10-02 10:34:53,048 Google translation counters: {'segments': 341, 'duplicates': 11, 'cache_hits': 22, 'requests': 29, 'batch_hits': 28}
+2026-10-02 10:34:56,339 Google translation counters: {'segments': 341, 'duplicates': 11, 'cache_hits': 22, 'requests': 29, 'batch_hits': 28}
+2026-10-02 10:34:59,243 Google translation counters: {'segments': 361, 'duplicates': 11, 'cache_hits': 22, 'requests': 30, 'batch_hits': 29}
+2026-10-02 10:35:07,780 Google translation counters: {'segments': 361, 'duplicates': 11, 'cache_hits': 22, 'requests': 30, 'batch_hits': 29}
+2026-10-02 10:35:09,875 Google translation counters: {'segments': 364, 'duplicates': 11, 'cache_hits': 23, 'requests': 31, 'batch_hits': 30}
+2026-10-02 10:37:01,561 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:37:03,030 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:37:03,716 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:37:03,820 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:37:03,822 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:37:09,307 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:37:10,026 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:37:10,171 Google translation counters: {'segments': 14, 'duplicates': 0, 'cache_hits': 1, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:37:16,026 Google translation counters: {'segments': 32, 'duplicates': 0, 'cache_hits': 2, 'requests': 3, 'batch_hits': 2}
+2026-10-02 10:37:16,671 Google translation counters: {'segments': 32, 'duplicates': 0, 'cache_hits': 2, 'requests': 3, 'batch_hits': 2}
+2026-10-02 10:37:16,675 Google translation counters: {'segments': 32, 'duplicates': 0, 'cache_hits': 2, 'requests': 3, 'batch_hits': 2}
+2026-10-02 10:37:16,677 Google translation counters: {'segments': 32, 'duplicates': 0, 'cache_hits': 2, 'requests': 3, 'batch_hits': 2}
+2026-10-02 10:37:22,281 Google translation counters: {'segments': 33, 'duplicates': 0, 'cache_hits': 2, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:37:22,898 Google translation counters: {'segments': 33, 'duplicates': 0, 'cache_hits': 2, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:37:22,902 Google translation counters: {'segments': 33, 'duplicates': 0, 'cache_hits': 2, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:37:28,546 Google translation counters: {'segments': 34, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 2}
+2026-10-02 10:37:32,039 Google translation counters: {'segments': 34, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 2}
+2026-10-02 10:37:32,043 Google translation counters: {'segments': 34, 'duplicates': 0, 'cache_hits': 2, 'requests': 5, 'batch_hits': 2}
+2026-10-02 10:37:34,192 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 2}
+2026-10-02 10:37:35,794 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 2}
+2026-10-02 10:37:35,819 Google translation counters: {'segments': 35, 'duplicates': 0, 'cache_hits': 2, 'requests': 6, 'batch_hits': 2}
+2026-10-02 10:37:35,842 Google translation counters: {'segments': 36, 'duplicates': 0, 'cache_hits': 3, 'requests': 6, 'batch_hits': 2}
+2026-10-02 10:37:36,745 Google translation counters: {'segments': 36, 'duplicates': 0, 'cache_hits': 3, 'requests': 6, 'batch_hits': 2}
+2026-10-02 10:37:36,783 Google translation counters: {'segments': 36, 'duplicates': 0, 'cache_hits': 3, 'requests': 6, 'batch_hits': 2}
+2026-10-02 10:37:40,925 Google translation counters: {'segments': 38, 'duplicates': 0, 'cache_hits': 3, 'requests': 7, 'batch_hits': 3}
+2026-10-02 10:37:45,174 Google translation counters: {'segments': 38, 'duplicates': 0, 'cache_hits': 3, 'requests': 7, 'batch_hits': 3}
+2026-10-02 10:37:45,339 Google translation counters: {'segments': 38, 'duplicates': 0, 'cache_hits': 3, 'requests': 7, 'batch_hits': 3}
+2026-10-02 10:37:45,344 Google translation counters: {'segments': 38, 'duplicates': 0, 'cache_hits': 3, 'requests': 7, 'batch_hits': 3}
+2026-10-02 10:37:47,175 Google translation counters: {'segments': 41, 'duplicates': 0, 'cache_hits': 3, 'requests': 8, 'batch_hits': 4}
+2026-10-02 10:37:51,108 Google translation counters: {'segments': 41, 'duplicates': 0, 'cache_hits': 3, 'requests': 8, 'batch_hits': 4}
+2026-10-02 10:37:51,241 Google translation counters: {'segments': 41, 'duplicates': 0, 'cache_hits': 3, 'requests': 8, 'batch_hits': 4}
+2026-10-02 10:37:51,247 Google translation counters: {'segments': 41, 'duplicates': 0, 'cache_hits': 3, 'requests': 8, 'batch_hits': 4}
+2026-10-02 10:37:52,856 Google translation counters: {'segments': 44, 'duplicates': 0, 'cache_hits': 3, 'requests': 9, 'batch_hits': 5}
+2026-10-02 10:39:29,377 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:39:30,654 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:39:31,279 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:39:31,281 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:39:31,282 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:39:31,356 Google translation counters: {'segments': 2, 'duplicates': 0, 'cache_hits': 1, 'requests': 1}
+2026-10-02 10:39:36,824 Google translation counters: {'segments': 10, 'duplicates': 2, 'cache_hits': 2, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:39:40,480 Google translation counters: {'segments': 10, 'duplicates': 2, 'cache_hits': 2, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:39:40,482 Google translation counters: {'segments': 10, 'duplicates': 2, 'cache_hits': 2, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:39:40,490 Google translation counters: {'segments': 10, 'duplicates': 2, 'cache_hits': 2, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:39:44,494 Google translation counters: {'segments': 10, 'duplicates': 2, 'cache_hits': 2, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:39:44,507 Google translation counters: {'segments': 10, 'duplicates': 2, 'cache_hits': 2, 'requests': 2, 'batch_hits': 1}
+2026-10-02 10:39:45,279 Google translation counters: {'segments': 11, 'duplicates': 2, 'cache_hits': 2, 'requests': 3, 'batch_hits': 1}
+2026-10-02 10:39:49,294 Google translation counters: {'segments': 11, 'duplicates': 2, 'cache_hits': 2, 'requests': 3, 'batch_hits': 1}
+2026-10-02 10:39:52,004 Google translation counters: {'segments': 16, 'duplicates': 2, 'cache_hits': 3, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:39:57,117 Google translation counters: {'segments': 16, 'duplicates': 2, 'cache_hits': 3, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:39:57,122 Google translation counters: {'segments': 16, 'duplicates': 2, 'cache_hits': 3, 'requests': 4, 'batch_hits': 2}
+2026-10-02 10:39:59,725 Google translation counters: {'segments': 24, 'duplicates': 2, 'cache_hits': 3, 'requests': 5, 'batch_hits': 3}
+2026-10-02 10:40:04,406 Google translation counters: {'segments': 24, 'duplicates': 2, 'cache_hits': 3, 'requests': 5, 'batch_hits': 3}
+2026-10-02 10:40:05,401 Google translation counters: {'segments': 43, 'duplicates': 2, 'cache_hits': 4, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:40:06,046 Google translation counters: {'segments': 43, 'duplicates': 2, 'cache_hits': 4, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:40:06,049 Google translation counters: {'segments': 43, 'duplicates': 2, 'cache_hits': 4, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:40:06,072 Google translation counters: {'segments': 43, 'duplicates': 2, 'cache_hits': 4, 'requests': 6, 'batch_hits': 4}
+2026-10-02 10:40:11,625 Google translation counters: {'segments': 45, 'duplicates': 2, 'cache_hits': 4, 'requests': 7, 'batch_hits': 5}
+2026-10-02 10:40:13,789 Google translation counters: {'segments': 45, 'duplicates': 2, 'cache_hits': 4, 'requests': 7, 'batch_hits': 5}
+2026-10-02 10:40:13,798 Google translation counters: {'segments': 45, 'duplicates': 2, 'cache_hits': 4, 'requests': 7, 'batch_hits': 5}
+2026-10-02 10:40:18,513 Google translation counters: {'segments': 47, 'duplicates': 2, 'cache_hits': 4, 'requests': 8, 'batch_hits': 6}
+2026-10-02 10:40:22,416 Google translation counters: {'segments': 47, 'duplicates': 2, 'cache_hits': 4, 'requests': 8, 'batch_hits': 6}
+2026-10-02 10:40:22,455 Google translation counters: {'segments': 47, 'duplicates': 2, 'cache_hits': 4, 'requests': 8, 'batch_hits': 6}
+2026-10-02 10:40:22,457 Google translation counters: {'segments': 47, 'duplicates': 2, 'cache_hits': 4, 'requests': 8, 'batch_hits': 6}
+2026-10-02 10:40:22,461 Google translation counters: {'segments': 47, 'duplicates': 2, 'cache_hits': 4, 'requests': 8, 'batch_hits': 6}
+2026-10-02 10:40:22,467 Google translation counters: {'segments': 47, 'duplicates': 2, 'cache_hits': 4, 'requests': 8, 'batch_hits': 6}
+2026-10-02 10:40:22,469 Google translation counters: {'segments': 47, 'duplicates': 2, 'cache_hits': 4, 'requests': 8, 'batch_hits': 6}
+2026-10-02 10:40:25,256 Google translation counters: {'segments': 51, 'duplicates': 2, 'cache_hits': 4, 'requests': 9, 'batch_hits': 7}
+2026-10-02 10:40:30,023 Google translation counters: {'segments': 51, 'duplicates': 2, 'cache_hits': 4, 'requests': 9, 'batch_hits': 7}
+2026-10-02 10:40:30,136 Google translation counters: {'segments': 51, 'duplicates': 2, 'cache_hits': 4, 'requests': 9, 'batch_hits': 7}
+2026-10-02 10:40:31,460 Google translation counters: {'segments': 52, 'duplicates': 2, 'cache_hits': 4, 'requests': 10, 'batch_hits': 7}
+2026-10-02 10:40:35,692 Google translation counters: {'segments': 52, 'duplicates': 2, 'cache_hits': 4, 'requests': 10, 'batch_hits': 7}
+2026-10-02 10:40:35,989 Google translation counters: {'segments': 52, 'duplicates': 2, 'cache_hits': 4, 'requests': 10, 'batch_hits': 7}
+2026-10-02 10:40:35,990 Google translation counters: {'segments': 52, 'duplicates': 2, 'cache_hits': 4, 'requests': 10, 'batch_hits': 7}
+2026-10-02 10:40:35,992 Google translation counters: {'segments': 52, 'duplicates': 2, 'cache_hits': 4, 'requests': 10, 'batch_hits': 7}
+2026-10-02 10:40:38,742 Google translation counters: {'segments': 67, 'duplicates': 4, 'cache_hits': 5, 'requests': 11, 'batch_hits': 8}
+2026-10-02 10:40:41,853 Google translation counters: {'segments': 67, 'duplicates': 4, 'cache_hits': 5, 'requests': 11, 'batch_hits': 8}
+2026-10-02 10:40:42,015 Google translation counters: {'segments': 67, 'duplicates': 4, 'cache_hits': 5, 'requests': 11, 'batch_hits': 8}
+2026-10-02 10:40:45,952 Google translation counters: {'segments': 87, 'duplicates': 7, 'cache_hits': 7, 'requests': 12, 'batch_hits': 9}
+2026-10-02 10:40:51,328 Google translation counters: {'segments': 87, 'duplicates': 7, 'cache_hits': 7, 'requests': 12, 'batch_hits': 9}
+2026-10-02 10:40:51,684 Google translation counters: {'segments': 87, 'duplicates': 7, 'cache_hits': 7, 'requests': 12, 'batch_hits': 9}
+2026-10-02 10:40:51,687 Google translation counters: {'segments': 87, 'duplicates': 7, 'cache_hits': 7, 'requests': 12, 'batch_hits': 9}
+2026-10-02 10:40:51,689 Google translation counters: {'segments': 87, 'duplicates': 7, 'cache_hits': 7, 'requests': 12, 'batch_hits': 9}
+2026-10-02 10:40:53,632 Google translation counters: {'segments': 113, 'duplicates': 14, 'cache_hits': 8, 'requests': 13, 'batch_hits': 10}
+2026-10-02 10:40:58,995 Google translation counters: {'segments': 113, 'duplicates': 14, 'cache_hits': 8, 'requests': 13, 'batch_hits': 10}
+2026-10-02 10:40:59,239 Google translation counters: {'segments': 113, 'duplicates': 14, 'cache_hits': 8, 'requests': 13, 'batch_hits': 10}
+2026-10-02 10:41:00,643 Google translation counters: {'segments': 139, 'duplicates': 23, 'cache_hits': 10, 'requests': 14, 'batch_hits': 11}
+2026-10-02 10:41:03,883 Google translation counters: {'segments': 139, 'duplicates': 23, 'cache_hits': 10, 'requests': 14, 'batch_hits': 11}
+2026-10-02 10:41:04,160 Google translation counters: {'segments': 139, 'duplicates': 23, 'cache_hits': 10, 'requests': 14, 'batch_hits': 11}
+2026-10-02 10:41:04,161 Google translation counters: {'segments': 139, 'duplicates': 23, 'cache_hits': 10, 'requests': 14, 'batch_hits': 11}
+2026-10-02 10:41:04,162 Google translation counters: {'segments': 139, 'duplicates': 23, 'cache_hits': 10, 'requests': 14, 'batch_hits': 11}
+2026-10-02 10:41:07,339 Google translation counters: {'segments': 148, 'duplicates': 23, 'cache_hits': 10, 'requests': 15, 'batch_hits': 12}
+2026-10-02 10:41:09,106 Google translation counters: {'segments': 148, 'duplicates': 23, 'cache_hits': 10, 'requests': 15, 'batch_hits': 12}
+2026-10-02 10:41:09,299 Google translation counters: {'segments': 148, 'duplicates': 23, 'cache_hits': 10, 'requests': 15, 'batch_hits': 12}
+2026-10-02 10:41:14,051 Google translation counters: {'segments': 171, 'duplicates': 25, 'cache_hits': 13, 'requests': 16, 'batch_hits': 13}
+2026-10-02 10:42:16,241 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:42:16,259 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:42:16,760 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:42:16,810 Google translation counters: {'segments': 0, 'duplicates': 0}
+2026-10-02 10:42:18,900 Google translation counters: {'segments': 17, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:42:21,745 Google translation counters: {'segments': 17, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:42:22,011 Google translation counters: {'segments': 17, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:42:25,598 Google translation counters: {'segments': 22, 'duplicates': 0, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:42:28,741 Google translation counters: {'segments': 22, 'duplicates': 0, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:42:28,953 Google translation counters: {'segments': 22, 'duplicates': 0, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:42:32,818 Google translation counters: {'segments': 34, 'duplicates': 0, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:42:35,203 Google translation counters: {'segments': 34, 'duplicates': 0, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:42:35,245 Google translation counters: {'segments': 34, 'duplicates': 0, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:42:39,517 Google translation counters: {'segments': 37, 'duplicates': 0, 'requests': 4, 'batch_hits': 4}
+2026-10-02 10:42:42,346 Google translation counters: {'segments': 37, 'duplicates': 0, 'requests': 4, 'batch_hits': 4}
+2026-10-02 10:42:42,653 Google translation counters: {'segments': 37, 'duplicates': 0, 'requests': 4, 'batch_hits': 4}
+2026-10-02 10:42:46,246 Google translation counters: {'segments': 42, 'duplicates': 0, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:42:49,026 Google translation counters: {'segments': 42, 'duplicates': 0, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:42:49,265 Google translation counters: {'segments': 42, 'duplicates': 0, 'requests': 5, 'batch_hits': 5}
+2026-10-02 10:42:52,502 Google translation counters: {'segments': 53, 'duplicates': 0, 'requests': 6, 'batch_hits': 6}
+2026-10-02 10:42:54,848 Google translation counters: {'segments': 53, 'duplicates': 0, 'requests': 6, 'batch_hits': 6}
+2026-10-02 10:42:54,894 Google translation counters: {'segments': 53, 'duplicates': 0, 'requests': 6, 'batch_hits': 6}
+2026-10-02 10:42:54,914 Google translation counters: {'segments': 53, 'duplicates': 0, 'requests': 6, 'batch_hits': 6}
+2026-10-02 10:42:58,147 Google translation counters: {'segments': 53, 'duplicates': 0, 'requests': 6, 'batch_hits': 6}
+2026-10-02 10:43:00,420 Google translation counters: {'segments': 61, 'duplicates': 0, 'requests': 7, 'batch_hits': 7}
+2026-10-02 10:43:02,031 Google translation counters: {'segments': 61, 'duplicates': 0, 'requests': 7, 'batch_hits': 7}
+2026-10-02 10:43:07,168 Google translation counters: {'segments': 70, 'duplicates': 0, 'requests': 8, 'batch_hits': 8}
+2026-10-02 10:43:09,998 Google translation counters: {'segments': 70, 'duplicates': 0, 'requests': 8, 'batch_hits': 8}
+2026-10-02 10:43:10,029 Google translation counters: {'segments': 70, 'duplicates': 0, 'requests': 8, 'batch_hits': 8}
+2026-10-02 10:43:13,383 Google translation counters: {'segments': 73, 'duplicates': 0, 'requests': 9, 'batch_hits': 9, 'cache_hits': 1}
+2026-10-02 10:43:14,199 Google translation counters: {'segments': 73, 'duplicates': 0, 'requests': 9, 'batch_hits': 9, 'cache_hits': 1}
+2026-10-02 10:43:14,221 Google translation counters: {'segments': 73, 'duplicates': 0, 'requests': 9, 'batch_hits': 9, 'cache_hits': 1}
+2026-10-02 10:43:14,228 Google translation counters: {'segments': 73, 'duplicates': 0, 'requests': 9, 'batch_hits': 9, 'cache_hits': 1}
+2026-10-02 10:43:20,356 Google translation counters: {'segments': 77, 'duplicates': 0, 'requests': 10, 'batch_hits': 10, 'cache_hits': 1}
+2026-10-02 10:43:25,506 Google translation counters: {'segments': 77, 'duplicates': 0, 'requests': 10, 'batch_hits': 10, 'cache_hits': 1}
+2026-10-02 10:43:27,738 Google translation counters: {'segments': 92, 'duplicates': 0, 'requests': 11, 'batch_hits': 11, 'cache_hits': 1}
+2026-10-02 10:43:28,557 Google translation counters: {'segments': 92, 'duplicates': 0, 'requests': 11, 'batch_hits': 11, 'cache_hits': 1}
+2026-10-02 10:43:34,515 Google translation counters: {'segments': 104, 'duplicates': 0, 'requests': 12, 'batch_hits': 12, 'cache_hits': 2}
+2026-10-02 10:43:35,465 Google translation counters: {'segments': 104, 'duplicates': 0, 'requests': 12, 'batch_hits': 12, 'cache_hits': 2}
+2026-10-02 10:43:35,476 Google translation counters: {'segments': 104, 'duplicates': 0, 'requests': 12, 'batch_hits': 12, 'cache_hits': 2}
+2026-10-02 10:43:35,479 Google translation counters: {'segments': 104, 'duplicates': 0, 'requests': 12, 'batch_hits': 12, 'cache_hits': 2}
+2026-10-02 10:43:40,189 Google translation counters: {'segments': 105, 'duplicates': 0, 'requests': 13, 'batch_hits': 12, 'cache_hits': 2}
+2026-10-02 10:43:42,545 Google translation counters: {'segments': 105, 'duplicates': 0, 'requests': 13, 'batch_hits': 12, 'cache_hits': 2}
+2026-10-02 10:43:46,960 Google translation counters: {'segments': 119, 'duplicates': 0, 'requests': 14, 'batch_hits': 13, 'cache_hits': 2}
+2026-10-02 10:43:50,655 Google translation counters: {'segments': 119, 'duplicates': 0, 'requests': 14, 'batch_hits': 13, 'cache_hits': 2}
+2026-10-02 10:43:50,948 Google translation counters: {'segments': 119, 'duplicates': 0, 'requests': 14, 'batch_hits': 13, 'cache_hits': 2}
+2026-10-02 10:43:54,246 Google translation counters: {'segments': 130, 'duplicates': 0, 'requests': 15, 'batch_hits': 14, 'cache_hits': 2}
+2026-10-02 10:43:57,838 Google translation counters: {'segments': 130, 'duplicates': 0, 'requests': 15, 'batch_hits': 14, 'cache_hits': 2}
+2026-10-02 10:43:57,913 Google translation counters: {'segments': 130, 'duplicates': 0, 'requests': 15, 'batch_hits': 14, 'cache_hits': 2}
+2026-10-02 10:44:01,027 Google translation counters: {'segments': 148, 'duplicates': 0, 'requests': 16, 'batch_hits': 15, 'cache_hits': 3}
+2026-10-02 10:44:05,723 Google translation counters: {'segments': 148, 'duplicates': 0, 'requests': 16, 'batch_hits': 15, 'cache_hits': 3}
+2026-10-02 10:44:05,785 Google translation counters: {'segments': 148, 'duplicates': 0, 'requests': 16, 'batch_hits': 15, 'cache_hits': 3}
+2026-10-02 10:44:05,788 Google translation counters: {'segments': 148, 'duplicates': 0, 'requests': 16, 'batch_hits': 15, 'cache_hits': 3}
+2026-10-02 10:44:07,705 Google translation counters: {'segments': 155, 'duplicates': 0, 'requests': 17, 'batch_hits': 16, 'cache_hits': 3}
+2026-10-02 10:44:09,765 Google translation counters: {'segments': 155, 'duplicates': 0, 'requests': 17, 'batch_hits': 16, 'cache_hits': 3}
+2026-10-02 10:44:09,827 Google translation counters: {'segments': 155, 'duplicates': 0, 'requests': 17, 'batch_hits': 16, 'cache_hits': 3}
+2026-10-02 10:44:14,424 Google translation counters: {'segments': 164, 'duplicates': 0, 'requests': 18, 'batch_hits': 17, 'cache_hits': 3}
+2026-10-02 10:44:16,795 Google translation counters: {'segments': 164, 'duplicates': 0, 'requests': 18, 'batch_hits': 17, 'cache_hits': 3}
+2026-10-02 10:44:16,842 Google translation counters: {'segments': 164, 'duplicates': 0, 'requests': 18, 'batch_hits': 17, 'cache_hits': 3}
+2026-10-02 10:44:21,103 Google translation counters: {'segments': 172, 'duplicates': 0, 'requests': 19, 'batch_hits': 18, 'cache_hits': 5}
+2026-10-02 10:44:23,042 Google translation counters: {'segments': 172, 'duplicates': 0, 'requests': 19, 'batch_hits': 18, 'cache_hits': 5}
+2026-10-02 10:44:23,252 Google translation counters: {'segments': 172, 'duplicates': 0, 'requests': 19, 'batch_hits': 18, 'cache_hits': 5}
+2026-10-02 10:44:27,907 Google translation counters: {'segments': 190, 'duplicates': 0, 'requests': 20, 'batch_hits': 19, 'cache_hits': 5}
+2026-10-02 10:44:28,442 Google translation counters: {'segments': 190, 'duplicates': 0, 'requests': 20, 'batch_hits': 19, 'cache_hits': 5}
+2026-10-02 10:44:34,622 Google translation counters: {'segments': 221, 'duplicates': 0, 'requests': 21, 'batch_hits': 20, 'cache_hits': 7}
+2026-10-02 10:44:37,320 Google translation counters: {'segments': 221, 'duplicates': 0, 'requests': 21, 'batch_hits': 20, 'cache_hits': 7}
+2026-10-02 10:44:37,337 Google translation counters: {'segments': 221, 'duplicates': 0, 'requests': 21, 'batch_hits': 20, 'cache_hits': 7}
+2026-10-02 10:44:37,338 Google translation counters: {'segments': 221, 'duplicates': 0, 'requests': 21, 'batch_hits': 20, 'cache_hits': 7}
+2026-10-02 10:44:40,305 Google translation counters: {'segments': 222, 'duplicates': 0, 'requests': 22, 'batch_hits': 20, 'cache_hits': 7}
+2026-10-02 10:44:43,128 Google translation counters: {'segments': 222, 'duplicates': 0, 'requests': 22, 'batch_hits': 20, 'cache_hits': 7}
+2026-10-02 10:44:47,007 Google translation counters: {'segments': 223, 'duplicates': 0, 'requests': 23, 'batch_hits': 20, 'cache_hits': 7}
+2026-10-02 10:46:32,621 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:46:33,108 Google translation counters: {'segments': 2, 'duplicates': 0, 'requests': 1, 'batch_hits': 1}
+2026-10-02 10:46:38,847 Google translation counters: {'segments': 10, 'duplicates': 0, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:46:39,348 Google translation counters: {'segments': 10, 'duplicates': 0, 'requests': 2, 'batch_hits': 2}
+2026-10-02 10:46:45,086 Google translation counters: {'segments': 16, 'duplicates': 0, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:46:46,924 Google translation counters: {'segments': 16, 'duplicates': 0, 'requests': 3, 'batch_hits': 3}
+2026-10-02 10:46:51,202 Google translation counters: {'segments': 17, 'duplicates': 0, 'requests': 4, 'batch_hits': 3}
+2026-10-02 10:46:57,918 Google translation counters: {'segments': 29, 'duplicates': 0, 'requests': 5, 'batch_hits': 4}
+2026-10-02 10:47:00,506 Google translation counters: {'segments': 29, 'duplicates': 0, 'requests': 5, 'batch_hits': 4}
+2026-10-02 10:47:04,182 Google translation counters: {'segments': 33, 'duplicates': 0, 'requests': 6, 'batch_hits': 5}
+2026-10-02 10:47:05,629 Google translation counters: {'segments': 33, 'duplicates': 0, 'requests': 6, 'batch_hits': 5}
+2026-10-02 10:47:05,630 Google translation counters: {'segments': 33, 'duplicates': 0, 'requests': 6, 'batch_hits': 5}
+2026-10-02 10:47:07,814 Google translation counters: {'segments': 33, 'duplicates': 0, 'requests': 6, 'batch_hits': 5}
+2026-10-02 10:47:07,817 Google translation counters: {'segments': 33, 'duplicates': 0, 'requests': 6, 'batch_hits': 5}
+2026-10-02 10:47:11,580 Google translation counters: {'segments': 51, 'duplicates': 0, 'requests': 7, 'batch_hits': 6, 'cache_hits': 1}
+2026-10-02 10:47:14,231 Google translation counters: {'segments': 51, 'duplicates': 0, 'requests': 7, 'batch_hits': 6, 'cache_hits': 1}
+2026-10-02 10:47:14,233 Google translation counters: {'segments': 51, 'duplicates': 0, 'requests': 7, 'batch_hits': 6, 'cache_hits': 1}
+2026-10-02 10:47:14,234 Google translation counters: {'segments': 51, 'duplicates': 0, 'requests': 7, 'batch_hits': 6, 'cache_hits': 1}
+2026-10-02 10:47:17,748 Google translation counters: {'segments': 61, 'duplicates': 0, 'requests': 8, 'batch_hits': 7, 'cache_hits': 1}
+2026-10-02 10:47:23,962 Google translation counters: {'segments': 72, 'duplicates': 0, 'requests': 9, 'batch_hits': 8, 'cache_hits': 1}
+2026-10-02 10:47:29,061 Google translation counters: {'segments': 72, 'duplicates': 0, 'requests': 9, 'batch_hits': 8, 'cache_hits': 1}
+2026-10-02 10:47:29,063 Google translation counters: {'segments': 72, 'duplicates': 0, 'requests': 9, 'batch_hits': 8, 'cache_hits': 1}
+2026-10-02 10:47:30,876 Google translation counters: {'segments': 81, 'duplicates': 0, 'requests': 10, 'batch_hits': 9, 'cache_hits': 1}
+2026-10-02 10:47:37,187 Google translation counters: {'segments': 93, 'duplicates': 0, 'requests': 11, 'batch_hits': 10, 'cache_hits': 1}
+2026-10-02 10:47:43,606 Google translation counters: {'segments': 93, 'duplicates': 0, 'requests': 11, 'batch_hits': 10, 'cache_hits': 1}
+2026-10-02 10:47:45,580 Google translation counters: {'segments': 98, 'duplicates': 0, 'requests': 12, 'batch_hits': 11, 'cache_hits': 1}
+2026-10-02 10:47:48,111 Google translation counters: {'segments': 98, 'duplicates': 0, 'requests': 12, 'batch_hits': 11, 'cache_hits': 1}
+2026-10-02 10:47:52,978 Google translation counters: {'segments': 108, 'duplicates': 0, 'requests': 13, 'batch_hits': 12, 'cache_hits': 1}
+2026-10-02 10:47:59,143 Google translation counters: {'segments': 115, 'duplicates': 0, 'requests': 14, 'batch_hits': 13, 'cache_hits': 1}
+2026-10-02 10:48:04,974 Google translation counters: {'segments': 115, 'duplicates': 0, 'requests': 14, 'batch_hits': 13, 'cache_hits': 1}
+2026-10-02 10:48:04,979 Google translation counters: {'segments': 115, 'duplicates': 0, 'requests': 14, 'batch_hits': 13, 'cache_hits': 1}
+2026-10-02 10:48:06,915 Google translation counters: {'segments': 120, 'duplicates': 0, 'requests': 15, 'batch_hits': 14, 'cache_hits': 1}
+2026-10-02 10:48:11,533 Google translation counters: {'segments': 120, 'duplicates': 0, 'requests': 15, 'batch_hits': 14, 'cache_hits': 1}
+2026-10-02 10:48:13,666 Google translation counters: {'segments': 123, 'duplicates': 0, 'requests': 16, 'batch_hits': 15, 'cache_hits': 1}
+2026-10-02 10:48:20,427 Google translation counters: {'segments': 132, 'duplicates': 0, 'requests': 17, 'batch_hits': 16, 'cache_hits': 1}
+2026-10-02 10:48:24,090 Google translation counters: {'segments': 132, 'duplicates': 0, 'requests': 17, 'batch_hits': 16, 'cache_hits': 1}
+2026-10-02 10:48:26,058 Google translation counters: {'segments': 133, 'duplicates': 0, 'requests': 18, 'batch_hits': 16, 'cache_hits': 1}
+2026-10-02 10:48:28,824 Google translation counters: {'segments': 133, 'duplicates': 0, 'requests': 18, 'batch_hits': 16, 'cache_hits': 1}
+2026-10-02 10:48:31,724 Google translation counters: {'segments': 134, 'duplicates': 0, 'requests': 19, 'batch_hits': 16, 'cache_hits': 1}
+2026-10-02 10:48:34,499 Google translation counters: {'segments': 134, 'duplicates': 0, 'requests': 19, 'batch_hits': 16, 'cache_hits': 1}
+2026-10-02 10:48:37,972 Google translation counters: {'segments': 135, 'duplicates': 0, 'requests': 20, 'batch_hits': 16, 'cache_hits': 1}
+2026-10-02 10:48:40,496 Google translation counters: {'segments': 135, 'duplicates': 0, 'requests': 20, 'batch_hits': 16, 'cache_hits': 1}
+2026-10-02 10:48:40,497 Google translation counters: {'segments': 135, 'duplicates': 0, 'requests': 20, 'batch_hits': 16, 'cache_hits': 1}
+2026-10-02 10:48:43,822 Google translation counters: {'segments': 135, 'duplicates': 0, 'requests': 20, 'batch_hits': 16, 'cache_hits': 1}
+2026-10-02 10:48:45,784 Google translation counters: {'segments': 138, 'duplicates': 0, 'requests': 21, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:48:48,586 Google translation counters: {'segments': 138, 'duplicates': 0, 'requests': 21, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:48:51,455 Google translation counters: {'segments': 139, 'duplicates': 0, 'requests': 22, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:48:54,503 Google translation counters: {'segments': 139, 'duplicates': 0, 'requests': 22, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:48:57,166 Google translation counters: {'segments': 140, 'duplicates': 0, 'requests': 23, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:48:59,875 Google translation counters: {'segments': 140, 'duplicates': 0, 'requests': 23, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:49:02,850 Google translation counters: {'segments': 141, 'duplicates': 0, 'requests': 24, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:49:05,265 Google translation counters: {'segments': 141, 'duplicates': 0, 'requests': 24, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:49:09,109 Google translation counters: {'segments': 142, 'duplicates': 0, 'requests': 25, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:49:11,551 Google translation counters: {'segments': 142, 'duplicates': 0, 'requests': 25, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:49:14,841 Google translation counters: {'segments': 143, 'duplicates': 0, 'requests': 26, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:49:17,181 Google translation counters: {'segments': 143, 'duplicates': 0, 'requests': 26, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:49:20,536 Google translation counters: {'segments': 144, 'duplicates': 0, 'requests': 27, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:49:20,945 Google translation counters: {'segments': 144, 'duplicates': 0, 'requests': 27, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:49:26,187 Google translation counters: {'segments': 145, 'duplicates': 0, 'requests': 28, 'batch_hits': 17, 'cache_hits': 1}
+2026-10-02 10:49:32,400 Google translation counters: {'segments': 152, 'duplicates': 0, 'requests': 29, 'batch_hits': 18, 'cache_hits': 1}

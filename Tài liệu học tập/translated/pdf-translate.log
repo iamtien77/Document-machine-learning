@@ -1,0 +1,657 @@
+
+======================================================================
+2026-09-30 12:27:17  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "pdf2zh\high_level.py", line 928, in translate
+  File "pdf2zh\high_level.py", line 756, in translate_stream
+  File "pdf2zh\high_level.py", line 661, in translate_patch
+  File "pdf2zh\pdfinterp.py", line 439, in process_page
+  File "pdf2zh\converter.py", line 759, in end_page
+  File "pdf2zh\converter.py", line 1485, in receive_layout
+  File "pdf2zh\converter.py", line 1467, in translate_together
+  File "pdf2zh\converter.py", line 1428, in leave_untranslated
+  File "pdf2zh\translator.py", line 611, in _translate_batch
+  File "pdf2zh\translator.py", line 666, in _retrying
+  File "pdf2zh\translator.py", line 611, in <lambda>
+  File "pdf2zh\translator.py", line 654, in _translate_joined
+  File "pdf2zh\translator.py", line 709, in _fetch
+pdf2zh.translator.RateLimitedError: Google Translate is refusing requests from this network (HTTP 429 or CAPTCHA)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 487, in translate_pdf
+  File "scripts\translate_pdf.py", line 396, in _run_engine
+  File "pdf2zh\high_level.py", line 950, in translate
+pdfminer.pdfexceptions.PDFValueError: Failed to translate E:\Hoc_May_Tren_truong\Tài liệu học tập\translated\pdf-translate-8nb_h8zd\ML_Chapter1_new-ocr-sidecar.pdf
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 503, in translate_pdf
+scripts.translate_pdf.TranslationError: PDF translation core failed: PDFValueError: Failed to translate E:\Hoc_May_Tren_truong\Tài liệu học tập\translated\pdf-translate-8nb_h8zd\ML_Chapter1_new-ocr-sidecar.pdf <- RateLimitedError: Google Translate is refusing requests from this network (HTTP 429 or CAPTCHA)
+
+======================================================================
+2026-09-30 12:27:21  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-09-30 12:27:23  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-09-30 19:22:55  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "pdf2zh\high_level.py", line 928, in translate
+  File "pdf2zh\high_level.py", line 756, in translate_stream
+  File "pdf2zh\high_level.py", line 661, in translate_patch
+  File "pdf2zh\pdfinterp.py", line 439, in process_page
+  File "pdf2zh\converter.py", line 759, in end_page
+  File "pdf2zh\converter.py", line 1485, in receive_layout
+  File "pdf2zh\converter.py", line 1467, in translate_together
+  File "pdf2zh\converter.py", line 1428, in leave_untranslated
+  File "pdf2zh\translator.py", line 611, in _translate_batch
+  File "pdf2zh\translator.py", line 666, in _retrying
+  File "pdf2zh\translator.py", line 611, in <lambda>
+  File "pdf2zh\translator.py", line 654, in _translate_joined
+  File "pdf2zh\translator.py", line 709, in _fetch
+pdf2zh.translator.RateLimitedError: Google Translate is refusing requests from this network (HTTP 429 or CAPTCHA)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 487, in translate_pdf
+  File "scripts\translate_pdf.py", line 396, in _run_engine
+  File "pdf2zh\high_level.py", line 950, in translate
+pdfminer.pdfexceptions.PDFValueError: Failed to translate E:\Hoc_May_Tren_truong\Tài liệu học tập\translated\pdf-translate-jvplqzc5\ML_Chapter1_new-ocr-sidecar.pdf
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 503, in translate_pdf
+scripts.translate_pdf.TranslationError: PDF translation core failed: PDFValueError: Failed to translate E:\Hoc_May_Tren_truong\Tài liệu học tập\translated\pdf-translate-jvplqzc5\ML_Chapter1_new-ocr-sidecar.pdf <- RateLimitedError: Google Translate is refusing requests from this network (HTTP 429 or CAPTCHA)
+
+======================================================================
+2026-09-30 19:22:56  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-09-30 19:22:57  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-09-30 19:22:58  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-09-30 19:22:58  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-09-30 19:22:58  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-09-30 19:22:58  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-09-30 19:22:59  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:20  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "pdf2zh\high_level.py", line 928, in translate
+  File "pdf2zh\high_level.py", line 756, in translate_stream
+  File "pdf2zh\high_level.py", line 661, in translate_patch
+  File "pdf2zh\pdfinterp.py", line 439, in process_page
+  File "pdf2zh\converter.py", line 759, in end_page
+  File "pdf2zh\converter.py", line 1485, in receive_layout
+  File "pdf2zh\converter.py", line 1467, in translate_together
+  File "pdf2zh\converter.py", line 1428, in leave_untranslated
+  File "pdf2zh\translator.py", line 611, in _translate_batch
+  File "pdf2zh\translator.py", line 666, in _retrying
+  File "pdf2zh\translator.py", line 611, in <lambda>
+  File "pdf2zh\translator.py", line 654, in _translate_joined
+  File "pdf2zh\translator.py", line 709, in _fetch
+pdf2zh.translator.RateLimitedError: Google Translate is refusing requests from this network (HTTP 429 or CAPTCHA)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 487, in translate_pdf
+  File "scripts\translate_pdf.py", line 396, in _run_engine
+  File "pdf2zh\high_level.py", line 950, in translate
+pdfminer.pdfexceptions.PDFValueError: Failed to translate E:\Hoc_May_Tren_truong\Tài liệu học tập\translated\pdf-translate-a0qnsy7x\ML_Chapter1_new-ocr-sidecar.pdf
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 503, in translate_pdf
+scripts.translate_pdf.TranslationError: PDF translation core failed: PDFValueError: Failed to translate E:\Hoc_May_Tren_truong\Tài liệu học tập\translated\pdf-translate-a0qnsy7x\ML_Chapter1_new-ocr-sidecar.pdf <- RateLimitedError: Google Translate is refusing requests from this network (HTTP 429 or CAPTCHA)
+
+======================================================================
+2026-10-01 08:49:21  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:21  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:22  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:23  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:23  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:23  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:24  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:24  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:24  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:24  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:25  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:25  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:25  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:25  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:26  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:26  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:26  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:26  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:26  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:27  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:27  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:27  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:27  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:28  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:28  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-01 08:49:28  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 443, in translate_pdf
+  File "pdf2zh\translator.py", line 223, in check_available
+pdf2zh.translator.RateLimitedError: Google Translate is cooling down after refusing this network
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 445, in translate_pdf
+scripts.translate_pdf.TranslationError: Google Translate is temporarily paused after a network refusal; successful translations remain cached. Try again later.
+
+======================================================================
+2026-10-02 10:05:09  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter1_new.pdf
+Traceback (most recent call last):
+  File "pdf2zh\high_level.py", line 928, in translate
+  File "pdf2zh\high_level.py", line 756, in translate_stream
+  File "pdf2zh\high_level.py", line 661, in translate_patch
+  File "pdf2zh\pdfinterp.py", line 439, in process_page
+  File "pdf2zh\converter.py", line 759, in end_page
+  File "pdf2zh\converter.py", line 1485, in receive_layout
+  File "pdf2zh\converter.py", line 1467, in translate_together
+  File "pdf2zh\converter.py", line 1428, in leave_untranslated
+  File "pdf2zh\translator.py", line 611, in _translate_batch
+  File "pdf2zh\translator.py", line 666, in _retrying
+  File "pdf2zh\translator.py", line 611, in <lambda>
+  File "pdf2zh\translator.py", line 654, in _translate_joined
+  File "pdf2zh\translator.py", line 709, in _fetch
+pdf2zh.translator.RateLimitedError: Google Translate is refusing requests from this network (HTTP 429 or CAPTCHA)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 487, in translate_pdf
+  File "scripts\translate_pdf.py", line 396, in _run_engine
+  File "pdf2zh\high_level.py", line 950, in translate
+pdfminer.pdfexceptions.PDFValueError: Failed to translate E:\Hoc_May_Tren_truong\Tài liệu học tập\translated\pdf-translate-7bbj4vct\ML_Chapter1_new-ocr-sidecar.pdf
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 863, in _run
+  File "scripts\translate_pdf.py", line 503, in translate_pdf
+scripts.translate_pdf.TranslationError: PDF translation core failed: PDFValueError: Failed to translate E:\Hoc_May_Tren_truong\Tài liệu học tập\translated\pdf-translate-7bbj4vct\ML_Chapter1_new-ocr-sidecar.pdf <- RateLimitedError: Google Translate is refusing requests from this network (HTTP 429 or CAPTCHA)
+
+======================================================================
+2026-10-02 10:21:17  E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter2_new.pdf
+Traceback (most recent call last):
+  File "pdf2zh\high_level.py", line 955, in translate
+  File "pdf2zh\high_level.py", line 783, in translate_stream
+  File "pdf2zh\high_level.py", line 688, in translate_patch
+  File "pdf2zh\pdfinterp.py", line 439, in process_page
+  File "pdf2zh\converter.py", line 759, in end_page
+  File "pdf2zh\converter.py", line 1487, in receive_layout
+  File "pdf2zh\converter.py", line 1469, in translate_together
+  File "pdf2zh\converter.py", line 1430, in leave_untranslated
+  File "pdf2zh\translator.py", line 658, in _translate_batch
+  File "pdf2zh\translator.py", line 715, in _retrying
+  File "pdf2zh\translator.py", line 658, in <lambda>
+  File "pdf2zh\translator.py", line 703, in _translate_joined
+  File "pdf2zh\translator.py", line 744, in _fetch
+  File "pdf2zh\google_browser.py", line 343, in get
+  File "pdf2zh\google_browser.py", line 306, in fetch
+pdf2zh.translator.ServiceUnavailableError: Google browser session was closed, could not start, or verification did not finish. 
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "scripts\translate_pdf.py", line 496, in translate_pdf
+  File "scripts\translate_pdf.py", line 400, in _run_engine
+  File "pdf2zh\high_level.py", line 977, in translate
+pdfminer.pdfexceptions.PDFValueError: Failed to translate E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter2_new.pdf
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "gui.py", line 893, in _run
+  File "scripts\translate_pdf.py", line 512, in translate_pdf
+scripts.translate_pdf.TranslationError: PDF translation core failed: PDFValueError: Failed to translate E:\Hoc_May_Tren_truong\Tài liệu học tập\ML_Chapter2_new.pdf <- ServiceUnavailableError: Google browser session was closed, could not start, or verification did not finish. <- EOFError <- BrokenPipeError: [WinError 109] The pipe has been ended
