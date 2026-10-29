@@ -8,7 +8,7 @@ Phân loại nhanh bằng định lý Bayes với giả định các feature đ�
 
 `X` và nhãn lớp `y`; chọn biến thể theo dữ liệu: GaussianNB cho feature liên tục gần dạng Gaussian theo lớp, MultinomialNB cho count/tần suất **không âm**, BernoulliNB cho feature nhị phân. [1]
 
-Với văn bản, `X` thường là ma trận thưa `n×V` (`V` là số từ); phải fit vocabulary/vectorizer **chỉ** trên train fold. Với bảng số liên tục, kiểm đơn vị và missing; không dùng MultinomialNB cho feature âm do chuẩn hóa tâm hóa. [1][3]
+Với văn bản, `X` thường là ma trận thưa $`n\times V`$ (`V` là số từ); phải fit vocabulary/vectorizer **chỉ** trên train fold. Với bảng số liên tục, kiểm đơn vị và missing; không dùng MultinomialNB cho feature âm do chuẩn hóa tâm hóa. [1][3]
 
 ## Output
 
@@ -20,25 +20,43 @@ Macro F1 và per-class precision/recall cho lớp không cân bằng; confusion 
 
 ## How it works
 
-Ước lượng `P(y)` và `P(x_j|y)` từ train, rồi dùng `P(y|x) ∝ P(y) ∏_j P(x_j|y)`. Tính trong log-space để ổn định số. Smoothing (ví dụ `alpha` trong MultinomialNB) tránh xác suất 0 cho feature chưa thấy. [1]
+Ước lượng $`P(y)`$ và $`P(x_j\mid y)`$ từ train, rồi dùng $`P(y\mid x) \propto P(y) \prod_j P(x_j\mid y)`$. Tính trong log-space để ổn định số. Smoothing (ví dụ `alpha` trong MultinomialNB) tránh xác suất 0 cho feature chưa thấy. [1]
 
-**Ví dụ tính tay:** giả sử `P(spam)=0.4`, `P(“sale”|spam)=0.5`, `P(“sale”|ham)=0.1`, `P(ham)=0.6`. Với email chỉ chứa tín hiệu “sale”, điểm chưa chuẩn hóa là `0.4×0.5=0.20` cho spam và `0.6×0.1=0.06` cho ham; sau chuẩn hóa, `P(spam|sale)=0.20/(0.20+0.06)≈0.769`. Ví dụ này giả định cách biểu diễn một feature đơn giản; email thực tế có nhiều feature và smoothing.
+**Ví dụ tính tay:** giả sử $`P(\mathrm{spam})=0.4`$, $`P(\mathrm{sale}\mid \mathrm{spam})=0.5`$, $`P(\mathrm{sale}\mid \mathrm{ham})=0.1`$, $`P(\mathrm{ham})=0.6`$. Với email chỉ chứa tín hiệu “sale”, điểm chưa chuẩn hóa là $`0.4\times 0.5=0.20`$ cho spam và $`0.6\times 0.1=0.06`$ cho ham; sau chuẩn hóa, $`P(\mathrm{spam}\mid \mathrm{sale})=0.20/(0.20+0.06)\approx 0.769`$. Ví dụ này giả định cách biểu diễn một feature đơn giản; email thực tế có nhiều feature và smoothing.
 
 **Fit/predict:** đếm/ước lượng prior lớp và thống kê feature theo lớp → cộng log prior và log likelihood từng feature → chọn lớp có score cao nhất. Với nhiều feature, giả định độc lập có điều kiện giúp tính tích đơn giản, nhưng thường không đúng hoàn toàn. [1]
 
 ### Likelihood của ba biến thể
 
-| Biến thể | `P(x_j|y=c)`/thống kê fit | Phù hợp và lưu ý |
+| Biến thể | Thống kê fit | Phù hợp và lưu ý |
 |---|---|---|
-| GaussianNB | Mean `μ_cj`, variance `σ²_cj`; mật độ `exp[-(x_j-μ_cj)²/(2σ²_cj)] / √(2πσ²_cj)` | Feature liên tục; `var_smoothing` giúp ổn định khi variance rất nhỏ |
-| MultinomialNB | Xác suất token `θ_cj=(N_cj+α)/(Σ_t N_ct+αV)` | Count không âm; `α` smoothing chống xác suất 0 |
-| BernoulliNB | Xác suất feature có mặt `θ_cj`; likelihood `θ_cj^{x_j}(1-θ_cj)^{1-x_j}` | Feature 0/1; **vắng mặt** cũng đóng góp vào score |
+| GaussianNB | Mean $`\mu_{cj}`$, variance $`\sigma_{cj}^2`$ | Feature liên tục; `var_smoothing` giúp ổn định khi variance rất nhỏ |
+| MultinomialNB | Xác suất token $`\theta_{cj}`$ | Count không âm; $`\alpha`$ smoothing chống xác suất 0 |
+| BernoulliNB | Xác suất feature có mặt $`\theta_{cj}`$ | Feature 0/1; **vắng mặt** cũng đóng góp vào score |
 
-Ở MultinomialNB, `N_cj` là tổng số lần token `j` xuất hiện trong văn bản lớp `c`; `V` là kích thước vocabulary. Công thức trên mô tả Laplace/Lidstone smoothing khi `α` là hằng chung. Từng estimator có quy ước và tham số API riêng; không dùng một công thức Gaussian cho count hoặc Bernoulli. [1]
+**GaussianNB — mật độ có điều kiện:**
 
-**Ví dụ fit MultinomialNB:** vocabulary gồm `sale`, `meeting`; trong văn bản spam train có tổng count `(3,1)`, ham `(1,3)`, hai lớp có prior `0.5`. Với `α=1`, ta có `P(sale|spam)=4/6`, `P(meeting|spam)=2/6`; ham đảo lại. Email mới `sale sale meeting` có score chưa chuẩn hóa: spam `0.5×(4/6)²×(2/6)=2/27`, ham `0.5×(2/6)²×(4/6)=1/27`. Posterior sau chuẩn hóa là `P(spam|x)=2/3`. Ví dụ giả định count đơn giản; không có kết quả benchmark.
+$$
+p(x_j\mid y=c)=\frac{\exp\!\left[-\frac{(x_j-\mu_{cj})^2}{2\sigma_{cj}^2}\right]}{\sqrt{2\pi\sigma_{cj}^2}}
+$$
 
-Khi `V` lớn, nhân nhiều xác suất rất nhỏ dễ underflow; tính `log P(c)+Σ_j log P(x_j|c)` (hoặc dạng count tương ứng) rồi so score. Muốn xuất xác suất, chuẩn hóa các log-score ổn định số. [1]
+**MultinomialNB — xác suất token sau smoothing:**
+
+$$
+\theta_{cj}=\frac{N_{cj}+\alpha}{\sum_t N_{ct}+\alpha V}
+$$
+
+**BernoulliNB — likelihood của một feature:**
+
+$$
+P(x_j\mid y=c)=\theta_{cj}^{x_j}(1-\theta_{cj})^{1-x_j}
+$$
+
+Ở MultinomialNB, $`N_{cj}`$ là tổng số lần token `j` xuất hiện trong văn bản lớp `c`; `V` là kích thước vocabulary. Công thức trên mô tả Laplace/Lidstone smoothing khi $`\alpha`$ là hằng chung. Từng estimator có quy ước và tham số API riêng; không dùng một công thức Gaussian cho count hoặc Bernoulli. [1]
+
+**Ví dụ fit MultinomialNB:** vocabulary gồm `sale`, `meeting`; trong văn bản spam train có tổng count `(3,1)`, ham `(1,3)`, hai lớp có prior `0.5`. Với $`\alpha =1`$, ta có $`P(\mathrm{sale}\mid \mathrm{spam})=4/6`$, $`P(\mathrm{meeting}\mid \mathrm{spam})=2/6`$; ham đảo lại. Email mới `sale sale meeting` có score chưa chuẩn hóa: spam $`0.5\times (4/6)^{2}\times (2/6)=2/27`$, ham $`0.5\times (2/6)^{2}\times (4/6)=1/27`$. Posterior sau chuẩn hóa là $`P(\mathrm{spam}\mid x)=2/3`$. Ví dụ giả định count đơn giản; không có kết quả benchmark.
+
+Khi `V` lớn, nhân nhiều xác suất rất nhỏ dễ underflow; tính $`\log P(c)+\sum _j \log P(x_j\mid c)`$ (hoặc dạng count tương ứng) rồi so score. Muốn xuất xác suất, chuẩn hóa các log-score ổn định số. [1]
 
 ## Data used
 
@@ -65,9 +83,9 @@ Khi feature phụ thuộc mạnh (ví dụ hai biến đo cùng một tín hiệ
 
 | Thuật ngữ | Là gì? | Tác dụng trực tiếp | Vai trò trong quy trình |
 |---|---|---|---|
-| **Prior `P(y)`** | Xác suất lớp trước khi xét feature của mẫu mới. | Biểu thị mức phổ biến ban đầu của từng lớp | Thành phần đầu của công thức Bayes trước khi xét feature |
-| **Likelihood `P(x\|y)`** | Mức phù hợp của feature quan sát được nếu giả sử một lớp là đúng. | Đo mức phù hợp của dữ liệu nếu thuộc một lớp | Thành phần được ước lượng từ train để so lớp ở inference |
-| **Posterior `P(y\|x)`** | Xác suất lớp sau khi đã xét feature, tính từ prior và likelihood theo Bayes. | Kết hợp prior và likelihood sau chuẩn hóa | Đại lượng dùng chọn lớp; độ tin cậy xác suất cần kiểm riêng |
+| **Prior $`P(y)`$** | Xác suất lớp trước khi xét feature của mẫu mới. | Biểu thị mức phổ biến ban đầu của từng lớp | Thành phần đầu của công thức Bayes trước khi xét feature |
+| **Likelihood $`P(x\mid y)`$** | Mức phù hợp của feature quan sát được nếu giả sử một lớp là đúng. | Đo mức phù hợp của dữ liệu nếu thuộc một lớp | Thành phần được ước lượng từ train để so lớp ở inference |
+| **Posterior $`P(y\mid x)`$** | Xác suất lớp sau khi đã xét feature, tính từ prior và likelihood theo Bayes. | Kết hợp prior và likelihood sau chuẩn hóa | Đại lượng dùng chọn lớp; độ tin cậy xác suất cần kiểm riêng |
 | **Conditional independence** | Giả định các feature độc lập với nhau khi đã biết lớp; là chữ “naive” trong tên mô hình. | Cho phép nhân likelihood từng feature để tính nhanh | Giả định mô hình hóa của Naive Bayes, có thể sai với feature tương quan |
 | **Smoothing `alpha`** | Cộng một lượng vào count để token chưa thấy không làm likelihood bằng 0 trong mô hình count. | Tránh xác suất bằng 0 cho token ít gặp hoặc chưa thấy | Hyperparameter của các biến thể NB dựa trên count |
 | **Vocabulary** | Tập token/cột văn bản học từ train; phải dùng cùng mapping khi inference. | Giữ thứ tự cột đầu vào ổn định | Được học khi vector hóa train và tái sử dụng khi inference |

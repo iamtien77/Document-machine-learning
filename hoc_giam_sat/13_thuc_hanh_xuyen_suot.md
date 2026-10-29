@@ -7,7 +7,7 @@ Thực hành một pipeline học giám sát hoàn chỉnh: định nghĩa nhãn
 ## Input
 
 - Python với `numpy` và `scikit-learn` đã được cài trong môi trường học tập.
-- Dữ liệu `load_breast_cancer()` của scikit-learn. Quy ước lại `y=1` là lớp malignant để minh họa lớp dương; feature là các phép đo số. [1]
+- Dữ liệu `load_breast_cancer()` của scikit-learn. Quy ước lại $`y=1`$ là lớp malignant để minh họa lớp dương; feature là các phép đo số. [1]
 - Seed cố định `42` để việc chia dữ liệu có thể lặp lại; metric chính của ví dụ là F1. Trong ứng dụng thật, metric phải được chọn từ chi phí lỗi trước khi xem kết quả.
 
 ## Output

@@ -23,9 +23,9 @@ Classification: F1, PR-AUC/ROC-AUC, log loss/calibration tùy mục tiêu. Regre
 - **Random Forest:** với cấu hình bootstrap thường dùng, mỗi cây học trên mẫu rút có hoàn lại; ở mỗi lần tách xem một tập con feature ngẫu nhiên; gộp kết quả nhiều cây. Một số implementation cho `bootstrap=False`, khi đó không dùng OOB theo cách mô tả bên dưới. [1][2]
 - **Gradient Boosting:** thêm cây nhỏ theo từng vòng để giảm objective/loss của ensemble, có thể dùng learning rate và early stopping để hạn chế overfit. [1][3]
 
-**Ví dụ gộp:** ba cây regression dự đoán `10,12,17` thì forest lấy trung bình `13`. Với classifier, nếu xác suất lớp A từ ba cây là `0.9,0.4,0.4`, trung bình là `0.567`, nên lớp A thắng ở bài toán nhị phân mặc dù chỉ một cây có `p(A)>0.5`. Ví dụ này cho thấy không nên diễn đạt implementation scikit-learn đơn thuần là majority vote. [6]
+**Ví dụ gộp:** ba cây regression dự đoán `10,12,17` thì forest lấy trung bình `13`. Với classifier, nếu xác suất lớp A từ ba cây là `0.9,0.4,0.4`, trung bình là `0.567`, nên lớp A thắng ở bài toán nhị phân mặc dù chỉ một cây có $`p(A)>0.5`$. Ví dụ này cho thấy không nên diễn đạt implementation scikit-learn đơn thuần là majority vote. [6]
 
-**Boosting trực giác:** bắt đầu với dự đoán hằng `F₀`; ở vòng `m`, fit cây nhỏ theo hướng giảm loss hiện tại rồi cập nhật `Fₘ(x)=Fₘ₋₁(x)+ηhₘ(x)`. Với squared error, hướng giảm loss liên quan residual `y-Fₘ₋₁(x)`; với loss khác, pseudo-residual là gradient âm tương ứng. [1][3]
+**Boosting trực giác:** bắt đầu với dự đoán hằng $`F_{0}`$; ở vòng `m`, fit cây nhỏ theo hướng giảm loss hiện tại rồi cập nhật $`F_m(x)=F_{m-1}(x)+\eta h_m(x)`$. Với squared error, hướng giảm loss liên quan residual $`y-F_{m-1}(x)`$; với loss khác, pseudo-residual là gradient âm tương ứng. [1][3]
 
 ### Random Forest: bagging và OOB
 
@@ -43,9 +43,9 @@ Bagging làm giảm độ biến động nếu lỗi của các cây không hoà
 
 ### Gradient Boosting: loss và cập nhật tuần tự
 
-Với regression dùng squared error, bắt đầu `F₀` bằng một giá trị hằng hợp lý, thường là trung bình target theo loss. Tại mỗi vòng, tính pseudo-residual từ gradient âm của loss tại dự đoán hiện tại, fit cây `h_m` vào tín hiệu đó, rồi cập nhật với learning rate `η`. Với classification log loss, cây cập nhật score/logit; xác suất được tạo từ score theo liên kết của loss. Công thức chính xác có thể khác theo implementation/loss, nên không diễn giải boosting classification như cộng trực tiếp nhãn lớp. [1][3]
+Với regression dùng squared error, bắt đầu $`F_{0}`$ bằng một giá trị hằng hợp lý, thường là trung bình target theo loss. Tại mỗi vòng, tính pseudo-residual từ gradient âm của loss tại dự đoán hiện tại, fit cây $`h_m`$ vào tín hiệu đó, rồi cập nhật với learning rate $`\eta`$. Với classification log loss, cây cập nhật score/logit; xác suất được tạo từ score theo liên kết của loss. Công thức chính xác có thể khác theo implementation/loss, nên không diễn giải boosting classification như cộng trực tiếp nhãn lớp. [1][3]
 
-**Ví dụ squared error:** `y=[2,4]`, dự đoán ban đầu `F₀=[3,3]`, residual `[-1,+1]`. Giả sử cây đầu tiên dự đoán đúng residual này và `η=0.5`, mô hình mới cho `[2.5,3.5]`; lỗi bình phương từng điểm giảm từ `1` xuống `0.25`. Ví dụ nhằm giải thích một bước fit, không là benchmark.
+**Ví dụ squared error:** $`y=[2,4]`$, dự đoán ban đầu $`F_{0}=[3,3]`$, residual `[-1,+1]`. Giả sử cây đầu tiên dự đoán đúng residual này và $`\eta =0.5`$, mô hình mới cho `[2.5,3.5]`; lỗi bình phương từng điểm giảm từ `1` xuống `0.25`. Ví dụ nhằm giải thích một bước fit, không là benchmark.
 
 **Early stopping:** dành một validation fold từ phần phát triển hoặc dùng CV; theo dõi loss/metric sau mỗi vòng và dừng khi không còn cải thiện theo quy tắc đã đặt. Không dùng test để chọn `n_estimators`. `subsample<1` tạo stochastic gradient boosting; OOB improvement của nó là chỉ báo khác với OOB score của forest và cần đọc theo đúng estimator. [1][8]
 
@@ -83,8 +83,8 @@ Trên dữ liệu bảng lớn, có thể xem các biến thể histogram-based 
 | **OOB / out-of-bag** | Các hàng không có trong bootstrap của một cây; dùng dự đoán của các cây bỏ qua hàng đó để ước lượng lỗi. | Ước lượng chất lượng bằng mẫu cây chưa nhìn thấy | Tín hiệu đánh giá nội bộ của forest; không thay test cuối |
 | **Random feature selection** | Mỗi split của forest chỉ xem một tập con feature để giảm tương quan giữa cây. | Làm các cây bớt giống nhau | Bước chọn candidate feature tại mỗi split trong forest |
 | **Boosting** | Xây mô hình tuần tự, mỗi bước điều chỉnh dự đoán ensemble đang có. | Sửa dần sai số của ensemble qua các vòng | Cơ chế huấn luyện tuần tự của gradient boosting |
-| **Pseudo-residual** | Hướng giảm loss tại dự đoán hiện tại; với squared error liên quan `y-ŷ`. | Chỉ hướng cần chỉnh dự đoán để giảm loss | Target tạm cho cây tiếp theo trong gradient boosting |
-| **Learning rate `η`** | Hệ số thu nhỏ đóng góp của cây mới trong boosting. | Giảm bước đóng góp mỗi cây, thường cần nhiều cây hơn | Hyperparameter đi cùng số cây khi tune boosting |
+| **Pseudo-residual** | Hướng giảm loss tại dự đoán hiện tại; với squared error liên quan $`y-\hat{y}`$. | Chỉ hướng cần chỉnh dự đoán để giảm loss | Target tạm cho cây tiếp theo trong gradient boosting |
+| **Learning rate $`\eta`$** | Hệ số thu nhỏ đóng góp của cây mới trong boosting. | Giảm bước đóng góp mỗi cây, thường cần nhiều cây hơn | Hyperparameter đi cùng số cây khi tune boosting |
 | **Early stopping** | Dừng thêm cây khi metric trên validation không còn cải thiện theo quy tắc đã định. | Ngăn thêm cây sau khi validation ngừng cải thiện | Quy tắc chọn số vòng boosting bằng dữ liệu validation |
 
 ## Nguồn

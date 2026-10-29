@@ -30,17 +30,17 @@ Các metric trên được định nghĩa và triển khai trong tài liệu sci
 
 | Metric | Công thức | Ý nghĩa |
 |---|---|---|
-| Accuracy | `(TP+TN)/(TP+FP+FN+TN)` | Tỉ lệ dự đoán đúng |
-| Precision | `TP/(TP+FP)` | Trong số dự đoán dương, bao nhiêu đúng |
-| Recall/TPR | `TP/(TP+FN)` | Trong số dương thật, tìm được bao nhiêu |
-| Specificity/TNR | `TN/(TN+FP)` | Trong số âm thật, loại đúng bao nhiêu |
-| F1 | `2×precision×recall/(precision+recall)` | Trung bình điều hòa của precision và recall |
+| Accuracy | $`\frac{\mathrm{TP}+\mathrm{TN}}{\mathrm{TP}+\mathrm{FP}+\mathrm{FN}+\mathrm{TN}}`$ | Tỉ lệ dự đoán đúng |
+| Precision | $`\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}}`$ | Trong số dự đoán dương, bao nhiêu đúng |
+| Recall/TPR | $`\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FN}}`$ | Trong số dương thật, tìm được bao nhiêu |
+| Specificity/TNR | $`\frac{\mathrm{TN}}{\mathrm{TN}+\mathrm{FP}}`$ | Trong số âm thật, loại đúng bao nhiêu |
+| F1 | $`\frac{2\,\mathrm{precision}\,\mathrm{recall}}{\mathrm{precision}+\mathrm{recall}}`$ | Trung bình điều hòa của precision và recall |
 
 Nếu mẫu số bằng 0, metric có thể không xác định; báo cáo số mẫu và quy tắc xử lý (`zero_division` nếu dùng scikit-learn), không âm thầm coi là 0 hay 1. Với multiclass, tính theo one-vs-rest từng lớp rồi dùng **macro** (trung bình các lớp), **weighted** (trọng số theo support) hoặc **micro** (cộng TP/FP/FN trước khi tính). Macro thể hiện lớp hiếm rõ hơn; weighted có thể che lỗi lớp hiếm. [2]
 
-**Ví dụ confusion matrix:** `TP=30`, `FP=10`, `FN=20`, `TN=940`. Accuracy=`970/1000=0.97`, precision=`30/40=0.75`, recall=`30/50=0.60`, F1≈`0.667`. Accuracy 97% vẫn bỏ sót 40% ca dương tính. Tỉ lệ dương thực tế là `50/1000=5%`; baseline luôn đoán âm đạt 95% accuracy nhưng recall bằng 0.
+**Ví dụ confusion matrix:** $`TP=30`$, $`FP=10`$, $`FN=20`$, $`TN=940`$. Accuracy=`970/1000=0.97`, precision=`30/40=0.75`, recall=`30/50=0.60`, F1≈`0.667`. Accuracy 97% vẫn bỏ sót 40% ca dương tính. Tỉ lệ dương thực tế là `50/1000=5%`; baseline luôn đoán âm đạt 95% accuracy nhưng recall bằng 0.
 
-**Regression:** với `eᵢ=yᵢ-y_hatᵢ`, `MAE=(1/n)Σ|eᵢ|`, `MSE=(1/n)Σeᵢ²`, `RMSE=√MSE`, `R²=1-[Σeᵢ²/Σ(yᵢ-ȳ_test)²]`. Trong phép tính R² trên test, `ȳ_test` là trung bình `y_true` của **tập đánh giá** theo định nghĩa metric; nó không đồng nhất với DummyRegressor đã fit trung bình train. Nếu `y_true` hằng, R² có trường hợp biên cần xem quy ước thư viện. [2]
+**Regression:** với $`e_{i}=y_{i}-\hat{y}_{i}`$, $`\mathrm{MAE}=\frac{1}{n}\sum_i\lvert e_i\rvert`$, $`\mathrm{MSE}=\frac{1}{n}\sum_i e_i^2`$, $`\mathrm{RMSE}=\sqrt{\mathrm{MSE}}`$, $`R^2=1-\frac{\sum_i e_i^2}{\sum_i(y_i-\bar{y}_{\mathrm{test}})^2}`$. Trong phép tính R² trên test, $`\bar{y}_{test}`$ là trung bình `y_true` của **tập đánh giá** theo định nghĩa metric; nó không đồng nhất với DummyRegressor đã fit trung bình train. Nếu `y_true` hằng, R² có trường hợp biên cần xem quy ước thư viện. [2]
 
 **PR-AUC cần gọi tên rõ:** `average_precision_score` của scikit-learn (AP) tính trung bình có trọng số các precision khi recall tăng; nó **khác** diện tích nội suy hình thang dưới PR curve. Khi báo cáo, ghi rõ “AP” hay “trapezoidal PR-AUC” và cách tính. Baseline AP của dự đoán ngẫu nhiên thường liên quan prevalence lớp dương; so sánh cùng tập dữ liệu và cùng định nghĩa. [2]
 
@@ -51,7 +51,7 @@ Nếu mẫu số bằng 0, metric có thể không xác định; báo cáo số 
 3. Kiểm confusion matrix từng lớp hoặc residual theo mức dự đoán; xem các lát cắt quan trọng và ví dụ lỗi cụ thể.
 4. So với baseline cùng split; kiểm sự khác biệt giữa validation và test, chi phí lỗi, latency và chất lượng xác suất.
 
-**Chọn metric theo chi phí:** nếu mỗi FN tốn 10 đơn vị và mỗi FP tốn 1 đơn vị, một quy tắc vận hành có thể tối thiểu hóa `10×FN + 1×FP` trên validation, có ràng buộc năng lực xử lý báo động. Đừng chỉ tối đa F1 nếu chi phí FN và FP không cân. Sau khi chọn threshold, báo cáo chi phí/precision/recall trên test một lần. [6]
+**Chọn metric theo chi phí:** nếu mỗi FN tốn 10 đơn vị và mỗi FP tốn 1 đơn vị, một quy tắc vận hành có thể tối thiểu hóa $`10\times FN + 1\times FP`$ trên validation, có ràng buộc năng lực xử lý báo động. Đừng chỉ tối đa F1 nếu chi phí FN và FP không cân. Sau khi chọn threshold, báo cáo chi phí/precision/recall trên test một lần. [6]
 
 ## Data used
 

@@ -4,7 +4,7 @@
 
 Học giám sát (supervised learning) học ánh xạ từ đặc trưng `X` sang nhãn/giá trị đích `y` từ các ví dụ đã gán nhãn, để dự đoán trên ví dụ mới. Hai bài toán nền tảng là **regression** (`y` liên tục, như giá nhà) và **classification** (`y` là lớp, như thư rác/không phải thư rác). Đây là bản đồ để học từ bài toán đến vận hành, không phải một thuật toán riêng lẻ. [1][2]
 
-Ký hiệu: với `n` mẫu và `p` feature, `X ∈ R^(n×p)`, `y = (y₁,...,yₙ)`. Mô hình có tham số `θ` và dự đoán `fθ(x)`. Mục tiêu là lỗi kỳ vọng trên **dữ liệu mới** thấp, chứ không phải học thuộc các cặp `(xᵢ,yᵢ)` đã thấy. Mẫu được lấy từ phân phối nào, và phân phối đó có giống lúc triển khai hay không, là giả định cần kiểm tra. [2][4]
+Ký hiệu: với `n` mẫu và `p` feature, $`X \in \mathbb{R}^{n\times p}`$, $`y = (y_{1},\ldots ,y_{n})`$. Mô hình có tham số $`\theta`$ và dự đoán $`f_\theta(x)`$. Mục tiêu là lỗi kỳ vọng trên **dữ liệu mới** thấp, chứ không phải học thuộc các cặp $`(x_{i},y_{i})`$ đã thấy. Mẫu được lấy từ phân phối nào, và phân phối đó có giống lúc triển khai hay không, là giả định cần kiểm tra. [2][4]
 
 ## Input
 
@@ -14,7 +14,7 @@ Ký hiệu: với `n` mẫu và `p` feature, `X ∈ R^(n×p)`, `y = (y₁,...,y�
 
 ## Output
 
-- Mô hình `f(X) -> y_hat` hoặc `f(X) -> p(y|X)`; với regression là giá trị số, với classification là nhãn/điểm/xác suất.
+- Mô hình $`f(X)\to\hat{y}`$ hoặc $`f(X) \to p(y\mid X)`$; với regression là giá trị số, với classification là nhãn/điểm/xác suất.
 - Báo cáo đánh giá trên dữ liệu chưa dùng để chọn mô hình, cùng giới hạn áp dụng.
 - Pipeline tiền xử lý, phiên bản dữ liệu và mô hình để suy luận nhất quán.
 

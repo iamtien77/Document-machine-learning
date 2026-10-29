@@ -8,7 +8,7 @@ Học hàm phi tuyến bằng các tầng biến đổi có trọng số và act
 
 `X` vector số đã scale/encode, `y` là lớp hoặc giá trị số; kiến trúc số tầng/số neuron, activation, learning rate, batch size và số epoch.
 
-Một mạng dense có `p` feature đầu vào, tầng ẩn kích thước `h₁,h₂,...` và số đầu ra phù hợp target. Classification binary cần định nghĩa lớp dương; multiclass cần danh sách lớp và thứ tự output; regression cần đơn vị của target. Missing/categorical phải được xử lý trước theo pipeline đã fit. [1]
+Một mạng dense có `p` feature đầu vào, tầng ẩn kích thước $`h_{1},h_{2},\ldots`$ và số đầu ra phù hợp target. Classification binary cần định nghĩa lớp dương; multiclass cần danh sách lớp và thứ tự output; regression cần đơn vị của target. Missing/categorical phải được xử lý trước theo pipeline đã fit. [1]
 
 ## Output
 
@@ -24,7 +24,7 @@ Metric theo bài toán (F1/PR-AUC/log loss hoặc MAE/RMSE), chênh train/valida
 
 Forward pass tạo dự đoán qua các tầng; loss đo sai lệch; backpropagation tính gradient theo chain rule; optimizer cập nhật trọng số qua nhiều mini-batch/epoch. Regularization và early stopping giúp kiểm soát overfit. [1][2]
 
-Với một neuron, `z=wᵀx+b`, `a=σ(z)`; một tầng ẩn tạo `h=φ(W₁x+b₁)` và đầu ra `y_hat=g(W₂h+b₂)`. Ví dụ `x=2`, `w=3`, `b=-1` cho `z=5`; ReLU trả `max(0,5)=5`. Backpropagation truyền gradient của loss từ đầu ra qua các tầng để cập nhật trọng số. [1][2]
+Với một neuron, $`z=w^{\top}x+b`$, $`a=\sigma (z)`$; một tầng ẩn tạo $`h=\phi (W_{1}x+b_{1})`$ và đầu ra $`\hat{y}=g(W_{2}h+b_{2})`$. Ví dụ $`x=2`$, $`w=3`$, $`b=-1`$ cho $`z=5`$; ReLU trả $`\max(0,5)=5`$. Backpropagation truyền gradient của loss từ đầu ra qua các tầng để cập nhật trọng số. [1][2]
 
 **Vòng train:** khởi tạo trọng số → chia mini-batch → forward → tính loss → backward → optimizer cập nhật → đánh giá validation mỗi epoch → dừng sớm theo tiêu chí đã định. Chỉ dùng validation cho early stopping, không dùng test. Với MLPClassifier của scikit-learn, kiểm solver và cách early stopping của phiên bản đang dùng. [1]
 
@@ -40,7 +40,7 @@ Với một neuron, `z=wᵀx+b`, `a=σ(z)`; một tầng ẩn tạo `h=φ(W₁x+
 
 ### Backpropagation bằng một phép tính tay
 
-Xét một neuron tuyến tính `ŷ=wx+b`, loss `L=½(ŷ-y)²`. Với `x=2`, `y=3`, `w=1`, `b=0`, ta có `ŷ=2`, `L=0.5`. Theo chain rule: `∂L/∂w=(ŷ-y)x=-2`, `∂L/∂b=ŷ-y=-1`. Một bước gradient descent với `η=0.1` cho `w_new=1-0.1(-2)=1.2`, `b_new=0-0.1(-1)=0.1`; dự đoán mới tại `x=2` là `2.5`. Với nhiều tầng, gradient được nhân tiếp qua đạo hàm activation và ma trận trọng số; optimizer cập nhật mọi tầng. Ví dụ này chỉ minh họa cơ chế một bước, không chứng minh hội tụ. [2]
+Xét một neuron tuyến tính $`\hat{y}=wx+b`$, loss $`L=\tfrac{1}{2}(\hat{y}-y)^{2}`$. Với $`x=2`$, $`y=3`$, $`w=1`$, $`b=0`$, ta có $`\hat{y}=2`$, $`L=0.5`$. Theo chain rule: $`\frac{\partial L}{\partial w}=(\hat{y}-y)x=-2`$, $`\frac{\partial L}{\partial b}=\hat{y}-y=-1`$. Một bước gradient descent với $`\eta =0.1`$ cho $`w_{new}=1-0.1(-2)=1.2`$, $`b_{new}=0-0.1(-1)=0.1`$; dự đoán mới tại $`x=2`$ là `2.5`. Với nhiều tầng, gradient được nhân tiếp qua đạo hàm activation và ma trận trọng số; optimizer cập nhật mọi tầng. Ví dụ này chỉ minh họa cơ chế một bước, không chứng minh hội tụ. [2]
 
 ```text
 khởi tạo tham số (và seed để tái lập một phần)
@@ -72,13 +72,13 @@ MLP trên dữ liệu bảng: feature số đã scale, categorical đã encode; 
 
 Các solver như SGD/Adam cập nhật lặp; `lbfgs` dùng cách tối ưu khác và có thể hữu ích trên tập nhỏ theo tài liệu scikit-learn. Không đánh giá một cấu hình chỉ theo loss train: so baseline, validation và độ biến thiên qua seed. [1]
 
-**Chi phí:** số tham số tầng dense từ `d_in` sang `d_out` là `d_in×d_out+d_out`; một forward pass cần xấp xỉ số phép nhân theo kích thước các ma trận. Tăng số tầng/neurons tăng năng lực nhưng cũng tăng dữ liệu và tính toán cần thiết. Khi tập nhỏ, chạy nhiều seed để thấy biến thiên và so với baseline trên cùng split.
+**Chi phí:** số tham số tầng dense từ $`d_{in}`$ sang $`d_{out}`$ là $`d_{in}\times d_{out}+d_{out}`$; một forward pass cần xấp xỉ số phép nhân theo kích thước các ma trận. Tăng số tầng/neurons tăng năng lực nhưng cũng tăng dữ liệu và tính toán cần thiết. Khi tập nhỏ, chạy nhiều seed để thấy biến thiên và so với baseline trên cùng split.
 
 ### Key words
 
 | Thuật ngữ | Là gì? | Tác dụng trực tiếp | Vai trò trong quy trình |
 |---|---|---|---|
-| **Neuron** | Phép tính `z=wᵀx+b` rồi áp activation để tạo đầu ra. | Biến tín hiệu vào thành tín hiệu ra qua trọng số và hàm kích hoạt | Khối tính toán cơ bản của mỗi tầng |
+| **Neuron** | Phép tính $`z=w^{\top}x+b`$ rồi áp activation để tạo đầu ra. | Biến tín hiệu vào thành tín hiệu ra qua trọng số và hàm kích hoạt | Khối tính toán cơ bản của mỗi tầng |
 | **Activation** | Hàm phi tuyến như ReLU/sigmoid; nếu bỏ phi tuyến, nhiều tầng tuyến tính có thể gộp thành một phép tuyến tính. | Cho mạng biểu diễn quan hệ phi tuyến | Phép biến đổi đặt sau tổ hợp tuyến tính trong các tầng ẩn |
 | **Logit** | Điểm đầu ra trước sigmoid/softmax khi phân loại. | Giữ điểm số chưa chuẩn hóa cho từng lớp | Đầu ra trước sigmoid hoặc softmax và thường đưa vào loss |
 | **Forward pass** | Tính dự đoán từ input qua các tầng theo chiều tiến. | Tạo dự đoán và loss từ đầu vào hiện tại | Bước tính thuận của mỗi mini-batch khi training và của inference |

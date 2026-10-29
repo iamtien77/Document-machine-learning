@@ -6,7 +6,7 @@
 
 Nhận một bản ghi hoặc batch mới, áp dụng **đúng pipeline đã fit**, rồi trả dự đoán để hỗ trợ quyết định. Inference thông thường **không gọi `fit`, không học lại scaler/encoder và không tự cập nhật trọng số**. Việc retrain là một vòng training mới có dữ liệu, kiểm định và phiên bản riêng. [1][2]
 
-Phải phân biệt **điểm mô hình (score)**, **xác suất đã kiểm calibration** và **quyết định cuối**. Ví dụ classifier trả `p=0.73`; nhãn dương chỉ được chọn sau khi áp threshold đã khóa. `0.73` không nên được diễn giải là xác suất thực 73% nếu mô hình chưa được kiểm calibration. [3][4]
+Phải phân biệt **điểm mô hình (score)**, **xác suất đã kiểm calibration** và **quyết định cuối**. Ví dụ classifier trả $`p=0.73`$; nhãn dương chỉ được chọn sau khi áp threshold đã khóa. `0.73` không nên được diễn giải là xác suất thực 73% nếu mô hình chưa được kiểm calibration. [3][4]
 
 ## Input
 
@@ -21,7 +21,7 @@ Phải phân biệt **điểm mô hình (score)**, **xác suất đã kiểm cal
 
 ## Output
 
-- **Regression:** `ŷ` là số theo đơn vị target đã định; nếu có interval/độ bất định thì phải ghi cách tính và điều kiện áp dụng.
+- **Regression:** $`\hat{y}`$ là số theo đơn vị target đã định; nếu có interval/độ bất định thì phải ghi cách tính và điều kiện áp dụng.
 - **Classification:** nhãn, score hoặc vector xác suất theo thứ tự lớp; threshold/phiên bản threshold dùng để biến score thành quyết định. Nếu estimator chỉ có `decision_function`, không gắn nhãn “xác suất” cho score đó.
 - **Metadata:** `prediction_id` duy nhất cho mỗi dự đoán, `model_version`, `schema_version`, thời điểm sự kiện, thời điểm dự đoán và trạng thái kiểm input. `prediction_id` cho phép ghép đúng nhãn đến muộn với dự đoán gốc, kể cả khi model đã đổi phiên bản. Nếu input không hợp lệ, trả lỗi có thể xử lý hoặc chuyển sang fallback đã thiết kế; không trả một dự đoán âm thầm từ dữ liệu sai.
 

@@ -25,7 +25,7 @@ Artifact suy luận (`preprocessing + model + threshold/calibration`), báo cáo
 4. Triển khai có kiểm soát; theo dõi dữ liệu vào, đầu ra, latency, chất lượng khi nhãn thật có sẵn. So sánh với baseline hoặc mô hình đang chạy.
 5. Khi cảnh báo, điều tra nguồn thay đổi; thu thập nhãn mới, đánh giá lại trên dữ liệu gần đây, rồi quyết định retrain và kiểm thử phiên bản mới.
 
-**Ví dụ chọn threshold:** trên tập threshold riêng, với mỗi ngưỡng ứng viên `t`, dự đoán dương khi `p≥t`, tính `TP/FP/FN/TN` và chi phí `c_FN×FN+c_FP×FP`. Chọn `t` có chi phí thấp nhất trong các ngưỡng thỏa ràng buộc công suất xử lý; khóa `t` rồi chỉ báo cáo test. Nếu xác suất chưa calibration, không diễn giải `p=0.8` thành “80% chắc chắn” trước khi kiểm tra calibration. [3][4]
+**Ví dụ chọn threshold:** trên tập threshold riêng, với mỗi ngưỡng ứng viên `t`, dự đoán dương khi $`p\ge t`$, tính `TP/FP/FN/TN` và chi phí $`c_{FN}\times FN+c_{FP}\times FP`$. Chọn `t` có chi phí thấp nhất trong các ngưỡng thỏa ràng buộc công suất xử lý; khóa `t` rồi chỉ báo cáo test. Nếu xác suất chưa calibration, không diễn giải $`p=0.8`$ thành “80% chắc chắn” trước khi kiểm tra calibration. [3][4]
 
 **Runbook khi có cảnh báo:** xác nhận dữ liệu đầu vào/schema → xác định nhóm/thời gian bị ảnh hưởng → kiểm có thay đổi pipeline hay nguồn nhãn → đo chất lượng trên mẫu đã có nhãn → so với baseline và phiên bản trước → chỉ retrain khi dữ liệu mới/nhãn mới giải thích được vấn đề → kiểm test mới và rollback plan. Các ngưỡng cảnh báo phải lấy từ baseline vận hành và chi phí thực tế, không tự đặt một con số chung cho mọi hệ thống. [1]
 

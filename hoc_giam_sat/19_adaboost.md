@@ -8,11 +8,11 @@ Kết hợp nhiều mô hình yếu (thường là cây rất nông) thành clas
 
 ## Input
 
-`X` dữ liệu có nhãn lớp `y`, một base estimator hỗ trợ trọng số mẫu theo yêu cầu implementation, số vòng tối đa `n_estimators`, `learning_rate` và metric chính. Với bài toán nhị phân trong công thức kinh điển, mã hóa `y∈{-1,+1}`. Dữ liệu missing/categorical phải được xử lý theo khả năng estimator được dùng.
+`X` dữ liệu có nhãn lớp `y`, một base estimator hỗ trợ trọng số mẫu theo yêu cầu implementation, số vòng tối đa `n_estimators`, `learning_rate` và metric chính. Với bài toán nhị phân trong công thức kinh điển, mã hóa $`y\in \{-1,+1\}`$. Dữ liệu missing/categorical phải được xử lý theo khả năng estimator được dùng.
 
 ## Output
 
-Danh sách weak learners `h₁,...,h_M` và trọng số đóng góp của từng learner. Dự đoán nhị phân kinh điển dùng dấu của tổng `Σ_m α_m h_m(x)`; implementation đa lớp như `AdaBoostClassifier` có quy tắc SAMME và có thể xuất score/xác suất theo API. Xác suất ước lượng cần được kiểm calibration nếu dùng để quyết định theo rủi ro. [1][3]
+Danh sách weak learners $`h_{1},\ldots ,h_M`$ và trọng số đóng góp của từng learner. Dự đoán nhị phân kinh điển dùng dấu của tổng $`\sum _m \alpha _m h_m(x)`$; implementation đa lớp như `AdaBoostClassifier` có quy tắc SAMME và có thể xuất score/xác suất theo API. Xác suất ước lượng cần được kiểm calibration nếu dùng để quyết định theo rủi ro. [1][3]
 
 ## Evaluation metrics
 
@@ -20,9 +20,9 @@ Classification: precision/recall/F1 theo lớp, confusion matrix, AP/ROC-AUC n�
 
 ## How it works
 
-**AdaBoost nhị phân kinh điển:** khởi tạo `w_i=1/n`. Ở vòng `m`, fit weak learner theo trọng số `w_i`; tính lỗi có trọng số `e_m=Σ_i w_i·1[h_m(x_i)≠y_i] / Σ_i w_i`; khi `0<e_m<0.5`, đặt `α_m=½ln((1-e_m)/e_m)`; cập nhật `w_i←w_i exp(-α_m y_i h_m(x_i))`, rồi chuẩn hóa. Mẫu bị dự đoán sai được tăng trọng số tương đối. Nếu `e_m=0`, công thức log có biên vô hạn và thuật toán thường dừng vì đã fit hoàn hảo; nếu learner không tốt hơn ngẫu nhiên (`e_m≥0.5`), cần dừng hoặc xử lý theo quy tắc của implementation thay vì áp công thức máy móc. Công thức này mô tả **binary AdaBoost cổ điển**; không thay thế công thức của mọi phiên bản đa lớp/API. [1][2][3]
+**AdaBoost nhị phân kinh điển:** khởi tạo $`w_i=1/n`$. Ở vòng `m`, fit weak learner theo trọng số $`w_i`$; tính lỗi có trọng số $`e_m=\frac{\sum_i w_i\,\mathbf{1}[h_m(x_i)\ne y_i]}{\sum_i w_i}`$; khi $`0<e_m<0.5`$, đặt $`\alpha_m=\frac{1}{2}\ln\left(\frac{1-e_m}{e_m}\right)`$; cập nhật $`w_i\leftarrow w_i \exp (-\alpha _m y_i h_m(x_i))`$, rồi chuẩn hóa. Mẫu bị dự đoán sai được tăng trọng số tương đối. Nếu $`e_m=0`$, công thức log có biên vô hạn và thuật toán thường dừng vì đã fit hoàn hảo; nếu learner không tốt hơn ngẫu nhiên ($`e_m\ge 0.5`$), cần dừng hoặc xử lý theo quy tắc của implementation thay vì áp công thức máy móc. Công thức này mô tả **binary AdaBoost cổ điển**; không thay thế công thức của mọi phiên bản đa lớp/API. [1][2][3]
 
-**Ví dụ một vòng:** bốn mẫu cùng trọng số `0.25`; weak learner sai đúng một mẫu nên `e=0.25`, `α=½ln 3≈0.549`. Sau cập nhật và chuẩn hóa, mẫu sai có trọng số `0.5`, ba mẫu đúng mỗi mẫu khoảng `1/6`. Vòng kế tiếp vì thế chú ý mẫu sai nhiều hơn. Ví dụ này giải thích fit, không là điểm benchmark.
+**Ví dụ một vòng:** bốn mẫu cùng trọng số `0.25`; weak learner sai đúng một mẫu nên $`e=0.25`$, $`\alpha=\frac{1}{2}\ln 3\approx 0.549`$. Sau cập nhật và chuẩn hóa, mẫu sai có trọng số `0.5`, ba mẫu đúng mỗi mẫu khoảng `1/6`. Vòng kế tiếp vì thế chú ý mẫu sai nhiều hơn. Ví dụ này giải thích fit, không là điểm benchmark.
 
 ```text
 khởi tạo sample weights → lặp:
@@ -53,9 +53,9 @@ Chọn trên CV/train; test chỉ dùng sau khi khóa cấu hình. Cần lưu to
 | Thuật ngữ | Là gì? | Tác dụng trực tiếp | Vai trò trong quy trình |
 |---|---|---|---|
 | **Weak learner** | Mô hình cơ sở đơn giản, ví dụ cây một tầng; các learner được gộp thành ensemble. | Tạo dự đoán đơn giản để ensemble cải thiện qua nhiều vòng | Mô hình cơ sở được fit ở mỗi vòng AdaBoost |
-| **Sample weight `w_i`** | Mức ảnh hưởng của mẫu `i` khi fit learner ở vòng hiện tại. | Làm mẫu khó có ảnh hưởng lớn hơn ở vòng tiếp theo | Trọng số truyền từ vòng trước vào learner hiện tại |
-| **Weighted error `e_m`** | Tỷ lệ lỗi của learner sau khi tính theo trọng số mẫu. | Đo lỗi có xét mức quan trọng của từng mẫu | Căn cứ tính hệ số learner trong công thức AdaBoost cổ điển |
-| **Learner weight `α_m`** | Mức đóng góp của learner `m` vào dự đoán ensemble trong công thức cổ điển. | Quy định learner nào ảnh hưởng mạnh tới dự đoán chung | Trọng số gộp đầu ra của các learner |
+| **Sample weight $`w_i`$** | Mức ảnh hưởng của mẫu `i` khi fit learner ở vòng hiện tại. | Làm mẫu khó có ảnh hưởng lớn hơn ở vòng tiếp theo | Trọng số truyền từ vòng trước vào learner hiện tại |
+| **Weighted error $`e_m`$** | Tỷ lệ lỗi của learner sau khi tính theo trọng số mẫu. | Đo lỗi có xét mức quan trọng của từng mẫu | Căn cứ tính hệ số learner trong công thức AdaBoost cổ điển |
+| **Learner weight $`\alpha _m`$** | Mức đóng góp của learner `m` vào dự đoán ensemble trong công thức cổ điển. | Quy định learner nào ảnh hưởng mạnh tới dự đoán chung | Trọng số gộp đầu ra của các learner |
 | **Boosting round** | Một vòng fit learner mới và cập nhật trọng số mẫu. | Thêm một learner và cập nhật mức chú ý vào mẫu | Đơn vị lặp của quá trình huấn luyện AdaBoost |
 | **Stump** | Cây quyết định chỉ có một phép tách, thường dùng làm weak learner. | Tạo quy tắc phân lớp đơn giản, dễ làm weak learner | Base estimator thường gặp của AdaBoost |
 | **Learning rate** | Hệ số điều chỉnh đóng góp của learner theo API, cần tune cùng số vòng. | Co mức đóng góp mỗi vòng để kiểm soát việc học | Hyperparameter tune cùng số learner |

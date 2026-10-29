@@ -8,7 +8,7 @@ Học các quy tắc chia feature thành vùng dự đoán, dùng cho classifica
 
 `X` số hoặc categorical đã biểu diễn phù hợp với implementation, `y` là nhãn lớp hoặc số liên tục. Cần định nghĩa cách xử lý missing và feature categorical trước train.
 
-Trong scikit-learn, cách tách thông thường xét một điều kiện dạng `x_j ≤ t`; biến categorical cần mã hóa phù hợp, còn hỗ trợ missing phụ thuộc estimator/criterion và phiên bản cụ thể. Split phải diễn ra trước mọi bước mã hóa hoặc điền giá trị có học thống kê. [1]
+Trong scikit-learn, cách tách thông thường xét một điều kiện dạng $`x_j \le t`$; biến categorical cần mã hóa phù hợp, còn hỗ trợ missing phụ thuộc estimator/criterion và phiên bản cụ thể. Split phải diễn ra trước mọi bước mã hóa hoặc điền giá trị có học thống kê. [1]
 
 ## Output
 
@@ -24,17 +24,17 @@ Metric theo bài toán; so chênh train/validation để phát hiện overfit. V
 
 Từ nút gốc, chọn feature/ngưỡng tách làm giảm độ hỗn tạp (Gini/entropy) cho classification hoặc giảm lỗi bình phương cho regression; lặp đệ quy đến điều kiện dừng. Pruning hoặc giới hạn độ sâu/số mẫu lá giúp kiểm soát độ phức tạp. [1]
 
-**Ví dụ tính tay:** ở nút có 6 mẫu dương và 4 mẫu âm, Gini là `1-(0.6²+0.4²)=0.48`. Một cách tách tạo lá trái gồm 4 dương/0 âm và lá phải 2 dương/4 âm. Gini có trọng số sau tách là `(4/10)×0 + (6/10)×[1-(2/6)²-(4/6)²]≈0.267`; mức giảm impurity khoảng `0.213`. Cây so nhiều feature/ngưỡng và chọn tách tốt nhất trong các ứng viên hợp lệ. [1]
+**Ví dụ tính tay:** ở nút có 6 mẫu dương và 4 mẫu âm, Gini là $`1-(0.6^{2}+0.4^{2})=0.48`$. Một cách tách tạo lá trái gồm 4 dương/0 âm và lá phải 2 dương/4 âm. Gini có trọng số sau tách là $`(4/10)\times 0 + (6/10)\times [1-(2/6)^{2}-(4/6)^{2}]\approx 0.267`$; mức giảm impurity khoảng `0.213`. Cây so nhiều feature/ngưỡng và chọn tách tốt nhất trong các ứng viên hợp lệ. [1]
 
 **Fit/predict:** tìm tách ở nút → chia mẫu → lặp ở các nút con đến điều kiện dừng; khi dự đoán đi từ gốc theo các điều kiện đến lá. Một lá có rất ít mẫu có thể cho xác suất rất nhiễu dù dự đoán class trên train đúng.
 
 ### Tiêu chí tách và cây hồi quy
 
-Với lớp `k` có tần suất `p_k` trong nút, `Gini=1-Σ_k p_k²` và `Entropy=-Σ_k p_k log₂(p_k)` (quy ước `0 log 0=0`). Một tách có mức cải thiện `I(parent) - (n_L/n)I(left) - (n_R/n)I(right)`. Thuật toán chọn feature/ngưỡng cho mức giảm impurity cao nhất trong các ứng viên, dưới các ràng buộc số mẫu lá và độ sâu. [1]
+Với lớp `k` có tần suất $`p_k`$ trong nút, $`Gini=1-\sum _k p_k^{2}`$ và $`Entropy=-\sum _k p_k \log _{2}(p_k)`$ (quy ước $`0\log 0=0`$). Một tách có mức cải thiện $`I(\mathrm{parent})-\frac{n_L}{n}I(\mathrm{left})-\frac{n_R}{n}I(\mathrm{right})`$. Thuật toán chọn feature/ngưỡng cho mức giảm impurity cao nhất trong các ứng viên, dưới các ràng buộc số mẫu lá và độ sâu. [1]
 
 Với regression, thay impurity phân loại bằng sai số của target trong nút. `squared_error` giảm tổng bình phương sai lệch quanh trung bình; `absolute_error` giảm tổng trị tuyệt đối quanh trung vị; `poisson` dành cho target không âm phù hợp với bài toán count/rate theo điều kiện của estimator. [4]
 
-**Ví dụ fit regression:** bốn mẫu có một feature lần lượt `x=[1,2,3,4]`, target `y=[2,4,10,12]`. Nút gốc dự đoán trung bình `7`, tổng bình phương sai số là `68`. Tách tại `x≤2.5` tạo lá trái `y=[2,4]` (dự đoán `3`, SSE=`2`) và lá phải `y=[10,12]` (dự đoán `11`, SSE=`2`); tổng SSE sau tách là `4`. Khi mẫu mới có `x=3.2`, cây đi sang lá phải và dự đoán `11`. Đây là ví dụ tính tay, chưa phải kết quả thử nghiệm trên dataset thực.
+**Ví dụ fit regression:** bốn mẫu có một feature lần lượt $`x=[1,2,3,4]`$, target $`y=[2,4,10,12]`$. Nút gốc dự đoán trung bình `7`, tổng bình phương sai số là `68`. Tách tại $`x\le 2.5`$ tạo lá trái $`y=[2,4]`$ (dự đoán `3`, SSE=`2`) và lá phải $`y=[10,12]`$ (dự đoán `11`, SSE=`2`); tổng SSE sau tách là `4`. Khi mẫu mới có $`x=3.2`$, cây đi sang lá phải và dự đoán `11`. Đây là ví dụ tính tay, chưa phải kết quả thử nghiệm trên dataset thực.
 
 ```text
 fit(node):

@@ -16,7 +16,7 @@ Pipeline đã fit, hyperparameter được chọn, lịch sử train/validation,
 
 **Loss** dùng để fit tham số: squared/absolute error cho regression, log loss hoặc hinge loss cho một số classifier. **Metric chọn mô hình** phản ánh mục tiêu thực tế và có thể khác loss; ví dụ recall khi bỏ sót ca dương tính tốn kém. Theo dõi chênh train và validation; so với baseline. [2]
 
-Một cách viết chung: `θ* = argminθ [(1/n)Σᵢ L(yᵢ,fθ(xᵢ)) + λR(θ)]`. `L` là loss, `R` là regularization, `λ` điều khiển mức phạt. Công thức này hợp với nhiều mô hình tham số, nhưng kNN và cây học theo cơ chế khác. Metric chọn mô hình có thể không khả vi nên không nhất thiết là loss tối ưu.
+Một cách viết chung: $`\theta^* = \operatorname*{arg\,min}_{\theta} \left[\frac{1}{n}\sum_i L(y_i,f_\theta(x_i)) + \lambda R(\theta)\right]`$. `L` là loss, `R` là regularization, $`\lambda`$ điều khiển mức phạt. Công thức này hợp với nhiều mô hình tham số, nhưng kNN và cây học theo cơ chế khác. Metric chọn mô hình có thể không khả vi nên không nhất thiết là loss tối ưu.
 
 ## How it works
 

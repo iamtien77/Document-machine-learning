@@ -8,13 +8,13 @@ Tìm ranh giới phân loại có margin lớn (SVC/LinearSVC) hoặc hàm dự 
 
 `X` vector số, `y` là lớp hoặc số; chọn kernel, `C`, và `gamma` nếu dùng RBF. Feature cần scale theo thống kê train để khoảng cách/inner product có ý nghĩa. [1]
 
-Với `n` mẫu và `p` feature: `X ∈ R^(n×p)`; `y ∈ {-1,+1}` cho ví dụ SVM nhị phân hoặc `y ∈ R^n` cho SVR. Dữ liệu phân loại nhiều lớp cần chiến lược đa lớp của estimator. `epsilon` chỉ thuộc SVR, không phải biên phân loại của SVC. [1][5]
+Với `n` mẫu và `p` feature: $`X \in \mathbb{R}^{n\times p}`$; $`y \in \{-1,+1\}`$ cho ví dụ SVM nhị phân hoặc $`y \in \mathbb{R}^n`$ cho SVR. Dữ liệu phân loại nhiều lớp cần chiến lược đa lớp của estimator. `epsilon` chỉ thuộc SVR, không phải biên phân loại của SVC. [1][5]
 
 ## Output
 
 Nhãn hoặc decision score cho classification; giá trị số cho regression; support vectors với SVC/SVR kernel. Score SVM không mặc nhiên là xác suất đã calibration. [1]
 
-`SVC.decision_function(X)` trả điểm phục vụ xếp hạng/ra quyết định; `SVC.predict_proba(X)` chỉ có khi bật hỗ trợ xác suất và sử dụng thêm bước ước lượng xác suất theo implementation. `SVR.predict(X)` trả `ŷ` cùng đơn vị của target sau khi hoàn nguyên mọi biến đổi target. [1][5]
+`SVC.decision_function(X)` trả điểm phục vụ xếp hạng/ra quyết định; `SVC.predict_proba(X)` chỉ có khi bật hỗ trợ xác suất và sử dụng thêm bước ước lượng xác suất theo implementation. `SVR.predict(X)` trả $`\hat{y}`$ cùng đơn vị của target sau khi hoàn nguyên mọi biến đổi target. [1][5]
 
 ## Evaluation metrics
 
@@ -24,15 +24,15 @@ SVC: F1, ROC-AUC/PR-AUC từ score, confusion matrix; SVR: MAE/RMSE/R². Thêm t
 
 SVM tối ưu margin kèm phạt lỗi trên mẫu vi phạm. `C` điều khiển trade-off giữa margin và lỗi train; kernel RBF đo độ giống phi tuyến, `gamma` điều khiển tầm ảnh hưởng của mẫu. SVR tối ưu sai số với epsilon-insensitive loss. [1][2]
 
-Với binary linear SVM và nhãn `yᵢ∈{-1,+1}`, một objective phổ biến là `½||w||² + CΣ max(0,1-yᵢ(wᵀxᵢ+b))`. Hinge loss bằng 0 khi mẫu nằm đúng phía và ngoài margin. Dự đoán nhãn theo dấu của `wᵀx+b`; điểm có độ lớn lớn hơn nằm xa ranh giới hơn, nhưng không tự động là xác suất. [1]
+Với binary linear SVM và nhãn $`y_{i}\in \{-1,+1\}`$, một objective phổ biến là $`\tfrac{1}{2}\lVert w\rVert^{2} + C\sum_i \max (0,1-y_{i}(w^{\top}x_{i}+b))`$. Hinge loss bằng 0 khi mẫu nằm đúng phía và ngoài margin. Dự đoán nhãn theo dấu của $`w^{\top}x+b`$; điểm có độ lớn lớn hơn nằm xa ranh giới hơn, nhưng không tự động là xác suất. [1]
 
-**Ví dụ:** nếu một điểm có `y=+1` và score `0.2`, hinge loss là `max(0,1-0.2)=0.8`; nếu score `1.5` thì loss bằng 0. Support vectors là những điểm ảnh hưởng đến ranh giới trong nghiệm SVM. [1][2]
+**Ví dụ:** nếu một điểm có $`y=+1`$ và score `0.2`, hinge loss là $`\max(0,1-0.2)=0.8`$; nếu score `1.5` thì loss bằng 0. Support vectors là những điểm ảnh hưởng đến ranh giới trong nghiệm SVM. [1][2]
 
 ### SVR: vùng sai số `epsilon`
 
-Với hàm tuyến tính `f(x)=wᵀx+b`, một cách viết objective của ε-SVR là `½||w||² + CΣᵢ max(0, |yᵢ-f(xᵢ)|-ε)`. Lỗi có độ lớn không vượt `ε` không bị phạt bởi phần ε-insensitive; lỗi vượt ra ngoài bị phạt theo khoảng vượt. Ví dụ `y=10`, `ŷ=9.8`, `ε=0.3` cho loss dữ liệu bằng `0`; nếu `ŷ=9.4` thì loss dữ liệu bằng `0.6-0.3=0.3` trước khi nhân `C`. `C` càng lớn càng ưu tiên khớp train, trong khi `ε` lớn tạo vùng miễn phạt rộng hơn và thường ít support vectors hơn. [1][5]
+Với hàm tuyến tính $`f(x)=w^{\top}x+b`$, một cách viết objective của ε-SVR là $`\tfrac{1}{2}\lVert w\rVert^{2} + C\sum _{i} \max (0, \lvert y_{i}-f(x_{i})\rvert-\epsilon )`$. Lỗi có độ lớn không vượt $`\epsilon`$ không bị phạt bởi phần ε-insensitive; lỗi vượt ra ngoài bị phạt theo khoảng vượt. Ví dụ $`y=10`$, $`\hat{y}=9.8`$, $`\epsilon =0.3`$ cho loss dữ liệu bằng `0`; nếu $`\hat{y}=9.4`$ thì loss dữ liệu bằng `0.6-0.3=0.3` trước khi nhân `C`. `C` càng lớn càng ưu tiên khớp train, trong khi $`\epsilon`$ lớn tạo vùng miễn phạt rộng hơn và thường ít support vectors hơn. [1][5]
 
-**Quy trình fit/predict:** (1) split đúng group/time, fit scaler trên train fold; (2) chọn `LinearSVC`/`LinearSVR` làm mốc hoặc chọn kernel khi có lý do; (3) tune `C`, `epsilon` (SVR), `gamma` (RBF) bằng CV; (4) fit trên train, lưu scaler cùng model; (5) transform mẫu mới rồi gọi `decision_function`/`predict` cho classification hoặc `predict` cho SVR. Với kernel RBF, `K(x,z)=exp(-γ||x-z||²)`; kernel tính độ giống trong không gian đặc trưng mà không cần tạo tường minh toàn bộ feature phi tuyến. [1][5]
+**Quy trình fit/predict:** (1) split đúng group/time, fit scaler trên train fold; (2) chọn `LinearSVC`/`LinearSVR` làm mốc hoặc chọn kernel khi có lý do; (3) tune `C`, `epsilon` (SVR), `gamma` (RBF) bằng CV; (4) fit trên train, lưu scaler cùng model; (5) transform mẫu mới rồi gọi `decision_function`/`predict` cho classification hoặc `predict` cho SVR. Với kernel RBF, $`K(x,z)=\exp (-\gamma \lVert x-z\rVert^{2})`$; kernel tính độ giống trong không gian đặc trưng mà không cần tạo tường minh toàn bộ feature phi tuyến. [1][5]
 
 ## Data used
 
@@ -60,11 +60,11 @@ Các chiều hướng trên không bảo đảm metric luôn tăng hoặc giảm
 
 | Thuật ngữ | Là gì? | Tác dụng trực tiếp | Vai trò trong quy trình |
 |---|---|---|---|
-| **Hyperplane** | Ranh giới tuyến tính `wᵀx+b=0` trong không gian feature. | Chia không gian feature thành hai phía | Ranh giới quyết định của SVM tuyến tính |
+| **Hyperplane** | Ranh giới tuyến tính $`w^{\top}x+b=0`$ trong không gian feature. | Chia không gian feature thành hai phía | Ranh giới quyết định của SVM tuyến tính |
 | **Margin** | Khoảng cách an toàn quanh ranh giới; SVM cân bằng margin với lỗi train. | Tăng khoảng cách với các điểm quan trọng để cải thiện khả năng tổng quát | Mục tiêu hình học của bộ phân loại SVM |
 | **Support vector** | Mẫu train quyết định hoặc ảnh hưởng đến nghiệm ranh giới/hàm SVR. | Quyết định vị trí ranh giới hoặc hàm hồi quy | Các mẫu train có ảnh hưởng trực tiếp tới nghiệm SVM |
-| **Hinge loss** | `max(0,1-yf(x))`, phạt mẫu ở sai phía hoặc trong margin phân loại. | Tạo tín hiệu phạt cho điểm sai lớp hoặc nằm trong margin | Thành phần loss của SVM phân loại tuyến tính |
-| **Kernel** | Hàm đo độ giống `K(x,z)` để học ranh giới phi tuyến mà không tạo tường minh mọi feature mới. | Cho phép ranh giới phi tuyến thông qua độ giống nhau | Thành phần của kernel SVM khi dữ liệu không tách tuyến tính |
+| **Hinge loss** | $`\max(0,1-yf(x))`$, phạt mẫu ở sai phía hoặc trong margin phân loại. | Tạo tín hiệu phạt cho điểm sai lớp hoặc nằm trong margin | Thành phần loss của SVM phân loại tuyến tính |
+| **Kernel** | Hàm đo độ giống $`K(x,z)`$ để học ranh giới phi tuyến mà không tạo tường minh mọi feature mới. | Cho phép ranh giới phi tuyến thông qua độ giống nhau | Thành phần của kernel SVM khi dữ liệu không tách tuyến tính |
 | **`C`** | Mức phạt vi phạm trong objective; tương tác với kernel và tham số khác. | Cân bằng phạt lỗi train với biên và độ phức tạp | Hyperparameter của SVM, chọn qua validation |
 | **`gamma`** | Tham số độ cục bộ của kernel RBF. | Điều chỉnh tầm ảnh hưởng của từng điểm với RBF | Hyperparameter kernel, thường tune cùng C |
 | **`epsilon`** | Bán kính vùng sai số không bị phạt của SVR; không phải margin phân loại. | Bỏ qua lỗi nhỏ trong ống epsilon | Hyperparameter của SVR, quyết định độ rộng vùng không phạt |

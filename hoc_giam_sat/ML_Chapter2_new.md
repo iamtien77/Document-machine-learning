@@ -4,7 +4,7 @@
 
 ## 1. Mục tiêu và đầu vào/đầu ra (tr. 2–6)
 
-Học giám sát dùng các cặp dữ liệu đã gán nhãn `(xᵢ, yᵢ)` để học một hàm `f(x)` có thể dự đoán cho `x` chưa thấy. `x` là vector feature, `y` là nhãn hoặc giá trị đích. Chất lượng phải đo trên dữ liệu chưa dùng để học và chọn mô hình; điểm train đẹp chỉ cho biết mô hình khớp các mẫu đã thấy.
+Học giám sát dùng các cặp dữ liệu đã gán nhãn $`(x_{i}, y_{i})`$ để học một hàm $`f(x)`$ có thể dự đoán cho `x` chưa thấy. `x` là vector feature, `y` là nhãn hoặc giá trị đích. Chất lượng phải đo trên dữ liệu chưa dùng để học và chọn mô hình; điểm train đẹp chỉ cho biết mô hình khớp các mẫu đã thấy.
 
 | Bài toán | Target `y` | Output của mô hình | Ví dụ | Metric thường dùng |
 |---|---|---|---|---|
@@ -18,7 +18,7 @@ Học giám sát dùng các cặp dữ liệu đã gán nhãn `(xᵢ, yᵢ)` đ�
 ## 2. Chia dữ liệu và vòng train đúng thứ tự (tr. 4, 11–16)
 
 - **Train:** học trọng số, thống kê tiền xử lý, cấu trúc cây hoặc mẫu tham chiếu của kNN.
-- **Validation/CV:** so mô hình, chọn hyperparameter và ngưỡng quyết định. Trong `k`-fold CV, mỗi vòng fit trên `k-1` fold và kiểm trên fold còn lại; mọi preprocessing phải được fit lại bên trong từng vòng.
+- **Validation/CV:** so mô hình, chọn hyperparameter và ngưỡng quyết định. Trong `k`-fold CV, mỗi vòng fit trên $`k-1`$ fold và kiểm trên fold còn lại; mọi preprocessing phải được fit lại bên trong từng vòng.
 - **Test:** phép kiểm cuối sau khi đã khóa toàn bộ lựa chọn. Không dùng test để quyết định `k`, `C`, feature, threshold hoặc chọn lại thuật toán.
 
 Với dữ liệu có nhiều hàng của cùng người dùng/bệnh nhân, cần split theo group nếu mục tiêu là dự đoán cho người mới. Với chuỗi thời gian, train phải nằm trước validation/test. Tỷ lệ 70/30 trong ví dụ Iris ở slide là một minh họa, không phải quy tắc chung.
@@ -80,30 +80,30 @@ Với một lớp dương được xác định trước, confusion matrix gồm
 
 | Metric | Công thức | Trả lời câu hỏi |
 |---|---|---|
-| Accuracy | `(TP+TN)/(TP+FP+FN+TN)` | Tỷ lệ đúng chung là bao nhiêu? |
-| Precision | `TP/(TP+FP)` | Trong các dự đoán dương, bao nhiêu là đúng? |
-| Recall / TPR | `TP/(TP+FN)` | Trong các mẫu dương thật, tìm được bao nhiêu? |
-| F1 | `2PR/(P+R)` với `P=precision`, `R=recall` | Cân bằng precision và recall theo trung bình điều hòa |
-| Specificity / TNR | `TN/(TN+FP)` | Trong các mẫu âm thật, loại đúng bao nhiêu? |
-| FPR | `FP/(FP+TN)` | Tỷ lệ báo động giả trên các mẫu âm là bao nhiêu? |
+| Accuracy | $`\frac{\mathrm{TP}+\mathrm{TN}}{\mathrm{TP}+\mathrm{FP}+\mathrm{FN}+\mathrm{TN}}`$ | Tỷ lệ đúng chung là bao nhiêu? |
+| Precision | $`\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}}`$ | Trong các dự đoán dương, bao nhiêu là đúng? |
+| Recall / TPR | $`\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FN}}`$ | Trong các mẫu dương thật, tìm được bao nhiêu? |
+| F1 | $`\frac{2PR}{P+R}`$ với $`P=\mathrm{precision}`$, $`R=\mathrm{recall}`$ | Cân bằng precision và recall theo trung bình điều hòa |
+| Specificity / TNR | $`\frac{\mathrm{TN}}{\mathrm{TN}+\mathrm{FP}}`$ | Trong các mẫu âm thật, loại đúng bao nhiêu? |
+| FPR | $`\frac{\mathrm{FP}}{\mathrm{FP}+\mathrm{TN}}`$ | Tỷ lệ báo động giả trên các mẫu âm là bao nhiêu? |
 
-**Ví dụ:** nếu `TP=30`, `FP=10`, `FN=20`, `TN=940`, accuracy là 97% nhưng recall dương chỉ 60%. Vì vậy accuracy cao không đủ khi lớp dương hiếm hoặc bỏ sót rất tốn kém. Với multiclass như Iris, xem metric của từng lớp và macro average, không chỉ accuracy tổng.
+**Ví dụ:** nếu $`TP=30`$, $`FP=10`$, $`FN=20`$, $`TN=940`$, accuracy là 97% nhưng recall dương chỉ 60%. Vì vậy accuracy cao không đủ khi lớp dương hiếm hoặc bỏ sót rất tốn kém. Với multiclass như Iris, xem metric của từng lớp và macro average, không chỉ accuracy tổng.
 
 **ROC curve** vẽ TPR theo FPR khi thay ngưỡng; ROC-AUC đo khả năng xếp hạng trên nhiều ngưỡng. Nó không chọn giúp ngưỡng vận hành. Khi lớp dương hiếm, nên xem thêm precision–recall curve và metric tại ngưỡng được chọn. F1 không tự động là lựa chọn đúng cho mọi bài toán: cần xét chi phí FP/FN và khả năng xử lý dự đoán dương.
 
-Slide hình ở tr. 18 còn nhắc **Fβ-score**: `Fβ=(1+β²)PR/(β²P+R)`. Khi `β>1`, recall được nhấn mạnh hơn; khi `β<1`, precision được nhấn mạnh hơn. Đây vẫn là một metric thay thế chi phí thực tế, không tự xác định ngưỡng tốt nhất. Nếu mẫu số của precision/recall bằng 0, phải ghi quy ước xử lý.
+Slide hình ở tr. 18 còn nhắc **Fβ-score**: $`F_\beta=\frac{(1+\beta^2)PR}{\beta^2 P+R}`$. Khi $`\beta >1`$, recall được nhấn mạnh hơn; khi $`\beta <1`$, precision được nhấn mạnh hơn. Đây vẫn là một metric thay thế chi phí thực tế, không tự xác định ngưỡng tốt nhất. Nếu mẫu số của precision/recall bằng 0, phải ghi quy ước xử lý.
 
 ## 4. Các thuật toán classification (tr. 21–41)
 
 ### 4.1. K-Nearest Neighbors — kNN (tr. 22–25)
 
-**Ý tưởng:** lưu tập train; với mẫu mới, tính khoảng cách tới các mẫu train, lấy `k` láng giềng gần nhất rồi gộp nhãn. Với feature số, khoảng cách Euclidean là `d(x,z)=√Σⱼ(xⱼ-zⱼ)²`; Manhattan là `Σⱼ|xⱼ-zⱼ|`. `k` nhỏ dễ nhạy nhiễu, `k` lớn dễ làm mượt quá mức.
+**Ý tưởng:** lưu tập train; với mẫu mới, tính khoảng cách tới các mẫu train, lấy `k` láng giềng gần nhất rồi gộp nhãn. Với feature số, khoảng cách Euclidean là $`d(x,z)=\sqrt{\sum_j(x_j-z_j)^2}`$; Manhattan là $`\sum _{j}\lvert x_{j}-z_{j}\rvert`$. `k` nhỏ dễ nhạy nhiễu, `k` lớn dễ làm mượt quá mức.
 
 **Input/output:** vector feature đã có thang đo hợp lý; đầu ra là lớp từ đa số láng giềng hoặc xác suất dựa trên tần suất/trọng số. Cần scale trong pipeline vì feature có đơn vị lớn có thể lấn át khoảng cách. **Trade-off:** fit nhanh, dễ hiểu nhưng suy luận tốn hơn khi tập train lớn và khoảng cách ít ý nghĩa ở chiều cao. Chọn `k`, metric khoảng cách và weighting bằng CV.
 
 ### 4.2. Logistic Regression (tr. 26–28)
 
-**Ý tưởng nhị phân:** tính `z=b+wᵀx`, sau đó `p(y=1|x)=1/(1+e^(-z))`; chọn lớp bằng một threshold. Train thường tối thiểu hóa log loss có regularization. Trong scikit-learn, `C` nhỏ tương ứng regularization mạnh hơn.
+**Ý tưởng nhị phân:** tính $`z=b+w^{\top}x`$, sau đó $`p(y=1\mid x)=\frac{1}{1+e^{-z}}`$; chọn lớp bằng một threshold. Train thường tối thiểu hóa log loss có regularization. Trong scikit-learn, `C` nhỏ tương ứng regularization mạnh hơn.
 
 **Input/output:** feature số/đã encode, nhãn lớp; đầu ra gồm score, xác suất ước lượng và nhãn. **Trade-off:** baseline nhanh, hệ số có thể diễn giải theo log-odds, nhưng ranh giới tuyến tính nếu không tạo thêm feature. Cần kiểm calibration nếu xác suất dùng để ra quyết định; threshold 0.5 không phải luôn tối ưu.
 
@@ -115,7 +115,7 @@ Slide hình ở tr. 18 còn nhắc **Fβ-score**: `Fβ=(1+β²)PR/(β²P+R)`. Kh
 
 ### 4.4. Naive Bayes (tr. 35–37)
 
-Từ Bayes, `P(y|x) ∝ P(y)P(x|y)`; giả định các feature độc lập có điều kiện theo lớp cho `P(x|y)=∏ⱼP(xⱼ|y)`. Fit prior và thống kê từng feature theo lớp, sau đó chọn lớp có posterior cao nhất.
+Từ Bayes, $`P(y\mid x) \propto P(y)P(x\mid y)`$; giả định các feature độc lập có điều kiện theo lớp cho $`P(x\mid y)=\prod_{j}P(x_{j}\mid y)`$. Fit prior và thống kê từng feature theo lớp, sau đó chọn lớp có posterior cao nhất.
 
 | Biến thể | Dữ liệu thường dùng | Điều kiện đáng chú ý |
 |---|---|---|
@@ -127,7 +127,7 @@ Từ Bayes, `P(y|x) ∝ P(y)P(x|y)`; giả định các feature độc lập có
 
 ### 4.5. Decision Tree và Random Forest (tr. 38–41)
 
-**Decision Tree:** ở mỗi nút, tìm feature và ngưỡng tách làm giảm độ hỗn tạp của lớp, sau đó lặp đệ quy đến lá. Có thể dùng Gini `1-Σₖpₖ²` hoặc entropy. Cây sâu dễ overfit; điều chỉnh `max_depth`, `min_samples_leaf` hoặc pruning.
+**Decision Tree:** ở mỗi nút, tìm feature và ngưỡng tách làm giảm độ hỗn tạp của lớp, sau đó lặp đệ quy đến lá. Có thể dùng Gini $`1-\sum _{k}p_{k}^{2}`$ hoặc entropy. Cây sâu dễ overfit; điều chỉnh `max_depth`, `min_samples_leaf` hoặc pruning.
 
 **Random Forest:** fit nhiều cây trên các bootstrap sample; mỗi lần tách chỉ xét một tập con feature, rồi gộp dự đoán. Với `RandomForestClassifier` của scikit-learn, lớp cuối dựa trên **xác suất trung bình qua cây**, không nhất thiết trùng với majority vote được nêu đơn giản trên slide. Rừng thường ổn định hơn một cây nhưng tốn bộ nhớ và khó đọc như một tập quy tắc duy nhất. [Tài liệu scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
 
@@ -137,7 +137,7 @@ Từ Bayes, `P(y|x) ∝ P(y)P(x|y)`; giả định các feature độc lập có
 
 **Parameter** được học từ train, ví dụ hệ số `w` của linear/logistic regression. **Hyperparameter** được chọn ngoài vòng fit, ví dụ `k` của kNN, độ sâu cây, `C` của SVM/logistic hoặc learning rate. [GridSearchCV](https://scikit-learn.org/stable/modules/grid_search.html) thử một lưới giá trị; random search lấy mẫu các cấu hình. Bayesian optimization và evolutionary search được slide nhắc đến như kỹ thuật tổng quát, không nên hiểu là đều có sẵn trực tiếp trong API cốt lõi của scikit-learn.
 
-Một objective phổ biến có dạng `J(w)=(1/n)Σᵢ L(yᵢ,f_w(xᵢ)) + λR(w)`. `L` là loss, `R` là penalty, `λ` kiểm soát regularization. Với regression, MSE phạt lỗi lớn mạnh hơn MAE; Huber loss dùng dạng bậc hai cho lỗi nhỏ và tuyến tính cho lỗi lớn. Dạng Huber thông dụng với residual `e` là `0.5e²` khi `|e|≤δ`, còn `δ(|e|-0.5δ)` khi `|e|>δ`. Công thức in ở tr. 44 có hệ số chưa nhất quán; nên dùng công thức chuẩn khi tính toán.
+Một objective phổ biến có dạng $`J(w)=(1/n)\sum _{i} L(y_{i},f_w(x_{i})) + \lambda R(w)`$. `L` là loss, `R` là penalty, $`\lambda`$ kiểm soát regularization. Với regression, MSE phạt lỗi lớn mạnh hơn MAE; Huber loss dùng dạng bậc hai cho lỗi nhỏ và tuyến tính cho lỗi lớn. Dạng Huber thông dụng với residual `e` là $`0.5e^{2}`$ khi $`\lvert e\rvert\le \delta`$, còn $`\delta (\lvert e\rvert-0.5\delta )`$ khi $`\lvert e\rvert>\delta`$. Công thức in ở tr. 44 có hệ số chưa nhất quán; nên dùng công thức chuẩn khi tính toán.
 
 | Dấu hiệu trên train/validation | Cách hiểu ban đầu | Việc cần kiểm |
 |---|---|---|
@@ -149,33 +149,33 @@ Các biện pháp slide nêu: L1/L2 regularization, cross-validation, early stop
 
 ## 6. Regression và metric (tr. 44, 49–50)
 
-Regression dự đoán giá trị liên tục. Đặt `eᵢ=yᵢ-ŷᵢ`, `n` là số mẫu đánh giá:
+Regression dự đoán giá trị liên tục. Đặt $`e_{i}=y_{i}-\hat{y}_{i}`$, `n` là số mẫu đánh giá:
 
 | Metric | Công thức | Cách đọc và giới hạn |
 |---|---|---|
-| MSE | `(1/n)Σeᵢ²` | Phạt mạnh sai số lớn; đơn vị là bình phương đơn vị target |
-| RMSE | `√MSE` | Cùng đơn vị target, nhạy outlier |
-| MAE | `(1/n)Σ|eᵢ|` | Sai số tuyệt đối trung bình, dễ diễn giải |
-| R² | `1-Σeᵢ²/Σ(yᵢ-ȳ)²` | So với trung bình của `y` trong tập đánh giá; có thể âm trên test |
-| Adjusted R² | `1-(1-R²)(n-1)/(n-p-1)` | Công thức thống kê cho một số bài toán hồi quy khi `n>p+1`; không thay thế test/CV |
-| MAPE | `(100/n)Σ|eᵢ/yᵢ|` | Khó dùng khi `yᵢ=0` hoặc gần 0; cần ghi quy ước xử lý |
+| MSE | $`\frac{1}{n}\sum_i e_i^2`$ | Phạt mạnh sai số lớn; đơn vị là bình phương đơn vị target |
+| RMSE | $`\sqrt{\mathrm{MSE}}`$ | Cùng đơn vị target, nhạy outlier |
+| MAE | $`\frac{1}{n}\sum_i\lvert e_i\rvert`$ | Sai số tuyệt đối trung bình, dễ diễn giải |
+| R² | $`1-\frac{\sum_i e_i^2}{\sum_i(y_i-\bar{y})^2}`$ | So với trung bình của `y` trong tập đánh giá; có thể âm trên test |
+| Adjusted R² | $`1-\frac{(1-R^2)(n-1)}{n-p-1}`$ | Công thức thống kê cho một số bài toán hồi quy khi $`n>p+1`$; không thay thế test/CV |
+| MAPE | $`\frac{100}{n}\sum_i\left\lvert\frac{e_i}{y_i}\right\rvert`$ | Khó dùng khi $`y_{i}=0`$ hoặc gần 0; cần ghi quy ước xử lý |
 
-Với **weighted MSE**, có nhiều quy ước chuẩn hóa. Một lựa chọn là `Σwᵢeᵢ²/Σwᵢ` cho `wᵢ≥0`; nếu viết `(1/n)Σwᵢeᵢ²` như trên slide thì ý nghĩa độ lớn phụ thuộc cách đặt tổng trọng số. Ghi rõ quy ước khi báo cáo. Metric đánh giá và loss dùng để train có thể khác nhau, nhưng phải khớp mục tiêu quyết định.
+Với **weighted MSE**, có nhiều quy ước chuẩn hóa. Một lựa chọn là $`\frac{\sum_i w_i e_i^2}{\sum_i w_i}`$ cho $`w_{i}\ge 0`$; nếu viết $`\frac{1}{n}\sum_i w_i e_i^2`$ như trên slide thì ý nghĩa độ lớn phụ thuộc cách đặt tổng trọng số. Ghi rõ quy ước khi báo cáo. Metric đánh giá và loss dùng để train có thể khác nhau, nhưng phải khớp mục tiêu quyết định.
 
 ## 7. Các thuật toán regression (tr. 51–57)
 
 | Thuật toán | Cách dự đoán/fit | Khi nên thử | Giới hạn chính |
 |---|---|---|---|
-| Linear Regression / OLS | `ŷ=b+wᵀx`, giảm `Σ(y-ŷ)²` | Baseline dễ hiểu cho dữ liệu bảng | Quan hệ phi tuyến cần feature bổ sung |
-| Ridge | OLS + penalty L2 `λΣwⱼ²` | Feature tương quan, hệ số không ổn định | Không tự chọn feature về đúng 0 |
-| Lasso | OLS + penalty L1 `λΣ|wⱼ|` | Muốn nghiệm thưa/chọn feature | Có thể chọn không ổn định khi feature tương quan |
+| Linear Regression / OLS | $`\hat{y}=b+w^{\top}x`$, giảm $`\sum (y-\hat{y})^{2}`$ | Baseline dễ hiểu cho dữ liệu bảng | Quan hệ phi tuyến cần feature bổ sung |
+| Ridge | OLS + penalty L2 $`\lambda \sum w_{j}^{2}`$ | Feature tương quan, hệ số không ổn định | Không tự chọn feature về đúng 0 |
+| Lasso | OLS + penalty L1 $`\lambda \sum \lvert w_{j}\rvert`$ | Muốn nghiệm thưa/chọn feature | Có thể chọn không ổn định khi feature tương quan |
 | Elastic Net | Phối hợp L1 và L2 | Vừa muốn thưa vừa muốn ổn định hơn | Cần tune thêm tỷ lệ L1/L2 |
-| Polynomial Regression | Tạo `x²`, `x³`, tương tác rồi fit mô hình tuyến tính trên feature mới | Quan hệ cong với số feature vừa phải | Bậc cao dễ overfit và khó extrapolate |
-| SVR | Tối ưu hàm dự đoán với vùng sai số `ε` và regularization | Quan hệ phức tạp, tập vừa | Nhạy scale/hyperparameter, kernel có thể tốn kém |
+| Polynomial Regression | Tạo $`x^{2}`$, $`x^{3}`$, tương tác rồi fit mô hình tuyến tính trên feature mới | Quan hệ cong với số feature vừa phải | Bậc cao dễ overfit và khó extrapolate |
+| SVR | Tối ưu hàm dự đoán với vùng sai số $`\epsilon`$ và regularization | Quan hệ phức tạp, tập vừa | Nhạy scale/hyperparameter, kernel có thể tốn kém |
 | Decision Tree Regressor | Tách dữ liệu thành lá và dự đoán từ target ở lá | Quan hệ phi tuyến, tương tác | Dễ overfit; dự đoán dạng bậc thang |
 | Random Forest / Boosting Regressor | Gộp nhiều cây hoặc thêm cây tuần tự | Dữ liệu bảng phi tuyến | Tốn tài nguyên, khó giải thích hơn mô hình tuyến tính |
 
-**OLS** ở tr. 52–53 tìm `w,b` giảm tổng bình phương residual. Với một feature, `ŷ=mx+b`; với nhiều feature, `ŷ=b+Σⱼwⱼxⱼ`. **Polynomial Regression** vẫn có thể tuyến tính theo hệ số sau khi biến đổi feature, dù quan hệ với `x` là đường cong. **SVR** không đơn giản là “tìm hyperplane có margin lớn giữa các điểm” như phân loại SVM; nó dùng một vùng `ε` quanh hàm dự đoán và phạt điểm nằm ngoài vùng đó.
+**OLS** ở tr. 52–53 tìm `w,b` giảm tổng bình phương residual. Với một feature, $`\hat{y}=mx+b`$; với nhiều feature, $`\hat{y}=b+\sum _{j}w_{j}x_{j}`$. **Polynomial Regression** vẫn có thể tuyến tính theo hệ số sau khi biến đổi feature, dù quan hệ với `x` là đường cong. **SVR** không đơn giản là “tìm hyperplane có margin lớn giữa các điểm” như phân loại SVM; nó dùng một vùng $`\epsilon`$ quanh hàm dự đoán và phạt điểm nằm ngoài vùng đó.
 
 ## 8. Ghi chú hiệu đính và giới hạn của slide
 
@@ -188,15 +188,15 @@ Với **weighted MSE**, có nhiều quy ước chuẩn hóa. Một lựa chọn 
 | 37 | Naive Bayes được mô tả là chịu được missing data | Vẫn cần kiểm và xử lý missing theo biến thể/implementation |
 | 40 | Forest classifier luôn majority vote | Implementation scikit-learn dùng trung bình xác suất qua cây |
 | 44 | Biểu thức Huber loss trên slide chưa nhất quán hệ số | Dùng công thức Huber chuẩn ở mục 5 |
-| 50 | MAPE, weighted MSE được viết ngắn | Kiểm `y=0` cho MAPE; ghi quy ước chuẩn hóa trọng số |
-| 51, 56 | Mô tả khái quát ở tr. 51 có thể khiến SVR bị hiểu như SVM phân loại; hình tr. 56 có vùng `ε` | Phân biệt vùng sai số `ε` của regression với margin phân loại |
+| 50 | MAPE, weighted MSE được viết ngắn | Kiểm $`y=0`$ cho MAPE; ghi quy ước chuẩn hóa trọng số |
+| 51, 56 | Mô tả khái quát ở tr. 51 có thể khiến SVR bị hiểu như SVM phân loại; hình tr. 56 có vùng $`\epsilon`$ | Phân biệt vùng sai số $`\epsilon`$ của regression với margin phân loại |
 
 Các ghi chú này là giải thích kỹ thuật bổ sung, không thay đổi chủ đề chính của bài giảng.
 
 ## 9. Câu hỏi tự kiểm tra
 
 1. Vì sao `StandardScaler` phải fit trên train fold khi dùng cross-validation?
-2. Với `TP=40`, `FP=10`, `FN=20`, `TN=930`, hãy tính accuracy, precision, recall và F1. Metric nào có thể che việc bỏ sót lớp dương?
+2. Với $`TP=40`$, $`FP=10`$, $`FN=20`$, $`TN=930`$, hãy tính accuracy, precision, recall và F1. Metric nào có thể che việc bỏ sót lớp dương?
 3. Nêu điểm khác nhau giữa `k` của kNN, `C` của logistic/SVM và hệ số `w` của mô hình tuyến tính.
 4. Khi nào nên dùng MAE thay vì RMSE? MAPE gặp vấn đề gì khi target bằng 0?
 5. Vì sao chọn threshold trên test làm kết quả test không còn là đánh giá độc lập?

@@ -8,7 +8,7 @@ Dự đoán từ các mẫu train gần nhất; baseline phi tuyến dễ hiểu
 
 `X` số/đã vector hóa, `y` là lớp hoặc giá trị liên tục; chọn khoảng cách (thường Euclidean), số láng giềng `k` và cách trọng số theo khoảng cách.
 
-Nếu dữ liệu có `n` mẫu train, `p` chiều, mỗi bản ghi inference phải qua đúng phép scale/vector hóa đã fit. Với biến categorical, khoảng cách Euclidean trên mã số tùy ý thường không có ý nghĩa; cần encoding/metric phù hợp với ngữ nghĩa. Chọn `k≤n_train` và kiểm cả tỷ lệ lớp trong vùng lân cận. [1]
+Nếu dữ liệu có `n` mẫu train, `p` chiều, mỗi bản ghi inference phải qua đúng phép scale/vector hóa đã fit. Với biến categorical, khoảng cách Euclidean trên mã số tùy ý thường không có ý nghĩa; cần encoding/metric phù hợp với ngữ nghĩa. Chọn $`k\le n_{train}`$ và kiểm cả tỷ lệ lớp trong vùng lân cận. [1]
 
 ## Output
 
@@ -22,17 +22,17 @@ Dùng metric tương ứng bài toán (F1/PR-AUC cho classification, MAE/RMSE ch
 
 `fit` chủ yếu lưu dữ liệu train. Khi dự đoán, tính khoảng cách đến các mẫu train, chọn `k` mẫu gần nhất, rồi gộp nhãn/giá trị. `k` nhỏ dễ nhiễu; `k` lớn làm mượt quá mức. [1][2]
 
-**Ví dụ tính tay:** dữ liệu train một chiều gồm `(x=1,y=A)`, `(x=2,y=A)`, `(x=5,y=B)`. Với mẫu mới `x=4`, khoảng cách Euclidean lần lượt là `3,2,1`; `k=1` dự đoán `B`, còn `k=3` đa số dự đoán `A`. Với regression và nhãn `10,12,20`, `k=2` không trọng số sẽ lấy hai điểm gần nhất và dự đoán `(12+20)/2=16`.
+**Ví dụ tính tay:** dữ liệu train một chiều gồm `(x=1,y=A)`, `(x=2,y=A)`, `(x=5,y=B)`. Với mẫu mới $`x=4`$, khoảng cách Euclidean lần lượt là `3,2,1`; $`k=1`$ dự đoán `B`, còn $`k=3`$ đa số dự đoán `A`. Với regression và nhãn `10,12,20`, $`k=2`$ không trọng số sẽ lấy hai điểm gần nhất và dự đoán $`\frac{12+20}{2}=16`$.
 
 **Fit/predict:** lưu vector train và nhãn → tính khoảng cách → chọn `k` láng giềng → gộp nhãn. Nếu dùng trọng số khoảng cách, cần định nghĩa cách xử lý khoảng cách bằng 0. [1]
 
 ### Khoảng cách và cách gộp
 
-Với `p` feature, `d₂(x,z)=√Σ_j(x_j-z_j)²` (Euclidean), `d₁(x,z)=Σ_j|x_j-z_j|` (Manhattan). Minkowski tổng quát bậc `q≥1` là `(Σ_j|x_j-z_j|^q)^(1/q)`. Metric chỉ có ích nếu giá trị “gần” phản ánh sự giống nhau liên quan target; chuẩn hóa feature là một phần của định nghĩa khoảng cách, không chỉ là bước làm đẹp dữ liệu. [1]
+Với `p` feature, $`d_2(x,z)=\sqrt{\sum_j(x_j-z_j)^2}`$ (Euclidean), $`d_{1}(x,z)=\sum _j\lvert x_j-z_j\rvert`$ (Manhattan). Minkowski tổng quát bậc $`q\ge 1`$ là $`\left(\sum_j\lvert x_j-z_j\rvert^q\right)^{1/q}`$. Metric chỉ có ích nếu giá trị “gần” phản ánh sự giống nhau liên quan target; chuẩn hóa feature là một phần của định nghĩa khoảng cách, không chỉ là bước làm đẹp dữ liệu. [1]
 
-Classification không trọng số chọn lớp có số láng giềng lớn nhất. Nếu dùng trọng số `a_i≥0`, điểm lớp `c` có thể viết `S_c=Σ_{i∈N_k(x)} a_i·1[y_i=c]`; xác suất ước lượng là `S_c/Σ_i a_i`. Regression có `ŷ=Σ_i a_i y_i/Σ_i a_i`; khi mọi `a_i=1`, đó là trung bình. Với `a_i≈1/d_i`, điểm trùng dữ liệu train (`d_i=0`) cần quy tắc riêng để tránh chia cho 0; kiểm hành vi của implementation được dùng. Tỷ lệ láng giềng không mặc nhiên là xác suất đã calibration. [1]
+Classification không trọng số chọn lớp có số láng giềng lớn nhất. Nếu dùng trọng số $`a_i\ge 0`$, điểm lớp `c` có thể viết $`S_c=\sum_{i\in N_k(x)} a_i\,\mathbf{1}[y_i=c]`$; xác suất ước lượng là $`\frac{S_c}{\sum_i a_i}`$. Regression có $`\hat{y}=\frac{\sum_i a_i y_i}{\sum_i a_i}`$; khi mọi $`a_i=1`$, đó là trung bình. Với $`a_i\approx 1/d_i`$, điểm trùng dữ liệu train ($`d_i=0`$) cần quy tắc riêng để tránh chia cho 0; kiểm hành vi của implementation được dùng. Tỷ lệ láng giềng không mặc nhiên là xác suất đã calibration. [1]
 
-**Ví dụ gộp có trọng số:** ba láng giềng của mẫu mới có nhãn `A,A,B`, khoảng cách `1,2,0.5`. Bỏ trọng số cho kết quả `A` (2 phiếu). Dùng trọng số nghịch đảo khoảng cách, điểm `A=1+0.5=1.5`, điểm `B=2`; kết quả thành `B`. Vì vậy metric, `k` và cách gộp là một phần của thiết kế mô hình.
+**Ví dụ gộp có trọng số:** ba láng giềng của mẫu mới có nhãn `A,A,B`, khoảng cách `1,2,0.5`. Bỏ trọng số cho kết quả `A` (2 phiếu). Dùng trọng số nghịch đảo khoảng cách, điểm $`A=1+0.5=1.5`$, điểm $`B=2`$; kết quả thành `B`. Vì vậy metric, `k` và cách gộp là một phần của thiết kế mô hình.
 
 ```text
 fit: lưu X_train sau preprocessing và y_train (có thể xây chỉ mục tìm kiếm)
@@ -51,16 +51,16 @@ Phù hợp khi khoảng cách giữa vector mang ý nghĩa và số chiều khô
 
 | Hyperparameter | Cách thử | Rủi ro |
 |---|---|---|
-| `n_neighbors=k` | CV trên train, bắt đầu từ vài giá trị nhỏ đến vừa | `k=1` nhạy nhiễu; `k` rất lớn làm mất cấu trúc cục bộ |
+| `n_neighbors=k` | CV trên train, bắt đầu từ vài giá trị nhỏ đến vừa | $`k=1`$ nhạy nhiễu; `k` rất lớn làm mất cấu trúc cục bộ |
 | `metric`/`p` | Chọn theo ngữ nghĩa feature, so trên cùng split | Khoảng cách vô nghĩa trên feature mã hóa sai |
 | `weights` | Đồng đều hoặc theo khoảng cách | Mẫu rất gần có thể chi phối dự đoán |
 | Cách tìm láng giềng | Brute, KDTree, BallTree theo dữ liệu | Chi phí tìm kiếm thay đổi theo số chiều và phân phối |
 
 Nếu có hòa phiếu ở classification, dự đoán phụ thuộc quy tắc tie-breaking của implementation; hãy kiểm trực tiếp thay vì giả định luôn chọn một lớp cụ thể. Với lớp hiếm, xem recall theo lớp và lân cận của các mẫu sai, không chỉ accuracy. [1]
 
-**Chi phí:** với tìm kiếm brute force trên `n` mẫu, `p` chiều, một truy vấn khoảng `O(np)` để tính khoảng cách, cộng chi phí chọn láng giềng. KDTree/BallTree có thể giúp trong một số dữ liệu chiều thấp, nhưng lợi ích giảm khi chiều cao; đo thời gian trên dữ liệu thật. [1]
+**Chi phí:** với tìm kiếm brute force trên `n` mẫu, `p` chiều, một truy vấn khoảng $`O(np)`$ để tính khoảng cách, cộng chi phí chọn láng giềng. KDTree/BallTree có thể giúp trong một số dữ liệu chiều thấp, nhưng lợi ích giảm khi chiều cao; đo thời gian trên dữ liệu thật. [1]
 
-Bộ nhớ lưu `X_train` khoảng `O(np)` cho dữ liệu dense, cộng nhãn/chỉ mục. Nếu dataset rất lớn hoặc yêu cầu latency chặt, chi phí inference có thể là lý do chọn mô hình tham số; nếu dữ liệu ít và cấu trúc cục bộ rõ, kNN là baseline phi tuyến hữu ích.
+Bộ nhớ lưu `X_train` khoảng $`O(np)`$ cho dữ liệu dense, cộng nhãn/chỉ mục. Nếu dataset rất lớn hoặc yêu cầu latency chặt, chi phí inference có thể là lý do chọn mô hình tham số; nếu dữ liệu ít và cấu trúc cục bộ rõ, kNN là baseline phi tuyến hữu ích.
 
 ### Key words
 
