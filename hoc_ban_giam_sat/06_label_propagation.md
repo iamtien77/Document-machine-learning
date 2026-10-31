@@ -240,3 +240,4 @@ print(f"[Induction] Độ chính xác trên Test Set độc lập: {test_acc*100
 - [1] Zhu, X., & Ghahramani, Z. (2002). *Learning from labeled and unlabeled data with label propagation*. Technical Report CMU-CALD-02-107, Carnegie Mellon University.
 - [2] Zhu, X., Ghahramani, Z., & Lafferty, J. D. (2003). *Semi-supervised learning using gaussian fields and harmonic functions*. Proceedings of the 20th International Conference on Machine Learning (ICML), 912-919.
 - [3] [scikit-learn Documentation: Label Propagation](https://scikit-learn.org/stable/modules/generated/sklearn.semi_supervised.LabelPropagation.html).
+

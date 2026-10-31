@@ -328,3 +328,4 @@ print(f"F1-Score Co-Training: {f1_score(y_te, y_pred):.4f}")
 - [1] Blum, A., & Mitchell, T. (1998). *Combining labeled and unlabeled data with co-training*. Proceedings of the Eleventh Annual Conference on Computational Learning Theory (COLT), 92-100.
 - [2] Nigam, K., & Ghani, R. (2000). *Analyzing the effectiveness and applicability of co-training*. Proceedings of the Ninth International Conference on Information and Knowledge Management (CIKM), 86-93.
 - [3] Balcan, M. F., Blum, A., & Yang, K. (2005). *Co-training and expansion properties of labeled and unlabeled data*. Journal of Computer and System Sciences, 71(4), 541-559.
+

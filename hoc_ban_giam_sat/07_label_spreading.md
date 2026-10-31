@@ -245,3 +245,4 @@ print(f"Số mẫu nhãn nhiễu được Label Spreading tự động sửa v�
 - [1] Zhou, D., Bousquet, O., Lal, T. N., Weston, J., & Schölkopf, B. (2004). *Learning with local and global consistency*. Advances in Neural Information Processing Systems (NeurIPS), 16, 321-328.
 - [2] Bengio, Y., Delalleau, O., & Le Roux, N. (2006). *Label propagation and quadratic criterion*. Semi-Supervised Learning, MIT Press, 193-216.
 - [3] [scikit-learn Documentation: Label Spreading](https://scikit-learn.org/stable/modules/generated/sklearn.semi_supervised.LabelSpreading.html).
+

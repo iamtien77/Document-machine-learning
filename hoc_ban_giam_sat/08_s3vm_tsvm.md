@@ -293,3 +293,4 @@ print(f"=> Mức tăng trưởng hiệu năng Delta: {(acc_tsvm - acc_base)*100:
 - [2] Joachims, T. (1999). *Transductive inference for text classification using support vector machines*. Proceedings of the Sixteenth International Conference on Machine Learning (ICML), 200-209.
 - [3] Bennett, K. P., & Demiriz, A. (1999). *Semi-supervised support vector machines*. Advances in Neural Information Processing Systems (NeurIPS), 11, 368-374.
 - [4] Collobert, R., Sinz, F., Weston, J., & Bottou, L. (2006). *Large scale transductive SVMs*. Journal of Machine Learning Research (JMLR), 7, 1687-1712.
+

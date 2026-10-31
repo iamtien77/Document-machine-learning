@@ -312,3 +312,4 @@ print(f"F1-Score Tri-Training: {f1_score(y_test, y_pred):.4f}")
 - [1] Zhou, Z. H., & Li, M. (2005). *Tri-training: exploiting unlabeled data using three classifiers*. IEEE Transactions on Knowledge and Data Engineering (TKDE), 17(11), 1529-1541.
 - [2] Zhou, Z. H., & Goldman, S. (2004). *Democratic co-learning: combining multiple learners on single views*. Proceedings of the IEEE International Conference on Tools with Artificial Intelligence, 520-527.
 - [3] Angluin, D., & Laird, P. (1988). *Learning from noisy examples*. Machine Learning, 2(4), 343-370.
+
