@@ -121,10 +121,10 @@ Quy trình thực nghiệm xuyên suốt tuân thủ 5 giai đoạn chặt chẽ
 | Đặc tính | Mô tả chi tiết |
 | :--- | :--- |
 | **Tên tập dữ liệu** | Optical Recognition of Handwritten Digits (`load_digits` từ `sklearn.datasets`) |
-| **Quy mô mẫu ($N$)** | 1,797 ảnh chữ số đơn sắc |
-| **Kích thước ảnh** | $8 \times 8$ pixels (ma trận số nguyên $0 \to 16$) |
-| **Số chiều đặc trưng ($d$)** | 64 đặc trưng liên tục sau khi duỗi phẳng |
-| **Số lượng lớp ($C$)** | 10 lớp chữ số từ '0' đến '9' |
+| **Quy mô mẫu ($`N`$)** | 1,797 ảnh chữ số đơn sắc |
+| **Kích thước ảnh** | $`8 \times 8`$ pixels (ma trận số nguyên $`0 \to 16`$) |
+| **Số chiều đặc trưng ($`d`$)** | 64 đặc trưng liên tục sau khi duỗi phẳng |
+| **Số lượng lớp ($`C`$)** | 10 lớp chữ số từ '0' đến '9' |
 | **Phân phối lớp** | Gần như cân bằng tuyệt đối (~180 ảnh mỗi chữ số) |
 | **Lý do lựa chọn** | Cấu trúc đa tạp phi tuyến rõ rệt; kích thước vừa phải để kiểm thử đa thuật toán nhanh chóng mà vẫn thể hiện chân thực sức mạnh của SSL |
 

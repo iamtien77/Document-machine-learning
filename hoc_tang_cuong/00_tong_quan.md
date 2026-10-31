@@ -202,13 +202,13 @@ $$
 
 Các môi trường chuẩn hóa kiểm thử quốc tế (Gymnasium / OpenAI Gym):
 
-| Môi trường | Kiểu trạng thái $\mathcal{S}$ | Kiểu hành động $\mathcal{A}$ | Mục tiêu bài toán | Ngưỡng giải quyết chuẩn |
+| Môi trường | Kiểu trạng thái $`\mathcal{S}`$ | Kiểu hành động $`\mathcal{A}`$ | Mục tiêu bài toán | Ngưỡng giải quyết chuẩn |
 | :--- | :--- | :--- | :--- | :--- |
-| **GridWorld** | Tọa độ rời rạc $(x, y)$ | 4 hướng $\{0, 1, 2, 3\}$ | Đi từ ô xuất phát đến ô đích, tránh bẫy | Tìm đường ngắn nhất |
+| **GridWorld** | Tọa độ rời rạc $`(x, y)`$ | 4 hướng $`\lbrace0, 1, 2, 3\rbrace`$ | Đi từ ô xuất phát đến ô đích, tránh bẫy | Tìm đường ngắn nhất |
 | **CartPole-v1** | Liên tục 4 chiều (vị trí xe, góc con lắc...) | 2 hướng (Đẩy trái / Phải) | Giữ thanh con lắc đứng thẳng trên xe trượt | Đạt điểm 500 liên tục |
-| **Taxi-v3** | Rời rạc 500 trạng thái | 6 hành động rời rạc | Đón khách và trả đúng điểm đích trong mê cung | Điểm trung bình $> 8.0$ |
-| **LunarLander-v2**| Liên tục 8 chiều (vị trí, góc, vận tốc) | 4 hành động động cơ đẩy | Hạ cánh tàu vũ trụ an toàn xuống bãi đáp | Điểm trung bình $> 200.0$ |
-| **Atari Pong/Breakout**| Ảnh 4 khung hình $(84 \times 84 \times 4)$ | Phím điều khiển joystick | Đánh bại đối thủ trong trò chơi điện tử cổ điển | Vượt qua kỷ lục con người |
+| **Taxi-v3** | Rời rạc 500 trạng thái | 6 hành động rời rạc | Đón khách và trả đúng điểm đích trong mê cung | Điểm trung bình $`> 8.0`$ |
+| **LunarLander-v2**| Liên tục 8 chiều (vị trí, góc, vận tốc) | 4 hành động động cơ đẩy | Hạ cánh tàu vũ trụ an toàn xuống bãi đáp | Điểm trung bình $`> 200.0`$ |
+| **Atari Pong/Breakout**| Ảnh 4 khung hình $`(84 \times 84 \times 4)`$ | Phím điều khiển joystick | Đánh bại đối thủ trong trò chơi điện tử cổ điển | Vượt qua kỷ lục con người |
 
 ---
 

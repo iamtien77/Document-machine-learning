@@ -35,10 +35,10 @@ Trước khi thực hiện phân cụm, kỹ sư dữ liệu cần lập ma tr�
 
 | Tên trường (Feature) | Kiểu vật lý | Kiểu thống kê | Miền giá trị | Tỷ lệ Null | Chiến lược Imputation | Phương pháp Chuẩn hóa |
 |---|---|---|---|---|---|---|
-| `customer_id` | String | Identifier | Mã định danh duy nhất | 0% | Loại bỏ khỏi $X$ | Không (Khóa chính) |
-| `age` | Integer | Numerical | $[18, 95]$ | $< 1\%$ | Impute median | `RobustScaler` |
-| `annual_income` | Float | Numerical | $\ge 0$ (Lệch phải mạnh) | $5\%$ | Impute median + Yeo-Johnson | `StandardScaler` |
-| `spending_score` | Integer | Numerical | $[1, 100]$ | 0% | Không | `MinMaxScaler` |
+| `customer_id` | String | Identifier | Mã định danh duy nhất | 0% | Loại bỏ khỏi $`X`$ | Không (Khóa chính) |
+| `age` | Integer | Numerical | $`[18, 95]`$ | < 1% | Impute median | `RobustScaler` |
+| `annual_income` | Float | Numerical | $`\ge 0`$ (Lệch phải mạnh) | 5% | Impute median + Yeo-Johnson | `StandardScaler` |
+| `spending_score` | Integer | Numerical | $`[1, 100]`$ | 0% | Không | `MinMaxScaler` |
 | `gender` | String | Categorical | `{'Male', 'Female'}` | 0% | One-Hot Encoding | Cần cân nhắc trọng số |
 
 ---

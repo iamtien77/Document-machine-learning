@@ -112,7 +112,7 @@ Tổng này hoàn toàn độc lập với con đường đi qua, triệt tiêu 
 
 | Bẫy thiết kế | Hành vi lỗi của Agent (Reward Exploitation) | Giải pháp khắc phục chuẩn mực |
 | :--- | :--- | :--- |
-| **Thưởng sống sót qua từng bước** | Đứng im một chỗ, không chịu mạo hiểm di chuyển tới đích để tránh rủi ro. | Đổi thành phạt chi phí thời gian ($-1$ mỗi bước) để ép tìm đường ngắn nhất. |
+| **Thưởng sống sót qua từng bước** | Đứng im một chỗ, không chịu mạo hiểm di chuyển tới đích để tránh rủi ro. | Đổi thành phạt chi phí thời gian ($`-1`$ mỗi bước) để ép tìm đường ngắn nhất. |
 | **Thưởng khoảng cách Euclid tới đích** | Chạy dao động tiến-lùi quanh đích để tích lũy điểm thưởng nhiều lần. | Áp dụng Potential-Based Reward Shaping $`\gamma \Phi(s') - \Phi(s)`$. |
 | **Đua thuyền nhặt vật phẩm (Coast Runners)** | Xoay vòng tròn đốt thuyền để nhặt vật phẩm hồi sinh liên tục thay vì về đích. | Chỉ thưởng điểm vật phẩm khi hoàn thành chặng đua tương ứng. |
 | **Phạt va chạm quá nhỏ** | Chấp nhận đâm xe liên tục nếu tốc độ di chuyển vẫn mang lại điểm dương bù đắp. | Đặt ngưỡng phạt va chạm đủ lớn kèm kết thúc episode ngay lập tức (`terminated`). |
@@ -123,13 +123,13 @@ Tổng này hoàn toàn độc lập với con đường đi qua, triệt tiêu 
 
 Bảng đặc tả cấu trúc không gian của các môi trường kinh điển trong nghiên cứu và công nghiệp:
 
-| Tên bài toán | Không gian trạng thái $\mathcal{S}$ | Không gian hành động $\mathcal{A}$ | Bản chất phần thưởng gốc |
+| Tên bài toán | Không gian trạng thái $`\mathcal{S}`$ | Không gian hành động $`\mathcal{A}`$ | Bản chất phần thưởng gốc |
 | :--- | :--- | :--- | :--- |
-| **CartPole-v1** | $\mathbb{R}^4$: $[x, \dot{x}, \theta, \dot{\theta}]$ | Discrete(2): $\{$Đẩy trái, Đẩy phải$\}$ | $+1.0$ mỗi bước con lắc không đổ |
-| **MountainCar-v0** | $\mathbb{R}^2$: $[\text{vị trí } x, \text{vận tốc } v]$ | Discrete(3): $\{$Ga trái, Không ga, Ga phải$\}$ | $-1.0$ mỗi bước cho tới khi chạm cờ trên đỉnh |
-| **Acrobot-v1** | $\mathbb{R}^6$: Sin/Cos của 2 khớp xoay | Discrete(3): Mô-men xoắn $\{-1, 0, +1\}$ | $-1.0$ mỗi bước cho tới khi nâng chân quá vạch |
-| **BipedalWalker-v2** | $\mathbb{R}^{24}$: Góc khớp, vận tốc, tiếp xúc đất | $\mathbb{R}^4$: Mô-men xoắn liên tục 4 khớp | Thưởng quãng đường tiến, phạt tiêu hao năng lượng |
-| **Giao dịch Tài chính**| $\mathbb{R}^{30}$: Lịch sử nến, RSI, MACD, vị thế | Discrete(3): $\{$Mua, Bán, Giữ$\}$ | Tỷ suất sinh lời PnL hoặc hệ số Sharpe gia tăng |
+| **CartPole-v1** | $`\mathbb{R}^4`$: $`[x, \dot{x}, \theta, \dot{\theta}]`$ | Discrete(2): {Đẩy trái, Đẩy phải} | $`+1.0`$ mỗi bước con lắc không đổ |
+| **MountainCar-v0** | $`\mathbb{R}^2`$: [vị trí $`x`$, vận tốc $`v`$] | Discrete(3): {Ga trái, Không ga, Ga phải} | $`-1.0`$ mỗi bước cho tới khi chạm cờ trên đỉnh |
+| **Acrobot-v1** | $`\mathbb{R}^6`$: Sin/Cos của 2 khớp xoay | Discrete(3): Mô-men xoắn $`\{-1, 0, +1\}`$ | $`-1.0`$ mỗi bước cho tới khi nâng chân quá vạch |
+| **BipedalWalker-v2** | $`\mathbb{R}^{24}`$: Góc khớp, vận tốc, tiếp xúc đất | $`\mathbb{R}^4`$: Mô-men xoắn liên tục 4 khớp | Thưởng quãng đường tiến, phạt tiêu hao năng lượng |
+| **Giao dịch Tài chính**| $`\mathbb{R}^{30}`$: Lịch sử nến, RSI, MACD, vị thế | Discrete(3): {Mua, Bán, Giữ} | Tỷ suất sinh lời PnL hoặc hệ số Sharpe gia tăng |
 
 ---
 

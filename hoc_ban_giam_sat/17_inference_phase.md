@@ -124,10 +124,10 @@ Bảng so sánh tài nguyên và độ trễ phục vụ giữa các chiến lư
 
 | Chiến lược phục vụ | Định dạng đóng gói | Bộ nhớ RAM phục vụ | P95 Latency | Khả năng mở rộng ngang (Horizontal Scale) |
 | :--- | :--- | :--- | :--- | :--- |
-| **Self-Training (Tree/Linear)** | Joblib / Treelite | $< 50\text{ MB}$ | **1.2 ms** | Rất dễ (Stateless microservices) |
-| **Label Spreading (k-NN)** | Ma trận đồ thị + FAISS | $500\text{ MB} - 2\text{ GB}$ | **15.4 ms** | Trung bình (Cần lưu trữ tập mẫu tham chiếu) |
-| **Student Distillation** | ONNX Runtime | $< 100\text{ MB}$ | **2.5 ms** | Rất dễ (Stateless microservices) |
-| **Deep SSL (FixMatch EMA)** | ONNX / TensorRT (GPU) | $1\text{ GB} - 4\text{ GB}$ | **8.0 ms** | Cần hỗ trợ GPU worker pool |
+| **Self-Training (Tree/Linear)** | Joblib / Treelite | $`< 50\text{ MB}`$ | **1.2 ms** | Rất dễ (Stateless microservices) |
+| **Label Spreading (k-NN)** | Ma trận đồ thị + FAISS | $`500\text{ MB} - 2\text{ GB}`$ | **15.4 ms** | Trung bình (Cần lưu trữ tập mẫu tham chiếu) |
+| **Student Distillation** | ONNX Runtime | $`< 100\text{ MB}`$ | **2.5 ms** | Rất dễ (Stateless microservices) |
+| **Deep SSL (FixMatch EMA)** | ONNX / TensorRT (GPU) | $`1\text{ GB} - 4\text{ GB}`$ | **8.0 ms** | Cần hỗ trợ GPU worker pool |
 
 ---
 

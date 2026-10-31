@@ -114,8 +114,8 @@ Môi trường kiểm chuẩn kinh điển: **Trò chơi Xì dách (Blackjack / 
 | :--- | :--- | :--- |
 | **Không gian trạng thái $`\mathcal{S}`$** | Bộ 3 thành phần: $`(s_1, s_2, s_3)`$ | - $`s_1 \in [12, 21]`$: Tổng điểm hiện tại của người chơi.<br>- $`s_2 \in [1, 10]`$: Điểm lá bài ngửa của nhà cái (1 là Át).<br>- $`s_3 \in \lbrace \text{True}, \text{False} \rbrace`$: Người chơi có lá Át dùng được (Usable Ace = 11 điểm mà không quắc) hay không. |
 | **Không gian hành động $`\mathcal{A}`$** | Discrete(2): $`\lbrace 0, 1 \rbrace`$ | - 0: Dừng bài (Stick).<br>- 1: Rút thêm bài (Hit). |
-| **Phần thưởng $`R`$** | Điểm số vô hướng cuối ván | $+1.0$ (Thắng), $-1.0$ (Thua / Quắc), $0.0$ (Hòa). Mọi bước rút trung gian nhận thưởng $0$. |
-| **Hệ số chiết khấu $`\gamma`$** | $1.0$ | Trò chơi có độ dài hữu hạn ($2 \to 5$ bước), không chiết khấu điểm số. |
+| **Phần thưởng $`R`$** | Điểm số vô hướng cuối ván | $`+1.0`$ (Thắng), $`-1.0`$ (Thua / Quắc), $`0.0`$ (Hòa). Mọi bước rút trung gian nhận thưởng $`0`$. |
+| **Hệ số chiết khấu $`\gamma`$** | $`1.0`$ | Trò chơi có độ dài hữu hạn ($`2 \to 5`$ bước), không chiết khấu điểm số. |
 
 ---
 

@@ -166,11 +166,11 @@ $$
 
 Bảng so sánh phương thức giải phương trình Bellman theo quy mô không gian trạng thái:
 
-| Quy mô trạng thái $|\mathcal{S}|$ | Phương pháp giải Bellman khả thi | Độ phức tạp tính toán | Ứng dụng thực tế |
+| Quy mô trạng thái $`|\mathcal{S}|`$ | Phương pháp giải Bellman khả thi | Độ phức tạp tính toán | Ứng dụng thực tế |
 | :--- | :--- | :--- | :--- |
-| **Nhỏ ($|\mathcal{S}| < 1,000$)** | Nghịch đảo ma trận giải tích đóng $(I - \gamma P)^{-1}$ | $O(|\mathcal{S}|^3)$ | Phân tích bài toán đồ chơi (Two-state, GridWorld nhỏ) |
-| **Vừa ($|\mathcal{S}| < 10^5$)** | Lặp giá trị Bellman (Dynamic Programming Value Iteration) | $O(K \cdot |\mathcal{S}|^2 \cdot |\mathcal{A}|)$ | Mê cung vừa, quản lý tồn kho, định tuyến mạng |
-| **Lớn ($|\mathcal{S}| > 10^6$)** | Lấy mẫu Model-Free (TD Learning, Q-Learning) | Tuyến tính theo bước mẫu | Đồ thị lớn, trò chơi bàn cờ đơn giản |
+| **Nhỏ ($`|\mathcal{S}| < 1,000`$)** | Nghịch đảo ma trận giải tích đóng $`(I - \gamma P)^{-1}`$ | $`O(|\mathcal{S}|^3)`$ | Phân tích bài toán đồ chơi (Two-state, GridWorld nhỏ) |
+| **Vừa ($`|\mathcal{S}| < 10^5`$)** | Lặp giá trị Bellman (Dynamic Programming Value Iteration) | $`O(K \cdot |\mathcal{S}|^2 \cdot |\mathcal{A}|)`$ | Mê cung vừa, quản lý tồn kho, định tuyến mạng |
+| **Lớn ($`|\mathcal{S}| > 10^6`$)** | Lấy mẫu Model-Free (TD Learning, Q-Learning) | Tuyến tính theo bước mẫu | Đồ thị lớn, trò chơi bàn cờ đơn giản |
 | **Vô hạn / Liên tục** | Xấp xỉ hàm giá trị tham số (Deep Q-Networks / Bellman Loss) | Phụ thuộc mạng nơ-ron | Robot tự hành, xe tự lái, game Atari |
 
 ---

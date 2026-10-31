@@ -126,11 +126,11 @@ Môi trường kiểm chuẩn kinh điển: **Taxi-v3 (Gymnasium / OpenAI Gym - 
 
 | Đặc tính môi trường | Thông số kỹ thuật | Ý nghĩa nghiệp vụ |
 | :--- | :--- | :--- |
-| **Bản đồ thế giới** | Lưới $5 \times 5$ (25 ô tọa độ) | Mê cung các tuyến phố có rào cản |
+| **Bản đồ thế giới** | Lưới $`5 \times 5`$ (25 ô tọa độ) | Mê cung các tuyến phố có rào cản |
 | **Điểm đón/trả khách** | 4 vị trí cố định: R, G, Y, B | Red, Green, Yellow, Blue |
-| **Không gian trạng thái $|\mathcal{S}|$** | $25 \times 5 \times 4 = 500$ trạng thái | Tọa độ xe ($25$) $\times$ Vị trí khách ($4$ điểm hoặc trên xe) $\times$ Điểm đích ($4$) |
-| **Không gian hành động $|\mathcal{A}|$** | Discrete(6): $\{0, 1, 2, 3, 4, 5\}$ | 4 hướng di chuyển: Nam, Bắc, Đông, Tây<br>2 thao tác: Đón khách (Pickup), Trả khách (Dropoff) |
-| **Cơ cấu phần thưởng** | - $+20.0$: Trả khách thành công tại đúng điểm đích.<br>- $-10.0$: Đón hoặc trả khách sai quy định.<br>- $-1.0$: Chi phí mỗi bước di chuyển tìm đường. | Khuyến khích tối ưu quãng đường và tránh thao tác thừa. |
+| **Không gian trạng thái $`|\mathcal{S}|`$** | $`25 \times 5 \times 4 = 500`$ trạng thái | Tọa độ xe ($`25`$) $`\times`$ Vị trí khách ($`4`$ điểm hoặc trên xe) $`\times`$ Điểm đích ($`4`$) |
+| **Không gian hành động $`|\mathcal{A}|`$** | Discrete(6): $`\lbrace0, 1, 2, 3, 4, 5\rbrace`$ | 4 hướng di chuyển: Nam, Bắc, Đông, Tây<br>2 thao tác: Đón khách (Pickup), Trả khách (Dropoff) |
+| **Cơ cấu phần thưởng** | - $`+20.0`$: Trả khách thành công tại đúng điểm đích.<br>- $`-10.0`$: Đón hoặc trả khách sai quy định.<br>- $`-1.0`$: Chi phí mỗi bước di chuyển tìm đường. | Khuyến khích tối ưu quãng đường và tránh thao tác thừa. |
 
 ---
 

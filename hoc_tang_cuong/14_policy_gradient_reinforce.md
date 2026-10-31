@@ -1,6 +1,6 @@
 # Gradient Chính Sách Trực Tiếp Và Thuật Toán REINFORCE
 
-Trong khi các phương pháp dựa trên giá trị (Value-Based như Q-Learning, DQN) phải tối ưu hóa hàm giá trị $`Q(s, a)`$ trước rồi mới suy ra chính sách hành động thông qua toán tử $\arg\max$, các phương pháp Gradient Chính sách (Policy Gradient Methods) tham số hóa và tối ưu hóa trực tiếp hàm chính sách $`\pi_\theta(a|s)`$. Tài liệu này phân tích chi tiết nền tảng lý thuyết của Định lý Gradient Chính sách (Policy Gradient Theorem), thuật toán kinh điển REINFORCE của Ronald Williams (1992), và kỹ thuật triệt tiêu phương sai bằng hàm Baseline.
+Trong khi các phương pháp dựa trên giá trị (Value-Based như Q-Learning, DQN) phải tối ưu hóa hàm giá trị $`Q(s, a)`$ trước rồi mới suy ra chính sách hành động thông qua toán tử $`\arg\max`$, các phương pháp Gradient Chính sách (Policy Gradient Methods) tham số hóa và tối ưu hóa trực tiếp hàm chính sách $`\pi_\theta(a|s)`$. Tài liệu này phân tích chi tiết nền tảng lý thuyết của Định lý Gradient Chính sách (Policy Gradient Theorem), thuật toán kinh điển REINFORCE của Ronald Williams (1992), và kỹ thuật triệt tiêu phương sai bằng hàm Baseline.
 
 ---
 

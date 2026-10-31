@@ -69,7 +69,7 @@ Slide bài giảng xác định 4 trụ cột thuật toán kinh điển trong h
 | **1. Self-Training** | Mô hình tự dự đoán trên tập không nhãn, chọn các mẫu tự tin nhất làm giả nhãn rồi tự huấn luyện lại. | Dữ liệu dạng bảng (Tabular), bài toán phân loại tổng quát. |
 | **2. Co-Training** | Huấn luyện nhiều mô hình trên các góc nhìn độc lập (Views) của dữ liệu, các mô hình gán nhãn chéo cho nhau. | Dữ liệu đa góc nhìn (Multi-view: Web, Văn bản + Ảnh, Đa cảm biến). |
 | **3. Semi-Supervised SVM (SS-SVM)** | Mở rộng SVM truyền thống, tối đa hóa khoảng cách lề (margin) đồng thời đẩy ranh giới phân chia ra khỏi vùng dữ liệu không nhãn dày đặc. | Dữ liệu bảng, không gian đặc trưng chiều cao, tập dữ liệu quy mô nhỏ/vừa. |
-| **4. Generative Models (VAEs, GANs)** | Mô hình hóa phân phối đồng thời $p(x, y)$, dùng mạng sinh sinh dữ liệu tổng hợp hoặc trích xuất biểu diễn tiềm ẩn. | Dữ liệu hình ảnh, âm thanh, phân tích mật độ phân phối phức tạp. |
+| **4. Generative Models (VAEs, GANs)** | Mô hình hóa phân phối đồng thời $`p(x, y)`$, dùng mạng sinh sinh dữ liệu tổng hợp hoặc trích xuất biểu diễn tiềm ẩn. | Dữ liệu hình ảnh, âm thanh, phân tích mật độ phân phối phức tạp. |
 
 ---
 

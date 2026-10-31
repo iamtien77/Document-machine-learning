@@ -150,7 +150,7 @@ Bảng so sánh hiệu quả tiết kiệm mẫu của Active Learning kết h�
 | Bài toán | Loại dữ liệu | Tỷ lệ nhãn cần thiết (Random) | Tỷ lệ nhãn cần thiết (Active + SSL) | Mức tiết kiệm chi phí nhãn |
 | :--- | :--- | :--- | :--- | :--- |
 | **Phân tích Cảm xúc Văn bản (IMDB)** | Văn bản thô | 10,000 nhãn (đạt 88% Acc) | **1,500 nhãn** | **85.0%** |
-| **Phân loại Chữ số (MNIST/Digits)** | Ảnh đơn sắc $8 \times 8$ | 1,000 nhãn (đạt 95% Acc) | **150 nhãn** | **85.0%** |
+| **Phân loại Chữ số (MNIST/Digits)** | Ảnh đơn sắc $`8 \times 8`$ | 1,000 nhãn (đạt 95% Acc) | **150 nhãn** | **85.0%** |
 | **Phát hiện Bệnh học X-Ray** | Ảnh y tế ngực | 5,000 nhãn chuyên gia | **800 nhãn chuyên gia** | **84.0%** |
 | **Phân loại Văn bản Pháp lý** | Hợp đồng / Văn bản dài | 2,500 nhãn luật sư | **400 nhãn luật sư** | **84.0%** |
 

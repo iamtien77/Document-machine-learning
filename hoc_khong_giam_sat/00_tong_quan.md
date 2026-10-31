@@ -148,11 +148,11 @@ print(f"Silhouette Score: {sil_score:.4f}")
 
 | Thuật ngữ tiếng Anh | Thuật ngữ tiếng Việt | Định nghĩa & Trực giác cốt lõi |
 |---|---|---|
-| **Unsupervised Learning** | Học không giám sát | Học cấu trúc, phân phối và quan hệ nội tại chỉ từ ma trận $X$ không có nhãn $y$. |
+| **Unsupervised Learning** | Học không giám sát | Học cấu trúc, phân phối và quan hệ nội tại chỉ từ ma trận $`X`$ không có nhãn $`y`$. |
 | **Clustering** | Gom cụm / Phân cụm | Nhóm các quan sát tương đồng lại với nhau sao cho độ tương đồng nội cụm cao nhất. |
 | **Centroid** | Tâm cụm | Vector trung bình trọng số đại diện cho vị trí trung tâm của một cụm. |
 | **Density-based** | Dựa trên mật độ | Nhóm các vùng không gian có mật độ điểm cao, cách nhau bởi vùng thưa thớt. |
-| **Dimensionality Reduction** | Giảm chiều dữ liệu | Chiếu dữ liệu từ không gian $p$ chiều lớn xuống không gian $d$ chiều nhỏ hơn ($d \ll p$). |
+| **Dimensionality Reduction** | Giảm chiều dữ liệu | Chiếu dữ liệu từ không gian $`p`$ chiều lớn xuống không gian $`d`$ chiều nhỏ hơn ($`d \ll p`$). |
 | **Inertia / WCSS** | Tổng bình phương nội cụm | Thước đo độ nén chặt của các cụm xung quanh tâm trong K-Means. |
 | **Silhouette Score** | Hệ số dáng dấp | Đo lường độ gắn kết nội cụm so với độ tách biệt với cụm láng giềng gần nhất. |
 | **Cluster Profiling** | Đặc tả cụm | Diễn giải ý nghĩa kinh doanh của từng cụm dựa trên phân phối đặc trưng. |

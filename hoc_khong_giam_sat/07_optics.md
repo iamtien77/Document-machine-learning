@@ -176,7 +176,7 @@ print(f"Số cụm phát hiện (theo dbscan eps=0.5): {len(set(labels_dbscan)) 
 | **Core Distance** | Khoảng cách lõi | Khoảng cách nhỏ nhất từ một điểm tới láng giềng thứ $`\text{MinPts}`$ của nó. |
 | **Reachability Distance** | Khoảng cách khả đạt | Độ đo cực đại giữa khoảng cách lõi của điểm gốc và khoảng cách thực tế tới điểm đích. |
 | **Reachability Plot** | Biểu đồ khả đạt | Đồ thị 2D biểu diễn khoảng cách khả đạt theo thứ tự duyệt; các thung lũng đại diện cho cụm. |
-| **Xi Extraction ($\xi$)** | Trích xuất theo độ dốc | Kỹ thuật tự động phát hiện cụm phân cấp dựa trên tỷ lệ sườn dốc suy giảm mật độ của thung lũng. |
+| **Xi Extraction ($`\xi`$)** | Trích xuất theo độ dốc | Kỹ thuật tự động phát hiện cụm phân cấp dựa trên tỷ lệ sườn dốc suy giảm mật độ của thung lũng. |
 
 ---
 

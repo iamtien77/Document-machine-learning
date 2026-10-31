@@ -15,10 +15,10 @@ Bảng dưới đây tổng hợp tiến trình tiến hóa của các phương 
 | Thuật toán | Năm | Cơ chế cốt lõi | Đột phá chính | Hạn chế |
 | :--- | :--- | :--- | :--- | :--- |
 | **Pseudo-Label** (Lee) | 2013 | Hard Pseudo-labeling sau mỗi epoch | Đơn giản, dễ tích hợp | Dễ tích lũy lỗi (confirmation bias) khi mạng chưa hội tụ |
-| **$\Pi$-Model** (Laine & Aila) | 2016 | Consistency giữa 2 lần feedforward cùng mẫu | Khởi xướng ràng buộc nhất quán thời gian thực | Kháng nhiễu yếu, tốc độ hội tụ chậm |
+| **$`\Pi`$-Model** (Laine & Aila) | 2016 | Consistency giữa 2 lần feedforward cùng mẫu | Khởi xướng ràng buộc nhất quán thời gian thực | Kháng nhiễu yếu, tốc độ hội tụ chậm |
 | **Temporal Ensembling** | 2016 | So sánh dự đoán hiện tại với moving average lịch sử | Giảm phương sai dự đoán | Cập nhật chậm qua từng epoch, tốn bộ nhớ lưu trữ |
 | **Mean Teacher** (Tarvainen) | 2017 | EMA trọng số mô hình sinh target nhất quán | Cập nhật mục tiêu liên tục theo từng step huấn luyện | Đòi hỏi điều chỉnh hệ số phân rã EMA nhạy cảm |
-| **MixMatch** (Berthelot et al.) | 2019 | Tăng cường $K$ lần + Sharpening + MixUp đa tầng | Đồng thời tối ưu tính trơn và cực tiểu entropy | Chi phí tính toán cao ($K$ lần suy luận cho mỗi mẫu) |
+| **MixMatch** (Berthelot et al.) | 2019 | Tăng cường $`K`$ lần + Sharpening + MixUp đa tầng | Đồng thời tối ưu tính trơn và cực tiểu entropy | Chi phí tính toán cao ($`K`$ lần suy luận cho mỗi mẫu) |
 | **UDA** (Xie et al.) | 2020 | Unsupervised Data Augmentation + RandAugment/TSA | Chứng minh vai trò sống còn của Strong Augmentation | Yêu cầu chính sách tăng cường nâng cao tinh vi |
 | **FixMatch** (Sohn et al.) | 2020 | Weak-Strong Augmentation + Hard Thresholding | Đơn giản tối đa, đạt hiệu năng SOTA kỷ lục | Ngưỡng tự tin cố định gây bất lợi cho lớp khó/ít mẫu |
 | **FlexMatch** (Zhang et al.) | 2021 | Curriculum Pseudo-Labeling (CPL) ngưỡng động | Tự điều chỉnh ngưỡng theo độ khó và tiến độ từng lớp | Phức tạp hơn trong cài đặt theo dõi động thái lớp |
@@ -262,11 +262,11 @@ Deep SSL được thiết kế chuyên biệt cho các tập dữ liệu có quy
 
 | Tập dữ liệu | Bản chất dữ liệu | Số lớp | Kích thước ảnh | Cấu hình SSL kinh điển | Hiệu năng FixMatch (Error %) |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **CIFAR-10** | Ảnh tự nhiên 10 đối tượng | 10 | $32 \times 32 \times 3$ | 40 nhãn (4 nhãn/lớp)<br>250 nhãn (25 nhãn/lớp)<br>4000 nhãn | **13.81%** (40 nhãn)<br>**5.07%** (250 nhãn)<br>**4.26%** (4000 nhãn) |
-| **CIFAR-100** | Đối tượng chi tiết 100 lớp | 100 | $32 \times 32 \times 3$ | 400 nhãn (4 nhãn/lớp)<br>2500 nhãn (25 nhãn/lớp) | **46.40%** (400 nhãn)<br>**28.29%** (2500 nhãn) |
-| **SVHN** | Chữ số địa chỉ nhà phố | 10 | $32 \times 32 \times 3$ | 40 nhãn (4 nhãn/lớp)<br>250 nhãn (25 nhãn/lớp) | **3.96%** (40 nhãn)<br>**2.48%** (250 nhãn) |
-| **STL-10** | Ảnh tự nhiên độ phân giải cao | 10 | $96 \times 96 \times 3$ | 1000 nhãn có sẵn + 100k ảnh không nhãn ngoài tập | **5.17%** (vượt qua supervised trên toàn bộ tập) |
-| **ImageNet-1K** | Phân loại thị giác quy mô lớn | 1000 | $224 \times 224 \times 3$ | 10% có nhãn (~128k ảnh)<br>1% có nhãn (~12.8k ảnh) | **28.5%** Top-1 Error (10% nhãn) |
+| **CIFAR-10** | Ảnh tự nhiên 10 đối tượng | 10 | $`32 \times 32 \times 3`$ | 40 nhãn (4 nhãn/lớp)<br>250 nhãn (25 nhãn/lớp)<br>4000 nhãn | **13.81%** (40 nhãn)<br>**5.07%** (250 nhãn)<br>**4.26%** (4000 nhãn) |
+| **CIFAR-100** | Đối tượng chi tiết 100 lớp | 100 | $`32 \times 32 \times 3`$ | 400 nhãn (4 nhãn/lớp)<br>2500 nhãn (25 nhãn/lớp) | **46.40%** (400 nhãn)<br>**28.29%** (2500 nhãn) |
+| **SVHN** | Chữ số địa chỉ nhà phố | 10 | $`32 \times 32 \times 3`$ | 40 nhãn (4 nhãn/lớp)<br>250 nhãn (25 nhãn/lớp) | **3.96%** (40 nhãn)<br>**2.48%** (250 nhãn) |
+| **STL-10** | Ảnh tự nhiên độ phân giải cao | 10 | $`96 \times 96 \times 3`$ | 1000 nhãn có sẵn + 100k ảnh không nhãn ngoài tập | **5.17%** (vượt qua supervised trên toàn bộ tập) |
+| **ImageNet-1K** | Phân loại thị giác quy mô lớn | 1000 | $`224 \times 224 \times 3`$ | 10% có nhãn (~128k ảnh)<br>1% có nhãn (~12.8k ảnh) | **28.5%** Top-1 Error (10% nhãn) |
 
 ---
 

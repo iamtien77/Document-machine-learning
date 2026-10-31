@@ -134,7 +134,7 @@ Bảng đối chiếu đặc điểm thực nghiệm giữa dữ liệu bài t�
 | Khía cạnh | Dữ liệu Bài tập / Slide (`make_moons`) | Dữ liệu Thực tế (Production / IoT) |
 |---|---|---|
 | **Mật độ cụm** | Mật độ phân bố đồng đều hoàn hảo trên các cụm. | Các cụm có mật độ lệch nhau rất lớn (vùng trung tâm dày, vùng rìa thưa thớt). |
-| **Lựa chọn Epsilon ($`\varepsilon`$)**| Điểm gập trên đồ thị K-Distance rất rõ ràng. | Đường cong K-Distance trơn tru, rất khó tìm một ngưỡng $\varepsilon$ tối ưu duy nhất. |
+| **Lựa chọn Epsilon ($`\varepsilon`$)**| Điểm gập trên đồ thị K-Distance rất rõ ràng. | Đường cong K-Distance trơn tru, rất khó tìm một ngưỡng $`\varepsilon`$ tối ưu duy nhất. |
 | **Xử lý Điểm nhiễu** | Chỉ có vài điểm nhiễu cô lập rải rác. | Dữ liệu thực tế có thể chứa 20% - 40% là nhiễu, cần phân biệt giữa nhiễu thật và cụm thưa. |
 | **Bộ nhớ & Thời gian** | Chạy xong trong vài phần trăm giây với $`n = 1.000`$. | Dữ liệu hàng triệu dòng GPS gây nghẽn bộ nhớ; phải dùng Mini-Batch hoặc HDBSCAN. |
 

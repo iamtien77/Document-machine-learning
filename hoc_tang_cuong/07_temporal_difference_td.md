@@ -84,7 +84,7 @@ $$
 | Đặc tính so sánh | Quy hoạch động (DP) | Monte Carlo (MC) | Học sai phân thời gian (TD) |
 | :--- | :--- | :--- | :--- |
 | **Cần mô hình môi trường?** | **Bắt buộc** (Model-Based) | **Không cần** (Model-Free) | **Không cần** (Model-Free) |
-| **Cơ chế Bootstrapping?** | **Có** (Dùng $V(s')$ lặp lại) | **Không** (Dùng Return thực tế $G$) | **Có** (Dùng $V(s')$ lặp lại) |
+| **Cơ chế Bootstrapping?** | **Có** (Dùng $`V(s')`$ lặp lại) | **Không** (Dùng Return thực tế $`G`$) | **Có** (Dùng $`V(s')`$ lặp lại) |
 | **Cơ chế Lấy mẫu (Sampling)?** | **Không** (Quét hết phân bố) | **Có** (Lấy mẫu ngẫu nhiên) | **Có** (Lấy mẫu từng bước) |
 | **Thời điểm cập nhật** | Sau mỗi lượt quét ma trận | **Phải đợi hết episode** | **Ngay sau từng bước chuyển** |
 | **Áp dụng cho bài toán vô hạn?**| Có | **Không thể** | **Rất tốt** |

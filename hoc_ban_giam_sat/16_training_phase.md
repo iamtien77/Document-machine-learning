@@ -139,7 +139,7 @@ Trọng số $`\theta_{\mathrm{EMA}}`$ có bề mặt mất mát (loss landscape
 
 Bảng tham số cấu hình pha huấn luyện chuẩn mực cho các quy mô bài toán khác nhau:
 
-| Quy mô bài toán | Kích thước $ `B_L` $ | Tỷ lệ $\mu$ | Kích thước $ `B_U` $ | Tốc độ học (lr) | Warm-up Steps | Ngưỡng $\tau$ |
+| Quy mô bài toán | Kích thước $` `B_L` `$ | Tỷ lệ $`\mu`$ | Kích thước $` `B_U` `$ | Tốc độ học (lr) | Warm-up Steps | Ngưỡng $`\tau`$ |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Nhỏ (Small Tabular)** | 32 | 2 | 64 | 1e-3 | 500 steps | 0.80 |
 | **Vừa (Medium Vision)** | 64 | 5 | 320 | 3e-4 | 2,000 steps | 0.90 |

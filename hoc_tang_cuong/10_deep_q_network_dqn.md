@@ -153,11 +153,11 @@ Trong đó $`e = y_i - Q_\theta(s_i, a_i)`$. Hàm này hoạt động như MSE k
 
 Bảng môi trường chuẩn hóa thường dùng để đánh giá DQN:
 
-| Môi trường | Kích thước trạng thái $\mathcal{S}$ | Số hành động $|\mathcal{A}|$ | Mục tiêu giải quyết chuẩn |
+| Môi trường | Kích thước trạng thái $`\mathcal{S}`$ | Số hành động $`|\mathcal{A}|`$ | Mục tiêu giải quyết chuẩn |
 | :--- | :--- | :--- | :--- |
-| **CartPole-v1** | Liên tục 4 chiều: $[x, \dot{x}, \theta, \dot{\theta}]$ | 2 (Trái, Phải) | Điểm trung bình $\ge 475.0$ qua 100 episodes liên tiếp |
-| **LunarLander-v2** | Liên tục 8 chiều: Tọa độ, vận tốc, góc, tiếp đất | 4 (Tắt, Đẩy trái, Đẩy chính, Đẩy phải) | Điểm trung bình $\ge 200.0$ |
-| **Atari Breakout** | Hình ảnh $84 \times 84 \times 4$ pixels | 4 (Không làm gì, Bắn bóng, Sang trái, Sang phải) | Vượt qua điểm số trung bình người chơi con người |
+| **CartPole-v1** | Liên tục 4 chiều: $`[x, \dot{x}, \theta, \dot{\theta}]`$ | 2 (Trái, Phải) | Điểm trung bình $`\ge 475.0`$ qua 100 episodes liên tiếp |
+| **LunarLander-v2** | Liên tục 8 chiều: Tọa độ, vận tốc, góc, tiếp đất | 4 (Tắt, Đẩy trái, Đẩy chính, Đẩy phải) | Điểm trung bình $`\ge 200.0`$ |
+| **Atari Breakout** | Hình ảnh $`84 \times 84 \times 4`$ pixels | 4 (Không làm gì, Bắn bóng, Sang trái, Sang phải) | Vượt qua điểm số trung bình người chơi con người |
 
 ---
 

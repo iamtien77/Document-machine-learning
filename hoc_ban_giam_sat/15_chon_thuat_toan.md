@@ -114,16 +114,16 @@ $$
 
 ### 2. Ma Trận So Sánh Toàn Diện Các Giải Thuật Bán Giám Sát
 
-| Thuật toán | Loại hình học | Dạng dữ liệu tối ưu | Quy mô mẫu ($N$) | Ưu điểm cốt lõi | Rủi ro chính |
+| Thuật toán | Loại hình học | Dạng dữ liệu tối ưu | Quy mô mẫu ($`N`$) | Ưu điểm cốt lõi | Rủi ro chính |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Self-Training** | Inductive | Bảng, Văn bản | $N > 1,000,000$ | Dễ cài đặt, tương thích mọi base classifier | Tích lũy lỗi (Confirmation bias) |
-| **Co-Training** | Inductive | Web, Đa cảm biến | $N < 100,000$ | Hai view sửa lỗi chéo lẫn nhau | Đòi hỏi điều kiện chia view độc lập khắt khe |
-| **Tri-Training** | Inductive | Bảng, Y tế | $N < 100,000$ | Không cần chia view, cơ chế bỏ phiếu 2/3 an toàn | Chi phí nhân 3 thời gian huấn luyện |
-| **Label Propagation** | Transductive | Đồ thị, Mạng xã hội | $N < 20,000$ | Rất nhanh, hội tụ nghiệm đóng | Nhạy cảm với nhiễu nhãn ban đầu |
-| **Label Spreading** | Transductive | Đồ thị, Phân cụm | $N < 30,000$ | Kháng nhiễu cực tốt nhờ hệ số kẹp $\alpha$ | Tốn bộ nhớ $O(N^2)$ ma trận kề |
-| **S3VM / TSVM** | Transductive | Bảng, Hóa học | $N < 5,000$ | Cực đại hóa lề bao gồm cả mẫu không nhãn | Độ phức tạp tổ hợp NP-hard, chậm với $N$ lớn |
-| **Generative SSL** | Inductive | Mật độ, Ảnh, Tabular | $N < 50,000$ | Tận dụng mô hình sinh phân phối $p(x)$ | Dễ sụp đổ nếu giả định phân phối sai lệch |
-| **Consistency / FixMatch**| Inductive | Ảnh, Âm thanh, Text | $N > 10,000$ | Hiệu năng SOTA, tận dụng tối đa dữ liệu lớn | Đòi hỏi tài nguyên GPU, thiết kế augmentation mạnh |
+| **Self-Training** | Inductive | Bảng, Văn bản | $`N > 1,000,000`$ | Dễ cài đặt, tương thích mọi base classifier | Tích lũy lỗi (Confirmation bias) |
+| **Co-Training** | Inductive | Web, Đa cảm biến | $`N < 100,000`$ | Hai view sửa lỗi chéo lẫn nhau | Đòi hỏi điều kiện chia view độc lập khắt khe |
+| **Tri-Training** | Inductive | Bảng, Y tế | $`N < 100,000`$ | Không cần chia view, cơ chế bỏ phiếu 2/3 an toàn | Chi phí nhân 3 thời gian huấn luyện |
+| **Label Propagation** | Transductive | Đồ thị, Mạng xã hội | $`N < 20,000`$ | Rất nhanh, hội tụ nghiệm đóng | Nhạy cảm với nhiễu nhãn ban đầu |
+| **Label Spreading** | Transductive | Đồ thị, Phân cụm | $`N < 30,000`$ | Kháng nhiễu cực tốt nhờ hệ số kẹp $`\alpha`$ | Tốn bộ nhớ $`O(N^2)`$ ma trận kề |
+| **S3VM / TSVM** | Transductive | Bảng, Hóa học | $`N < 5,000`$ | Cực đại hóa lề bao gồm cả mẫu không nhãn | Độ phức tạp tổ hợp NP-hard, chậm với $`N`$ lớn |
+| **Generative SSL** | Inductive | Mật độ, Ảnh, Tabular | $`N < 50,000`$ | Tận dụng mô hình sinh phân phối $`p(x)`$ | Dễ sụp đổ nếu giả định phân phối sai lệch |
+| **Consistency / FixMatch**| Inductive | Ảnh, Âm thanh, Text | $`N > 10,000`$ | Hiệu năng SOTA, tận dụng tối đa dữ liệu lớn | Đòi hỏi tài nguyên GPU, thiết kế augmentation mạnh |
 
 ---
 
