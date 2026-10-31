@@ -232,3 +232,4 @@ else:
 - [1] [scikit-learn User Guide: Pipeline and Composite Estimators](https://scikit-learn.org/stable/modules/compose.html).
 - [2] Von Luxburg, U. (2010). *Clustering stability: an overview*. Foundations and Trends in Machine Learning, 2(3), 235-274.
 - [3] Mitchell, M. et al. (2019). *Model Cards for Model Reporting*. Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT*), 220-229.
+

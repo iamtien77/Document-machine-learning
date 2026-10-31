@@ -284,3 +284,4 @@ print(f"Hệ số Silhouette trên tập mẫu kiểm tra: {sample_silhouette:.4
 - [2] Han, J., Kamber, M., & Pei, J. (2011). *Data Mining: Concepts and Techniques* (Chapter 10.4: Grid-Based and Hierarchy-Based Clustering). Morgan Kaufmann.
 - [3] [scikit-learn User Guide: Birch](https://scikit-learn.org/stable/modules/clustering.html#birch).
 - [4] Aggarwal, C. C. (2015). *Data Mining: The Textbook* (Chapter 6: Cluster Analysis). Springer.
+

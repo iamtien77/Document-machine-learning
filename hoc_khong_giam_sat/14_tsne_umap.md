@@ -272,3 +272,4 @@ print(f"Mẫu tọa độ 3 điểm đầu tiên:\n{X_tsne_2d[:3]}")
 - [2] McInnes, L., Healy, J., & Melville, J. (2018). *UMAP: Uniform manifold approximation and projection for dimension reduction*. arXiv preprint arXiv:1802.03426.
 - [3] Venna, J., & Kaski, S. (2006). *Local multidimensional scaling with applications*. Neural Networks, 19(6-7), 889-899.
 - [4] [scikit-learn User Guide: Manifold learning (t-SNE)](https://scikit-learn.org/stable/modules/manifold.html#t-sne).
+

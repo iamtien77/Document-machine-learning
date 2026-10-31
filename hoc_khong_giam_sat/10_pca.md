@@ -269,3 +269,4 @@ print(f"Tỷ lệ phương sai giải thích của 2 thành phần đầu tiên:
 - [3] Schölkopf, B., Smola, A., & Müller, K. R. (1998). *Nonlinear component analysis as a kernel eigenvalue problem*. Neural Computation, 10(5), 1299-1319.
 - [4] Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning* (Chapter 14.5: Principal Components, pp. 534-544). Springer.
 - [5] [scikit-learn User Guide: Decomposing signals in components (Matrix decomposition problems)](https://scikit-learn.org/stable/modules/decomposition.html#pca).
+

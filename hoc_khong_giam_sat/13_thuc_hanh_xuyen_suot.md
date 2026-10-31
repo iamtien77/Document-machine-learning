@@ -218,3 +218,4 @@ flowchart TD
 - [1] Forina, M. et al. (1988). *PARVUS - An Extendible Package for Data Exploration, Classification and Correlation*. Institute of Pharmaceutical and Food Analysis and Technologies, Genoa.
 - [2] Hubert, L., & Arabie, P. (1985). *Comparing partitions*. Journal of Classification, 2(1), 193-218.
 - [3] [scikit-learn User Guide: Pipeline and FeatureUnion](https://scikit-learn.org/stable/modules/compose.html#pipeline).
+

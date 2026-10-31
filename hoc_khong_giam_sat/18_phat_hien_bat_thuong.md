@@ -221,3 +221,4 @@ print(f"Tỷ lệ đồng thuận nhãn giữa iForest và LOF: {agreement:.2f}%
 - [2] Breunig, M. M., Kriegel, H. P., Ng, R. T., & Sander, J. (2000). *LOF: identifying density-based local outliers*. ACM SIGMOD Record, 29(2), 93-104.
 - [3] Rousseeuw, P. J., & Driessen, K. V. (1999). *A fast algorithm for the minimum covariance determinant estimator*. Technometrics, 41(3), 212-223.
 - [4] [scikit-learn User Guide: Novelty and Outlier Detection](https://scikit-learn.org/stable/modules/outlier_detection.html).
+
