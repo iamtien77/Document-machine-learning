@@ -232,3 +232,4 @@ print(f"\nPhân bố số lượng mẫu nhãn theo lớp trong D_L: {dict(zip(u
 - [1] Chapelle, O., Schölkopf, B., & Zien, A. (2006). *Semi-Supervised Learning* (Chapter 1: Introduction and Assumptions). MIT Press.
 - [2] [scikit-learn Documentation: Semi-supervised learning input specifications](https://scikit-learn.org/stable/modules/semi_supervised.html).
 - [3] Japkowicz, N., & Stephen, S. (2002). *The class imbalance problem: A systematic study*. Intelligent Data Analysis, 6(5), 429-449.
+

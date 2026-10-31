@@ -241,3 +241,4 @@ print(f"Epoch 75 (Bão hòa):  Sigmoid = {weights_sigmoid[75]:.4f} | Linear = {w
 - [2] Laine, S., & Aila, T. (2017). *Temporal Ensembling for Semi-Supervised Learning*. International Conference on Learning Representations (ICLR).
 - [3] Lee, D. H. (2013). *Pseudo-label: The simple and efficient semi-supervised learning method for deep neural networks*. Workshop on Challenges in Representation Learning, ICML.
 - [4] Sohn, K. et al. (2020). *FixMatch: Simplifying Semi-Supervised Learning with Consistency and Confidence*. Advances in Neural Information Processing Systems (NeurIPS), 33, 596-608.
+

@@ -242,3 +242,4 @@ print(f"Số lượng mẫu chưa nhãn được kết nạp thành công: {np.s
 - [2] Yarowsky, D. (1995). *Unsupervised word sense disambiguation rivaling supervised methods*. 33rd Annual Meeting of the Association for Computational Linguistics (ACL), 189-196.
 - [3] Lee, D. H. (2013). *Pseudo-label: The simple and efficient semi-supervised learning method for deep neural networks*. ICML Workshop on Challenges in Representation Learning.
 - [4] [scikit-learn Documentation: Self-training classifier](https://scikit-learn.org/stable/modules/generated/sklearn.semi_supervised.SelfTrainingClassifier.html).
+

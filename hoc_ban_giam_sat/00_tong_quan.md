@@ -251,3 +251,4 @@ print(f"=> Mức tăng trưởng hiệu năng Delta: {delta:+.4f} ({delta*100:+.
 - [2] Zhu, X., & Goldberg, A. B. (2009). *Introduction to Semi-Supervised Learning*. Synthesis Lectures on Artificial Intelligence and Machine Learning, Morgan & Claypool Publishers.
 - [3] Van Engelen, J. E., & Hoos, H. H. (2020). *A survey on semi-supervised learning*. Machine Learning, 109(2), 373-440.
 - [4] [scikit-learn User Guide: Semi-Supervised Learning](https://scikit-learn.org/stable/modules/semi_supervised.html).
+
