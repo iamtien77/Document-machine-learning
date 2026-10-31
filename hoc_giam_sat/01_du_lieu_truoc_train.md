@@ -28,10 +28,10 @@ Trước khi viết bất kỳ dòng mã tiền xử lý nào, kỹ sư nghiên 
 |---|---|---|---|---|---|---|
 | `user_id` | String/UUID | Identifier | Khóa định danh | 0% | Giữ lại làm Group ID | Rất cao nếu split ngẫu nhiên |
 | `transaction_time` | Timestamp | Temporal | Giờ UTC chuẩn | 0% | Khóa phân chia thời gian | Cần chặn mọi feature sau mốc này |
-| `age` | Integer | Numerical | $[18, 100]$ | $< 2\%$ | Impute median trong fold | Thấp |
-| `income` | Float | Numerical | $\ge 0$ (Lệch phải) | $15\%$ | Median + Thêm cờ `income_isna` | Thấp |
+| `age` | Integer | Numerical | $`[18, 100]`$ | $`< 2\%`$ | Impute median trong fold | Thấp |
+| `income` | Float | Numerical | $`\ge 0`$ (Lệch phải) | $`15\%`$ | Median + Thêm cờ `income_isna` | Thấp |
 | `account_status` | String | Categorical | `{'active', 'locked'}` | 0% | One-Hot / Ordinal Encoding | Trung bình (cần kiểm thời điểm đổi status) |
-| `target_churn` | Binary | Target ($y$) | $\{0, 1\}$ | 0% | Xác nhận sau 30 ngày | **Cấm đưa vào ma trận $X$** |
+| `target_churn` | Binary | Target ($`y`$) | $`\{0, 1\}`$ | 0% | Xác nhận sau 30 ngày | **Cấm đưa vào ma trận $`X`$** |
 
 ---
 
@@ -43,16 +43,20 @@ Trước khi viết bất kỳ dòng mã tiền xử lý nào, kỹ sư nghiên 
 
 ### Tính Độc lập Không gian Toán học của các Tập Phân chia
 
-Một phép phân chia dữ liệu $D$ thành tập huấn luyện ($`D_{\text{train}}`$), tập kiểm định ($`D_{\text{val}}`$) và tập kiểm tra ($`D_{\text{test}}`$) được định nghĩa là chuẩn mực khi và chỉ khi thỏa mãn đồng thời 2 điều kiện tiên quyết:
+Một phép phân chia dữ liệu $`D`$ thành tập huấn luyện ($`D_{\text{train}}`$), tập kiểm định ($`D_{\text{val}}`$) và tập kiểm tra ($`D_{\text{test}}`$) được định nghĩa là chuẩn mực khi và chỉ khi thỏa mãn đồng thời 2 điều kiện tiên quyết:
 
 1. **Tính rời rạc tuyệt đối (Mutual Exclusivity):**
 
-   $$D_{\text{train}} \cap D_{\text{val}} = \emptyset, \quad D_{\text{train}} \cap D_{\text{test}} = \emptyset, \quad D_{\text{val}} \cap D_{\text{test}} = \emptyset$$
+   ```math
+   D_{\text{train}} \cap D_{\text{val}} = \emptyset, \quad D_{\text{train}} \cap D_{\text{test}} = \emptyset, \quad D_{\text{val}} \cap D_{\text{test}} = \emptyset
+   ```
 
 2. **Tính độc lập thực thể (Entity/Group Independence):**
-   Nếu mẫu dữ liệu gắn liền với thực thể $g \in G$ (ví dụ: bệnh nhân, khách hàng):
+   Nếu mẫu dữ liệu gắn liền với thực thể $`g \in G`$ (ví dụ: bệnh nhân, khách hàng):
 
-   $$\mathrm{Group}(D_{\text{train}}) \cap \mathrm{Group}(D_{\text{test}}) = \emptyset$$
+   ```math
+   \mathrm{Group}(D_{\text{train}}) \cap \mathrm{Group}(D_{\text{test}}) = \emptyset
+   ```
 
    Đảm bảo mô hình được đánh giá trên khả năng tổng quát hóa cho **thực thể hoàn toàn mới**, chứ không phải nhận diện lại đặc tính của thực thể cũ.
 
@@ -66,17 +70,21 @@ Một phép phân chia dữ liệu $D$ thành tập huấn luyện ($`D_{\text{t
 
 ### Thước đo Đánh giá Chất lượng Dữ liệu Thô (Data Health Metrics)
 
-1. **Tỷ lệ Mất cân bằng Nhãn (Imbalance Ratio - $IR$):**
+1. **Tỷ lệ Mất cân bằng Nhãn (Imbalance Ratio - $`IR`$):**
 
-   $$IR = \frac{N_{\text{majority}}}{N_{\text{minority}}}$$
+   ```math
+   IR = \frac{N_{\text{majority}}}{N_{\text{minority}}}
+   ```
 
-   * Nếu $IR > 10$: Phải áp dụng phân tầng (*Stratified Split*), tuyệt đối không dùng Accuracy làm metric chính; chuyển sang PR-AUC, F1-macro hoặc Brier Score.
+   * Nếu $`IR > 10`$: Phải áp dụng phân tầng (*Stratified Split*), tuyệt đối không dùng Accuracy làm metric chính; chuyển sang PR-AUC, F1-macro hoặc Brier Score.
 2. **Hệ số Phóng đại Phương sai (Variance Inflation Factor - VIF):**
    Đo lường mức độ đa cộng tuyến giữa các biến độc lập $`x_j`$:
 
-   $$\mathrm{VIF}_j = \frac{1}{1 - R_j^2}$$
+   ```math
+   \mathrm{VIF}_j = \frac{1}{1 - R_j^2}
+   ```
 
-   Trong đó $`R_j^2`$ là hệ số xác định khi hồi quy $`x_j`$ theo toàn bộ $p-1$ biến còn lại. $`\mathrm{VIF}_j > 5`$ hoặc $10$ báo hiệu tương quan cao, làm mất ổn định hệ số trong các mô hình tuyến tính.
+   Trong đó $`R_j^2`$ là hệ số xác định khi hồi quy $`x_j`$ theo toàn bộ $`p-1`$ biến còn lại. $`\mathrm{VIF}_j > 5`$ hoặc $`10`$ báo hiệu tương quan cao, làm mất ổn định hệ số trong các mô hình tuyến tính.
 3. **Chỉ số Cardinality (Số lượng giá trị phân biệt):**
    Với biến định danh, tỷ lệ giữa số giá trị phân biệt và tổng số hàng. Biến có cardinality quá cao (như ID, địa chỉ IP) nếu không xử lý đúng sẽ gây overfit nghiêm trọng.
 
@@ -110,7 +118,7 @@ Rò rỉ dữ liệu xảy ra khi thông tin ngoài luồng từ bên ngoài t�
    * *Bản chất:* Tính toán các giá trị thống kê (Mean, Standard Deviation, Max, Min, IDF trong NLP, hoặc danh mục Categorical) trên toàn bộ tập dữ liệu trước khi chia train/test.
    * *Hậu quả:* Tập train đã "biết trước" phân phối của tập test. Độ lệch chuẩn và trung bình của tập test đã ngấm ngầm định hình các tham số chuẩn hóa của mô hình.
 2. **Temporal / Time Leakage (Rò rỉ Thời gian):**
-   * *Bản chất:* Dùng dữ liệu sinh ra tại thời điểm $t + \Delta t$ để dự đoán sự kiện tại thời điểm $t$.
+   * *Bản chất:* Dùng dữ liệu sinh ra tại thời điểm $`t + \Delta t`$ để dự đoán sự kiện tại thời điểm $`t`$.
    * *Ví dụ:* Đưa đặc trưng "Số cuộc gọi khiếu nại trong tháng 8" vào mô hình dự đoán khách hàng có hủy dịch vụ vào ngày 31/07 hay không.
 3. **Target Leakage (Rò rỉ Nhãn mục tiêu):**
    * *Bản chất:* Một biến đặc trưng được tạo ra bằng cách biến đổi trực tiếp từ nhãn mục tiêu hoặc là hệ quả trực tiếp của nhãn mục tiêu.
@@ -118,28 +126,34 @@ Rò rỉ dữ liệu xảy ra khi thông tin ngoài luồng từ bên ngoài t�
 
 ### Ví dụ Số học Minh họa: Thảm họa Fit Scaler Ngoài Fold
 
-Xét một tập dữ liệu gồm 4 mẫu một chiều $X = [10, 20, 30, 100]$:
+Xét một tập dữ liệu gồm 4 mẫu một chiều $`X = [10, 20, 30, 100]`$:
 * Giả sử ta chia: $`X_{\text{train}} = [10, 20, 30]`$, $`X_{\text{test}} = [100]`$.
 
 * **Cách làm SAI (Fit trên toàn bộ dữ liệu trước split):**
   * $`\mu_{\text{all}} = \frac{10 + 20 + 30 + 100}{4} = 40`$, $`\sigma_{\text{all}} \approx 35.35`$.
-  * Mẫu huấn luyện thứ ba ($30$) được biến đổi thành:
+  * Mẫu huấn luyện thứ ba ($`30`$) được biến đổi thành:
 
-    $$z_3 = \frac{30 - 40}{35.35} \approx -0.28$$
+    ```math
+    z_3 = \frac{30 - 40}{35.35} \approx -0.28
+    ```
 
-  * *Nhận xét:* Giá trị $`z_3`$ của train bị kéo dịch chuyển sang âm vì có sự hiện diện của giá trị ngoại lai $100$ bên tập test! Tập train đã gián tiếp biết tập test có giá trị lớn.
+  * *Nhận xét:* Giá trị $`z_3`$ của train bị kéo dịch chuyển sang âm vì có sự hiện diện của giá trị ngoại lai $`100`$ bên tập test! Tập train đã gián tiếp biết tập test có giá trị lớn.
 
 * **Cách làm ĐÚNG CHUẨN KHOA HỌC (Fit CHỈ trên train):**
   * $`\mu_{\text{train}} = \frac{10 + 20 + 30}{3} = 20`$, $`\sigma_{\text{train}} \approx 8.16`$.
-  * Mẫu huấn luyện thứ ba ($30$) được biến đổi chuẩn tắc:
+  * Mẫu huấn luyện thứ ba ($`30`$) được biến đổi chuẩn tắc:
 
-    $$z_3 = \frac{30 - 20}{8.16} \approx +1.22$$
+    ```math
+    z_3 = \frac{30 - 20}{8.16} \approx +1.22
+    ```
 
   * Sau đó, áp dụng nguyên vẹn tham số đã fit sang test:
 
-    $$z_{\text{test}} = \frac{100 - \mu_{\text{train}}}{\sigma_{\text{train}}} = \frac{100 - 20}{8.16} \approx +9.80$$
+    ```math
+    z_{\text{test}} = \frac{100 - \mu_{\text{train}}}{\sigma_{\text{train}}} = \frac{100 - 20}{8.16} \approx +9.80
+    ```
 
-  * *Nhận xét:* Tập train hoàn toàn độc lập với sự tồn tại của điểm $100$, phản ánh chân thực khả năng tiếp nhận dữ liệu ngoại lai khi triển khai thực tế.
+  * *Nhận xét:* Tập train hoàn toàn độc lập với sự tồn tại của điểm $`100`$, phản ánh chân thực khả năng tiếp nhận dữ liệu ngoại lai khi triển khai thực tế.
 
 ---
 

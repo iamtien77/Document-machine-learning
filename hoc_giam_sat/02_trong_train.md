@@ -6,11 +6,11 @@
 
 ### Không gian Giả thuyết & Kiểm soát Năng lực Biểu diễn (Hypothesis Space & Capacity Control)
 
-Trong lý thuyết học thống kê (Statistical Learning Theory), quá trình huấn luyện mô hình thực chất là một bài toán tìm kiếm có hướng trong **Không gian Giả thuyết** $\mathcal{H}$ (tập hợp tất cả các hàm toán học mà kiến trúc mô hình có thể biểu diễn). 
+Trong lý thuyết học thống kê (Statistical Learning Theory), quá trình huấn luyện mô hình thực chất là một bài toán tìm kiếm có hướng trong **Không gian Giả thuyết** $`\mathcal{H}`$ (tập hợp tất cả các hàm toán học mà kiến trúc mô hình có thể biểu diễn).
 
 Kỹ sư học máy phải giải quyết đồng thời hai bài toán tối ưu hóa mang tính đối nghịch:
 1. **Khớp tín hiệu (Signal Fitting):** Tối thiểu hóa sai số giữa dự đoán của mô hình và nhãn thực tế trên tập huấn luyện thông qua một thuật toán tối ưu hóa (như Gradient Descent hoặc giải tích ma trận).
-2. **Kiểm soát Năng lực (Capacity Control):** Hạn chế "sức chứa" hoặc độ linh hoạt của $\mathcal{H}$ để ngăn mô hình ghi nhớ các biến động ngẫu nhiên (nhiễu).
+2. **Kiểm soát Năng lực (Capacity Control):** Hạn chế "sức chứa" hoặc độ linh hoạt của $`\mathcal{H}`$ để ngăn mô hình ghi nhớ các biến động ngẫu nhiên (nhiễu).
 
 Nguyên lý then chốt của khoa học thực nghiệm: **Tập kiểm tra ($`D_{\text{test}}`$) phải được xem như một "hộp đen niêm phong" tuyệt đối.** Mọi quyết định lựa chọn kiến trúc thuật toán, điều chỉnh siêu tham số và dừng huấn luyện sớm đều phải được thực hiện hoàn toàn trên tập phát triển ($`D_{\text{dev}}`$) thông qua kỹ thuật Kiểm định chéo (Cross-Validation).
 
@@ -24,13 +24,15 @@ Train và validation đã split đúng; pipeline tiền xử lý; objective/loss
 
 Đầu vào kỹ thuật của giai đoạn này là một bài toán quy hoạch toán học tổng quát:
 
-$$\theta^* = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \;\; \mathcal{J}(\theta; D_{\text{train}}) = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \left[ \frac{1}{n} \sum_{i=1}^n L(y_i, f_\theta(x_i)) + \lambda \Omega(\theta) \right]$$
+```math
+\theta^* = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \;\; \mathcal{J}(\theta; D_{\text{train}}) = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \left[ \frac{1}{n} \sum_{i=1}^n L(y_i, f_\theta(x_i)) + \lambda \Omega(\theta) \right]
+```
 
 Trong đó:
-* $\Theta$: Không gian tham số có thể đạt được.
-* $L(y, \hat{y})$: Hàm mất mát khả vi (Differentiable Loss Function) đo lường sai số trên từng điểm dữ liệu.
-* $\Omega(\theta)$: Số hạng điều chuẩn (Regularizer) phạt độ phức tạp của vector tham số (ví dụ chuẩn $`L_2`$: $`\frac{1}{2}\|\theta\|_2^2`$ hoặc chuẩn $`L_1`$: $`\|\theta\|_1`$).
-* $\lambda \ge 0$: Siêu tham số điều khiển cường độ điều chuẩn.
+* $`\Theta`$: Không gian tham số có thể đạt được.
+* $`L(y, \hat{y})`$: Hàm mất mát khả vi (Differentiable Loss Function) đo lường sai số trên từng điểm dữ liệu.
+* $`\Omega(\theta)`$: Số hạng điều chuẩn (Regularizer) phạt độ phức tạp của vector tham số (ví dụ chuẩn $`L_2`$: $`\frac{1}{2}\|\theta\|_2^2`$ hoặc chuẩn $`L_1`$: $`\|\theta\|_1`$).
+* $`\lambda \ge 0`$: Siêu tham số điều khiển cường độ điều chuẩn.
 
 ---
 
@@ -52,14 +54,16 @@ Một giai đoạn huấn luyện hoàn tất chuẩn mực khoa học phải b�
 
 **Loss** dùng để fit tham số: squared/absolute error cho regression, log loss hoặc hinge loss cho một số classifier. **Metric chọn mô hình** phản ánh mục tiêu thực tế và có thể khác loss; ví dụ recall khi bỏ sót ca dương tính tốn kém. Theo dõi chênh train và validation; so với baseline. [2]
 
-Một cách viết chung: $`\theta^* = \mathop{\mathrm{arg\,min}}_{\theta} \left[\frac{1}{n}\sum_i L(y_i,f_\theta(x_i)) + \lambda R(\theta)\right]`$. `L` là loss, `R` là regularization, $\lambda$ điều khiển mức phạt. Công thức này hợp với nhiều mô hình tham số, nhưng kNN và cây học theo cơ chế khác. Metric chọn mô hình có thể không khả vi nên không nhất thiết là loss tối ưu.
+Một cách viết chung: $`\theta^* = \mathop{\mathrm{arg\,min}}_{\theta} \left[\frac{1}{n}\sum_i L(y_i,f_\theta(x_i)) + \lambda R(\theta)\right]`$. `L` là loss, `R` là regularization, $`\lambda`$ điều khiển mức phạt. Công thức này hợp với nhiều mô hình tham số, nhưng kNN và cây học theo cơ chế khác. Metric chọn mô hình có thể không khả vi nên không nhất thiết là loss tối ưu.
 
 ### Bản chất của Hàm Mất mát Thay thế (Surrogate Loss Function)
 
 Tại sao không tối ưu trực tiếp Accuracy hay F1-Score trong lúc train?
 * Xét hàm lỗi 0-1 (Zero-One Loss) đo tỷ lệ phân loại sai:
 
-  $$L_{0-1}(y, f(x)) = \mathbb{I}(y \neq \mathrm{sign}(f(x)))$$
+  ```math
+  L_{0-1}(y, f(x)) = \mathbb{I}(y \neq \mathrm{sign}(f(x)))
+  ```
 
 * Hàm này là hàm bậc thang: đạo hàm tại mọi điểm khả vi đều bằng 0, và không liên tục tại điểm phân chia ranh giới. Do đó, các thuật toán tối ưu hóa dựa trên gradient (Gradient-based Optimization) hoàn toàn bất lực.
 * **Giải pháp học thuật:** Sử dụng một **hàm mất mát thay thế lồi (Convex Surrogate Loss)** chặn trên hàm 0-1:
@@ -113,16 +117,20 @@ Tùy thuộc vào cấu trúc đại số của hàm mục tiêu, thuật toán 
 1. **Nghiệm Đóng Giải tích (Analytical Closed-form Solution):**
    * Tiêu biểu: Hồi quy tuyến tính OLS thông qua phương trình chuẩn (Normal Equation):
 
-     $$\theta^* = (X^\top X)^{-1} X^\top y$$
+     ```math
+     \theta^* = (X^\top X)^{-1} X^\top y
+     ```
 
    * *Ưu điểm:* Nghiệm chính xác tuyệt đối, không cần chọn learning rate hay số vòng lặp.
-   * *Nhược điểm:* Độ phức tạp tính toán đảo ma trận cỡ $\mathcal{O}(p^3)$, sụp đổ khi số chiều $p$ lớn hoặc ma trận bị suy biến (khi đó phải dùng Ridge regularization hoặc phân tích SVD).
+   * *Nhược điểm:* Độ phức tạp tính toán đảo ma trận cỡ $`\mathcal{O}(p^3)`$, sụp đổ khi số chiều $`p`$ lớn hoặc ma trận bị suy biến (khi đó phải dùng Ridge regularization hoặc phân tích SVD).
 2. **Quy hoạch Tối ưu Dựa trên Gradient (First-Order Gradient Descent):**
    * Cập nhật tham số theo hướng ngược vector đạo hàm riêng:
 
-     $$\theta^{(t+1)} = \theta^{(t)} - \eta \nabla_\theta \mathcal{J}(\theta^{(t)})$$
+     ```math
+     \theta^{(t+1)} = \theta^{(t)} - \eta \nabla_\theta \mathcal{J}(\theta^{(t)})
+     ```
 
-   * Biến thể: *Batch GD* (tính trên toàn bộ $n$ mẫu), *Stochastic GD (SGD)* (tính trên từng mẫu đơn lẻ), *Mini-batch GD* (tính trên lô nhỏ kích thước $32, 64, 128$).
+   * Biến thể: *Batch GD* (tính trên toàn bộ $`n`$ mẫu), *Stochastic GD (SGD)* (tính trên từng mẫu đơn lẻ), *Mini-batch GD* (tính trên lô nhỏ kích thước $`32, 64, 128`$).
 3. **Phân chia Nhánh Tham lam (Greedy Recursive Partitioning):**
    * Áp dụng cho Decision Trees: Tại mỗi nút, duyệt vét cạn toàn bộ các feature và điểm chia tiềm năng để chọn điểm chia tối đa hóa mức giảm độ tinh khiết (Information Gain hoặc Gini Reduction).
 4. **Ghi nhớ Mẫu (Instance-based / Lazy Learning):**
@@ -170,11 +178,11 @@ Train dùng để học trọng số/quy tắc; validation hoặc các fold dùn
 
 ### Sổ tay Chẩn đoán Đường cong Học tập (Learning Curves Diagnostic Playbook)
 
-Đường cong học tập biểu diễn sai số (Loss) của tập Train và tập Validation theo số lượng mẫu huấn luyện $n$ hoặc số epoch. Đây là công cụ chẩn đoán quan trọng nhất để định hướng can thiệp kỹ thuật:
+Đường cong học tập biểu diễn sai số (Loss) của tập Train và tập Validation theo số lượng mẫu huấn luyện $`n`$ hoặc số epoch. Đây là công cụ chẩn đoán quan trọng nhất để định hướng can thiệp kỹ thuật:
 
 | Triệu chứng đường cong | Nguyên nhân gốc rễ (Root Cause) | Hành động khắc phục khoa học |
 |---|---|---|
-| **Cả Train Loss và Val Loss đều cao, hội tụ gần nhau ở mức sai số lớn.** | **High Bias (Underfitting):** Mô hình quá nông hoặc giả định quá cứng nhắc, không hấp thụ được tín hiệu. | 1. Tăng năng lực mô hình (thêm layer, tăng độ sâu cây).<br>2. Kỹ nghệ thêm đặc trưng phi tuyến ($`x_1 x_2, x^2`$).<br>3. Giảm bớt hệ số phạt điều chuẩn $\lambda$. |
+| **Cả Train Loss và Val Loss đều cao, hội tụ gần nhau ở mức sai số lớn.** | **High Bias (Underfitting):** Mô hình quá nông hoặc giả định quá cứng nhắc, không hấp thụ được tín hiệu. | 1. Tăng năng lực mô hình (thêm layer, tăng độ sâu cây).<br>2. Kỹ nghệ thêm đặc trưng phi tuyến ($`x_1 x_2, x^2`$).<br>3. Giảm bớt hệ số phạt điều chuẩn $`\lambda`$. |
 | **Train Loss rất thấp, nhưng Val Loss cao, khoảng cách giữa 2 đường lớn (Gap rộng).** | **High Variance (Overfitting):** Mô hình ghi nhớ cả nhiễu ngẫu nhiên của tập train. | 1. Thu thập thêm dữ liệu huấn luyện mới.<br>2. Tăng cường điều chuẩn (L1/L2 penalty, Dropout).<br>3. Giảm số lượng biến (Feature Selection).<br>4. Áp dụng Early Stopping. |
 | **Val Loss dao động dữ dội, không ổn định qua các epoch.** | **Tốc độ học quá lớn hoặc Batch Size quá nhỏ.** | 1. Giảm Learning Rate hoặc dùng Learning Rate Scheduler.<br>2. Tăng kích thước Mini-batch.<br>3. Kiểm tra lại nhãn bị nhiễu/lộn xộn. |
 | **Train Loss cao hơn hẳn Val Loss.** | **Kỹ thuật Regularization hoặc Dropout chỉ kích hoạt lúc train.** | Hiện tượng bình thường nếu dùng Dropout hoặc Data Augmentation lúc train (vốn bị tắt khi evaluate trên Val). |
@@ -185,8 +193,8 @@ Train dùng để học trọng số/quy tắc; validation hoặc các fold dùn
 |---|---|---|---|
 | **Convex Optimization** | Bài toán tối ưu hóa với hàm mục tiêu có duy nhất một cực tiểu toàn cục. | Đảm bảo thuật toán luôn hội tụ về nghiệm tối ưu toàn cục. | Nền tảng của Linear Regression, Ridge, Lasso, Logistic Regression, SVM. |
 | **Non-Convex Optimization** | Bài toán có nhiều cực tiểu cục bộ (Local Minima) và điểm yên ngựa (Saddle Points). | Kết quả phụ thuộc vào điểm khởi tạo tham số. | Đặc trưng cốt lõi của Deep Learning và Neural Networks. |
-| **Early Stopping** | Dừng huấn luyện khi sai số trên validation bắt đầu tăng liên tiếp $k$ bước. | Ngăn chặn mô hình tiếp tục học vào vùng overfit. | Cơ chế điều chuẩn ngầm cực kỳ hiệu quả cho mô hình lặp. |
-| **Out-Of-Fold (OOF)** | Dự đoán trên các fold bị giữ lại trong suốt quá trình $K$-Fold CV. | Tạo ra bộ đặc trưng meta không bị thiên lệch cho Stacking. | Cầu nối giữa các mô hình cơ sở và mô hình tổng hợp (Ensemble). |
+| **Early Stopping** | Dừng huấn luyện khi sai số trên validation bắt đầu tăng liên tiếp $`k`$ bước. | Ngăn chặn mô hình tiếp tục học vào vùng overfit. | Cơ chế điều chuẩn ngầm cực kỳ hiệu quả cho mô hình lặp. |
+| **Out-Of-Fold (OOF)** | Dự đoán trên các fold bị giữ lại trong suốt quá trình $`K`$-Fold CV. | Tạo ra bộ đặc trưng meta không bị thiên lệch cho Stacking. | Cầu nối giữa các mô hình cơ sở và mô hình tổng hợp (Ensemble). |
 | **Grid Search** | Duyệt vét cạn qua toàn bộ lưới các giá trị siêu tham số rời rạc định trước. | Tìm được cấu hình tối ưu trong không gian lưới nhỏ. | Đảm bảo bao phủ toàn diện nhưng tốn kém tài nguyên. |
 | **Bayesian Optimization** | Sử dụng mô hình xác suất (Gaussian Process/TPE) định hướng điểm thử tiếp theo. | Tìm siêu tham số tối ưu với số lần thử nghiệm ít nhất. | Chuẩn mực công nghiệp hiện đại (thư viện Optuna). |
 

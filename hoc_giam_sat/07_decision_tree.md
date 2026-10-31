@@ -9,10 +9,10 @@ Học các quy tắc chia feature thành vùng dự đoán, dùng cho classifica
 Cây Quyết định hiện đại có nguồn gốc từ công trình kinh điển năm 1984 của Leo Breiman, Jerome Friedman, Richard Olshen và Charles Stone mang tên **CART (Classification and Regression Trees)**. Song song với đó là các thuật toán ID3 (1986) và C4.5 (1993) của Ross Quinlan.
 
 Khác với các mô hình tuyến tính vốn tạo ra một siêu phẳng xiên duy nhất chia cắt không gian, Cây Quyết định hoạt động theo triết lý **"Chia để trị" (Divide and Conquer)**:
-1. **Phân hoạch Đệ quy (Recursive Binary Splitting):** Tại mỗi bước, thuật toán chọn một trục tọa độ $`x_j`$ và một điểm ngưỡng $t$ để cắt đôi không gian thành hai nửa siêu hộp chữ nhật trực giao với trục tọa độ.
+1. **Phân hoạch Đệ quy (Recursive Binary Splitting):** Tại mỗi bước, thuật toán chọn một trục tọa độ $`x_j`$ và một điểm ngưỡng $`t`$ để cắt đôi không gian thành hai nửa siêu hộp chữ nhật trực giao với trục tọa độ.
 2. **Khả năng Biểu diễn Phi tuyến:** Bằng cách lặp lại phép cắt trực giao này nhiều lần ở các tầng sâu hơn, cây quyết định có thể xấp xỉ bất kỳ ranh giới phi tuyến phức tạp nào dưới dạng một tập hợp các quy tắc logic `IF-THEN` hoàn toàn minh bạch.
 3. **Tính Bất biến với Phép Biến đổi Đơn điệu (Monotonic Invariance):**
-   Phép so sánh $`x_j \le t`$ chỉ phụ thuộc vào **thứ tự xếp hạng** của các giá trị chứ không phụ thuộc vào độ lớn số học tuyệt đối. Nếu ta áp dụng bất kỳ phép biến đổi đơn điệu tăng nào (như nhân với hằng số dương, hàm logarit, hay chuẩn hóa Z-score), thứ tự các mẫu không hề đổi và điểm cắt tối ưu tương ứng chỉ đơn giản là $f(t)$. Do đó, **Cây Quyết định hoàn toàn không yêu cầu chuẩn hóa thang đo đặc trưng (Feature Scaling)**!
+   Phép so sánh $`x_j \le t`$ chỉ phụ thuộc vào **thứ tự xếp hạng** của các giá trị chứ không phụ thuộc vào độ lớn số học tuyệt đối. Nếu ta áp dụng bất kỳ phép biến đổi đơn điệu tăng nào (như nhân với hằng số dương, hàm logarit, hay chuẩn hóa Z-score), thứ tự các mẫu không hề đổi và điểm cắt tối ưu tương ứng chỉ đơn giản là $`f(t)`$. Do đó, **Cây Quyết định hoàn toàn không yêu cầu chuẩn hóa thang đo đặc trưng (Feature Scaling)**!
 
 ---
 
@@ -34,7 +34,7 @@ Với `DecisionTreeRegressor(criterion="squared_error")`, dự đoán ở lá l�
 
 Một đặc tính hình học cốt lõi của Cây Hồi quy là: **Đầu ra dự đoán của nó là một hàm hằng số từng khúc (Piecewise Constant Function)**.
 * Mỗi chiếc lá $`R_m`$ đại diện cho một khối siêu hộp trong không gian và dự đoán một giá trị hằng số duy nhất $`c_m = \mathrm{mean}(y \mid x \in R_m)`$.
-* Khi một điểm dữ liệu mới $`x_{\text{new}}`$ nằm xa ra ngoài miền dữ liệu huấn luyện (ví dụ: dự đoán giá nhà cho căn hộ $1{,}000\,\text{m}^2$ trong khi dữ liệu train lớn nhất chỉ là $300\,\text{m}^2$), điểm này sẽ bị dẫn vào chiếc lá ở rìa ngoài cùng và trả về giá trị trung bình của chiếc lá đó.
+* Khi một điểm dữ liệu mới $`x_{\text{new}}`$ nằm xa ra ngoài miền dữ liệu huấn luyện (ví dụ: dự đoán giá nhà cho căn hộ $`1{,}000\,\text{m}^2`$ trong khi dữ liệu train lớn nhất chỉ là $`300\,\text{m}^2`$), điểm này sẽ bị dẫn vào chiếc lá ở rìa ngoài cùng và trả về giá trị trung bình của chiếc lá đó.
 * *Hệ quả:* Cây quyết định **không thể học được xu hướng tăng trưởng (Trend)**. Dự đoán của nó sẽ đi ngang thành một đường thẳng nằm ngang bất biến ở vùng ngoại suy!
 
 ```text
@@ -59,17 +59,17 @@ Metric theo bài toán; so chênh train/validation để phát hiện overfit. V
 
 Từ nút gốc, chọn feature/ngưỡng tách làm giảm độ hỗn tạp (Gini/entropy) cho classification hoặc giảm lỗi bình phương cho regression; lặp đệ quy đến điều kiện dừng. Pruning hoặc giới hạn độ sâu/số mẫu lá giúp kiểm soát độ phức tạp. [1]
 
-**Ví dụ tính tay:** ở nút có 6 mẫu dương và 4 mẫu âm, Gini là $1-(0.6^{2}+0.4^{2})=0.48$. Một cách tách tạo lá trái gồm 4 dương/0 âm và lá phải 2 dương/4 âm. Gini có trọng số sau tách là $(4/10)\times 0 + (6/10)\times [1-(2/6)^{2}-(4/6)^{2}]\approx 0.267$; mức giảm impurity khoảng `0.213`. Cây so nhiều feature/ngưỡng và chọn tách tốt nhất trong các ứng viên hợp lệ. [1]
+**Ví dụ tính tay:** ở nút có 6 mẫu dương và 4 mẫu âm, Gini là $`1-(0.6^{2}+0.4^{2})=0.48`$. Một cách tách tạo lá trái gồm 4 dương/0 âm và lá phải 2 dương/4 âm. Gini có trọng số sau tách là $`(4/10)\times 0 + (6/10)\times [1-(2/6)^{2}-(4/6)^{2}]\approx 0.267`$; mức giảm impurity khoảng `0.213`. Cây so nhiều feature/ngưỡng và chọn tách tốt nhất trong các ứng viên hợp lệ. [1]
 
 **Fit/predict:** tìm tách ở nút → chia mẫu → lặp ở các nút con đến điều kiện dừng; khi dự đoán đi từ gốc theo các điều kiện đến lá. Một lá có rất ít mẫu có thể cho xác suất rất nhiễu dù dự đoán class trên train đúng.
 
 ### Tiêu chí tách và cây hồi quy
 
-Với lớp `k` có tần suất $`p_k`$ trong nút, $`Gini=1-\sum _k p_k^{2}`$ và $`Entropy=-\sum _k p_k \log _{2}(p_k)`$ (quy ước $0\log 0=0$). Một tách có mức cải thiện $`I(\mathrm{parent})-\frac{n_L}{n}I(\mathrm{left})-\frac{n_R}{n}I(\mathrm{right})`$. Thuật toán chọn feature/ngưỡng cho mức giảm impurity cao nhất trong các ứng viên, dưới các ràng buộc số mẫu lá và độ sâu. [1]
+Với lớp `k` có tần suất $`p_k`$ trong nút, $`Gini=1-\sum _k p_k^{2}`$ và $`Entropy=-\sum _k p_k \log _{2}(p_k)`$ (quy ước $`0\log 0=0`$). Một tách có mức cải thiện $`I(\mathrm{parent})-\frac{n_L}{n}I(\mathrm{left})-\frac{n_R}{n}I(\mathrm{right})`$. Thuật toán chọn feature/ngưỡng cho mức giảm impurity cao nhất trong các ứng viên, dưới các ràng buộc số mẫu lá và độ sâu. [1]
 
 Với regression, thay impurity phân loại bằng sai số của target trong nút. `squared_error` giảm tổng bình phương sai lệch quanh trung bình; `absolute_error` giảm tổng trị tuyệt đối quanh trung vị; `poisson` dành cho target không âm phù hợp với bài toán count/rate theo điều kiện của estimator. [4]
 
-**Ví dụ fit regression:** bốn mẫu có một feature lần lượt $x=[1,2,3,4]$, target $y=[2,4,10,12]$. Nút gốc dự đoán trung bình `7`, tổng bình phương sai số là `68`. Tách tại $x\le 2.5$ tạo lá trái $y=[2,4]$ (dự đoán `3`, SSE=`2`) và lá phải $y=[10,12]$ (dự đoán `11`, SSE=`2`); tổng SSE sau tách là `4`. Khi mẫu mới có $x=3.2$, cây đi sang lá phải và dự đoán `11`. Đây là ví dụ tính tay, chưa phải kết quả thử nghiệm trên dataset thực.
+**Ví dụ fit regression:** bốn mẫu có một feature lần lượt $`x=[1,2,3,4]`$, target $`y=[2,4,10,12]`$. Nút gốc dự đoán trung bình `7`, tổng bình phương sai số là `68`. Tách tại $`x\le 2.5`$ tạo lá trái $`y=[2,4]`$ (dự đoán `3`, SSE=`2`) và lá phải $`y=[10,12]`$ (dự đoán `11`, SSE=`2`); tổng SSE sau tách là `4`. Khi mẫu mới có $`x=3.2`$, cây đi sang lá phải và dự đoán `11`. Đây là ví dụ tính tay, chưa phải kết quả thử nghiệm trên dataset thực.
 
 ```text
 fit(node):
@@ -81,24 +81,28 @@ predict(x): đi từ gốc theo điều kiện đến lá; trả nhãn/xác su�
 
 #### So sánh Giải tích: Gini Impurity vs. Entropy
 
-Xét bài toán phân loại nhị phân với xác suất lớp dương $p \in [0, 1]$:
-* **Gini Impurity:** $`I_G(p) = 2p(1 - p)`$. Cực đại tại $p = 0.5$ với giá trị $0.5$.
-* **Entropy:** $`I_E(p) = -p \log_2 p - (1 - p) \log_2 (1 - p)`$. Cực đại tại $p = 0.5$ với giá trị $1.0$.
+Xét bài toán phân loại nhị phân với xác suất lớp dương $`p \in [0, 1]`$:
+* **Gini Impurity:** $`I_G(p) = 2p(1 - p)`$. Cực đại tại $`p = 0.5`$ với giá trị $`0.5`$.
+* **Entropy:** $`I_E(p) = -p \log_2 p - (1 - p) \log_2 (1 - p)`$. Cực đại tại $`p = 0.5`$ với giá trị $`1.0`$.
 * *Nhận xét:* Hai hàm có hình dáng đồ thị chuông úp ngược gần như y hệt nhau. Entropy phạt nặng hơn một chút ở các vùng nút có độ hỗn tạp cao. Tuy nhiên, Gini không cần tính toán logarit cơ số 2 nên tốc độ thực thi nhanh hơn đáng kể. Trong thực tế, hai tiêu chí này chọn ra cùng một điểm cắt trong hơn 98% trường hợp.
 
 ### Thuật toán Tỉa cành Chi phí - Độ phức tạp (Minimal Cost-Complexity Pruning - CCP)
 
 Để ngăn chặn một cây phát triển quá sâu và học thuộc toàn bộ nhiễu của tập train, CART sử dụng hàm mục tiêu phạt độ phức tạp (Breiman et al., 1984):
 
-$$R_\alpha(T) = R(T) + \alpha |T|$$
+```math
+R_\alpha(T) = R(T) + \alpha |T|
+```
 
 Trong đó:
-* $R(T)$: Tổng sai số trên tập dữ liệu của toàn bộ các lá trong cây $T$.
-* $|T|$: Tổng số lá của cây.
-* $\alpha \ge 0$: Siêu tham số điều khiển mức độ phạt kích thước cây (`ccp_alpha` trong Scikit-learn).
-* *Quy trình Weakest Link Pruning:* Khi $\alpha$ tăng dần từ 0 lên $+\infty$, tại mỗi nút con $t$, ta tính hệ số hiệu quả:
+* $`R(T)`$: Tổng sai số trên tập dữ liệu của toàn bộ các lá trong cây $`T`$.
+* $`|T|`$: Tổng số lá của cây.
+* $`\alpha \ge 0`$: Siêu tham số điều khiển mức độ phạt kích thước cây (`ccp_alpha` trong Scikit-learn).
+* *Quy trình Weakest Link Pruning:* Khi $`\alpha`$ tăng dần từ 0 lên $`+\infty`$, tại mỗi nút con $`t`$, ta tính hệ số hiệu quả:
 
-  $$\alpha_{\text{eff}}(t) = \frac{R(t) - R(T_t)}{|T_t| - 1}$$
+  ```math
+  \alpha_{\text{eff}}(t) = \frac{R(t) - R(T_t)}{|T_t| - 1}
+  ```
 
   Nút có $`\alpha_{\text{eff}}`$ nhỏ nhất sẽ bị cắt bỏ (biến thành lá) đầu tiên. Quá trình này sinh ra một dãy hữu hạn các cây con lồng nhau. Ta dùng K-Fold Cross-Validation để tìm ra giá trị $`\alpha^*`$ tối ưu nhất.
 

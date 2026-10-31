@@ -50,7 +50,7 @@ Ví dụ Iris ở Chương 2: `X` gồm bốn phép đo hoa, `y` là một trong
 
 Theo chuẩn mực nghiên cứu quốc tế (Mitchell et al., 2019), một artifact mô hình hoàn chỉnh phải đi kèm một tài liệu `MODEL_CARD.md` tóm lược:
 * **Mục đích thiết kế (Intended Use):** Mô hình được thiết kế cho tác vụ nào? Trong điều kiện hoạt động nào?
-* **Cảnh báo giới hạn (Out-of-Scope Use Cases):** Những trường hợp nào tuyệt đối không được phép sử dụng mô hình (ví dụ: dữ liệu ngoại suy ngoài miền tuổi $18-60$)?
+* **Cảnh báo giới hạn (Out-of-Scope Use Cases):** Những trường hợp nào tuyệt đối không được phép sử dụng mô hình (ví dụ: dữ liệu ngoại suy ngoài miền tuổi $`18-60`$)?
 * **Phân tích Công bằng & Đạo đức (Fairness & Bias Disclosures):** Hiệu năng của mô hình trên các nhóm thiểu số hoặc nhóm nhạy cảm.
 
 ---
@@ -96,22 +96,28 @@ Raw labeled data
 
 Trước khi chuyển giao artifact mô hình cho đội ngũ kỹ nghệ triển khai, bắt buộc phải thực hiện bài kiểm tra tính toàn vẹn serialization:
 
-1. **Trích xuất Golden Dataset ($`D_{\text{gold}}`$):** Chọn từ $5$ đến $10$ mẫu dữ liệu đại diện, bao gồm:
+1. **Trích xuất Golden Dataset ($`D_{\text{gold}}`$):** Chọn từ $`5`$ đến $`10`$ mẫu dữ liệu đại diện, bao gồm:
    * Các mẫu điển hình ở trung tâm phân phối.
    * Các mẫu có giá trị khuyết (Missing Values).
    * Các mẫu ở biên cực trị (Edge Cases / Outliers).
 2. **Ghi nhận Baseline Inference trước khi lưu:**
 
-   $$\hat{Y}_{\text{pre}} = \text{Pipeline}_{\text{memory}}.\text{predict\_proba}(D_{\text{gold}})$$
+   ```math
+   \hat{Y}_{\text{pre}} = \text{Pipeline}_{\text{memory}}.\text{predict\_proba}(D_{\text{gold}})
+   ```
 
 3. **Tuần tự hóa (Serialize):** Lưu pipeline ra đĩa (ví dụ: định dạng `.joblib`, `.pickle`, hoặc chuẩn mở `ONNX`).
 4. **Giải tuần tự hóa (Deserialize) trong tiến trình độc lập:** Nạp lại pipeline từ file đã lưu:
 
-   $$\hat{Y}_{\text{post}} = \text{Pipeline}_{\text{disk}}.\text{predict\_proba}(D_{\text{gold}})$$
+   ```math
+   \hat{Y}_{\text{post}} = \text{Pipeline}_{\text{disk}}.\text{predict\_proba}(D_{\text{gold}})
+   ```
 
 5. **Kiểm định sai số số học (Assertion):**
 
-   $$\max \lvert \hat{Y}_{\text{pre}} - \hat{Y}_{\text{post}} \rvert \le 10^{-6}$$
+   ```math
+   \max \lvert \hat{Y}_{\text{pre}} - \hat{Y}_{\text{post}} \rvert \le 10^{-6}
+   ```
 
    Nếu sai số lớn hơn ngưỡng dung sai số thực hoặc thứ tự các cột nhãn lớp bị đảo lộn, **hủy bỏ đợt phát hành ngay lập tức**.
 

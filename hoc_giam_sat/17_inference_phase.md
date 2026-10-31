@@ -6,7 +6,7 @@
 
 Nhận một bản ghi hoặc batch mới, áp dụng **đúng pipeline đã fit**, rồi trả dự đoán để hỗ trợ quyết định. Inference thông thường **không gọi `fit`, không học lại scaler/encoder và không tự cập nhật trọng số**. Việc retrain là một vòng training mới có dữ liệu, kiểm định và phiên bản riêng. [1][2]
 
-Phải phân biệt **điểm mô hình (score)**, **xác suất đã kiểm calibration** và **quyết định cuối**. Ví dụ classifier trả $p=0.73$; nhãn dương chỉ được chọn sau khi áp threshold đã khóa. `0.73` không nên được diễn giải là xác suất thực 73% nếu mô hình chưa được kiểm calibration. [3][4]
+Phải phân biệt **điểm mô hình (score)**, **xác suất đã kiểm calibration** và **quyết định cuối**. Ví dụ classifier trả $`p=0.73`$; nhãn dương chỉ được chọn sau khi áp threshold đã khóa. `0.73` không nên được diễn giải là xác suất thực 73% nếu mô hình chưa được kiểm calibration. [3][4]
 
 ### Ba Tầng Biểu diễn Đầu ra trong Suy luận (Inference Output Hierarchy)
 
@@ -23,17 +23,19 @@ Trong lý thuyết quyết định Bayes (Bayesian Decision Theory), quá trình
   [ Action / Decision ]  -->  Quyết định gán nhãn sau khi đối chiếu ngưỡng tau
 ```
 
-1. **Tầng 1: Điểm số thô (Raw Score / Logits $z = f(x)$):**
-   * Trong hồi quy tuyến tính/logistic, đây là giá trị $w^\top x + b$.
+1. **Tầng 1: Điểm số thô (Raw Score / Logits $`z = f(x)`$):**
+   * Trong hồi quy tuyến tính/logistic, đây là giá trị $`w^\top x + b`$.
    * Trong SVM, đây là khoảng cách có dấu từ điểm dữ liệu tới siêu phẳng phân cách.
-   * *Đặc điểm:* Giá trị số học thuần túy, có thể nằm ngoài khoảng $[0, 1]$, chỉ phản ánh thứ tự xếp hạng tương đối.
-2. **Tầng 2: Xác suất đã hiệu chuẩn (Calibrated Probability $\hat{p} \in [0, 1]$):**
+   * *Đặc điểm:* Giá trị số học thuần túy, có thể nằm ngoài khoảng $`[0, 1]`$, chỉ phản ánh thứ tự xếp hạng tương đối.
+2. **Tầng 2: Xác suất đã hiệu chuẩn (Calibrated Probability $`\hat{p} \in [0, 1]`$):**
    * Được chuyển đổi qua hàm kích hoạt (như Sigmoid / Softmax) và đã vượt qua bài kiểm tra độ tin cậy thống kê (Reliability Diagram).
-   * *Ý nghĩa:* Khi mô hình dự đoán $\hat{p} = 0.8$ cho $100$ bệnh nhân, thực tế phải có đúng xấp xỉ $80$ bệnh nhân mang bệnh.
-3. **Tầng 3: Quyết định nhị phân / Hành động thực tế ($\hat{y} \in \{0, 1\}$):**
+   * *Ý nghĩa:* Khi mô hình dự đoán $`\hat{p} = 0.8`$ cho $`100`$ bệnh nhân, thực tế phải có đúng xấp xỉ $`80`$ bệnh nhân mang bệnh.
+3. **Tầng 3: Quyết định nhị phân / Hành động thực tế ($`\hat{y} \in \{0, 1\}`$):**
    * Áp dụng ngưỡng cắt tối ưu $`\tau^*`$ đã được tính toán từ ma trận chi phí ở giai đoạn đánh giá:
 
-     $$\hat{y} = \begin{cases} 1 & \text{nếu } \hat{p} \ge \tau^* \\ 0 & \text{nếu } \hat{p} < \tau^* \end{cases}$$
+     ```math
+     \hat{y} = \begin{cases} 1 & \text{nếu } \hat{p} \ge \tau^* \\ 0 & \text{nếu } \hat{p} < \tau^* \end{cases}
+     ```
 
 ---
 
@@ -58,16 +60,16 @@ Incoming Request -> [ Schema Validation ] -> [ Range Check ] -> Pipeline.transfo
                     (Báo lỗi HTTP 422)        (Kích hoạt Fallback)
 ```
 
-* **Kiểm tra Schema cứng:** Số lượng cột, tên cột chính xác, thứ tự cột khớp 100% với ma trận $X$ lúc train.
+* **Kiểm tra Schema cứng:** Số lượng cột, tên cột chính xác, thứ tự cột khớp 100% với ma trận $`X`$ lúc train.
 * **Xử lý giá trị phân loại chưa từng thấy (Unseen Categorical Levels):**
-  * *Ví dụ:* Lúc train chỉ có `thành_phố` $\in$ `{Hà Nội, TP.HCM, Đà Nẵng}`. Lúc inference xuất hiện `Cần Thơ`.
-  * *Quy tắc:* Encoder phải được cấu hình `handle_unknown='ignore'` để gán toàn bộ vector one-hot của `Cần Thơ` về vector $0$, hoặc ánh xạ vào nhãn đại diện `__OTHER__`. Tuyệt đối không để ứng dụng quăng ngoại lệ (Exception Crash).
+  * *Ví dụ:* Lúc train chỉ có `thành_phố` $`\in`$ `{Hà Nội, TP.HCM, Đà Nẵng}`. Lúc inference xuất hiện `Cần Thơ`.
+  * *Quy tắc:* Encoder phải được cấu hình `handle_unknown='ignore'` để gán toàn bộ vector one-hot của `Cần Thơ` về vector $`0`$, hoặc ánh xạ vào nhãn đại diện `__OTHER__`. Tuyệt đối không để ứng dụng quăng ngoại lệ (Exception Crash).
 
 ---
 
 ## Output
 
-- **Regression:** $\hat{y}$ là số theo đơn vị target đã định; nếu có interval/độ bất định thì phải ghi cách tính và điều kiện áp dụng.
+- **Regression:** $`\hat{y}`$ là số theo đơn vị target đã định; nếu có interval/độ bất định thì phải ghi cách tính và điều kiện áp dụng.
 - **Classification:** nhãn, score hoặc vector xác suất theo thứ tự lớp; threshold/phiên bản threshold dùng để biến score thành quyết định. Nếu estimator chỉ có `decision_function`, không gắn nhãn “xác suất” cho score đó.
 - **Metadata:** `prediction_id` duy nhất cho mỗi dự đoán, `model_version`, `schema_version`, thời điểm sự kiện, thời điểm dự đoán và trạng thái kiểm input. `prediction_id` cho phép ghép đúng nhãn đến muộn với dự đoán gốc, kể cả khi model đã đổi phiên bản. Nếu input không hợp lệ, trả lỗi có thể xử lý hoặc chuyển sang fallback đã thiết kế; không trả một dự đoán âm thầm từ dữ liệu sai.
 
@@ -121,16 +123,18 @@ Không đặt một KPI cố định cho mọi ứng dụng; ngưỡng cảnh b�
 ### Tại sao Bắt buộc Giám sát Độ trễ theo Phân vị (Percentile Latency: p95, p99)?
 
 Trong các hệ thống phân tán và ứng dụng phục vụ thời gian thực, **độ trễ trung bình (Mean Latency) là một chỉ số che giấu lỗi cực kỳ nguy hiểm**:
-* Giả sử hệ thống xử lý $1000$ requests. Có $990$ requests trả về siêu nhanh trong $10\,\text{ms}$, nhưng có $10$ requests bị nghẽn mạng hoặc quá tải bộ nhớ và mất tới $5000\,\text{ms}$ ($5$ giây).
+* Giả sử hệ thống xử lý $`1000`$ requests. Có $`990`$ requests trả về siêu nhanh trong $`10\,\text{ms}`$, nhưng có $`10`$ requests bị nghẽn mạng hoặc quá tải bộ nhớ và mất tới $`5000\,\text{ms}`$ ($`5`$ giây).
 * Độ trễ trung bình:
 
-  $$\text{Mean} \approx \frac{990 \times 10 + 10 \times 5000}{1000} = 59.9\,\text{ms}$$
+  ```math
+  \text{Mean} \approx \frac{990 \times 10 + 10 \times 5000}{1000} = 59.9\,\text{ms}
+  ```
 
-  Nhìn vào con số $59.9\,\text{ms}$, kỹ sư tưởng rằng hệ thống đang hoạt động trơn tru.
+  Nhìn vào con số $`59.9\,\text{ms}`$, kỹ sư tưởng rằng hệ thống đang hoạt động trơn tru.
 * Nhưng xét theo phân vị:
-  * $p50 = 10\,\text{ms}$ (50% người dùng nhận kết quả dưới 10ms).
-  * $p99 = 5000\,\text{ms}$ (1% người dùng quan trọng nhất phải chờ đợi tới 5 giây và rất có thể đã hủy giao dịch!).
-* Do đó, SLA (Service Level Agreement) của hệ thống suy luận luôn bắt buộc phải cam kết trên **$p95$ và $p99$**.
+  * $`p50 = 10\,\text{ms}`$ (50% người dùng nhận kết quả dưới 10ms).
+  * $`p99 = 5000\,\text{ms}`$ (1% người dùng quan trọng nhất phải chờ đợi tới 5 giây và rất có thể đã hủy giao dịch!).
+* Do đó, SLA (Service Level Agreement) của hệ thống suy luận luôn bắt buộc phải cam kết trên **$`p95`$ và $`p99`$**.
 
 ---
 
@@ -163,7 +167,7 @@ New raw X
 |---|---|---|
 | **Phương thức kích hoạt** | Nhận yêu cầu đồng bộ qua REST API, gRPC hoặc WebSocket. | Chạy tự động theo lịch định kỳ (Cron Job, Airflow, Spark ETL). |
 | **Ngân sách Độ trễ** | Cực kỳ khắt khe: từ vài mili-giây đến dưới 100ms. | Linh hoạt: tính bằng phút hoặc hàng giờ. |
-| **Băng thông (Throughput)** | Thấp đến trung bình trên từng request đơn lẻ ($1-100$ items). | Khổng lồ: hàng triệu đến hàng tỷ bản ghi mỗi đợt chạy. |
+| **Băng thông (Throughput)** | Thấp đến trung bình trên từng request đơn lẻ ($`1-100`$ items). | Khổng lồ: hàng triệu đến hàng tỷ bản ghi mỗi đợt chạy. |
 | **Tối ưu hóa phần cứng** | Ưu tiên CPU đa luồng, tối ưu độ trễ bộ nhớ đệm (Cache locality). | Ưu tiên GPU/TPU xử lý ma trận song song quy mô lớn. |
 | **Chiến lược Thất bại** | Bắt buộc phải có Fallback tức thì để trả kết quả cho người dùng. | Retry job tự động hoặc ghi nhận bản ghi lỗi vào Dead Letter Queue. |
 

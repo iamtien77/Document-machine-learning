@@ -6,29 +6,35 @@ Học giám sát (supervised learning) học ánh xạ từ đặc trưng `X` sa
 
 **Ví dụ dẫn nhập:** muốn dự đoán giá nhà, ta dùng diện tích và số phòng làm `X`, giá giao dịch làm `y`. Mô hình học từ các căn nhà đã biết giá, rồi dự đoán giá cho căn nhà mới. Cần so dự đoán với giá thật trên dữ liệu giữ riêng; khớp tốt dữ liệu đã học chưa đủ để kết luận mô hình hữu ích.
 
-Ký hiệu: với `n` mẫu và `p` feature số, $X \in \mathbb{R}^{n\times p}$, $`y = (y_{1},\ldots ,y_{n})`$. Mô hình có tham số $\theta$ và dự đoán $`f_\theta(x)`$. Mục tiêu là lỗi kỳ vọng trên **dữ liệu mới** thấp. Mẫu được lấy từ phân phối nào, và phân phối đó có giống lúc triển khai hay không, là giả định cần kiểm tra. [2][4]
+Ký hiệu: với `n` mẫu và `p` feature số, $`X \in \mathbb{R}^{n\times p}`$, $`y = (y_{1},\ldots ,y_{n})`$. Mô hình có tham số $`\theta`$ và dự đoán $`f_\theta(x)`$. Mục tiêu là lỗi kỳ vọng trên **dữ liệu mới** thấp. Mẫu được lấy từ phân phối nào, và phân phối đó có giống lúc triển khai hay không, là giả định cần kiểm tra. [2][4]
 
 **Cách đọc lần đầu:** nắm ví dụ trên rồi đi tiếp qua các mục Input → Output → Evaluation metrics → How it works. Phần công thức đọc sâu bên dưới giải thích cơ sở toán học; có thể quay lại sau khi hiểu quy trình train/validation/test.
 
 ### Động lực nghiên cứu & Bản chất học thuật (Textbook Intuition)
 
-Trong khoa học máy tính truyền thống (Traditional Programming), con người cung cấp **Dữ liệu (Data)** và **Quy tắc/Thuật toán (Rules)** để máy tính tính toán ra **Đáp án (Answers)**. Ngược lại, Học giám sát đảo ngược quy trình này: con người cung cấp **Dữ liệu ($X$)** và **Đáp án chuẩn ($y$)**, nhiệm vụ của thuật toán học máy là tự động khám phá và xấp xỉ hàm quy luật $f: \mathcal{X} \to \mathcal{Y}$.
+Trong khoa học máy tính truyền thống (Traditional Programming), con người cung cấp **Dữ liệu (Data)** và **Quy tắc/Thuật toán (Rules)** để máy tính tính toán ra **Đáp án (Answers)**. Ngược lại, Học giám sát đảo ngược quy trình này: con người cung cấp **Dữ liệu ($`X`$)** và **Đáp án chuẩn ($`y`$)**, nhiệm vụ của thuật toán học máy là tự động khám phá và xấp xỉ hàm quy luật $`f: \mathcal{X} \to \mathcal{Y}`$.
 
-**Đọc sâu — giả định và công thức:** trong thiết lập I.I.D., các cặp dữ liệu được lấy độc lập từ cùng phân phối chưa biết $P(X, Y)$. Đây là giả định cần kiểm tra, nhất là với dữ liệu theo nhóm hoặc thời gian. Hàm mất mát $L(y, f(x))$ đo sai lệch giữa dự đoán $f(x)$ và nhãn $y$.
+**Đọc sâu — giả định và công thức:** trong thiết lập I.I.D., các cặp dữ liệu được lấy độc lập từ cùng phân phối chưa biết $`P(X, Y)`$. Đây là giả định cần kiểm tra, nhất là với dữ liệu theo nhóm hoặc thời gian. Hàm mất mát $`L(y, f(x))`$ đo sai lệch giữa dự đoán $`f(x)`$ và nhãn $`y`$.
 
 * **Rủi ro kỳ vọng (Expected Risk / Generalization Loss):** Là kỳ vọng toán học của sai số trên toàn bộ phân phối dữ liệu thực tế:
 
-  $$\mathcal{R}(f) = \mathbb{E}_{(X, Y) \sim P}[L(Y, f(X))] = \int_{\mathcal{X} \times \mathcal{Y}} L(y, f(x)) \, dP(x, y)$$
+  ```math
+  \mathcal{R}(f) = \mathbb{E}_{(X, Y) \sim P}[L(Y, f(X))] = \int_{\mathcal{X} \times \mathcal{Y}} L(y, f(x)) \, dP(x, y)
+  ```
 
-  Vì phân phối $P(X, Y)$ là ẩn số trong thực tế, ta không thể tính toán trực tiếp $\mathcal{R}(f)$.
-* **Rủi ro thực nghiệm (Empirical Risk):** Là sai số trung bình tính trên tập dữ liệu huấn luyện mẫu gồm $n$ quan sát:
+  Vì phân phối $`P(X, Y)`$ là ẩn số trong thực tế, ta không thể tính toán trực tiếp $`\mathcal{R}(f)`$.
+* **Rủi ro thực nghiệm (Empirical Risk):** Là sai số trung bình tính trên tập dữ liệu huấn luyện mẫu gồm $`n`$ quan sát:
 
-  $$\hat{\mathcal{R}}_n(f) = \frac{1}{n} \sum_{i=1}^n L(y_i, f(x_i))$$
+  ```math
+  \hat{\mathcal{R}}_n(f) = \frac{1}{n} \sum_{i=1}^n L(y_i, f(x_i))
+  ```
 
 * **Nguyên lý Tối thiểu hóa Rủi ro Thực nghiệm (Empirical Risk Minimization - ERM):**
   ERM chọn hàm làm nhỏ nhất $`\hat{\mathcal{R}}_n(f)`$ trong lớp mô hình đang xét. Mô hình quá linh hoạt có thể đạt lỗi train gần 0 nhưng lỗi trên dữ liệu mới vẫn lớn: **overfitting**. Regularization là một cách kiểm soát độ phức tạp, không tự bảo đảm tổng quát hóa tốt. Khoảng cách giữa hai loại rủi ro có thể viết:
 
-  $$\mathrm{Gap}(f) = \lvert \mathcal{R}(f) - \hat{\mathcal{R}}_n(f) \rvert$$
+  ```math
+  \mathrm{Gap}(f) = \lvert \mathcal{R}(f) - \hat{\mathcal{R}}_n(f) \rvert
+  ```
 
   Muốn kết luận khoảng cách này tiến về 0 khi tăng dữ liệu, cần các điều kiện phù hợp về cách lấy mẫu, loss và lớp mô hình. Trong thực hành, dùng validation/test hợp lệ để ước lượng chất lượng trên dữ liệu chưa thấy. [4][14]
 
@@ -42,45 +48,51 @@ Trong khoa học máy tính truyền thống (Traditional Programming), con ngư
 
 ### Không gian đầu vào & Điều kiện biên của dữ liệu
 
-1. **Ma trận đặc trưng (Design Matrix $X$):**
-   * Chiều dữ liệu: $X \in \mathbb{R}^{n \times p}$, trong đó mỗi hàng $`x_i^\top \in \mathbb{R}^p`$ đại diện cho một vector đặc trưng của quan sát thứ $i$, và mỗi cột đại diện cho một biến ngẫu nhiên đo lường được.
+1. **Ma trận đặc trưng (Design Matrix $`X`$):**
+   * Chiều dữ liệu: $`X \in \mathbb{R}^{n \times p}`$, trong đó mỗi hàng $`x_i^\top \in \mathbb{R}^p`$ đại diện cho một vector đặc trưng của quan sát thứ $`i`$, và mỗi cột đại diện cho một biến ngẫu nhiên đo lường được.
    * Bản chất kiểu dữ liệu:
      * *Dữ liệu số (Numerical):* Liên tục (chiều cao, giá tiền) hoặc rời rạc (số lượng phòng).
      * *Dữ liệu phân loại (Categorical):* Định danh (Nominal: màu sắc, quốc gia) hoặc thứ bậc (Ordinal: học lực, mức độ hài lòng).
-     * *Dữ liệu phi cấu trúc (Unstructured):* Ảnh ($H \times W \times C$), văn bản (chuỗi token), chuỗi thời gian ($T \times p$). Toàn bộ phải được đưa về dạng vector số học trước khi đưa vào estimator truyền thống.
+     * *Dữ liệu phi cấu trúc (Unstructured):* Ảnh ($`H \times W \times C`$), văn bản (chuỗi token), chuỗi thời gian ($`T \times p`$). Toàn bộ phải được đưa về dạng vector số học trước khi đưa vào estimator truyền thống.
 2. **Giả định I.I.D. và các vi phạm thường gặp:**
-   * Giả định: Các cặp $`(x_i, y_i)`$ được sinh ra độc lập và từ cùng một phân phối $P$.
+   * Giả định: Các cặp $`(x_i, y_i)`$ được sinh ra độc lập và từ cùng một phân phối $`P`$.
    * Vi phạm trong thực tế:
-     * *Tương quan chuỗi (Autocorrelation):* Giá cổ phiếu hôm nay phụ thuộc vào giá hôm qua $\to$ vi phạm tính độc lập.
-     * *Phân cụm thực thể (Grouped Data):* Nhiều hàng thuộc về cùng một bệnh nhân $\to$ vi phạm tính độc lập.
-     * *Trôi dạt phân phối (Distribution Drift):* Dữ liệu mùa đông khác mùa hè $\to$ vi phạm tính cùng phân phối.
+     * *Tương quan chuỗi (Autocorrelation):* Giá cổ phiếu hôm nay phụ thuộc vào giá hôm qua $`\to`$ vi phạm tính độc lập.
+     * *Phân cụm thực thể (Grouped Data):* Nhiều hàng thuộc về cùng một bệnh nhân $`\to`$ vi phạm tính độc lập.
+     * *Trôi dạt phân phối (Distribution Drift):* Dữ liệu mùa đông khác mùa hè $`\to`$ vi phạm tính cùng phân phối.
 
 ---
 
 ## Output
 
-- Mô hình $f(X)\to\hat{y}$ hoặc $f(X) \to p(y\mid X)$; với regression là giá trị số, với classification là nhãn/điểm/xác suất.
+- Mô hình $`f(X)\to\hat{y}`$ hoặc $`f(X) \to p(y\mid X)`$; với regression là giá trị số, với classification là nhãn/điểm/xác suất.
 - Báo cáo đánh giá trên dữ liệu chưa dùng để chọn mô hình, cùng giới hạn áp dụng.
 - Pipeline tiền xử lý, phiên bản dữ liệu và mô hình để suy luận nhất quán.
 
-### Phân tích không gian mục tiêu $\mathcal{Y}$
+### Phân tích không gian mục tiêu $`\mathcal{Y}`$
 
-Tùy vào kiểu giá trị cần dự đoán, học giám sát có các dạng sau. Ký hiệu $\mathcal{Y}$ chỉ tập các giá trị đầu ra có thể nhận:
+Tùy vào kiểu giá trị cần dự đoán, học giám sát có các dạng sau. Ký hiệu $`\mathcal{Y}`$ chỉ tập các giá trị đầu ra có thể nhận:
 
-1. **Hồi quy (Regression):** $\mathcal{Y} \subseteq \mathbb{R}$ hoặc $\mathbb{R}^m$ (multi-output regression). Với squared-error loss và moment bậc hai hữu hạn, dự đoán tối ưu là kỳ vọng có điều kiện; loss khác có thể dẫn đến mục tiêu khác:
+1. **Hồi quy (Regression):** $`\mathcal{Y} \subseteq \mathbb{R}`$ hoặc $`\mathbb{R}^m`$ (multi-output regression). Với squared-error loss và moment bậc hai hữu hạn, dự đoán tối ưu là kỳ vọng có điều kiện; loss khác có thể dẫn đến mục tiêu khác:
 
-   $$f(x) = \mathbb{E}[Y \mid X = x]$$
+   ```math
+   f(x) = \mathbb{E}[Y \mid X = x]
+   ```
 
-2. **Phân loại nhị phân (Binary Classification):** $\mathcal{Y} = \{0, 1\}$ hoặc $\{-1, +1\}$. Mô hình thường ước lượng xác suất hậu nghiệm:
+2. **Phân loại nhị phân (Binary Classification):** $`\mathcal{Y} = \{0, 1\}`$ hoặc $`\{-1, +1\}`$. Mô hình thường ước lượng xác suất hậu nghiệm:
 
-   $$\eta(x) = P(Y = 1 \mid X = x)$$
+   ```math
+   \eta(x) = P(Y = 1 \mid X = x)
+   ```
 
-   Sau đó áp dụng ngưỡng quyết định $\tau \in (0, 1)$ để gán nhãn: $\hat{y} = \mathbb{I}(\eta(x) \ge \tau)$.
-3. **Phân loại đa lớp (Multi-class Classification):** $\mathcal{Y} = \{1, 2, \dots, K\}$ với $K > 2$. Mỗi quan sát thuộc về duy nhất một lớp. Mô hình thường xuất ra một vector xác suất thuộc Simplex:
+   Sau đó áp dụng ngưỡng quyết định $`\tau \in (0, 1)`$ để gán nhãn: $`\hat{y} = \mathbb{I}(\eta(x) \ge \tau)`$.
+3. **Phân loại đa lớp (Multi-class Classification):** $`\mathcal{Y} = \{1, 2, \dots, K\}`$ với $`K > 2`$. Mỗi quan sát thuộc về duy nhất một lớp. Mô hình thường xuất ra một vector xác suất thuộc Simplex:
 
-   $$\Delta^{K-1} = \left\lbrace (p_1, \dots, p_K) \in [0, 1]^K \mid \sum_{k=1}^K p_k = 1 \right\rbrace$$
+   ```math
+   \Delta^{K-1} = \left\lbrace (p_1, \dots, p_K) \in [0, 1]^K \mid \sum_{k=1}^K p_k = 1 \right\rbrace
+   ```
 
-4. **Phân loại đa nhãn (Multi-label Classification):** $\mathcal{Y} = \{0, 1\}^K$. Một quan sát có thể đồng thời mang nhiều nhãn (ví dụ: một bài báo vừa về "Công nghệ", vừa về "Kinh tế"). Các nhãn có thể liên quan với nhau; định nghĩa multilabel không yêu cầu chúng độc lập.
+4. **Phân loại đa nhãn (Multi-label Classification):** $`\mathcal{Y} = \{0, 1\}^K`$. Một quan sát có thể đồng thời mang nhiều nhãn (ví dụ: một bài báo vừa về "Công nghệ", vừa về "Kinh tế"). Các nhãn có thể liên quan với nhau; định nghĩa multilabel không yêu cầu chúng độc lập.
 
 ---
 
@@ -94,10 +106,10 @@ Ví dụ: hệ thống lọc thư rác có thể ưu tiên precision của lớp
 
 Metric phải phản ánh mục tiêu và chi phí sai lầm của bài toán. Bảng dưới minh họa trường hợp chỉ tính chi phí dự đoán sai; nếu quyết định đúng cũng có chi phí hoặc lợi ích, cần bổ sung vào ma trận. [11]
 
-| Nhãn thực tế \ Dự đoán | Dự đoán Âm ($\hat{y}=0$) | Dự đoán Dương ($\hat{y}=1$) |
+| Nhãn thực tế \ Dự đoán | Dự đoán Âm ($`\hat{y}=0`$) | Dự đoán Dương ($`\hat{y}=1`$) |
 |---|---|---|
-| **Thực tế Âm ($y=0$)** | Đúng: $`C_{TN} = 0`$ | Báo động nhầm (False Positive): $`C_{FP}`$ |
-| **Thực tế Dương ($y=1$)** | Bỏ sót (False Negative): $`C_{FN}`$ | Đúng: $`C_{TP} = 0`$ |
+| **Thực tế Âm ($`y=0`$)** | Đúng: $`C_{TN} = 0`$ | Báo động nhầm (False Positive): $`C_{FP}`$ |
+| **Thực tế Dương ($`y=1`$)** | Bỏ sót (False Negative): $`C_{FN}`$ | Đúng: $`C_{TP} = 0`$ |
 
 * Nếu $`C_{FN} \gg C_{FP}`$, có thể ưu tiên recall nhưng cần kiểm soát số báo động giả, chẳng hạn tối đa recall với ràng buộc precision tối thiểu.
 * Nếu $`C_{FP} \gg C_{FN}`$, có thể ưu tiên precision nhưng vẫn phải kiểm số ca bỏ sót. Với ma trận trên, một lựa chọn là tối thiểu hóa $`C_{FP}\,FP + C_{FN}\,FN`$ trên validation, kèm ràng buộc vận hành. Không suy ra rằng cứ tối đa một metric riêng lẻ là có quyết định tốt nhất. [11]
@@ -193,9 +205,11 @@ Bảng là gợi ý các điểm cần kiểm tra, không phải định nghĩa 
 
 ### Phân tích Lý thuyết Đánh đổi Thiên lệch - Phương sai (Bias-Variance Decomposition)
 
-**Đọc sâu:** trong regression với squared-error loss, giả sử $`y_0=f_*(x_0)+\epsilon`$, nhiễu có trung bình 0, phương sai $\sigma^2$ và độc lập với tập train. Tại $`x_0`$ cố định, kỳ vọng qua các tập train và nhiễu của mẫu mới phân rã như sau; đây không phải công thức cho mọi loại loss. [13]
+**Đọc sâu:** trong regression với squared-error loss, giả sử $`y_0=f_*(x_0)+\epsilon`$, nhiễu có trung bình 0, phương sai $`\sigma^2`$ và độc lập với tập train. Tại $`x_0`$ cố định, kỳ vọng qua các tập train và nhiễu của mẫu mới phân rã như sau; đây không phải công thức cho mọi loại loss. [13]
 
-$$\mathbb{E}[(y_0 - \hat{f}(x_0))^2] = \mathrm{Bias}[\hat{f}(x_0)]^2 + \mathrm{Var}[\hat{f}(x_0)] + \sigma^2$$
+```math
+\mathbb{E}[(y_0 - \hat{f}(x_0))^2] = \mathrm{Bias}[\hat{f}(x_0)]^2 + \mathrm{Var}[\hat{f}(x_0)] + \sigma^2
+```
 
 1. **Bias (Thiên lệch):** Chênh lệch giữa dự đoán trung bình qua các tập train và $`f_*(x_0)`$. Bias cao có thể phản ánh giả định mô hình quá đơn giản.
 2. **Variance (Phương sai):** Độ biến thiên của dự đoán khi thay tập train; variance cao thể hiện mô hình nhạy với dữ liệu huấn luyện.
