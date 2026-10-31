@@ -23,7 +23,7 @@ Train và validation đã split đúng; pipeline tiền xử lý; objective/loss
 ### Cấu hình Toán học của Bài toán Huấn luyện
 
 Đầu vào kỹ thuật của giai đoạn này là một bài toán quy hoạch toán học tổng quát:
-$$\theta^* = \operatorname*{arg\,min}_{\theta \in \Theta} \;\; \mathcal{J}(\theta; D_{\text{train}}) = \operatorname*{arg\,min}_{\theta \in \Theta} \left[ \frac{1}{n} \sum_{i=1}^n L(y_i, f_\theta(x_i)) + \lambda \Omega(\theta) \right]$$
+$$\theta^* = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \;\; \mathcal{J}(\theta; D_{\text{train}}) = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \left[ \frac{1}{n} \sum_{i=1}^n L(y_i, f_\theta(x_i)) + \lambda \Omega(\theta) \right]$$
 
 Trong đó:
 * $\Theta$: Không gian tham số có thể đạt được.
@@ -51,13 +51,13 @@ Một giai đoạn huấn luyện hoàn tất chuẩn mực khoa học phải b�
 
 **Loss** dùng để fit tham số: squared/absolute error cho regression, log loss hoặc hinge loss cho một số classifier. **Metric chọn mô hình** phản ánh mục tiêu thực tế và có thể khác loss; ví dụ recall khi bỏ sót ca dương tính tốn kém. Theo dõi chênh train và validation; so với baseline. [2]
 
-Một cách viết chung: $\theta^* = \operatorname*{arg\,min}_{\theta} \left[\frac{1}{n}\sum_i L(y_i,f_\theta(x_i)) + \lambda R(\theta)\right]$. `L` là loss, `R` là regularization, $\lambda$ điều khiển mức phạt. Công thức này hợp với nhiều mô hình tham số, nhưng kNN và cây học theo cơ chế khác. Metric chọn mô hình có thể không khả vi nên không nhất thiết là loss tối ưu.
+Một cách viết chung: $\theta^* = \mathop{\mathrm{arg\,min}}_{\theta} \left[\frac{1}{n}\sum_i L(y_i,f_\theta(x_i)) + \lambda R(\theta)\right]$. `L` là loss, `R` là regularization, $\lambda$ điều khiển mức phạt. Công thức này hợp với nhiều mô hình tham số, nhưng kNN và cây học theo cơ chế khác. Metric chọn mô hình có thể không khả vi nên không nhất thiết là loss tối ưu.
 
 ### Bản chất của Hàm Mất mát Thay thế (Surrogate Loss Function)
 
 Tại sao không tối ưu trực tiếp Accuracy hay F1-Score trong lúc train?
 * Xét hàm lỗi 0-1 (Zero-One Loss) đo tỷ lệ phân loại sai:
-  $$L_{0-1}(y, f(x)) = \mathbb{I}(y \neq \operatorname{sign}(f(x)))$$
+  $$L_{0-1}(y, f(x)) = \mathbb{I}(y \neq \mathrm{sign}(f(x)))$$
 * Hàm này là hàm bậc thang: đạo hàm tại mọi điểm khả vi đều bằng 0, và không liên tục tại điểm phân chia ranh giới. Do đó, các thuật toán tối ưu hóa dựa trên gradient (Gradient-based Optimization) hoàn toàn bất lực.
 * **Giải pháp học thuật:** Sử dụng một **hàm mất mát thay thế lồi (Convex Surrogate Loss)** chặn trên hàm 0-1:
   * *Binary Cross-Entropy / Log Loss:* $L_{\text{logistic}}(y, f) = \log(1 + e^{-y f})$ (mịn, khả vi vô hạn, tiệm cận xác suất hậu nghiệm).

@@ -3,7 +3,7 @@
 Tệp này là kim chỉ nam bắt buộc cho tất cả các AI coding assistant / agent (Antigravity, Cursor, OpenAI Codex, GitHub Copilot) khi làm việc trong workspace này. Mọi agent phải đọc và tuân thủ các quy tắc dưới đây trước khi thực hiện bất kỳ thao tác nào.
 
 Nguồn quy tắc chi tiết đầy đủ nằm tại:
-- Rules: `.agents/rules/` (từ `1.md` đến `20.md`)
+- Rules: `.agents/rules/` (từ `1.md` đến `19.md`; `14.md` dẫn chiếu quy tắc đọc tài liệu tại `13.md`)
 - Workflows: `.agents/workflows/` (`1.md`, `2.md`, `3.md`)
 
 ---

@@ -10,7 +10,7 @@ Một trực giác tự nhiên của người mới học là thử áp dụng H
 
 1. **Vi phạm không gian xác suất:** Phương trình đường thẳng $w^\top x + b$ có miền giá trị trên toàn bộ trục số thực $(-\infty, +\infty)$. Do đó, mô hình có thể dự đoán xác suất âm ($\hat{y} = -0.4$) hoặc xác suất lớn hơn 1 ($\hat{y} = 1.7$), hoàn toàn vô nghĩa về mặt tiên đề xác suất Kolmogorov.
 2. **Độ nhạy méo mó trước các điểm ngoại lai xa (Outlier Sensitivity):** Khi xuất hiện một điểm dữ liệu dương tính ($y=1$) nằm rất xa về phía bên phải ranh giới (một mẫu "quá chuẩn"), hàm bình phương sai số của OLS sẽ cố gắng kéo đường hồi quy dốc lên để giảm sai số của điểm này, vô tình làm xô lệch ranh giới quyết định và gây phân loại sai các điểm ở vùng trung tâm.
-3. **Vi phạm giả định phương sai đồng nhất (Heteroscedasticity):** Với biến ngẫu nhiên nhị phân Bernoulli, phương sai phụ thuộc trực tiếp vào kỳ vọng: $\operatorname{Var}(Y \mid X) = p(x)(1 - p(x))$. Do đó phương sai biến thiên theo từng điểm dữ liệu, làm mất tính tối ưu của OLS.
+3. **Vi phạm giả định phương sai đồng nhất (Heteroscedasticity):** Với biến ngẫu nhiên nhị phân Bernoulli, phương sai phụ thuộc trực tiếp vào kỳ vọng: $\mathrm{Var}(Y \mid X) = p(x)(1 - p(x))$. Do đó phương sai biến thiên theo từng điểm dữ liệu, làm mất tính tối ưu của OLS.
 
 Để giải quyết triệt để vấn đề này, David Cox (1958) đã đưa ra mô hình Hồi quy Logistic thuộc họ **Mô hình Tuyến tính Khái quát (GLM - Generalized Linear Models)** bằng cách đưa vào **Hàm liên kết Logit (Logit Link Function)** ánh xạ từ xác suất $(0, 1)$ sang toàn bộ trục số thực $(-\infty, +\infty)$.
 
@@ -31,17 +31,17 @@ Với `n` mẫu và `p` feature, $X \in \mathbb{R}^{n\times p}$. Binary target c
 ### Tỷ số Cược (Odds) & Ý nghĩa Diễn giải của Trọng số $w_j$
 
 * **Định nghĩa Tỷ số Cược (Odds):** Là tỷ lệ giữa xác suất biến cố xảy ra và xác suất biến cố không xảy ra:
-  $$\operatorname{Odds} = \frac{p}{1 - p}$$
-  Ví dụ: nếu xác suất chiến thắng là $p = 0.8$, tỷ số cược là $\operatorname{Odds} = \frac{0.8}{0.2} = 4$ (tỷ lệ "4 ăn 1").
+  $$\mathrm{Odds} = \frac{p}{1 - p}$$
+  Ví dụ: nếu xác suất chiến thắng là $p = 0.8$, tỷ số cược là $\mathrm{Odds} = \frac{0.8}{0.2} = 4$ (tỷ lệ "4 ăn 1").
 * **Hàm Log-Odds (Logit):**
-  $$\operatorname{logit}(p) = \ln\left( \frac{p}{1 - p} \right) = w_0 + w_1 x_1 + \dots + w_p x_p$$
+  $$\mathrm{logit}(p) = \ln\left( \frac{p}{1 - p} \right) = w_0 + w_1 x_1 + \dots + w_p x_p$$
   Đảo ngược hàm logit, ta thu được hàm kích hoạt **Sigmoid (Logistic Function)**:
   $$p = \sigma(z) = \frac{1}{1 + e^{-z}} = \frac{e^z}{1 + e^z}$$
 * **Ý nghĩa Diễn giải Hệ số qua Tỷ số Nguy cơ (Odds Ratio - OR):**
   Lấy mũ cơ số tự nhiên hai vế:
-  $$\operatorname{Odds} = e^{w_0} \cdot e^{w_1 x_1} \dots e^{w_j x_j}$$
+  $$\mathrm{Odds} = e^{w_0} \cdot e^{w_1 x_1} \dots e^{w_j x_j}$$
   Khi biến độc lập $x_j$ tăng thêm 1 đơn vị (các biến khác giữ nguyên):
-  $$\operatorname{OR} = \frac{\operatorname{Odds}(x_j + 1)}{\operatorname{Odds}(x_j)} = e^{w_j}$$
+  $$\mathrm{OR} = \frac{\mathrm{Odds}(x_j + 1)}{\mathrm{Odds}(x_j)} = e^{w_j}$$
   * Nếu $w_j > 0 \implies e^{w_j} > 1$: Làm tăng tỷ số cược xảy ra lớp dương tính.
   * Nếu $w_j < 0 \implies e^{w_j} < 1$: Làm giảm tỷ số cược xảy ra lớp dương tính.
 

@@ -91,17 +91,17 @@ $$P(x_1, x_2, \dots, x_p \mid Y = c) = \prod_{j=1}^p P(x_j \mid Y = c)$$
 Khi đó, bài toán từ việc ước lượng bảng xác suất $2^p$ phần tử được rút gọn xuống chỉ còn ước lượng $2p$ tham số đơn biến! 
 
 Chuyển sang không gian Logarit để ngăn chặn hiện tượng tràn số dưới (Underflow):
-$$\hat{y} = \operatorname*{arg\,max}_{c} \left[ \ln P(Y = c) + \sum_{j=1}^p \ln P(x_j \mid Y = c) \right]$$
+$$\hat{y} = \mathop{\mathrm{arg\,max}}_{c} \left[ \ln P(Y = c) + \sum_{j=1}^p \ln P(x_j \mid Y = c) \right]$$
 
 ### Nghịch lý Thú vị: Tại sao Naive Bayes Vẫn Hoạt động Tốt khi Giả định Bị Sai?
 
 Trong đời thực, các đặc trưng hầu như không bao giờ độc lập (ví dụ: từ "Hong" và "Kong" trong văn bản hầu như luôn đi cùng nhau). Vậy tại sao Naive Bayes vẫn là bộ phân loại thư rác và phân loại tài liệu cực kỳ thành công?
 
 Nghiên cứu của Pedro Domingos và Michael Pazzani (1997) đã chứng minh bằng giải tích:
-* **Mục tiêu phân loại là tìm $\operatorname{arg\,max}$, không phải ước lượng chính xác xác suất.**
+* **Mục tiêu phân loại là tìm $\mathop{\mathrm{arg\,max}}$, không phải ước lượng chính xác xác suất.**
 * Giả sử xác suất thực tế của lớp Đúng là $0.65$ và lớp Sai là $0.35$.
 * Do giả định độc lập bị vi phạm, Naive Bayes nhân lặp các bằng chứng phụ thuộc, làm xác suất bị đẩy cực đoan: dự đoán lớp Đúng thành $0.999$ và lớp Sai thành $0.001$.
-* **Kết luận:** Mặc dù giá trị xác suất bị méo mó nghiêm trọng (Probability Calibration rất kém), nhưng **thứ tự xếp hạng giữa các lớp không hề thay đổi**. Nhãn dự đoán $\operatorname{arg\,max}$ vẫn chính xác 100%!
+* **Kết luận:** Mặc dù giá trị xác suất bị méo mó nghiêm trọng (Probability Calibration rất kém), nhưng **thứ tự xếp hạng giữa các lớp không hề thay đổi**. Nhãn dự đoán $\mathop{\mathrm{arg\,max}}$ vẫn chính xác 100%!
 
 ---
 

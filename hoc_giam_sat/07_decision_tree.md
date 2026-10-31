@@ -33,7 +33,7 @@ Với `DecisionTreeRegressor(criterion="squared_error")`, dự đoán ở lá l�
 ### Tại sao Cây Hồi quy Hoàn toàn Bất lực khi Ngoại suy (Extrapolation Failure)?
 
 Một đặc tính hình học cốt lõi của Cây Hồi quy là: **Đầu ra dự đoán của nó là một hàm hằng số từng khúc (Piecewise Constant Function)**.
-* Mỗi chiếc lá $R_m$ đại diện cho một khối siêu hộp trong không gian và dự đoán một giá trị hằng số duy nhất $c_m = \operatorname{mean}(y \mid x \in R_m)$.
+* Mỗi chiếc lá $R_m$ đại diện cho một khối siêu hộp trong không gian và dự đoán một giá trị hằng số duy nhất $c_m = \mathrm{mean}(y \mid x \in R_m)$.
 * Khi một điểm dữ liệu mới $x_{\text{new}}$ nằm xa ra ngoài miền dữ liệu huấn luyện (ví dụ: dự đoán giá nhà cho căn hộ $1{,}000\,\text{m}^2$ trong khi dữ liệu train lớn nhất chỉ là $300\,\text{m}^2$), điểm này sẽ bị dẫn vào chiếc lá ở rìa ngoài cùng và trả về giá trị trung bình của chiếc lá đó.
 * *Hệ quả:* Cây quyết định **không thể học được xu hướng tăng trưởng (Trend)**. Dự đoán của nó sẽ đi ngang thành một đường thẳng nằm ngang bất biến ở vùng ngoại suy!
 

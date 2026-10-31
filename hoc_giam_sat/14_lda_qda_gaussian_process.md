@@ -94,10 +94,10 @@ Theo định nghĩa của GP, phân phối đồng thời giữa các quan sát 
 $$\begin{bmatrix} y \\ f_* \end{bmatrix} \sim \mathcal{N} \left( \mathbf{0}, \begin{bmatrix} K(X, X) + \sigma_n^2 I & K(X, x_*) \\ K(x_*, X) & k(x_*, x_*) \end{bmatrix} \right)$$
 
 Áp dụng quy tắc suy diễn có điều kiện của phân phối chuẩn đa biến (Gaussian Conditioning Rule), ta thu được nghiệm giải tích chính xác:
-$$f_* \mid X, y, x_* \sim \mathcal{N}(\mu_*, \operatorname{Var}(f_*))$$
+$$f_* \mid X, y, x_* \sim \mathcal{N}(\mu_*, \mathrm{Var}(f_*))$$
 Trong đó:
 $$\mu_* = K(x_*, X) \left[ K(X, X) + \sigma_n^2 I \right]^{-1} y$$
-$$\operatorname{Var}(f_*) = k(x_*, x_*) - K(x_*, X) \left[ K(X, X) + \sigma_n^2 I \right]^{-1} K(X, x_*)$$
+$$\mathrm{Var}(f_*) = k(x_*, x_*) - K(x_*, X) \left[ K(X, X) + \sigma_n^2 I \right]^{-1} K(X, x_*)$$
 
 ```text
        y, f(x)
@@ -137,7 +137,7 @@ LDA/QDA hợp khi feature số và giả định Gaussian theo lớp tương đ�
 ### Kỹ thuật Thu hẹp Hiệp phương sai (Shrinkage Covariance - Ledoit & Wolf)
 
 Khi số chiều $p$ lớn so với số mẫu $n$, ma trận hiệp phương sai mẫu thực nghiệm $\hat{\Sigma}$ bị nhiễu nghiêm trọng và có thể không khả nghịch. Kỹ thuật **Ledoit-Wolf Shrinkage** điều chuẩn ma trận bằng cách trộn lồi với ma trận đơn vị:
-$$\Sigma_{\text{shrunk}} = (1 - \gamma) \hat{\Sigma} + \gamma \frac{\operatorname{tr}(\hat{\Sigma})}{p} I$$
+$$\Sigma_{\text{shrunk}} = (1 - \gamma) \hat{\Sigma} + \gamma \frac{\mathrm{tr}(\hat{\Sigma})}{p} I$$
 Hệ số $\gamma \in [0, 1]$ được tự động ước lượng tối ưu từ dữ liệu, giúp triệt tiêu hoàn toàn nguy cơ ma trận bị suy biến trong LDA.
 
 ### Chi phí Tính toán Khổng lồ của GPR: Lời nguyền $\mathcal{O}(n^3)$

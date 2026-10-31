@@ -28,7 +28,7 @@ Danh sách weak learners $h_{1},\ldots ,h_M$ và trọng số đóng góp của 
 ### Ranh giới Quyết định Tuyến tính Tổng hợp
 
 Dự đoán cuối cùng cho một mẫu mới $x$ được tạo ra bằng phép bỏ phiếu có trọng số giữa toàn bộ $M$ bộ phân loại yếu:
-$$H(x) = \operatorname{sign}\left( \sum_{m=1}^M \alpha_m h_m(x) \right)$$
+$$H(x) = \mathrm{sign}\left( \sum_{m=1}^M \alpha_m h_m(x) \right)$$
 Trong đó $\alpha_m$ là "tiếng nói" hay trọng số đóng góp của mô hình cơ sở thứ $m$. Mô hình nào có tỷ lệ lỗi thấp hơn sẽ được trao quyền quyết định lớn hơn.
 
 ---

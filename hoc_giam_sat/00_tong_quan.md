@@ -4,21 +4,27 @@
 
 Học giám sát (supervised learning) học ánh xạ từ đặc trưng `X` sang nhãn/giá trị đích `y` từ các ví dụ đã gán nhãn, để dự đoán trên ví dụ mới. Hai bài toán nền tảng là **regression** (`y` liên tục, như giá nhà) và **classification** (`y` là lớp, như thư rác/không phải thư rác). Đây là bản đồ để học từ bài toán đến vận hành, không phải một thuật toán riêng lẻ. [1][2]
 
-Ký hiệu: với `n` mẫu và `p` feature, $X \in \mathbb{R}^{n\times p}$, $y = (y_{1},\ldots ,y_{n})$. Mô hình có tham số $\theta$ và dự đoán $f_\theta(x)$. Mục tiêu là lỗi kỳ vọng trên **dữ liệu mới** thấp, chứ không phải học thuộc các cặp $(x_{i},y_{i})$ đã thấy. Mẫu được lấy từ phân phối nào, và phân phối đó có giống lúc triển khai hay không, là giả định cần kiểm tra. [2][4]
+**Ví dụ dẫn nhập:** muốn dự đoán giá nhà, ta dùng diện tích và số phòng làm `X`, giá giao dịch làm `y`. Mô hình học từ các căn nhà đã biết giá, rồi dự đoán giá cho căn nhà mới. Cần so dự đoán với giá thật trên dữ liệu giữ riêng; khớp tốt dữ liệu đã học chưa đủ để kết luận mô hình hữu ích.
+
+Ký hiệu: với `n` mẫu và `p` feature số, $X \in \mathbb{R}^{n\times p}$, $y = (y_{1},\ldots ,y_{n})$. Mô hình có tham số $\theta$ và dự đoán $f_\theta(x)$. Mục tiêu là lỗi kỳ vọng trên **dữ liệu mới** thấp. Mẫu được lấy từ phân phối nào, và phân phối đó có giống lúc triển khai hay không, là giả định cần kiểm tra. [2][4]
+
+**Cách đọc lần đầu:** nắm ví dụ trên rồi đi tiếp qua các mục Input → Output → Evaluation metrics → How it works. Phần công thức đọc sâu bên dưới giải thích cơ sở toán học; có thể quay lại sau khi hiểu quy trình train/validation/test.
 
 ### Động lực nghiên cứu & Bản chất học thuật (Textbook Intuition)
 
 Trong khoa học máy tính truyền thống (Traditional Programming), con người cung cấp **Dữ liệu (Data)** và **Quy tắc/Thuật toán (Rules)** để máy tính tính toán ra **Đáp án (Answers)**. Ngược lại, Học giám sát đảo ngược quy trình này: con người cung cấp **Dữ liệu ($X$)** và **Đáp án chuẩn ($y$)**, nhiệm vụ của thuật toán học máy là tự động khám phá và xấp xỉ hàm quy luật $f: \mathcal{X} \to \mathcal{Y}$.
 
-Về mặt lý thuyết xác suất, dữ liệu quan sát được coi là các biến ngẫu nhiên độc lập cùng phân phối (I.I.D.) trích xuất từ một phân phối xác suất đồng thời chưa biết $P(X, Y)$ trên không gian $\mathcal{X} \times \mathcal{Y}$. Ta xác định một hàm mất mát $L(y, f(x))$ đo lường mức độ sai lệch khi dự đoán $f(x)$ trong khi nhãn thực tế là $y$.
+**Đọc sâu — giả định và công thức:** trong thiết lập I.I.D., các cặp dữ liệu được lấy độc lập từ cùng phân phối chưa biết $P(X, Y)$. Đây là giả định cần kiểm tra, nhất là với dữ liệu theo nhóm hoặc thời gian. Hàm mất mát $L(y, f(x))$ đo sai lệch giữa dự đoán $f(x)$ và nhãn $y$.
+
 * **Rủi ro kỳ vọng (Expected Risk / Generalization Loss):** Là kỳ vọng toán học của sai số trên toàn bộ phân phối dữ liệu thực tế:
   $$\mathcal{R}(f) = \mathbb{E}_{(X, Y) \sim P}[L(Y, f(X))] = \int_{\mathcal{X} \times \mathcal{Y}} L(y, f(x)) \, dP(x, y)$$
   Vì phân phối $P(X, Y)$ là ẩn số trong thực tế, ta không thể tính toán trực tiếp $\mathcal{R}(f)$.
 * **Rủi ro thực nghiệm (Empirical Risk):** Là sai số trung bình tính trên tập dữ liệu huấn luyện mẫu gồm $n$ quan sát:
   $$\hat{\mathcal{R}}_n(f) = \frac{1}{n} \sum_{i=1}^n L(y_i, f(x_i))$$
 * **Nguyên lý Tối thiểu hóa Rủi ro Thực nghiệm (Empirical Risk Minimization - ERM):**
-  Thuật toán học máy tìm hàm $f^*$ làm cực tiểu $\hat{\mathcal{R}}_n(f)$. Tuy nhiên, nếu không gian hàm quá linh hoạt (quá phức tạp), $f^*$ có thể đạt $\hat{\mathcal{R}}_n(f) \approx 0$ nhưng rủi ro kỳ vọng $\mathcal{R}(f)$ lại rất lớn. Đây chính là hiện tượng **Overfitting (Quá khớp)**. Do đó, học máy hiện đại luôn bổ sung thành phần kiểm soát độ phức tạp (Regularization) để đảm bảo khoảng cách tổng quát hóa (Generalization Gap):
-  $$\operatorname{Gap}(f) = \lvert \mathcal{R}(f) - \hat{\mathcal{R}}_n(f) \rvert \to 0 \quad \text{khi } n \to \infty$$
+  ERM chọn hàm làm nhỏ nhất $\hat{\mathcal{R}}_n(f)$ trong lớp mô hình đang xét. Mô hình quá linh hoạt có thể đạt lỗi train gần 0 nhưng lỗi trên dữ liệu mới vẫn lớn: **overfitting**. Regularization là một cách kiểm soát độ phức tạp, không tự bảo đảm tổng quát hóa tốt. Khoảng cách giữa hai loại rủi ro có thể viết:
+  $$\mathrm{Gap}(f) = \lvert \mathcal{R}(f) - \hat{\mathcal{R}}_n(f) \rvert$$
+  Muốn kết luận khoảng cách này tiến về 0 khi tăng dữ liệu, cần các điều kiện phù hợp về cách lấy mẫu, loss và lớp mô hình. Trong thực hành, dùng validation/test hợp lệ để ước lượng chất lượng trên dữ liệu chưa thấy. [4][14]
 
 ---
 
@@ -53,16 +59,16 @@ Về mặt lý thuyết xác suất, dữ liệu quan sát được coi là các
 
 ### Phân tích không gian mục tiêu $\mathcal{Y}$
 
-Tùy thuộc vào không gian topo của $\mathcal{Y}$, học giám sát phân nhánh thành các bài toán chuẩn tắc:
+Tùy vào kiểu giá trị cần dự đoán, học giám sát có các dạng sau. Ký hiệu $\mathcal{Y}$ chỉ tập các giá trị đầu ra có thể nhận:
 
-1. **Hồi quy (Regression):** $\mathcal{Y} \subseteq \mathbb{R}$ hoặc $\mathbb{R}^m$ (multi-output regression). Mục tiêu là ước lượng kỳ vọng có điều kiện:
+1. **Hồi quy (Regression):** $\mathcal{Y} \subseteq \mathbb{R}$ hoặc $\mathbb{R}^m$ (multi-output regression). Với squared-error loss và moment bậc hai hữu hạn, dự đoán tối ưu là kỳ vọng có điều kiện; loss khác có thể dẫn đến mục tiêu khác:
    $$f(x) = \mathbb{E}[Y \mid X = x]$$
 2. **Phân loại nhị phân (Binary Classification):** $\mathcal{Y} = \{0, 1\}$ hoặc $\{-1, +1\}$. Mô hình thường ước lượng xác suất hậu nghiệm:
    $$\eta(x) = P(Y = 1 \mid X = x)$$
    Sau đó áp dụng ngưỡng quyết định $\tau \in (0, 1)$ để gán nhãn: $\hat{y} = \mathbb{I}(\eta(x) \ge \tau)$.
 3. **Phân loại đa lớp (Multi-class Classification):** $\mathcal{Y} = \{1, 2, \dots, K\}$ với $K > 2$. Mỗi quan sát thuộc về duy nhất một lớp. Mô hình thường xuất ra một vector xác suất thuộc Simplex:
    $$\Delta^{K-1} = \left\{ (p_1, \dots, p_K) \in [0, 1]^K \;\middle|\; \sum_{k=1}^K p_k = 1 \right\}$$
-4. **Phân loại đa nhãn (Multi-label Classification):** $\mathcal{Y} = \{0, 1\}^K$. Một quan sát có thể đồng thời thuộc về nhiều lớp độc lập (ví dụ: một bài báo vừa về "Công nghệ", vừa về "Kinh tế").
+4. **Phân loại đa nhãn (Multi-label Classification):** $\mathcal{Y} = \{0, 1\}^K$. Một quan sát có thể đồng thời mang nhiều nhãn (ví dụ: một bài báo vừa về "Công nghệ", vừa về "Kinh tế"). Các nhãn có thể liên quan với nhau; định nghĩa multilabel không yêu cầu chúng độc lập.
 
 ---
 
@@ -72,17 +78,17 @@ Chọn **trước khi train** theo mục tiêu: regression dùng MAE/RMSE/R²; c
 
 Ví dụ: hệ thống lọc thư rác có thể ưu tiên precision của lớp “rác” để tránh chặn nhầm thư quan trọng; sàng lọc ca bệnh có thể ưu tiên recall, nhưng vẫn phải kiểm số báo động giả và khả năng can thiệp. Đây là lựa chọn dựa trên chi phí sai cụ thể, không phải quy tắc chung cho mọi ứng dụng.
 
-### Định lý "No Free Lunch" trong đánh giá & Ma trận tổn thất (Cost Matrix)
+### Chọn metric theo mục tiêu & Ma trận tổn thất (Cost Matrix)
 
-Không tồn tại một thước đo duy nhất tối ưu cho mọi bối cảnh. Trong nghiên cứu học thuật và ứng dụng sản xuất, việc lựa chọn thước đo phải phản ánh chính xác cấu trúc chi phí sai lầm (Cost Matrix):
+Metric phải phản ánh mục tiêu và chi phí sai lầm của bài toán. Bảng dưới minh họa trường hợp chỉ tính chi phí dự đoán sai; nếu quyết định đúng cũng có chi phí hoặc lợi ích, cần bổ sung vào ma trận. [11]
 
 | Nhãn thực tế \ Dự đoán | Dự đoán Âm ($\hat{y}=0$) | Dự đoán Dương ($\hat{y}=1$) |
 |---|---|---|
 | **Thực tế Âm ($y=0$)** | Đúng: $C_{TN} = 0$ | Báo động nhầm (False Positive): $C_{FP}$ |
-| **Thực tế Dương ($y=1$)** | Bỏ sót (False Negative): $C_{FN}$ | Bắt trúng: $C_{TP} \le 0$ |
+| **Thực tế Dương ($y=1$)** | Bỏ sót (False Negative): $C_{FN}$ | Đúng: $C_{TP} = 0$ |
 
-* Nếu $C_{FN} \gg C_{FP}$ (như sàng lọc ung thư, phát hiện bom, lỗi an toàn hạt nhân): Bắt buộc tối đa hóa **Recall** (Sensitivity) và theo dõi PR-AUC, chấp nhận Precision thấp hơn để giảm thiểu $C_{FN}$.
-* Nếu $C_{FP} \gg C_{FN}$ (như khóa tài khoản ngân hàng gian lận, bộ lọc spam): Bắt buộc tối đa hóa **Precision**, không thể làm gián đoạn trải nghiệm người dùng vô tội.
+* Nếu $C_{FN} \gg C_{FP}$, có thể ưu tiên recall nhưng cần kiểm soát số báo động giả, chẳng hạn tối đa recall với ràng buộc precision tối thiểu.
+* Nếu $C_{FP} \gg C_{FN}$, có thể ưu tiên precision nhưng vẫn phải kiểm số ca bỏ sót. Với ma trận trên, một lựa chọn là tối thiểu hóa $C_{FP}\,FP + C_{FN}\,FN$ trên validation, kèm ràng buộc vận hành. Không suy ra rằng cứ tối đa một metric riêng lẻ là có quyết định tốt nhất. [11]
 * Phân biệt rạch ròi giữa **Surrogate Loss** (dùng để tối ưu hóa đạo hàm trong lúc train, ví dụ: Cross-Entropy, Hinge Loss) và **Evaluation Metric** (thước đo nghiệp vụ thực tế, ví dụ: F1-score, Cost, Accuracy). Ta dùng surrogate loss vì metric thực tế thường là hàm bậc thang không liên tục và không khả vi.
 
 ---
@@ -91,8 +97,8 @@ Không tồn tại một thước đo duy nhất tối ưu cho mọi bối cản
 
 1. Định nghĩa `X`, `y`, thời điểm dự đoán và metric.
 2. Thu thập, kiểm nhãn/chất lượng dữ liệu; chia train/validation/test đúng theo đơn vị độc lập, nhóm hoặc thời gian. [4]
-3. Fit preprocessing và baseline chỉ trên train; chọn thuật toán, tối ưu loss trên train, điều chỉnh bằng validation hoặc cross-validation. [5]
-4. Khóa thiết kế; đánh giá test một lần; phân tích lỗi, hiệu chuẩn xác suất/ngưỡng trên validation nếu cần. [4][6]
+3. Fit preprocessing và baseline chỉ trên train; chọn thuật toán, hyperparameter bằng validation/CV. Nếu cần, hiệu chuẩn xác suất và chọn ngưỡng bằng dữ liệu giữ riêng hoặc quy trình CV phù hợp, trước khi mở test. [5][6][11]
+4. Khóa toàn bộ pipeline và ngưỡng; đánh giá test cuối cùng, rồi phân tích lỗi. Nếu dùng kết quả này để sửa mô hình, cần tập test mới cho đánh giá độc lập tiếp theo. [4][5]
 5. Triển khai, giám sát dữ liệu và chất lượng, lên lịch đánh giá lại khi phân phối thay đổi. [7]
 
 Đọc tiếp theo thứ tự: [01 Dữ liệu trước train](01_du_lieu_truoc_train.md) → [02 Trong train](02_trong_train.md) → các họ thuật toán [03](03_hoi_quy_tuyen_tinh.md), [04](04_logistic_regression.md), [05](05_knn.md), [06](06_naive_bayes.md), [07](07_decision_tree.md), [08](08_random_forest_gradient_boosting.md), [09](09_svm.md), [10](10_mang_neuron.md) → [11 Đánh giá](11_danh_gia.md) → [12 Sau train](12_sau_train.md).
@@ -107,7 +113,9 @@ Thuật toán trong PDF chương 2 có thêm [18 Polynomial Regression](18_hoi_q
 | Trong train | Mô hình nào học được tín hiệu mà không overfit? | Pipeline, log thí nghiệm, cấu hình tốt nhất trên validation |
 | Sau train | Kết quả có lặp lại trên dữ liệu mới và còn đúng khi triển khai? | Báo cáo test, phân tích lỗi, giám sát, quy tắc retrain |
 
-### Sơ đồ kiến trúc luồng dữ liệu học máy chuẩn mực
+### Sơ đồ luồng dữ liệu học máy với validation giữ riêng
+
+Sơ đồ dùng một phương án cụ thể: chọn cấu hình bằng CV trong train, giữ validation để chọn ngưỡng. Nếu cần calibration, thực hiện bằng CV trong train trước khi dự đoán validation. Mô hình và ngưỡng sau đó được giữ nguyên đến test, như nguyên tắc trong [bài thực hành](13_thuc_hanh_xuyen_suot.md). [6][11]
 
 ```mermaid
 flowchart TD
@@ -117,11 +125,13 @@ flowchart TD
     SplitEngine -->|"Khóa hoàn toàn đến bước cuối"| TestSet["Test Set (Dữ liệu kiểm tra độc lập)"]
     SplitEngine --> DevSet["Development Set (Train + Validation)"]
     
-    DevSet --> FoldSplit["K-Fold Cross-Validation Split"]
+    DevSet --> TrainSet["Train: học mô hình và chọn cấu hình"]
+    DevSet --> ValSet["Validation giữ riêng: chọn ngưỡng"]
+    TrainSet --> FoldSplit["Chia CV phù hợp nhóm / thời gian / I.I.D."]
     
     subgraph CVLoop ["Vòng lặp Huấn luyện & Tinh chỉnh (Cross-Validation)"]
-        FoldSplit --> TrainFold["Train Fold (k-1 phần)"]
-        FoldSplit --> ValFold["Validation Fold (1 phần)"]
+        FoldSplit --> TrainFold["Phần train của lượt chia CV"]
+        FoldSplit --> ValFold["Phần validation của lượt chia CV"]
         TrainFold --> FitPipe["Fit Transformer & Estimator"]
         FitPipe --> TransVal["Transform & Predict trên Val Fold"]
         ValFold --> TransVal
@@ -129,8 +139,9 @@ flowchart TD
     end
     
     ComputeMetrics --> Tuning["Chọn Hyperparameters & Khóa Architecture"]
-    Tuning --> FinalFit["Huấn luyện lại trên toàn bộ Dev Set (hoặc đóng băng Pipeline)"]
-    FinalFit --> CalibThresh["Hiệu chuẩn Xác suất & Chọn Ngưỡng (Calibration / Threshold)"]
+    Tuning --> FinalFit["Fit trên Train; calibration bằng CV trong Train nếu cần"]
+    FinalFit --> CalibThresh["Dự đoán Validation và chọn ngưỡng; giữ nguyên mô hình"]
+    ValSet --> CalibThresh
     
     CalibThresh --> LockArtifact["Khóa Đóng gói Artifact (Pipeline + Model + Config)"]
     LockArtifact --> FinalEval["Đánh giá 1 lần duy nhất trên Test Set"]
@@ -146,15 +157,17 @@ Một hàng thường là một ví dụ; cột là feature; `y` là nhãn. Dữ
 
 Phân biệt ba dạng target: **binary** (`0/1`), **multiclass** (mỗi mẫu thuộc đúng một trong nhiều lớp), **multilabel** (một mẫu có thể mang nhiều nhãn). Với regression, một mẫu cũng có thể có nhiều target số. Quy tắc gán nhãn và đơn vị quan sát phải được ghi rõ trước khi chọn thuật toán. [8]
 
-### So sánh Dữ liệu Học tập (Toy Datasets) và Dữ liệu Thực tế (Production Data)
+### So sánh Dữ liệu Học tập và Dữ liệu Thực tế (Production Data)
+
+Bảng là gợi ý các điểm cần kiểm tra, không phải định nghĩa chung cho mọi dataset. Iris thuộc nhóm toy datasets của scikit-learn, còn California Housing thuộc nhóm real-world datasets nhưng thường được dùng để học. Bộ dữ liệu mẫu vẫn cần kiểm tra nguồn, phiên bản và chất lượng; không có căn cứ để mặc định nhãn chính xác 100%. [8][12]
 
 | Đặc tính | Dữ liệu học tập mẫu (Iris, California Housing) | Dữ liệu thực tế ngoài sản xuất (Production Data) |
 |---|---|---|
-| **Kích thước & Chiều** | Nhỏ ($n < 10^5$, $p < 20$), vừa vặn RAM máy cá nhân. | Lớn đến khổng lồ ($n > 10^7$, $p > 10^3$), phân tán trên cụm. |
-| **Giá trị khuyết (Missing Values)** | Thường sạch hoặc khuyết nhân tạo ngẫu nhiên (MCAR). | Khuyết có hệ thống (MNAR), mang ý nghĩa nghiệp vụ ngầm. |
-| **Nhiễu nhãn (Label Noise)** | Nhãn được chuyên gia xác thực chuẩn 100%. | Nhãn bị trễ, gán sai do người dùng hoặc heuristic yếu. |
-| **Mất cân bằng lớp** | Cân bằng hoàn hảo hoặc tỷ lệ vừa phải. | Mất cân bằng trầm trọng ($1:1000$ hoặc $1:10000$). |
-| **Thời gian & Drift** | Dữ liệu tĩnh (Static snapshot), phân phối cố định. | Phân phối liên tục biến thiên theo thời gian và hành vi xã hội. |
+| **Kích thước & Chiều** | Hai bộ mẫu này đủ nhỏ cho nhiều bài tập trên máy cá nhân. | Có thể nhỏ hoặc lớn; đo số mẫu, số feature và bộ nhớ thực tế. |
+| **Giá trị khuyết (Missing Values)** | Có mô tả để kiểm tra; bài tập đôi khi tạo missing nhân tạo. | Kiểm tra tỷ lệ và cơ chế thiếu; không mặc định mọi missing đều là MNAR. |
+| **Nhiễu nhãn (Label Noise)** | Có target sẵn nhưng vẫn cần kiểm nguồn và khả năng sai lệch. | Kiểm tra nhãn sai, nhãn trễ và quy trình xác thực. |
+| **Mất cân bằng lớp** | Iris có ba lớp bằng nhau; không suy rộng cho mọi bộ mẫu. | Đo tỷ lệ lớp thực tế; có thể cân bằng hoặc lệch mạnh. Không áp dụng khái niệm tỷ lệ lớp trực tiếp cho regression. |
+| **Thời gian & Drift** | Một snapshot không cho biết chất lượng sẽ ổn định khi triển khai. | Theo dõi thay đổi phân phối và chất lượng qua thời gian. |
 
 ---
 
@@ -168,14 +181,14 @@ Phân biệt ba dạng target: **binary** (`0/1`), **multiclass** (mỗi mẫu t
 
 ### Phân tích Lý thuyết Đánh đổi Thiên lệch - Phương sai (Bias-Variance Decomposition)
 
-Bất kỳ sai số kỳ vọng của mô hình nào trên dữ liệu mới $x_0$ đều có thể phân rã thành 3 thành phần toán học độc lập:
-$$\mathbb{E}[(y_0 - \hat{f}(x_0))^2] = \underbrace{\operatorname{Bias}[\hat{f}(x_0)]^2}_{\text{Thiên lệch}} + \underbrace{\operatorname{Var}[\hat{f}(x_0)]}_{\text{Phương sai}} + \underbrace{\sigma^2}_{\text{Nhiễu không thể giảm (Irreducible Noise)}}$$
+**Đọc sâu:** trong regression với squared-error loss, giả sử $y_0=f_*(x_0)+\epsilon$, nhiễu có trung bình 0, phương sai $\sigma^2$ và độc lập với tập train. Tại $x_0$ cố định, kỳ vọng qua các tập train và nhiễu của mẫu mới phân rã như sau; đây không phải công thức cho mọi loại loss. [13]
+$$\mathbb{E}[(y_0 - \hat{f}(x_0))^2] = \mathrm{Bias}[\hat{f}(x_0)]^2 + \mathrm{Var}[\hat{f}(x_0)] + \sigma^2$$
 
-1. **Bias (Thiên lệch):** Đại diện cho sai số do các giả định đơn giản hóa của thuật toán (ví dụ: ép quan hệ thực tế vào đường thẳng tuyến tính). Mô hình có Bias cao sẽ gặp hiện tượng **Underfitting** (không học được quy luật ngay cả trên tập train).
-2. **Variance (Phương sai):** Đại diện cho mức độ nhạy cảm của mô hình đối với các biến động ngẫu nhiên trong tập dữ liệu huấn luyện. Mô hình có Variance cao sẽ ghi nhớ cả nhiễu của tập train, dẫn đến **Overfitting** (điểm train rất cao nhưng điểm test sụt giảm mạnh).
+1. **Bias (Thiên lệch):** Chênh lệch giữa dự đoán trung bình qua các tập train và $f_*(x_0)$. Bias cao có thể phản ánh giả định mô hình quá đơn giản.
+2. **Variance (Phương sai):** Độ biến thiên của dự đoán khi thay tập train; variance cao thể hiện mô hình nhạy với dữ liệu huấn luyện.
 3. **Chiến lược kiểm soát:**
-   * Tăng độ phức tạp mô hình (tăng bậc đa thức, tăng độ sâu cây, giảm regularization) $\to$ Giảm Bias, Tăng Variance.
-   * Giảm độ phức tạp mô hình (thêm L1/L2 penalty, tỉa cành cây, bagging/ensemble) $\to$ Giảm Variance, Tăng nhẹ Bias.
+   * Tăng độ linh hoạt thường giúp giảm bias nhưng có thể tăng variance; cần kiểm bằng validation.
+   * Regularization hoặc tỉa cây có thể giảm variance và tăng bias. Bagging giảm variance bằng cách tổng hợp nhiều mô hình; không đồng nghĩa với giảm độ phức tạp từng mô hình. [13]
 
 ### Key words nền tảng
 
@@ -216,3 +229,9 @@ Các thuật ngữ sau được dùng xuyên suốt các bài. Trong mỗi bài 
 - [8] [scikit-learn: Toy and real-world datasets](https://scikit-learn.org/stable/datasets.html)
 - [9] Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning: Data Mining, Inference, and Prediction*. Springer.
 - [10] Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer.
+- [11] [scikit-learn: Tuning the decision threshold](https://scikit-learn.org/stable/modules/classification_threshold.html)
+- [12] [scikit-learn: Toy datasets — mô tả và lịch sử hiệu chỉnh Iris](https://scikit-learn.org/stable/datasets/toy_dataset.html)
+- [13] [scikit-learn: Bias-variance decomposition](https://scikit-learn.org/stable/auto_examples/ensemble/plot_bias_variance.html)
+- [14] [Stanford CS229: Learning Theory — ERM và điều kiện tổng quát hóa](https://cs229.stanford.edu/notes_archive/cs229-notes4.pdf)
+
+Ghi chú đối chiếu nguồn và phạm vi sửa: [Ghi chú hiệu đính](ghi_chu_hieu_dinh.md).

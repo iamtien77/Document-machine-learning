@@ -9,9 +9,9 @@ Dự đoán target liên tục bằng quan hệ tuyến tính giữa feature và
 Trong lịch sử thống kê học, Hồi quy Tuyến tính Bình phương Tối thiểu (Ordinary Least Squares - OLS) là viên gạch nền móng đầu tiên. Theo **Định lý Gauss-Markov**, nếu mô hình hồi quy thỏa mãn 5 giả định kinh điển:
 1. **Tính tuyến tính trong tham số (Linearity in Parameters):** $y = Xw + \varepsilon$.
 2. **Kỳ vọng sai số bằng 0 (Strict Exogeneity):** $\mathbb{E}[\varepsilon \mid X] = 0$.
-3. **Phương sai sai số thuần nhất (Homoscedasticity):** $\operatorname{Var}(\varepsilon_i \mid X) = \sigma^2 < \infty$.
-4. **Không có hiện tượng tự tương quan giữa các sai số (No Autocorrelation):** $\operatorname{Cov}(\varepsilon_i, \varepsilon_j \mid X) = 0$ với mọi $i \neq j$.
-5. **Không có hiện tượng đa cộng tuyến hoàn hảo (No Perfect Multicollinearity):** $\operatorname{rank}(X) = p \le n$.
+3. **Phương sai sai số thuần nhất (Homoscedasticity):** $\mathrm{Var}(\varepsilon_i \mid X) = \sigma^2 < \infty$.
+4. **Không có hiện tượng tự tương quan giữa các sai số (No Autocorrelation):** $\mathrm{Cov}(\varepsilon_i, \varepsilon_j \mid X) = 0$ với mọi $i \neq j$.
+5. **Không có hiện tượng đa cộng tuyến hoàn hảo (No Perfect Multicollinearity):** $\mathrm{rank}(X) = p \le n$.
 
 Khi đó, ước lượng OLS $\hat{w}_{\text{OLS}} = (X^\top X)^{-1} X^\top y$ là **Ước lượng Tuyến tính Không chệch Tốt nhất (BLUE - Best Linear Unbiased Estimator)**, nghĩa là nó đạt phương sai nhỏ nhất trong tất cả các ước lượng không chệch tuyến tính.
 
@@ -52,8 +52,8 @@ MAE cho sai số tuyệt đối dễ diễn giải; RMSE phạt lỗi lớn mạ
 ### Các Thước đo Kiểm định Suy diễn Nâng cao (Inferential Statistics)
 
 1. **Kiểm định Student's t-test cho từng hệ số:**
-   $$t_j = \frac{\hat{w}_j}{\operatorname{SE}(\hat{w}_j)}$$
-   Trong đó $\operatorname{SE}(\hat{w}_j) = \sigma \sqrt{[(X^\top X)^{-1}]_{jj}}$. Nếu giá trị $p\text{-value} > 0.05$, biến $x_j$ không có ý nghĩa thống kê trong việc dự đoán $y$ khi đã có mặt các biến còn lại.
+   $$t_j = \frac{\hat{w}_j}{\mathrm{SE}(\hat{w}_j)}$$
+   Trong đó $\mathrm{SE}(\hat{w}_j) = \sigma \sqrt{[(X^\top X)^{-1}]_{jj}}$. Nếu giá trị $p\text{-value} > 0.05$, biến $x_j$ không có ý nghĩa thống kê trong việc dự đoán $y$ khi đã có mặt các biến còn lại.
 2. **Khoảng tin cậy cho Dự đoán (Prediction vs Confidence Intervals):**
    * *Confidence Interval:* Đo lường độ bất định khi ước lượng giá trị trung bình $\mathbb{E}[y \mid x_0]$.
    * *Prediction Interval:* Đo lường độ bất định khi dự đoán giá trị cụ thể của một quan sát cá thể mới $y_0 = f(x_0) + \varepsilon$. Khoảng dự đoán luôn rộng hơn khoảng tin cậy vì phải cộng thêm phương sai nhiễu $\sigma^2$.
@@ -108,10 +108,10 @@ $\alpha =0$ trong Ridge tương ứng objective OLS; với Lasso/Elastic Net, kh
 ### Bản chất Hình học của OLS: Phép chiếu Trực giao (Orthogonal Projection)
 
 Xét không gian vector $n$-chiều $\mathbb{R}^n$. Vector nhãn $y \in \mathbb{R}^n$ là một điểm trong không gian này.
-Các cột của ma trận $X = [x_1, x_2, \dots, x_p]$ căng ra một không gian con tuyến tính $p$-chiều gọi là Không gian Cột $\operatorname{Col}(X)$.
+Các cột của ma trận $X = [x_1, x_2, \dots, x_p]$ căng ra một không gian con tuyến tính $p$-chiều gọi là Không gian Cột $\mathrm{Col}(X)$.
 
-* Dự đoán của mô hình là một tổ hợp tuyến tính $\hat{y} = Xw = \sum_{j=1}^p w_j x_j$, do đó $\hat{y}$ **bắt buộc phải nằm trọn vẹn bên trong $\operatorname{Col}(X)$**.
-* Để tối thiểu hóa khoảng cách Euclid $\|y - \hat{y}\|_2^2$, điểm $\hat{y}$ tốt nhất phải là **hình chiếu trực giao của $y$ lên $\operatorname{Col}(X)$**.
+* Dự đoán của mô hình là một tổ hợp tuyến tính $\hat{y} = Xw = \sum_{j=1}^p w_j x_j$, do đó $\hat{y}$ **bắt buộc phải nằm trọn vẹn bên trong $\mathrm{Col}(X)$**.
+* Để tối thiểu hóa khoảng cách Euclid $\|y - \hat{y}\|_2^2$, điểm $\hat{y}$ tốt nhất phải là **hình chiếu trực giao của $y$ lên $\mathrm{Col}(X)$**.
 * Khi đó, vector phần dư $e = y - \hat{y}$ vuông góc (trực giao) với mọi vector cột $x_j$:
   $$X^\top (y - \hat{y}) = 0 \iff X^\top (y - Xw) = 0 \iff X^\top X w = X^\top y$$
   Từ đó suy ra phương trình chuẩn nổi tiếng: $w = (X^\top X)^{-1} X^\top y$.
@@ -153,7 +153,7 @@ $$\min_{w} \|y - Xw\|_2^2 \quad \text{sao cho} \quad \|w\|_p \le t$$
 ### Thuật toán Coordinate Descent & Toán tử Soft-Thresholding trong Lasso
 
 Do hàm chuẩn $L_1$ không khả vi tại điểm $0$, Lasso không thể giải trực tiếp bằng Gradient Descent thông thường mà sử dụng **Coordinate Descent (Hạ từng tọa độ)**. Tại mỗi bước lặp, thuật toán cố định toàn bộ các tham số khác và tối ưu duy nhất biến $w_j$ thông qua toán tử ngưỡng mềm (Soft-Thresholding Operator):
-$$w_j^* = \mathcal{S}_{\lambda}(\rho_j) = \operatorname{sign}(\rho_j) \max(0, \lvert \rho_j \rvert - \lambda)$$
+$$w_j^* = \mathcal{S}_{\lambda}(\rho_j) = \mathrm{sign}(\rho_j) \max(0, \lvert \rho_j \rvert - \lambda)$$
 Trong đó $\rho_j = x_j^\top (y - \sum_{k \neq j} w_k x_k)$ là mức độ tương quan giữa biến $x_j$ và phần dư còn lại của mô hình. Nếu $|\rho_j| \le \lambda$, hệ số $w_j$ lập tức bị ép chặt về $0$.
 
 ---

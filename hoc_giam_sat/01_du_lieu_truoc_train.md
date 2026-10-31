@@ -49,7 +49,7 @@ Một phép phân chia dữ liệu $D$ thành tập huấn luyện ($D_{\text{tr
    $$D_{\text{train}} \cap D_{\text{val}} = \emptyset, \quad D_{\text{train}} \cap D_{\text{test}} = \emptyset, \quad D_{\text{val}} \cap D_{\text{test}} = \emptyset$$
 2. **Tính độc lập thực thể (Entity/Group Independence):**
    Nếu mẫu dữ liệu gắn liền với thực thể $g \in G$ (ví dụ: bệnh nhân, khách hàng):
-   $$\operatorname{Group}(D_{\text{train}}) \cap \operatorname{Group}(D_{\text{test}}) = \emptyset$$
+   $$\mathrm{Group}(D_{\text{train}}) \cap \mathrm{Group}(D_{\text{test}}) = \emptyset$$
    Đảm bảo mô hình được đánh giá trên khả năng tổng quát hóa cho **thực thể hoàn toàn mới**, chứ không phải nhận diện lại đặc tính của thực thể cũ.
 
 ---
@@ -67,8 +67,8 @@ Một phép phân chia dữ liệu $D$ thành tập huấn luyện ($D_{\text{tr
    * Nếu $IR > 10$: Phải áp dụng phân tầng (*Stratified Split*), tuyệt đối không dùng Accuracy làm metric chính; chuyển sang PR-AUC, F1-macro hoặc Brier Score.
 2. **Hệ số Phóng đại Phương sai (Variance Inflation Factor - VIF):**
    Đo lường mức độ đa cộng tuyến giữa các biến độc lập $x_j$:
-   $$\operatorname{VIF}_j = \frac{1}{1 - R_j^2}$$
-   Trong đó $R_j^2$ là hệ số xác định khi hồi quy $x_j$ theo toàn bộ $p-1$ biến còn lại. $\operatorname{VIF}_j > 5$ hoặc $10$ báo hiệu tương quan cao, làm mất ổn định hệ số trong các mô hình tuyến tính.
+   $$\mathrm{VIF}_j = \frac{1}{1 - R_j^2}$$
+   Trong đó $R_j^2$ là hệ số xác định khi hồi quy $x_j$ theo toàn bộ $p-1$ biến còn lại. $\mathrm{VIF}_j > 5$ hoặc $10$ báo hiệu tương quan cao, làm mất ổn định hệ số trong các mô hình tuyến tính.
 3. **Chỉ số Cardinality (Số lượng giá trị phân biệt):**
    Với biến định danh, tỷ lệ giữa số giá trị phân biệt và tổng số hàng. Biến có cardinality quá cao (như ID, địa chỉ IP) nếu không xử lý đúng sẽ gây overfit nghiêm trọng.
 

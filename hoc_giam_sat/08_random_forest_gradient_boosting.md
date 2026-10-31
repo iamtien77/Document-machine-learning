@@ -64,11 +64,11 @@ Bagging làm giảm độ biến động nếu lỗi của các cây không hoà
 
 #### Chứng minh Toán học: Tại sao Phải Làm Giảm Tương quan Giữa các Cây?
 
-Xét một tập hợp $B$ cây quyết định ngẫu nhiên $T_1(x), T_2(x), \dots, T_B(x)$. Giả sử mỗi cây có phương sai dự đoán là $\sigma^2$ và hệ số tương quan giữa hai cây bất kỳ là $\rho = \operatorname{Corr}(T_i, T_j)$.
+Xét một tập hợp $B$ cây quyết định ngẫu nhiên $T_1(x), T_2(x), \dots, T_B(x)$. Giả sử mỗi cây có phương sai dự đoán là $\sigma^2$ và hệ số tương quan giữa hai cây bất kỳ là $\rho = \mathrm{Corr}(T_i, T_j)$.
 Dự đoán trung bình của rừng là $\bar{T}(x) = \frac{1}{B} \sum_{b=1}^B T_b(x)$.
 
 Phương sai của mô hình tổ hợp được tính chính xác bằng công thức thống kê:
-$$\operatorname{Var}(\bar{T}) = \frac{1}{B^2} \left[ \sum_{b=1}^B \operatorname{Var}(T_b) + \sum_{i \neq j} \operatorname{Cov}(T_i, T_j) \right] = \rho \sigma^2 + \frac{1 - \rho}{B} \sigma^2$$
+$$\mathrm{Var}(\bar{T}) = \frac{1}{B^2} \left[ \sum_{b=1}^B \mathrm{Var}(T_b) + \sum_{i \neq j} \mathrm{Cov}(T_i, T_j) \right] = \rho \sigma^2 + \frac{1 - \rho}{B} \sigma^2$$
 
 * **Phân tích giới hạn tiệm cận:**
   Khi số lượng cây $B \to \infty$, số hạng $\frac{1 - \rho}{B} \sigma^2 \to 0$. Tuy nhiên, tổng phương sai **tiến về cận dưới cố định là $\rho \sigma^2$**!
