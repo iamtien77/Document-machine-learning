@@ -20,8 +20,8 @@ Dữ liệu đầu vào và các siêu tham số của mô hình S3VM / TSVM:
    * Tập chưa nhãn: $`D_U = \lbrace u_j \rbrace_{j=1}^{n_u}`$ với $`u_j \in \mathbb{R}^p`$.
 2. **Hệ số Phạt Sai số Có Giám sát ($`C`$):**
    * Tham số điều chỉnh mức độ phạt các vi phạm lề trên tập có nhãn $`D_L`$.
-3. **Hệ số Phạt Vi phạm Lề Không Giám sát ($`C^*`$):**
-   * Tham số điều chỉnh mức độ phạt các điểm chưa nhãn rơi vào dải phân cách lề. Ban đầu $`C^*`$ được thiết lập rất nhỏ và tăng dần trong quá trình tối ưu hóa.
+3. **Hệ số Phạt Vi phạm Lề Không Giám sát ($`C^{\ast}`$):**
+   * Tham số điều chỉnh mức độ phạt các điểm chưa nhãn rơi vào dải phân cách lề. Ban đầu $`C^{\ast}`$ được thiết lập rất nhỏ và tăng dần trong quá trình tối ưu hóa.
 4. **Hàm Nhân Kernel ($`K(x_i, x_j)`$):**
    * Tuyến tính (`'linear'`) hoặc hạt nhân RBF phi tuyến (`'rbf'`) để nâng dữ liệu lên không gian đặc trưng Hilbert.
 
@@ -31,15 +31,15 @@ Dữ liệu đầu vào và các siêu tham số của mô hình S3VM / TSVM:
 
 Kết quả đầu ra của thuật toán S3VM / TSVM:
 
-1. **Siêu phẳng Phân cách Tối ưu ($`w^*, b^*`$):**
+1. **Siêu phẳng Phân cách Tối ưu ($`w^{\ast}, b^{\ast}`$):**
    * Hàm quyết định suy luận cho một điểm mới $`x`$:
 
 $$
-f(x) = \text{sign}\left( (w^*)^\top \Phi(x) + b^* \right) = \text{sign}\left( \sum_{i \in \text{SV}} \alpha_i y_i K(x_i, x) + b^* \right)
+f(x) = \text{sign}\left( (w^{\ast})^\top \Phi(x) + b^{\ast} \right) = \text{sign}\left( \sum_{i \in \text{SV}} \alpha_i y_i K(x_i, x) + b^{\ast} \right)
 $$
 
 2. **Tập Nhãn Gán Tối ưu cho Toàn bộ Dữ liệu Chưa Nhãn:**
-   * Vector nhãn $`y_U^* = [y_{n_l + 1}^*, \dots, y_{n_l + n_u}^*]^\top \in \lbrace -1, +1 \rbrace^{n_u}`$ giải bài toán cực tiểu hóa năng lượng toàn cục.
+   * Vector nhãn $`y_U^{\ast} = [y_{n_l + 1}^{\ast}, \dots, y_{n_l + n_u}^{\ast}]^\top \in \lbrace -1, +1 \rbrace^{n_u}`$ giải bài toán cực tiểu hóa năng lượng toàn cục.
 3. **Khoảng cách Lề Phân cách Mới:**
    * Dải phân cách lề $`\frac{2}{\|w\|}`$ được mở rộng tối đa mà không đè lên bất kỳ cụm dữ liệu chưa nhãn nào.
 
@@ -61,19 +61,19 @@ $$
 
 ### 1. Hàm Mục tiêu Toán học và Hàm Mất Mát Hình Mũ (Hat Loss)
 
-Bài toán tối ưu hóa của S3VM / TSVM được phát biểu như sau: Tìm vector trọng số $`w`$, hệ số chệch $`b`$, và nhãn giả $`y_j^* \in \lbrace -1, +1 \rbrace`$ cho các điểm chưa nhãn để giải bài toán tối thiểu hóa:
+Bài toán tối ưu hóa của S3VM / TSVM được phát biểu như sau: Tìm vector trọng số $`w`$, hệ số chệch $`b`$, và nhãn giả $`y_j^{\ast} \in \lbrace -1, +1 \rbrace`$ cho các điểm chưa nhãn để giải bài toán tối thiểu hóa:
 
 $$
-\min_{w, b, y^*} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n_l} \max(0, 1 - y_i(w^\top x_i + b)) + C^* \sum_{j=1}^{n_u} \max(0, 1 - y_j^*(w^\top u_j + b))
+\min_{w, b, y^{\ast} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n_l} \max(0, 1 - y_i(w^\top x_i + b)) + C^{\ast} \sum_{j=1}^{n_u} \max(0, 1 - y_j^{\ast}(w^\top u_j + b))
 $$
 
 Kèm theo ràng buộc cân bằng phân bổ nhãn để tránh nghiệm suy biến:
 
 $$
-\frac{1}{n_u} \sum_{j=1}^{n_u} y_j^* = \frac{1}{n_l} \sum_{i=1}^{n_l} y_i
+\frac{1}{n_u} \sum_{j=1}^{n_u} y_j^{\ast} = \frac{1}{n_l} \sum_{i=1}^{n_l} y_i
 $$
 
-Bản chất của việc chọn $`y_j^* = \text{sign}(w^\top u_j + b)`$ dẫn đến việc thay thế thành phần thứ ba bằng **Hàm Mất Mát Hình Mũ Đối Xứng (Hat Loss / Symmetric Hinge Loss)**:
+Bản chất của việc chọn $`y_j^{\ast} = \text{sign}(w^\top u_j + b)`$ dẫn đến việc thay thế thành phần thứ ba bằng **Hàm Mất Mát Hình Mũ Đối Xứng (Hat Loss / Symmetric Hinge Loss)**:
 
 $$
 \mathcal{L}_{\text{hat}}(z) = \max(0, 1 - |z|) \quad \text{với } z = w^\top u + b
@@ -101,7 +101,7 @@ $$
 
 ### 2. Thách thức Tối ưu Phi lồi và Thuật toán Tráo đổi Nhãn của Joachims (1999)
 
-Hàm mất mát hình mũ $`\max(0, 1 - |z|)`$ là một hàm **phi lồi (Non-convex)**. Hơn nữa, việc tìm kiếm đồng thời cấu hình nhãn rời rạc $`y^* \in \lbrace -1, +1 \rbrace^{n_u}`$ là một bài toán tối ưu tổ hợp NP-khó.
+Hàm mất mát hình mũ $`\max(0, 1 - |z|)`$ là một hàm **phi lồi (Non-convex)**. Hơn nữa, việc tìm kiếm đồng thời cấu hình nhãn rời rạc $`y^{\ast} \in \lbrace -1, +1 \rbrace^{n_u}`$ là một bài toán tối ưu tổ hợp NP-khó.
 
 Thuật toán TSVM kinh điển của Joachims giải xấp xỉ bài toán này qua 4 bước:
 
@@ -156,9 +156,9 @@ S3VM / TSVM đặc biệt hiệu quả trong các bài toán phân loại văn b
 flowchart TD
     DataIn["Dữ liệu: D_L (nhãn {-1, +1}) và D_U (chưa nhãn)"] --> BaseSVM["Bước 1: Huấn luyện SVM Chuẩn trên D_L (Tìm w_0, b_0)"]
     BaseSVM --> PredictU["Bước 2: Dự đoán & Gán Nhãn Sơ bộ cho D_U"]
-    
+
     PredictU --> AnnealingLoop["Khởi tạo C* = 1e-4 rất nhỏ"]
-    
+
     subgraph TSVMOptimization ["Vòng lặp Nung luyện C* (Deterministic Annealing)"]
         AnnealingLoop --> FitDual["Giải SVM trên D_L hợp nhất D_U với nhãn hiện tại"]
         FitDual --> CheckMargin["Tìm các cặp điểm (u_p, u_q) vi phạm lề"]
@@ -168,7 +168,7 @@ flowchart TD
         SwapCheck -->|"Không"| IncreaseC["Tăng C* = min(2 * C*, C_target)"]
         IncreaseC --> AnnealingLoop
     end
-    
+
     IncreaseC --> Converged{"C* đạt ngưỡng C_target?"}
     Converged -->|"Hoàn tất"| FinalPlane["Khóa Siêu phẳng Tối ưu: w*, b*"]
     FinalPlane --> TestPredict["Dự đoán trên Test Set Độc lập"]
@@ -202,7 +202,7 @@ class SimpleTSVM:
         labeled_mask = (y_train != -1)
         X_L = X_train[labeled_mask]
         y_L = y_train[labeled_mask]
-        
+
         unlabeled_idx = np.where(y_train == -1)[0]
         X_U = X_train[unlabeled_idx]
 

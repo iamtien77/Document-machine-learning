@@ -43,9 +43,9 @@ $$
 
 Kết quả đầu ra của thuật toán Co-Training:
 
-1. **Cặp Bộ Phân loại Đã Đồng Huấn luyện ($`f_1^*, f_2^*`$):**
-   * $`f_1^*`$ hoạt động trên không gian đặc trưng của góc nhìn 1 ($`\mathbb{R}^{p_1}`$).
-   * $`f_2^*`$ hoạt động trên không gian đặc trưng của góc nhìn 2 ($`\mathbb{R}^{p_2}`$).
+1. **Cặp Bộ Phân loại Đã Đồng Huấn luyện ($`f_1^{\ast}, f_2^{\ast}`$):**
+   * $`f_1^{\ast}`$ hoạt động trên không gian đặc trưng của góc nhìn 1 ($`\mathbb{R}^{p_1}`$).
+   * $`f_2^{\ast}`$ hoạt động trên không gian đặc trưng của góc nhìn 2 ($`\mathbb{R}^{p_2}`$).
 2. **Bộ Dự đoán Hợp nhất Cuối cùng (Ensemble Predictor):**
    * Dự đoán trên một mẫu mới $`x_{\text{new}} = (x_{\text{new}}^{(1)}, x_{\text{new}}^{(2)})`$ bằng cách kết hợp xác suất của cả hai mô hình:
 
@@ -157,30 +157,30 @@ Co-Training phát huy sức mạnh vượt trội khi dữ liệu tự nhiên s�
 ```mermaid
 flowchart TD
     RawData["Dữ liệu Đa phương thức: x = (x_1, x_2)"] --> SplitViews["Tách biệt 2 Không gian: View 1 và View 2"]
-    
+
     SplitViews --> LabeledPool["Tập có Nhãn D_L"]
     SplitViews --> UnlabeledPool["Tập chưa Nhãn D_U"]
-    
+
     UnlabeledPool --> SubPool["Rút hồ chứa con U' (Kích thước s)"]
-    
+
     subgraph CoTrainLoop ["Vòng lặp Đồng huấn luyện Co-Training"]
         LabeledPool --> TrainF1["Huấn luyện f_1 trên View 1"]
         LabeledPool --> TrainF2["Huấn luyện f_2 trên View 2"]
-        
+
         TrainF1 --> PredictF1["f_1 dự đoán xác suất trên U'"]
         TrainF2 --> PredictF2["f_2 dự đoán xác suất trên U'"]
-        
+
         PredictF1 --> TopF1["f_1 chọn các mẫu tự tin nhất: C_1"]
         PredictF2 --> TopF2["f_2 chọn các mẫu tự tin nhất: C_2"]
-        
+
         TopF1 --> CrossFeed["Dạy chéo: Bổ sung C_1 và C_2 vào D_L"]
         TopF2 --> CrossFeed
         CrossFeed --> LabeledPool
     end
-    
+
     CrossFeed --> Refill["Nạp bù mẫu từ D_U vào U'"]
     Refill --> SubPool
-    
+
     CoTrainLoop --> EnsembleFinal["Bộ Phân loại Hợp nhất: f_ensemble = 0.5 * (f_1 + f_2)"]
     EnsembleFinal --> FinalTest["Đánh giá trên Test Set Đa góc nhìn"]
 ```
@@ -215,44 +215,44 @@ class CoTrainingClassifier:
         # Xác định chỉ số các mẫu có nhãn và chưa nhãn ban đầu
         labeled_idx = np.where(y_train != -1)[0].tolist()
         unlabeled_idx = np.where(y_train == -1)[0].tolist()
-        
+
         # Rút ngẫu nhiên một hồ chứa con U' từ tập chưa nhãn
         np.random.shuffle(unlabeled_idx)
         pool = unlabeled_idx[:min(len(unlabeled_idx), self.pool_size)]
         unlabeled_pool = unlabeled_idx[len(pool):]
-        
+
         current_y = np.copy(y_train)
 
         for iteration in range(self.max_iter):
             if len(pool) == 0:
                 break
-                
+
             # 1. Huấn luyện 2 bộ phân loại độc lập trên tập có nhãn hiện tại
             X1_L = X1_train[labeled_idx]
             X2_L = X2_train[labeled_idx]
             y_L = current_y[labeled_idx]
-            
+
             self.clf1.fit(X1_L, y_L)
             self.clf2.fit(X2_L, y_L)
-            
+
             # 2. Dự đoán xác suất trên hồ chứa con U'
             probs1 = self.clf1.predict_proba(X1_train[pool])
             probs2 = self.clf2.predict_proba(X2_train[pool])
-            
+
             # 3. Mỗi mô hình chọn ra các mẫu tự tin nhất
             # Lớp 1 (Dương tính) và Lớp 0 (Âm tính)
             p1_candidates = np.argsort(probs1[:, 1])[-self.p_add:]
             n1_candidates = np.argsort(probs1[:, 0])[-self.n_add:]
-            
+
             p2_candidates = np.argsort(probs2[:, 1])[-self.p_add:]
             n2_candidates = np.argsort(probs2[:, 0])[-self.n_add:]
-            
+
             # Gán giả nhãn cho các mẫu được chọn
             selected_by_1 = np.unique(np.concatenate([p1_candidates, n1_candidates]))
             selected_by_2 = np.unique(np.concatenate([p2_candidates, n2_candidates]))
-            
+
             all_selected_in_pool = np.unique(np.concatenate([selected_by_1, selected_by_2]))
-            
+
             for idx in p1_candidates:
                 current_y[pool[idx]] = 1
             for idx in n1_candidates:
@@ -261,14 +261,14 @@ class CoTrainingClassifier:
                 current_y[pool[idx]] = 1
             for idx in n2_candidates:
                 current_y[pool[idx]] = 0
-                
+
             # Chuyển các mẫu đã chọn từ pool sang tập có nhãn
             real_indices_selected = [pool[i] for i in all_selected_in_pool]
             labeled_idx.extend(real_indices_selected)
-            
+
             # Loại bỏ khỏi pool
             pool = [pool[i] for i in range(len(pool)) if i not in all_selected_in_pool]
-            
+
             # Nạp bù từ unlabeled_pool vào pool
             n_refill = min(len(unlabeled_pool), self.pool_size - len(pool))
             pool.extend(unlabeled_pool[:n_refill])

@@ -97,34 +97,34 @@ $$
 
 ### GPR: posterior mean và variance
 
-Với prior mean bằng 0 và nhiễu Gaussian có phương sai $`\sigma _n^{2}`$, đặt $`K = [k(x_i,x_j)] + \sigma _n^{2}I`$, $`k_*=[k(x_i,x_*)]`$. Dự đoán giá trị hàm ẩn tại điểm mới có $`\mu _* = k_*^{\top}K^{-1}y`$ và $`v_* = k(x_*,x_*) - k_*^{\top}K^{-1}k_*`$. Đây là công thức cho **latent function**; phương sai của quan sát mới còn cộng thành phần nhiễu nếu mô hình hóa observation noise. Trong tính toán số, giải hệ tuyến tính bằng phân rã ma trận thay vì lập nghịch đảo tường minh. [2]
+Với prior mean bằng 0 và nhiễu Gaussian có phương sai $`\sigma _n^{2}`$, đặt $`K = [k(x_i,x_j)] + \sigma _n^{2}I`$, $`k_{\ast}=[k(x_i,x_{\ast})]`$. Dự đoán giá trị hàm ẩn tại điểm mới có $`\mu _{\ast} = k_{\ast}^{\top}K^{-1}y`$ và $`v_{\ast} = k(x_{\ast},x_{\ast}) - k_{\ast}^{\top}K^{-1}k_{\ast}`$. Đây là công thức cho **latent function**; phương sai của quan sát mới còn cộng thành phần nhiễu nếu mô hình hóa observation noise. Trong tính toán số, giải hệ tuyến tính bằng phân rã ma trận thay vì lập nghịch đảo tường minh. [2]
 
-**Trực giác:** gần các điểm train theo kernel, $`k_*`$ lớn nên mean chịu ảnh hưởng mạnh từ nhãn train và variance thường nhỏ hơn prior. Xa vùng dữ liệu, mean quay về prior mean và variance có thể tăng. Mức tăng phụ thuộc kernel/length-scale và noise; một khoảng $`\mu_*\pm 1.96\sqrt{v_*}`$ chỉ có cách hiểu xác suất dưới giả định posterior phù hợp, không tự bảo đảm coverage thực tế. [2]
+**Trực giác:** gần các điểm train theo kernel, $`k_{\ast}`$ lớn nên mean chịu ảnh hưởng mạnh từ nhãn train và variance thường nhỏ hơn prior. Xa vùng dữ liệu, mean quay về prior mean và variance có thể tăng. Mức tăng phụ thuộc kernel/length-scale và noise; một khoảng $`\mu_{\ast}\pm 1.96\sqrt{v_{\ast}`$ chỉ có cách hiểu xác suất dưới giả định posterior phù hợp, không tự bảo đảm coverage thực tế. [2]
 
 **Fit/predict:** chọn kernel (ví dụ RBF hoặc Matérn) và mô hình nhiễu → fit tham số kernel qua log-marginal-likelihood hoặc giữ cố định → giải hệ kernel trên train → tính mean/variance cho điểm mới → kiểm MAE/RMSE và coverage trên dữ liệu giữ riêng. Tối ưu marginal likelihood có thể gặp nghiệm cục bộ; thử nhiều khởi tạo hoặc kiểm CV khi cần. [2]
 
 #### Suy diễn Giải tích: Phân phối Có điều kiện trong Gaussian Process
 
-Theo định nghĩa của GP, phân phối đồng thời giữa các quan sát đã biết $`y \in \mathbb{R}^n`$ và giá trị hàm chưa biết $`f_*`$ tại điểm mới $`x_*`$ là một phân phối chuẩn đa biến:
+Theo định nghĩa của GP, phân phối đồng thời giữa các quan sát đã biết $`y \in \mathbb{R}^n`$ và giá trị hàm chưa biết $`f_{\ast}`$ tại điểm mới $`x_{\ast}`$ là một phân phối chuẩn đa biến:
 
 $$
-\begin{bmatrix} y \\ f_* \end{bmatrix} \sim \mathcal{N} \left( \mathbf{0}, \begin{bmatrix} K(X, X) + \sigma_n^2 I & K(X, x_*) \\ K(x_*, X) & k(x_*, x_*) \end{bmatrix} \right)
+\begin{bmatrix} y \\ f_{\ast} \end{bmatrix} \sim \mathcal{N} \left( \mathbf{0}, \begin{bmatrix} K(X, X) + \sigma_n^2 I & K(X, x_{\ast}) \\ K(x_{\ast}, X) & k(x_{\ast}, x_{\ast}) \end{bmatrix} \right)
 $$
 
 Áp dụng quy tắc suy diễn có điều kiện của phân phối chuẩn đa biến (Gaussian Conditioning Rule), ta thu được nghiệm giải tích chính xác:
 
 $$
-f_* \mid X, y, x_* \sim \mathcal{N}(\mu_*, \mathrm{Var}(f_*))
+f_{\ast} \mid X, y, x_{\ast} \sim \mathcal{N}(\mu_{\ast}, \mathrm{Var}(f_{\ast}))
 $$
 
 Trong đó:
 
 $$
-\mu_* = K(x_*, X) \left[ K(X, X) + \sigma_n^2 I \right]^{-1} y
+\mu_{\ast} = K(x_{\ast}, X) \left[ K(X, X) + \sigma_n^2 I \right]^{-1} y
 $$
 
 $$
-\mathrm{Var}(f_*) = k(x_*, x_*) - K(x_*, X) \left[ K(X, X) + \sigma_n^2 I \right]^{-1} K(X, x_*)
+\mathrm{Var}(f_{\ast}) = k(x_{\ast}, x_{\ast}) - K(x_{\ast}, X) \left[ K(X, X) + \sigma_n^2 I \right]^{-1} K(X, x_{\ast})
 $$
 
 ```text

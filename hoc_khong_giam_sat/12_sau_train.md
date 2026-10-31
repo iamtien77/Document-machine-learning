@@ -167,18 +167,18 @@ Quy trình vận hành sau huấn luyện là bắt buộc trong mọi hệ th�
 ```mermaid
 flowchart TD
     NewSample["Mẫu dữ liệu mới: x_new"] --> Preprocess["Áp dụng Scaler đã fit: x_scaled"]
-    
+
     subgraph InferenceEngine ["Động cơ Suy luận Điểm mới"]
         Preprocess --> CheckModel{"Kiểu thuật toán?"}
         CheckModel -->|"K-Means / GMM"| NativePredict["predict(): Tính khoảng cách tới tâm / Bayes"]
         CheckModel -->|"DBSCAN / Phân cấp"| KNNProxy["KNN Surrogate: Bỏ phiếu láng giềng gần nhất"]
     end
-    
+
     NativePredict --> AssignedLabel["Gán Nhãn Cụm k cho x_new"]
     KNNProxy --> AssignedLabel
-    
+
     AssignedLabel --> StreamBuffer["Đưa vào Hàng đợi Giám sát (Buffer 30 ngày)"]
-    
+
     subgraph DriftMonitor ["Động cơ Giám sát Trôi dạt"]
         StreamBuffer --> CalcPSI["Tính Chỉ số Ổn định Dân số PSI"]
         CalcPSI --> EvaluateDrift{"PSI >= 0.25?"}

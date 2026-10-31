@@ -104,7 +104,7 @@ $$
 \alpha_{\text{eff}}(t) = \frac{R(t) - R(T_t)}{|T_t| - 1}
 $$
 
-  Nút có $`\alpha_{\text{eff}}`$ nhỏ nhất sẽ bị cắt bỏ (biến thành lá) đầu tiên. Quá trình này sinh ra một dãy hữu hạn các cây con lồng nhau. Ta dùng K-Fold Cross-Validation để tìm ra giá trị $`\alpha^*`$ tối ưu nhất.
+  Nút có $`\alpha_{\text{eff}}`$ nhỏ nhất sẽ bị cắt bỏ (biến thành lá) đầu tiên. Quá trình này sinh ra một dãy hữu hạn các cây con lồng nhau. Ta dùng K-Fold Cross-Validation để tìm ra giá trị $`\alpha^{\ast}`$ tối ưu nhất.
 
 ---
 

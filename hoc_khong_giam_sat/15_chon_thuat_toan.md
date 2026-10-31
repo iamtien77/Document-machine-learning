@@ -110,26 +110,26 @@ Bộ tiêu chí so sánh đối đầu giữa các ứng viên thuật toán:
 ```mermaid
 flowchart TD
     DataAudit["Tiếp nhận Dữ liệu: Phân tích n, p, Nhiễu & Thang đo"] --> CheckScale["Chuẩn hóa thang đo bắt buộc: StandardScaler / RobustScaler"]
-    
+
     CheckScale --> BranchDim{"Số chiều p > 50?"}
     BranchDim -->|"Có"| ApplyPCA["PCA sơ bộ giảm xuống 30-50 chiều"]
     BranchDim -->|"Không"| CheckSize
     ApplyPCA --> CheckSize{"Kích thước mẫu n?"}
-    
+
     CheckSize -->|"n > 10^5 (Rất lớn)"| FastTrack["Ưu tiên: MiniBatchKMeans / BIRCH"]
     CheckSize -->|"n < 10^5 (Vừa & Nhỏ)"| CheckShape{"Kỳ vọng hình dạng cụm?"}
-    
+
     CheckShape -->|"Hình cầu / Đẳng hướng"| BaselineKM["Thử nghiệm: K-Means++"]
     CheckShape -->|"Hình Elip / Mềm"| ModelGMM["Thử nghiệm: GMM (dò BIC/AIC)"]
     CheckShape -->|"Dạng uốn lượn / Nhiều nhiễu"| ModelDBSCAN["Thử nghiệm: DBSCAN / OPTICS"]
     CheckShape -->|"Cần cây phân cấp"| ModelHAC["Thử nghiệm: Agglomerative Clustering"]
-    
+
     BaselineKM --> CompareBlock["Đánh giá đối đầu trên cùng tập dữ liệu: Silhouette & DBI"]
     ModelGMM --> CompareBlock
     ModelDBSCAN --> CompareBlock
     ModelHAC --> CompareBlock
     FastTrack --> CompareBlock
-    
+
     CompareBlock --> SelectFinal["Khóa Thuật toán Tối ưu nhất đáp ứng SLA"]
 ```
 

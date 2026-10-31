@@ -121,9 +121,9 @@ d_k = \|z_{\text{new}} - c_k\| = \sqrt{\sum_{j=1}^m (z_{\text{new}, j} - c_{kj})
 $$
 
 4. **Kiểm tra Ngưỡng Ngoại lai Guardrail:**
-   * Xác định cụm ứng viên gần nhất: $`k^* = \arg\min_{k} d_k`$.
-   * Nếu $`d_{k^*} \le \tau_{k^*}`$: Trả về nhãn cụm $`k^*`$.
-   * Nếu $`d_{k^*} > \tau_{k^*}`$: Trả về nhãn $`-1`$ kèm thông điệp cảnh báo ngoại lai.
+   * Xác định cụm ứng viên gần nhất: $`k^{\ast} = \arg\min_{k} d_k`$.
+   * Nếu $`d_{k^{\ast} \le \tau_{k^{\ast}`$: Trả về nhãn cụm $`k^{\ast}`$.
+   * Nếu $`d_{k^{\ast} > \tau_{k^{\ast}`$: Trả về nhãn $`-1`$ kèm thông điệp cảnh báo ngoại lai.
 
 ---
 
@@ -144,22 +144,22 @@ $$
 flowchart TD
     ClientApp["Ứng dụng Client (Mobile / Web App)"] --> API_GW["API Gateway (Rate Limiting, Auth)"]
     API_GW --> InferenceSvc["Inference Microservice (FastAPI / Triton)"]
-    
+
     subgraph MemoryLoaded ["Bộ nhớ RAM Microservice"]
         PipelineArtifact["Pipeline Object: Scaler + PCA + KMeans"]
         ThresholdConfig["Bảng Ngưỡng Guardrail: Tau_k (99th percentile)"]
     end
-    
+
     InferenceSvc --> PipelineArtifact
     InferenceSvc --> ThresholdConfig
-    
+
     InferenceSvc --> GuardrailCheck{"Khoảng cách <= Tau_k?"}
     GuardrailCheck -->|"Đạt chuẩn"| ReturnLabel["Trả kết quả JSON: {cluster: k*, status: 'valid'}"]
     GuardrailCheck -->|"Vượt ngưỡng"| ReturnOutlier["Trả kết quả JSON: {cluster: -1, status: 'outlier'}"]
-    
+
     ReturnLabel --> ClientApp
     ReturnOutlier --> ClientApp
-    
+
     InferenceSvc --> EventBus["Kafka / RabbitMQ Event Queue"]
     EventBus --> DriftWorker["Drift Worker: Tính PSI theo ngày & Bắn cảnh báo Slack"]
 ```
@@ -192,24 +192,24 @@ class UnsupervisedInferenceEngine:
         # Nạp pipeline bất biến đã đóng gói từ Training Phase
         self.pipeline = joblib.load(artifact_path)
         self.threshold = outlier_percentile_threshold
-        
+
         # Trích xuất tâm cụm trong không gian sau khi đã qua Scaler và PCA
         self.kmeans_step = self.pipeline.named_steps['kmeans']
         self.centroids = self.kmeans_step.cluster_centers_
         self.n_clusters = len(self.centroids)
-        
+
     def predict_sample(self, raw_features: List[float]) -> dict:
         x_raw = np.array(raw_features).reshape(1, -1)
-        
+
         # Thực hiện biến đổi tiền xử lý tuần tự (Không fit lại)
         x_scaled = self.pipeline.named_steps['scaler'].transform(x_raw)
         x_pca = self.pipeline.named_steps['pca'].transform(x_scaled)
-        
+
         # Tính khoảng cách Euclid tới toàn bộ tâm cụm
         distances = np.linalg.norm(self.centroids - x_pca, axis=1)
         closest_cluster = int(np.argmin(distances))
         min_distance = float(distances[closest_cluster])
-        
+
         # Kiểm tra điều kiện ngoại lai Guardrail
         if min_distance > self.threshold:
             return {

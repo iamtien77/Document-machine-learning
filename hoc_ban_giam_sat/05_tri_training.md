@@ -30,7 +30,7 @@ Dữ liệu đầu vào và các tham số cấu hình của thuật toán Tri-T
 
 Kết quả đầu ra của hệ thống Tri-Training:
 
-1. **Bộ Ba Phân loại Đã Hội tụ ($`h_1^*, h_2^*, h_3^*`$):**
+1. **Bộ Ba Phân loại Đã Hội tụ ($`h_1^{\ast}, h_2^{\ast}, h_3^{\ast}`$):**
    * Ba mô hình đã được tôi luyện và mở rộng tri thức từ tập chưa nhãn $`D_U`$.
 2. **Bộ Dự đoán Bỏ phiếu Đa số (Majority Voting Ensemble):**
    * Khi suy luận trên một mẫu kiểm tra mới $`x_{\text{test}}`$, kết quả cuối cùng được quyết định bằng cơ chế bỏ phiếu đa số dân chủ (Democratic Voting):
@@ -136,37 +136,37 @@ Tri-Training là lựa chọn số một cho các bài toán chỉ có một gó
 ```mermaid
 flowchart TD
     DataPool["Tập Huấn luyện Gốc: D_L (ít nhãn) và D_U (nhiều chưa nhãn)"] --> BootSplit["Bootstrap Resampling từ D_L"]
-    
+
     BootSplit --> SetL1["D_L,1 cho Mô hình 1"]
     BootSplit --> SetL2["D_L,2 cho Mô hình 2"]
     BootSplit --> SetL3["D_L,3 cho Mô hình 3"]
-    
+
     SetL1 --> FitH1["Huấn luyện h_1"]
     SetL2 --> FitH2["Huấn luyện h_2"]
     SetL3 --> FitH3["Huấn luyện h_3"]
-    
+
     subgraph TriIteration ["Chu trình Lặp Tri-Training"]
         FitH1 --> Eval12["So sánh h_1 và h_2 trên D_U"]
         FitH2 --> Eval12
         Eval12 --> Candidate3["Mẫu h_1 == h_2 -> Gán giả nhãn cho h_3"]
-        
+
         FitH2 --> Eval23["So sánh h_2 và h_3 trên D_U"]
         FitH3 --> Eval23
         Eval23 --> Candidate1["Mẫu h_2 == h_3 -> Gán giả nhãn cho h_1"]
-        
+
         FitH1 --> Eval13["So sánh h_1 và h_3 trên D_U"]
         FitH3 --> Eval13
         Eval13 --> Candidate2["Mẫu h_1 == h_3 -> Gán giả nhãn cho h_2"]
-        
+
         Candidate3 --> CheckPAC3{"Thỏa mãn Điều kiện Lỗi PAC?"}
         Candidate1 --> CheckPAC1{"Thỏa mãn Điều kiện Lỗi PAC?"}
         Candidate2 --> CheckPAC2{"Thỏa mãn Điều kiện Lỗi PAC?"}
-        
+
         CheckPAC3 -->|"Đạt"| UpdateH3["Bổ sung vào train của h_3 & Fit lại"]
         CheckPAC1 -->|"Đạt"| UpdateH1["Bổ sung vào train của h_1 & Fit lại"]
         CheckPAC2 -->|"Đạt"| UpdateH2["Bổ sung vào train của h_2 & Fit lại"]
     end
-    
+
     TriIteration --> EnsembleVoting["Bỏ phiếu Đa số: Majority Voting (h_1, h_2, h_3)"]
     EnsembleVoting --> PredictTest["Dự đoán trên Test Set Độc lập"]
 ```
@@ -212,7 +212,7 @@ class TriTrainingClassifier:
         labeled_mask = (y_train != -1)
         X_L = X_train[labeled_mask]
         y_L = y_train[labeled_mask]
-        
+
         unlabeled_idx = np.where(y_train == -1)[0]
         X_U = X_train[unlabeled_idx]
 

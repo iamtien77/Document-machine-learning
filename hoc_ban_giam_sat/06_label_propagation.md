@@ -118,10 +118,10 @@ $$
 Chuyển vế và giải phương trình đại số tuyến tính:
 
 $$
-(I - T_{uu}) Y_U = T_{ul} Y_L \implies Y_U^* = (I - T_{uu})^{-1} T_{ul} Y_L
+(I - T_{uu}) Y_U = T_{ul} Y_L \implies Y_U^{\ast} = (I - T_{uu})^{-1} T_{ul} Y_L
 $$
 
-* **Ý nghĩa Toán học:** Ma trận $`(I - T_{uu})^{-1}`$ chính là toán tử Green (Green's Function) trên đồ thị. Nghiệm $`Y_U^*`$ là hàm điều hòa duy nhất thỏa mãn phương trình Laplace $`\Delta Y = 0`$ trên $`D_U`$ với điều kiện biên Dirichlet cố định trên $`D_L`$.
+* **Ý nghĩa Toán học:** Ma trận $`(I - T_{uu})^{-1}`$ chính là toán tử Green (Green's Function) trên đồ thị. Nghiệm $`Y_U^{\ast}`$ là hàm điều hòa duy nhất thỏa mãn phương trình Laplace $`\Delta Y = 0`$ trên $`D_U`$ với điều kiện biên Dirichlet cố định trên $`D_L`$.
 
 ```text
        ĐỒ THỊ TƯƠNG ĐỒNG LIÊN KẾT
@@ -158,17 +158,17 @@ flowchart TD
     DataIn["Dữ liệu Hợp nhất: X_train (gồm n_l mẫu có nhãn và n_u mẫu chưa nhãn)"] --> BuildGraph["Xây dựng Ma trận Tương đồng: W_ij = exp(-gamma * ||x_i - x_j||^2)"]
     BuildGraph --> CalcDegree["Tính Ma trận Bậc: D_ii = sum_j W_ij"]
     CalcDegree --> TransitionMatrix["Tính Ma trận Chuyển tiếp Markov: T = D^(-1) * W"]
-    
+
     TransitionMatrix --> SplitBlocks["Phân rã thành 4 khối: T_ll, T_lu, T_ul, T_uu"]
-    
+
     subgraph SolveMode ["Lựa chọn Phương thức Giải"]
         SplitBlocks --> IterativeMode["Phương thức Lặp: Y^(t+1) = T * Y^(t) & Kẹp Y_L"]
         SplitBlocks --> ClosedFormMode["Nghiệm Đóng: Y_U = (I - T_uu)^(-1) * T_ul * Y_L"]
     end
-    
+
     IterativeMode --> ProbMatrix["Ma trận Xác suất Hậu nghiệm Hội tụ: Y_hat"]
     ClosedFormMode --> ProbMatrix
-    
+
     ProbMatrix --> AssignClass["Gán Nhãn Lớp Cực đại: y_i = argmax_c Y_hat_ic"]
     AssignClass --> FinalLabels["Toàn bộ n_u Mẫu Chưa Nhãn Đã Được Gán Nhãn Chuẩn"]
 ```

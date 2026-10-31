@@ -4,7 +4,7 @@
 
 Xây dựng một cấu trúc phân cấp lồng nhau dạng cây (gọi là **Dendrogram**) giữa các mẫu dữ liệu, cho phép người dùng quan sát mối quan hệ tương đồng ở mọi mức độ chi tiết từ vi mô (từng cặp cá thể) đến vĩ mô (toàn bộ quần thể) mà **hoàn toàn không cần chỉ định trước số lượng cụm $`K`$**. Đây là thuật toán tiêu chuẩn trong phân loại sinh học (Phylogenetic Tree), phân tích cấu trúc gene và phân nhóm khách hàng đa cấp độ. [1][2]
 
-**Ví dụ dẫn nhập:** Trong phân loại học sinh học (Taxonomy), ta có 100 loài sinh vật. 
+**Ví dụ dẫn nhập:** Trong phân loại học sinh học (Taxonomy), ta có 100 loài sinh vật.
 * K-Means chỉ có thể ép chúng thành một số nhóm phẳng cố định (ví dụ $`K = 5`$).
 * Gom cụm phân cấp cho phép xây dựng cây phả hệ sinh học hoàn chỉnh: Hai loài linh trưởng được gộp vào cùng một Chi, các Chi gộp vào cùng một Họ, các Họ gộp vào cùng một Bộ, và cuối cùng hội tụ về cùng một Giới Động vật. Người nghiên cứu có thể chọn cắt cây ở bất kỳ tầng nào để lấy số lượng nhóm mong muốn.
 

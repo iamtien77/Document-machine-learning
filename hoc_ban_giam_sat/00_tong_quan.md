@@ -68,7 +68,7 @@ $$
    * Tỷ lệ các nhãn giả do mô hình tự gán trên $`D_U`$ trùng khớp với nhãn thực tế bị ẩn đi:
 
 $$
-\text{Precision}_{\text{pseudo}} = \frac{1}{|D_U|} \sum_{i \in D_U} \mathbb{I}(\hat{y}_i = y_i^*)
+\text{Precision}_{\text{pseudo}} = \frac{1}{|D_U|} \sum_{i \in D_U} \mathbb{I}(\hat{y}_i = y_i^{\ast})
 $$
 
    * Đây là chỉ số quan trọng nhất kiểm soát hiện tượng lan truyền sai số (Confirmation Bias).
@@ -160,12 +160,12 @@ Học bán giám sát phát huy tối đa sức mạnh trong các lĩnh vực c�
 ```mermaid
 flowchart TD
     RawData["Dữ liệu thực tế: Toàn bộ mẫu thu thập"] --> SplitPool["Phân tách Tập Dữ liệu"]
-    
+
     SplitPool --> LabeledSet["Tập có Nhãn D_L (1% - 5% tổng số)"]
     SplitPool --> UnlabeledSet["Tập chưa Nhãn D_U (95% - 99% tổng số)"]
-    
+
     LabeledSet --> TrainBase["Giai đoạn 1: Huấn luyện Mô hình Cơ sở f_0 trên D_L"]
-    
+
     subgraph SSLLoop ["Vòng lặp Bán Giám Sát (SSL Iterative Engine)"]
         TrainBase --> PredictU["Giai đoạn 2: Dự đoán Xác suất trên Tập Chưa Nhãn D_U"]
         UnlabeledSet --> PredictU
@@ -176,7 +176,7 @@ flowchart TD
         RetrainModel --> ConvergenceCheck{"Hết D_U hoặc Hội tụ Nhãn?"}
         ConvergenceCheck -->|"Chưa"| PredictU
     end
-    
+
     ConvergenceCheck -->|"Hoàn tất"| FinalModel["Khóa Mô hình Sản xuất Hoàn chỉnh f*"]
     FinalModel --> EvalTest["Đánh giá Mức Tăng trưởng Delta trên Test Set Độc lập"]
 ```

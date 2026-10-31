@@ -16,7 +16,7 @@ $$
 $$
 
   Trong đó $`h`$ là Chiều VC, $`n`$ là số mẫu, $`1-\eta`$ là độ tin cậy thống kê.
-* **Định lý then chốt của Vapnik:** Trong số tất cả các siêu phẳng phân cách có thể phân chia đúng tập dữ liệu, **siêu phẳng có độ rộng lề (Margin) lớn nhất sẽ có Chiều VC nhỏ nhất**! 
+* **Định lý then chốt của Vapnik:** Trong số tất cả các siêu phẳng phân cách có thể phân chia đúng tập dữ liệu, **siêu phẳng có độ rộng lề (Margin) lớn nhất sẽ có Chiều VC nhỏ nhất**!
 * Do đó, việc tìm kiếm Siêu phẳng Phân cách Tối ưu (Maximal Margin Hyperplane) chính là phương pháp toán học trực tiếp nhất để thu nhỏ chặn trên của sai số tổng quát hóa, đảm bảo mô hình có khả năng khái quát hóa vượt trội ngay cả trong không gian số chiều cực lớn.
 
 ---
@@ -122,7 +122,7 @@ Với hàm tuyến tính $`f(x)=w^{\top}x+b`$, một cách viết objective củ
          |               .---'     --- Hàm dự đoán f(x)
          |             .'           - epsilon (Biên dưới của ống)
          |           .'      o  (Điểm vi phạm ngoài ống -> Có slack xi_i > 0)
-         |     o   .'       
+         |     o   .'
          |        /      (Điểm nằm trong ống -> Sai số = 0, alpha_i = 0)
          +-------+------------------------------> x
                Vùng ống sai số Epsilon-insensitive Tube

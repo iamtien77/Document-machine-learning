@@ -21,7 +21,7 @@ Quá trình huấn luyện thuật toán REINFORCE tiếp nhận các luồng d�
 2. **Hành động lấy mẫu từ chính sách ($`a_t \sim \pi_\theta(\cdot|s_t)`$):** Chỉ số hành động rời rạc $`\lbrace 0, 1, \dots, |\mathcal{A}|-1 \rbrace`$ hoặc vector lực liên tục.
 3. **Phần thưởng phản hồi tức thời ($`r_{t+1} \in \mathbb{R}`$):** Tín hiệu vô hướng từ môi trường tại mỗi bước thời gian.
 4. **Quỹ đạo tập hợp hoàn chỉnh (Full Episode Trajectory $`\tau`$):**
-   
+
 $$
 \tau = \left( s_0, a_0, r_1, s_1, a_1, r_2, \dots, s_{T-1}, a_{T-1}, r_T, s_T \right)
 $$
@@ -36,11 +36,11 @@ $$
 
 ## Output
 
-1. **Bộ trọng số tối ưu mạng chính sách ($`\theta^*`$):** Tham số hóa phân phối hành động tối ưu $`\pi_{\theta^*}(a|s)`$.
-2. **Bộ trọng số mạng Baseline trạng thái ($`w^*`$):** Xấp xỉ hàm giá trị $`V_w(s) \approx \mathbb{E}[G_t \mid S_t = s]`$.
+1. **Bộ trọng số tối ưu mạng chính sách ($`\theta^{\ast}`$):** Tham số hóa phân phối hành động tối ưu $`\pi_{\theta^{\ast}(a|s)`$.
+2. **Bộ trọng số mạng Baseline trạng thái ($`w^{\ast}`$):** Xấp xỉ hàm giá trị $`V_w(s) \approx \mathbb{E}[G_t \mid S_t = s]`$.
 3. **Chính sách hành động suy luận:**
-   - Trong quá trình khai thác tất định: $`a^* = \arg\max_a \pi_{\theta^*}(a|s)`$ (rời rạc) hoặc $`a^* = \boldsymbol{\mu}(s; \theta^*)`$ (liên tục).
-   - Trong quá trình lấy mẫu ngẫu nhiên: $`a \sim \pi_{\theta^*}(\cdot|s)`$.
+   - Trong quá trình khai thác tất định: $`a^{\ast} = \arg\max_a \pi_{\theta^{\ast}(a|s)`$ (rời rạc) hoặc $`a^{\ast} = \boldsymbol{\mu}(s; \theta^{\ast})`$ (liên tục).
+   - Trong quá trình lấy mẫu ngẫu nhiên: $`a \sim \pi_{\theta^{\ast}(\cdot|s)`$.
 4. **Log quỹ đạo huấn luyện:** Lịch sử tổn thất chính sách, giá trị phần thưởng hoàn trả $`G_t`$, và độ đo Entropy phân phối.
 
 ---
@@ -121,7 +121,7 @@ Kết quả mang tính đột phá: Gradient kỳ vọng có thể ước lượ
 
 ### 3. Nguyên Lý Nhân Quả (Causality) Và Thuật Toán REINFORCE
 
-Trong công thức gốc, hành động tại bước $`t`$ bị nhân với tổng phần thưởng của toàn bộ tập $`R(\tau)`$, bao gồm cả những phần thưởng đã xảy ra trong quá khứ ($`t' < t`$). Theo nguyên lý nhân quả vật lý, hành động ở hiện tại không thể tác động tới phần thưởng trong quá khứ. 
+Trong công thức gốc, hành động tại bước $`t`$ bị nhân với tổng phần thưởng của toàn bộ tập $`R(\tau)`$, bao gồm cả những phần thưởng đã xảy ra trong quá khứ ($`t' < t`$). Theo nguyên lý nhân quả vật lý, hành động ở hiện tại không thể tác động tới phần thưởng trong quá khứ.
 
 Do đó, ta thay thế $`R(\tau)`$ bằng tổng phần thưởng tích lũy trong tương lai (Reward-to-go hay Return $`G_t`$):
 
@@ -406,3 +406,4 @@ if __name__ == "__main__":
 - [3] Schulman, J., Moritz, P., Levine, S., Jordan, M., & Abbeel, P. (2016). *High-dimensional continuous control using generalized advantage estimation*. International Conference on Learning Representations (ICLR).
 - [4] Mnih, V., Badia, A. P., Mirza, M., Graves, A., Lillicrap, T., Harley, T., Silver, D., & Kavukcuoglu, K. (2016). *Asynchronous methods for deep reinforcement learning*. International Conference on Machine Learning (ICML), PMLR, 48, 1928-1937.
 - [5] Kakade, S. M. (2001). *A natural policy gradient*. Advances in Neural Information Processing Systems (NeurIPS), 14, 1531-1538.
+

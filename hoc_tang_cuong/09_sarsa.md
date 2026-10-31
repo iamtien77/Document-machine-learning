@@ -33,10 +33,10 @@ Quá trình huấn luyện SARSA tiếp nhận:
 Kết quả đầu ra của thuật toán SARSA:
 
 1. **Bảng giá trị hành động On-policy tối ưu ($`Q^\pi(s, a)`$):** Phản ánh kỳ vọng điểm số thực tế khi tác tử tuân thủ chính sách hiện tại (kể cả rủi ro thăm dò).
-2. **Chính sách kiểm soát an toàn ($`\pi^*(s)`$):**
-   
+2. **Chính sách kiểm soát an toàn ($`\pi^{\ast}(s)`$):**
+
 $$
-\pi^*(s) = \arg\max_{a \in \mathcal{A}} Q(s, a)
+\pi^{\ast}(s) = \arg\max_{a \in \mathcal{A}} Q(s, a)
 $$
 
 3. **Lộ trình hành động có tính toán rủi ro:** Tránh xa các trạng thái nguy hiểm có thể bị kích hoạt ngẫu nhiên bởi thăm dò.
@@ -62,7 +62,7 @@ Chỉ số so sánh thực nghiệm giữa SARSA và Q-Learning:
 
 ### 1. Công Thức Cập Nhật Của Thuật Toán SARSA
 
-Tại thời điểm $`t`$, tác tử ở trạng thái $`S_t`$ và đã chọn hành động $`A_t`$. Sau khi thực hiện $`A_t`$, môi trường trả về phần thưởng $`R_{t+1}`$ và trạng thái mới $`S_{t+1}`$. 
+Tại thời điểm $`t`$, tác tử ở trạng thái $`S_t`$ và đã chọn hành động $`A_t`$. Sau khi thực hiện $`A_t`$, môi trường trả về phần thưởng $`R_{t+1}`$ và trạng thái mới $`S_{t+1}`$.
 
 Điểm then chốt: **Trước khi cập nhật bảng Q, tác tử sử dụng chính sách hiện tại để chọn luôn hành động tiếp theo $`A_{t+1}`$ từ $`S_{t+1}`$**.
 
@@ -112,7 +112,7 @@ Khởi tạo bảng Q(s, a) tùy ý, Q(Terminal, ·) = 0
 Lặp với mỗi Episode:
     Khởi tạo trạng thái ban đầu s
     Chọn hành động ban đầu a từ s bằng chính sách ε-greedy dựa trên Q(s, ·)
-    
+
     Lặp với từng bước cho đến khi s là Terminal:
         1. Thực hiện hành động a, nhận phần thưởng r và trạng thái mới s'
         2. Chọn hành động tiếp theo a' từ s' bằng chính sách ε-greedy dựa trên Q(s', ·)
@@ -179,9 +179,9 @@ class CliffWalkingEnv:
         elif action == 1:  r = min(self.rows - 1, r + 1)
         elif action == 2:  c = max(0, c - 1)
         elif action == 3:  c = min(self.cols - 1, c + 1)
-        
+
         self.state = (r, c)
-        
+
         if self.state in self.cliff:
             # Rơi xuống vực: Phạt -100 và quay về điểm xuất phát
             return self.start, -100.0, False
@@ -202,13 +202,13 @@ def epsilon_greedy(Q, state, eps, n_actions=4):
 def train_sarsa_vs_q_learning(n_episodes=500, alpha=0.1, gamma=1.0, eps=0.1):
     env_sarsa = CliffWalkingEnv()
     env_ql = CliffWalkingEnv()
-    
+
     Q_sarsa = np.zeros((4, 12, 4))
     Q_ql = np.zeros((4, 12, 4))
-    
+
     sarsa_rewards = []
     ql_rewards = []
-    
+
     for ep in range(1, n_episodes + 1):
         # ----------------------------------------------------------------------
         # 1. Chạy một Episode SARSA (On-Policy)
@@ -227,7 +227,7 @@ def train_sarsa_vs_q_learning(n_episodes=500, alpha=0.1, gamma=1.0, eps=0.1):
             Q_sarsa[s[0], s[1], a] += alpha * (td_target - Q_sarsa[s[0], s[1], a])
             s, a = s_next, a_next
         sarsa_rewards.append(ep_rew_sarsa)
-        
+
         # ----------------------------------------------------------------------
         # 2. Chạy một Episode Q-Learning (Off-Policy)
         # ----------------------------------------------------------------------
@@ -254,12 +254,12 @@ def train_sarsa_vs_q_learning(n_episodes=500, alpha=0.1, gamma=1.0, eps=0.1):
 if __name__ == "__main__":
     np.random.seed(42)
     Q_sarsa, Q_ql, rew_sarsa, rew_ql = train_sarsa_vs_q_learning(n_episodes=500, eps=0.1)
-    
+
     print("=== KẾT QUẢ SO SÁNH SARSA VS Q-LEARNING TRÊN CLIFF WALKING ===")
     print(f"Điểm thưởng trung bình trong huấn luyện (100 episodes cuối):")
     print(f"-> SARSA (On-Policy)     : {np.mean(rew_sarsa[-100:]):>7.2f} (Ít rơi xuống vực hơn nhiều)")
     print(f"-> Q-Learning (Off-Policy): {np.mean(rew_ql[-100:]):>7.2f} (Thường xuyên rơi vực do thăm dò)")
-    
+
     # Kiểm tra lộ trình Greedy tối ưu sau khi tắt thăm dò
     def extract_path(Q):
         env = CliffWalkingEnv()

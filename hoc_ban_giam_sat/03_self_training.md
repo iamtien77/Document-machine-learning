@@ -58,7 +58,7 @@ Kết quả đầu ra của thuật toán Self-Training:
    * Tỷ lệ phần trăm các giả nhãn do mô hình tự gán trên $`D_U`$ trùng khớp với nhãn thực tế bị ẩn đi:
 
 $$
-\text{Precision}_{\text{pseudo}} = \frac{\sum_{j \in D_{\text{pseudo}}} \mathbb{I}(\hat{y}_j = y_j^*)}{|D_{\text{pseudo}}|}
+\text{Precision}_{\text{pseudo}} = \frac{\sum_{j \in D_{\text{pseudo}}} \mathbb{I}(\hat{y}_j = y_j^{\ast})}{|D_{\text{pseudo}}|}
 $$
 
    * **Chỉ số Sống còn:** Nếu $`\text{Precision}_{\text{pseudo}} < 85\%`$, các nhãn rác sẽ xâm nhập vào tập train và phá hỏng ranh giới quyết định.
@@ -146,9 +146,9 @@ Self-Training được triển khai rộng rãi trong các kịch bản thực t
 ```mermaid
 flowchart TD
     RawTrain["Tập Train: X_train, y_ssl (gồm nhãn {0, 1} và -1)"] --> InitStep["Phân tách D_L (y != -1) và D_U (y == -1)"]
-    
+
     InitStep --> FitBase["Huấn luyện Base Estimator (Logistic / SVM / RF) trên D_L"]
-    
+
     subgraph SelfTrainLoop ["Chu trình Tự huấn luyện Lặp lại (Max Iterations)"]
         FitBase --> PredictProba["Dự đoán xác suất P(y|u) trên tập D_U còn lại"]
         PredictProba --> FilterThreshold{"max(P) >= Threshold Tau?"}
@@ -158,7 +158,7 @@ flowchart TD
         ReFit --> CheckStop{"D_U rỗng HOẶC Không có mẫu mới?"}
         CheckStop -->|"Chưa dừng"| PredictProba
     end
-    
+
     CheckStop -->|"Dừng"| FinalModel["Khóa Mô hình Hoàn chỉnh: SelfTrainingClassifier"]
     FinalModel --> TestInference["Suy luận trên Test Set Độc lập"]
 ```

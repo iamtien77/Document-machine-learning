@@ -17,7 +17,7 @@ TD là sự kết tinh hoàn hảo giữa hai trường phái:
 Thuật toán TD(0) tiếp nhận các bước chuyển dịch trực tuyến (Online Transitions) theo từng bước thời gian:
 
 1. **Bộ tứ chuyển dịch từng bước:**
-   
+
 $$
 (s_t, a_t, r_{t+1}, s_{t+1})
 $$
@@ -45,7 +45,7 @@ Chỉ số đánh giá thuật toán TD:
 
 1. **Sai số căn bậc hai trung bình (Root Mean Squared Error - RMSE):**
    So sánh giá trị ước lượng $`V(s)`$ với giá trị chính xác thực sự $`V_{\mathrm{true}}(s)`$:
-   
+
 $$
 \mathrm{RMSE} = \sqrt{\frac{1}{|\mathcal{S}|} \sum_{s \in \mathcal{S}} \left( V(s) - V_{\mathrm{true}}(s) \right)^2}
 $$
@@ -129,7 +129,7 @@ Môi trường kiểm chuẩn kinh điển: **Random Walk 5 Trạng Thái (Sutto
   - Rơi vào đầu mút bên phải (T1): Nhận thưởng $`R = +1`$, kết thúc episode.
 - Mọi bước di chuyển trung gian nhận thưởng $`0`$. Hệ số chiết khấu $`\gamma = 1.0`$.
 - **Nghiệm giải tích chính xác:** Giá trị thực sự của các trạng thái là xác suất kết thúc ở đầu mút bên phải:
-  
+
 $$
 V_{\mathrm{true}} = \left[ V(A)=\frac{1}{6}, V(B)=\frac{2}{6}, V(C)=\frac{3}{6}, V(D)=\frac{4}{6}, V(E)=\frac{5}{6} \right] \approx [0.167, 0.333, 0.500, 0.667, 0.833]
 $$
@@ -150,7 +150,7 @@ class RandomWalkEnv:
     def __init__(self):
         # 0: Terminal Trái (R=0), 1: A, 2: B, 3: C (Start), 4: D, 5: E, 6: Terminal Phải (R=1)
         self.state = 3
-        
+
     def reset(self):
         self.state = 3
         return self.state
@@ -159,7 +159,7 @@ class RandomWalkEnv:
         # 50% bước sang trái (-1), 50% bước sang phải (+1)
         action = -1 if np.random.rand() < 0.5 else 1
         self.state += action
-        
+
         terminated = (self.state == 0 or self.state == 6)
         reward = 1.0 if self.state == 6 else 0.0
         return self.state, reward, terminated
@@ -167,20 +167,20 @@ class RandomWalkEnv:
 
 def evaluate_td_vs_mc(n_episodes=100, alpha_td=0.1, alpha_mc=0.02):
     env = RandomWalkEnv()
-    
+
     # Nghiệm giải tích thực tế của 5 trạng thái A, B, C, D, E (index 1 đến 5)
     V_true = np.array([1/6, 2/6, 3/6, 4/6, 5/6])
-    
+
     # Khởi tạo giá trị ban đầu là 0.5 (như trong sách giáo khoa)
     V_td = np.full(7, 0.5)
     V_td[0] = 0.0; V_td[6] = 0.0
-    
+
     V_mc = np.full(7, 0.5)
     V_mc[0] = 0.0; V_mc[6] = 0.0
-    
+
     td_rmse_history = []
     mc_rmse_history = []
-    
+
     for ep in range(1, n_episodes + 1):
         # ----------------------------------------------------------------------
         # 1. Chạy một Episode cho TD(0)
@@ -194,7 +194,7 @@ def evaluate_td_vs_mc(n_episodes=100, alpha_td=0.1, alpha_mc=0.02):
             s = s_next
             if term:
                 break
-                
+
         # ----------------------------------------------------------------------
         # 2. Chạy một Episode cho Monte Carlo (Cập nhật khi hết episode)
         # ----------------------------------------------------------------------
@@ -208,10 +208,10 @@ def evaluate_td_vs_mc(n_episodes=100, alpha_td=0.1, alpha_mc=0.02):
                 break
             trajectory.append(s_next)
             s = s_next
-            
+
         for visited_s in set(trajectory):
             V_mc[visited_s] += alpha_mc * (final_reward - V_mc[visited_s])
-            
+
         # Ghi nhận sai số RMSE so với nghiệm giải tích trên 5 trạng thái A-E
         rmse_td = np.sqrt(np.mean((V_td[1:6] - V_true) ** 2))
         rmse_mc = np.sqrt(np.mean((V_mc[1:6] - V_true) ** 2))
@@ -226,10 +226,10 @@ def evaluate_td_vs_mc(n_episodes=100, alpha_td=0.1, alpha_mc=0.02):
 if __name__ == "__main__":
     np.random.seed(42)
     V_td, V_mc, V_true, rmse_td_hist, rmse_mc_hist = evaluate_td_vs_mc(n_episodes=100)
-    
+
     print("=== SO SÁNH HIỆU NĂNG TEMPORAL DIFFERENCE TD(0) VS MONTE CARLO ===")
     print("Môi trường: Random Walk 5 Trạng Thái | Số Episodes: 100\n")
-    
+
     states_label = ['A', 'B', 'C', 'D', 'E']
     print(f"{'Trạng thái':<12} | {'Nghiệm đúng (V_true)':<22} | {'Ước lượng TD(0)':<18} | {'Ước lượng Monte Carlo':<22}")
     print("-" * 80)

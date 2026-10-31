@@ -16,7 +16,7 @@ Dữ liệu đầu vào và các hiện vật cần thiết cho giai đoạn sau
 
 1. **Hiện vật Mô hình Bán Giám Sát Đã Hội tụ:**
    * Đối với Self-Training: Đối tượng phân loại đã mở rộng tập train.
-   * Đối với Graph Methods: Ma trận nhãn đã lan truyền $`F^* \in [0, 1]^{n \times C}`$ và ma trận tọa độ không gian đồ thị.
+   * Đối với Graph Methods: Ma trận nhãn đã lan truyền $`F^{\ast} \in [0, 1]^{n \times C}`$ và ma trận tọa độ không gian đồ thị.
    * Đối với Mean Teacher: Trọng số của Mạng Giáo viên $`\theta_{\text{EMA}}`$.
 2. **Kho Dữ liệu Đã Được Gán Giả Nhãn (Pseudo-Labeled Database):**
    * Tập hợp hàng triệu mẫu $`D_U`$ kèm theo nhãn gán $`\hat{y}`$ và điểm số xác suất $`P(y \mid u)`$.
@@ -63,10 +63,10 @@ $$
 w_i(x_{\text{new}}) = \exp\left( -\gamma \|x_{\text{new}} - x_i\|^2 \right), \quad \forall i \in \lbrace 1, \dots, n \rbrace
 $$
 
-Nhãn xác suất của điểm mới được tính bằng trung bình có trọng số của các nhãn trạng thái dừng $`F_i^*`$:
+Nhãn xác suất của điểm mới được tính bằng trung bình có trọng số của các nhãn trạng thái dừng $`F_i^{\ast}`$:
 
 $$
-F(x_{\text{new}}) = \frac{\sum_{i=1}^n w_i(x_{\text{new}}) F_i^*}{\sum_{i=1}^n w_i(x_{\text{new}})}
+F(x_{\text{new}}) = \frac{\sum_{i=1}^n w_i(x_{\text{new}}) F_i^{\ast}{\sum_{i=1}^n w_i(x_{\text{new}})}
 $$
 
 $$
@@ -124,17 +124,17 @@ Quy trình vận hành sau huấn luyện được áp dụng trong:
 ```mermaid
 flowchart TD
     SSL_Model["Mô hình Bán Giám Sát Đã Huấn luyện"] --> LabelBigU["Dự đoán Xác suất trên 1 Triệu Mẫu D_U"]
-    
+
     LabelBigU --> FilterConfidence{"Lọc Giả nhãn: max(P) >= 0.90?"}
     FilterConfidence -->|"Chấp nhận"| HighConfPool["Tập Dữ liệu Đã Làm Giàu (Enriched Dataset)"]
     FilterConfidence -->|"Bỏ qua"| DiscardLow["Loại bỏ mẫu lưỡng lự"]
-    
+
     HighConfPool --> TrainStudent["Huấn luyện Mô hình Tinh gọn (LightGBM Student)"]
     TrainStudent --> DeployAPI["Đóng gói & Triển khai Microservice Serving"]
-    
+
     DeployAPI --> OnlineTraffic["Luồng Yêu cầu Thực tế (Live Traffic)"]
     OnlineTraffic --> MonitorDrift["Động cơ Giám sát: Tính PSI Phân phối Lớp"]
-    
+
     MonitorDrift --> DriftAlert{"Phát hiện Trôi dạt Nhãn Tiềm ẩn?"}
     DriftAlert -->|"Bình thường"| LogStatus["Ghi log vận hành ổn định"]
     DriftAlert -->|"Bất thường"| TriggerRetrain["Bắn cảnh báo & Yêu cầu gán nhãn thêm mẫu mới"]

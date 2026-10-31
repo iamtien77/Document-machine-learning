@@ -33,7 +33,7 @@ Hệ thống phục vụ suy luận tiếp nhận các thành phần đầu vào
 Kết quả trả về cho mỗi truy vấn suy luận bao gồm:
 
 1. **Nhãn dự đoán phân loại (Predicted Class Label):**
-   
+
 $$
 \hat{y} = \arg\max_{c \in \lbrace 1, \dots, C \rbrace} p_{\mathrm{calib}}(y = c \mid x_{\mathrm{new}})
 $$
@@ -62,7 +62,7 @@ Chỉ số SLA đánh giá tầng phục vụ suy luận bán giám sát:
    Đo lường sai lệch giữa độ tự tin trả về và tỷ lệ đúng thực tế trên dữ liệu vận hành. ECE phải duy trì $`\le 0.05`$.
 
 3. **Tỷ lệ chuyển tiếp phòng vệ (Fallback Rate):**
-   
+
 $$
 \text{Rate}_{\mathrm{fallback}} = \frac{N_{\mathrm{fallback}}}{N_{\mathrm{total}}} \times 100\%
 $$
@@ -103,16 +103,16 @@ $$
 Mô hình đồ thị như **Label Spreading** không thể tính toán trực tiếp nhãn cho mẫu mới $`x_{\mathrm{new}}`$ vì đồ thị cố định trên tập $`N`$ mẫu huấn luyện. Để đưa vào sản xuất, có hai giải pháp kỹ thuật chuẩn mực:
 
 #### Giải pháp 1: Mở rộng Ngoại suy Điểm Lân cận (Inductive 1-NN / k-NN Extension)
-Dự đoán nhãn của $`x_{\mathrm{new}}`$ dựa trên khoảng cách tới các mẫu trong đồ thị huấn luyện ban đầu có trọng số nhãn phân bố $`F^*`$:
+Dự đoán nhãn của $`x_{\mathrm{new}}`$ dựa trên khoảng cách tới các mẫu trong đồ thị huấn luyện ban đầu có trọng số nhãn phân bố $`F^{\ast}`$:
 
 $$
-p(y = c \mid x_{\mathrm{new}}) = \frac{\sum_{i \in \mathcal{N}_k(x_{\mathrm{new}})} W(x_{\mathrm{new}}, x_i) \cdot F_{i, c}^*}{\sum_{i \in \mathcal{N}_k(x_{\mathrm{new}})} W(x_{\mathrm{new}}, x_i)}
+p(y = c \mid x_{\mathrm{new}}) = \frac{\sum_{i \in \mathcal{N}_k(x_{\mathrm{new}})} W(x_{\mathrm{new}}, x_i) \cdot F_{i, c}^{\ast}{\sum_{i \in \mathcal{N}_k(x_{\mathrm{new}})} W(x_{\mathrm{new}}, x_i)}
 $$
 
 Trong đó $`W(x_{\mathrm{new}}, x_i) = \exp\left(-\gamma \|x_{\mathrm{new}} - x_i\|^2\right)`$.
 
 #### Giải pháp 2: Chắt Lọc Tri Thức Thành Mô Hình Học Sinh Nhẹ (Student Distillation - Khuyến nghị)
-1. Sử dụng mô hình Label Spreading gán phân phối xác suất $`F^*`$ cho toàn bộ tập dữ liệu không nhãn ban đầu $`\mathcal{D}_U`$.
+1. Sử dụng mô hình Label Spreading gán phân phối xác suất $`F^{\ast}`$ cho toàn bộ tập dữ liệu không nhãn ban đầu $`\mathcal{D}_U`$.
 2. Huấn luyện một mạng nơ-ron nhỏ (Lightweight MLP) hoặc mô hình LightGBM trên toàn bộ dữ liệu kèm nhãn giả đó làm hàm mục tiêu (Soft-target Loss).
 3. Triển khai mô hình Student lên API phục vụ độc lập với độ trễ siêu thấp $`< 2\text{ ms}`$.
 
@@ -143,7 +143,7 @@ import time
 
 class SSLInferenceService:
     """Dịch vụ phục vụ suy luận bán giám sát thời gian thực chuẩn sản xuất."""
-    
+
     def __init__(
         self,
         weights: np.ndarray,
@@ -159,27 +159,27 @@ class SSLInferenceService:
     def predict(self, x_input: np.ndarray) -> dict:
         """Thực hiện suy luận có đo độ trễ và kiểm soát rủi ro ngoại lai."""
         t_start = time.perf_counter()
-        
+
         # 1. Forward pass tính Logits
         logits = np.dot(x_input, self.weights) + self.bias
-        
+
         # 2. Temperature Scaling để hiệu chuẩn xác suất
         scaled_logits = logits / self.temperature
-        
+
         # 3. Softmax tính phân phối xác suất đã hiệu chuẩn
         exp_logits = np.exp(scaled_logits - np.max(scaled_logits))
         calibrated_probs = exp_logits / np.sum(exp_logits)
-        
+
         # 4. Trích xuất độ tự tin cực đại và nhãn dự đoán
         pred_class = int(np.argmax(calibrated_probs))
         confidence = float(np.max(calibrated_probs))
-        
+
         # 5. Kiểm tra phòng vệ bất định (Uncertainty Guard)
         is_fallback = confidence < self.threshold
         status = "UNCERTAIN_FALLBACK" if is_fallback else "ACCEPTED"
-        
+
         latency_ms = (time.perf_counter() - t_start) * 1000.0
-        
+
         return {
             "prediction": pred_class if not is_fallback else None,
             "confidence": round(confidence, 4),
@@ -196,22 +196,22 @@ if __name__ == "__main__":
     # Khởi tạo mô hình giả lập: 10 đặc trưng, 3 lớp phân loại
     mock_weights = np.random.randn(10, 3)
     mock_bias = np.zeros(3)
-    
+
     service = SSLInferenceService(
         weights=mock_weights,
         bias=mock_bias,
         temperature=1.2,
         threshold=0.80
     )
-    
+
     print("=== KIỂM THỬ DỊCH VỤ SUY LUẬN BÁN GIÁM SÁT THỜI GIAN THỰC ===")
-    
+
     # Mẫu 1: Rõ ràng, tự tin cao
     x_confident = np.ones(10) * 2.0
     res1 = service.predict(x_confident)
     print(f"\nMẫu 1 (Tự tin cao):")
     print(f"-> Trạng thái: {res1['status']} | Nhãn: {res1['prediction']} | Tự tin: {res1['confidence']*100:.1f}% | Độ trễ: {res1['latency_ms']} ms")
-    
+
     # Mẫu 2: Nằm gần ranh giới, tự tin thấp
     x_ambiguous = np.zeros(10)
     res2 = service.predict(x_ambiguous)

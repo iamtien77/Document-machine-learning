@@ -105,15 +105,15 @@ dbi_list = []
 for k in k_candidates:
     km = KMeans(n_clusters=k, init='k-means++', n_init=10, random_state=42)
     labels = km.fit_predict(X_scaled)
-    
+
     wcss = km.inertia_
     sil = silhouette_score(X_scaled, labels)
     dbi = davies_bouldin_score(X_scaled, labels)
-    
+
     inertia_list.append(wcss)
     silhouette_list.append(sil)
     dbi_list.append(dbi)
-    
+
     print(f"{k:<4} | {wcss:<15.2f} | {sil:<12.4f} | {dbi:<15.4f}")
 
 # Lựa chọn K tối ưu theo Silhouette Score
@@ -150,11 +150,11 @@ for k in range(best_k):
     cluster_points = X_scaled[final_labels == k]
     cluster_means = np.mean(cluster_points, axis=0)
     z_deviations = (cluster_means - means_global) / stds_global
-    
+
     # Tìm 2 đặc trưng nổi bật nhất (Z lớn nhất và Z nhỏ nhất)
     top_feature_idx = np.argmax(z_deviations)
     bottom_feature_idx = np.argmin(z_deviations)
-    
+
     print(f"Cụm {k} (Gồm {len(cluster_points)} mẫu):")
     print(f"  + Đặc trưng cao vượt trội: '{feature_names[top_feature_idx]}' (Z = +{z_deviations[top_feature_idx]:.2f})")
     print(f"  - Đặc trưng thấp bất thường: '{feature_names[bottom_feature_idx]}' (Z = {z_deviations[bottom_feature_idx]:.2f})")
@@ -192,20 +192,20 @@ for i, pred_c in enumerate(predicted_clusters):
 flowchart TD
     RawWine["Dữ liệu thô Wine Dataset (178 mẫu x 13 biến)"] --> ScalerNode["StandardScaler: Chuẩn hóa Z-score"]
     ScalerNode --> DenoisePCA["PCA sơ bộ (2 thành phần chính)"]
-    
+
     subgraph MultiMetricLoop ["Vòng lặp Đánh giá Khảo sát K in [2..7]"]
         DenoisePCA --> RunKMeans["KMeans++ (10 lần chạy n_init)"]
         RunKMeans --> EvalSil["Tính Silhouette Score"]
         RunKMeans --> EvalDBI["Tính Davies-Bouldin Index"]
         RunKMeans --> EvalWCSS["Tính Inertia (Elbow)"]
     end
-    
+
     EvalSil --> PickK["Chọn K=3 (Điểm cực đại Silhouette)"]
     EvalDBI --> PickK
     EvalWCSS --> PickK
-    
+
     PickK --> LockPipeline["Đóng gói Pipeline chuẩn: Scaler + PCA + KMeans(K=3)"]
-    
+
     LockPipeline --> ClusterProfile["Profiling: Tính Z-Score từng biến"]
     LockPipeline --> OnlinePredict["Suy luận thời gian thực cho mẫu mới"]
     LockPipeline --> BenchmarkARI["Tính ARI đối chứng nhãn sinh học"]

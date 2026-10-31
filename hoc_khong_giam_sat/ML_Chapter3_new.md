@@ -43,7 +43,7 @@ Trong đó $`\mu_k = \frac{1}{|C_k|} \sum_{x \in C_k} x`$ là tọa độ trọn
 2. **Gán cụm (Assignment Step):** Gán mỗi điểm dữ liệu $`x_i`$ vào cụm có tâm gần nhất theo khoảng cách Euclid:
 
 $$
-k^*(i) = \arg\min_{k \in \lbrace 1, \dots, K \rbrace} \|x_i - \mu_k\|^2
+k^{\ast}(i) = \arg\min_{k \in \lbrace 1, \dots, K \rbrace} \|x_i - \mu_k\|^2
 $$
 
 3. **Cập nhật tâm (Update Step):** Tính toán lại tọa độ trọng tâm của từng cụm dựa trên trung bình cộng các điểm mới được gán:
@@ -148,7 +148,7 @@ $$
 
 ### Phương pháp Khuỷu tay (Elbow Method - tr. 30)
 * Vẽ đồ thị hàm mục tiêu WCSS (Inertia) theo các giá trị $`K \in [1, 10]`$.
-* Điểm gập cong rõ rệt nhất nơi WCSS giảm chậm lại chính là số cụm tối ưu $`K^*`$.
+* Điểm gập cong rõ rệt nhất nơi WCSS giảm chậm lại chính là số cụm tối ưu $`K^{\ast}`$.
 
 ### Hệ số Silhouette (Silhouette Coefficient - tr. 31–32)
 Đo lường độ gắn kết nội cụm $`a(i)`$ và độ phân tách ngoại cụm $`b(i)`$:

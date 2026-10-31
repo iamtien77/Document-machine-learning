@@ -18,7 +18,7 @@ Dữ liệu đầu vào và các hiện vật cần thiết cho quy trình đán
 
 1. **Tập Kiểm tra Độc lập Giữ Riêng (Hold-out Test Set - $`D_{\text{test}}`$):**
    * Tập gồm $`n_{\text{test}}`$ mẫu có nhãn chuẩn $`100\%`$ được tách ra ngay từ đầu, tuyệt đối không tham gia vào bất kỳ khâu nào của quá trình tiền xử lý hay huấn luyện bán giám sát.
-2. **Nhãn Ẩn của Tập Chưa Nhãn ($`y_U^*`$ - Dùng trong Môi trường Nghiên cứu Benchmark):**
+2. **Nhãn Ẩn của Tập Chưa Nhãn ($`y_U^{\ast}`$ - Dùng trong Môi trường Nghiên cứu Benchmark):**
    * Nhãn thực tế của các mẫu trong $`D_U`$ (bị cố tình ẩn đi lúc train) dùng để kiểm toán chất lượng giả nhãn nội bộ.
 3. **Dãy Tỷ lệ Nhãn Cần Khảo sát (Label Fraction Spectrum - $`\alpha`$):**
    * Dãy tỷ lệ $`\alpha \in \lbrace 1\%, 2\%, 5\%, 10\%, 20\%, 50\% \rbrace`$ để vẽ đường cong hiệu quả khai thác nhãn.
@@ -58,7 +58,7 @@ $$
 2. **Độ Chính xác của Giả nhãn (Pseudo-Label Precision - $`P_{\text{pseudo}}`$):**
 
 $$
-P_{\text{pseudo}} = \frac{1}{|D_{\text{pseudo}}|} \sum_{u_j \in D_{\text{pseudo}}} \mathbb{I}(\hat{y}_j = y_j^*)
+P_{\text{pseudo}} = \frac{1}{|D_{\text{pseudo}}|} \sum_{u_j \in D_{\text{pseudo}}} \mathbb{I}(\hat{y}_j = y_j^{\ast})
 $$
 
    * Đánh giá xem mô hình có đang nạp nhãn sạch hay nhãn rác vào tập train.
@@ -82,7 +82,7 @@ Một thí nghiệm đánh giá Học bán giám sát đúng chuẩn học thu�
 
 ```text
        ĐÁNH GIÁ ĐỐI CHỨNG 3 TẦNG TRONG BÁN GIÁM SÁT:
-       
+
        Tầng 3: Cận trên Lý tưởng (Full-Supervised Oracle)
        Huấn luyện trên 100% dữ liệu có nhãn thật -> Điểm số tối đa kỳ vọng
                           ▲
@@ -130,25 +130,25 @@ Phương pháp đánh giá bán giám sát được áp dụng bắt buộc trê
 ```mermaid
 flowchart TD
     RawData["Dữ liệu gốc có nhãn đầy đủ (Phục vụ Benchmark)"] --> HoldoutTest["Tách riêng 20% làm Test Set độc lập"]
-    
+
     HoldoutTest --> TrainPool["80% còn lại dùng làm Hồ Huấn luyện"]
-    
+
     subgraph MultiRatioLoop ["Vòng lặp Khảo sát Tỷ lệ Nhãn alpha in {1%, 5%, 10%, 20%}"]
         TrainPool --> SplitLU["Chia TrainPool thành D_L (alpha) và D_U (1 - alpha)"]
-        
+
         SplitLU --> TrainBase["1. Train Supervised Baseline (Chỉ học trên D_L)"]
         SplitLU --> TrainSSL["2. Train Mô hình Bán Giám sát (Học trên D_L + D_U)"]
         TrainPool --> TrainOracle["3. Train Full-Supervised Oracle (Học trên toàn bộ)"]
-        
+
         TrainBase --> EvalBase["Đánh giá trên Test Set -> Score_Base"]
         TrainSSL --> EvalSSL["Đánh giá trên Test Set -> Score_SSL"]
         TrainOracle --> EvalOracle["Đánh giá trên Test Set -> Score_Full"]
-        
+
         EvalBase --> CalcDelta["Tính Mức Tăng trưởng Delta = Score_SSL - Score_Base"]
         EvalSSL --> CalcDelta
         EvalOracle --> CalcDelta
     end
-    
+
     CalcDelta --> PlotCurves["Vẽ Đường cong Hiệu suất Nhãn & Kiểm tra Chuyển giao Tiêu cực"]
 ```
 

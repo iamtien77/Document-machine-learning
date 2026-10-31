@@ -34,7 +34,7 @@ Dữ liệu sau khi hoàn thành chuỗi tiền xử lý:
    * Vector độ dài $`n = n_l + n_u`$:
 
 $$
-y_i = \begin{cases} y_i^* \in \lbrace 0, 1, \dots, C - 1 \rbrace & \text{nếu } x_i \in D_L \\ -1 & \text{nếu } x_i \in D_U \end{cases}
+y_i = \begin{cases} y_i^{\ast} \in \lbrace 0, 1, \dots, C - 1 \rbrace & \text{nếu } x_i \in D_L \\ -1 & \text{nếu } x_i \in D_U \end{cases}
 $$
 
 3. **Mặt nạ Boolean Phân định (Mask Array):**
@@ -130,21 +130,21 @@ Quy trình chuẩn bị dữ liệu bán giám sát được áp dụng trên c�
 flowchart TD
     RawPool["Kho Dữ liệu Thô Thu thập"] --> CleanAudit["Làm sạch Schema & Điền khuyết Imputation"]
     CleanAudit --> MasterSplit["Tách độc lập: Train Set (80%) và Holdout Test Set (20%)"]
-    
+
     MasterSplit --> HoldoutTest["Tập Test: Khóa hoàn toàn đến bước cuối"]
     MasterSplit --> TrainPool["Tập Huấn luyện Hỗn hợp: X_train, y_train"]
-    
+
     TrainPool --> StratifiedSSL["Bộ Phân tầng Bán giám sát: Stratified Masking"]
     StratifiedSSL --> KeepLabeled["Giữ lại nhãn thật: y in {0, 1, ..., C-1} (Tập D_L)"]
     StratifiedSSL --> MaskUnlabeled["Gán nhãn -1 cho mẫu chưa gán nhãn (Tập D_U)"]
-    
+
     KeepLabeled --> MergeSSL["Hợp nhất thành mảng nhãn bán giám sát: y_ssl"]
     MaskUnlabeled --> MergeSSL
-    
+
     TrainPool --> FitScaler["Fit StandardScaler trên toàn bộ X_train (D_L + D_U)"]
     FitScaler --> TransTrain["X_train_scaled"]
     FitScaler --> TransTest["X_test_scaled (Chỉ transform)"]
-    
+
     TransTrain --> ReadySSL["Dữ liệu Sẵn sàng đưa vào Mô hình Bán Giám sát"]
     MergeSSL --> ReadySSL
 ```
@@ -172,38 +172,38 @@ def prepare_semi_supervised_data(X_raw, y_raw, label_ratio=0.15, test_size=0.20,
     X_train_raw, X_test_raw, y_train_raw, y_test = train_test_split(
         X_raw, y_raw, test_size=test_size, stratify=y_raw, random_state=random_state
     )
-    
+
     # Bước 2: Chuẩn hóa thang đo (Fit trên tập train, transform trên cả train và test)
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train_raw)
     X_test = scaler.transform(X_test_raw)
-    
+
     # Bước 3: Tạo mảng nhãn bán giám sát y_ssl ban đầu gán toàn bộ là -1 (chưa nhãn)
     y_ssl = np.full_like(y_train_raw, fill_value=-1)
-    
+
     # Bước 4: Phân tầng để chọn ra đúng tỷ lệ mẫu có nhãn cho từng lớp
     np.random.seed(random_state)
     classes = np.unique(y_train_raw)
-    
+
     labeled_indices = []
     for c in classes:
         # Lấy danh sách chỉ số các mẫu thuộc lớp c trong tập train
         class_indices = np.where(y_train_raw == c)[0]
         n_class_samples = len(class_indices)
-        
+
         # Tính số lượng mẫu cần giữ lại nhãn cho lớp c (ít nhất 2 mẫu)
         n_labeled = max(2, int(np.round(n_class_samples * label_ratio)))
-        
+
         # Chọn ngẫu nhiên không hoàn lại các mẫu có nhãn
         chosen_indices = np.random.choice(class_indices, size=n_labeled, replace=False)
         labeled_indices.extend(chosen_indices)
-        
+
         # Gán lại nhãn thật cho các mẫu được chọn
         y_ssl[chosen_indices] = y_train_raw[chosen_indices]
-        
+
     labeled_indices = np.array(labeled_indices)
     unlabeled_indices = np.setdiff1d(np.arange(len(y_train_raw)), labeled_indices)
-    
+
     return X_train, y_ssl, X_test, y_test, labeled_indices, unlabeled_indices
 
 # ==========================================

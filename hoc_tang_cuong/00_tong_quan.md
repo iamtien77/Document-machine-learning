@@ -48,32 +48,32 @@ Một bài toán Học tăng cường tiêu chuẩn tiếp nhận các thành ph
 
 Quá trình huấn luyện Học tăng cường cung cấp các thành phần đầu ra tối ưu:
 
-1. **Chính sách hành động tối ưu (Optimal Policy $`\pi^*`$):**
+1. **Chính sách hành động tối ưu (Optimal Policy $`\pi^{\ast}`$):**
    Chiến lược chỉ dẫn Agent đưa ra quyết định tại mỗi trạng thái:
    - Chính sách tất định (Deterministic Policy):
-   
+
 $$
-a_t = \pi^*(s_t)
+a_t = \pi^{\ast}(s_t)
 $$
 
    - Chính sách xác suất (Stochastic Policy):
-   
+
 $$
-\pi^*(a \mid s) = P(A_t = a \mid S_t = s)
+\pi^{\ast}(a \mid s) = P(A_t = a \mid S_t = s)
 $$
 
-2. **Hàm giá trị trạng thái tối ưu (Optimal State-Value Function $`V^*(s)`$):**
+2. **Hàm giá trị trạng thái tối ưu (Optimal State-Value Function $`V^{\ast}(s)`$):**
    Kỳ vọng tổng phần thưởng tích lũy có chiết khấu nếu bắt đầu từ trạng thái $`s`$ và tuân thủ chính sách tối ưu:
-   
+
 $$
-V^*(s) = \max_\pi \mathbb{E}_\pi \left[ \sum_{k=0}^\infty \gamma^k r_{t+k+1} \;\middle|\; S_t = s \right]
+V^{\ast}(s) = \max_\pi \mathbb{E}_\pi \left[ \sum_{k=0}^\infty \gamma^k r_{t+k+1} \;\middle|\; S_t = s \right]
 $$
 
-3. **Hàm giá trị hành động tối ưu (Optimal Action-Value Function $`Q^*(s, a)`$):**
+3. **Hàm giá trị hành động tối ưu (Optimal Action-Value Function $`Q^{\ast}(s, a)`$):**
    Kỳ vọng tổng phần thưởng tích lũy nếu thực hiện hành động $`a`$ tại trạng thái $`s`$ và sau đó hành động tối ưu:
-   
+
 $$
-Q^*(s, a) = \max_\pi \mathbb{E}_\pi \left[ \sum_{k=0}^\infty \gamma^k r_{t+k+1} \;\middle|\; S_t = s, A_t = a \right]
+Q^{\ast}(s, a) = \max_\pi \mathbb{E}_\pi \left[ \sum_{k=0}^\infty \gamma^k r_{t+k+1} \;\middle|\; S_t = s, A_t = a \right]
 $$
 
 ---
@@ -84,14 +84,14 @@ $$
 
 1. **Tổng phần thưởng tích lũy mỗi Episode (Undiscounted Return $`G`$):**
    Tổng điểm số thực tế thu được trong một lượt chơi/thực nghiệm từ trạng thái đầu đến trạng thái kết thúc (Terminal State):
-   
+
 $$
 G = \sum_{t=0}^{T-1} r_{t+1}
 $$
 
 2. **Trung bình động phần thưởng (Moving Average Return qua 100 episodes):**
    Làm mịn dao động ngẫu nhiên để đánh giá xu hướng hội tụ thực sự của đường cong học tập:
-   
+
 $$
 \bar{G}_k = \frac{1}{100} \sum_{i=k-99}^k G_i
 $$
@@ -258,43 +258,43 @@ def train_simple_q_learning():
     env = LineWorldEnv(length=5)
     n_states = 5
     n_actions = 2
-    
+
     # Khởi tạo bảng Q-Table kích thước [5 x 2] bằng 0
     Q = np.zeros((n_states, n_actions))
-    
+
     lr = 0.1          # Tốc độ học (alpha)
     gamma = 0.9       # Hệ số chiết khấu
     epsilon = 0.2     # Tỷ lệ thăm dò (exploration)
     n_episodes = 100
-    
+
     print("=== BẮT ĐẦU VÒNG LẶP HỌC TĂNG CƯỜNG (LINE WORLD) ===")
-    
+
     returns_history = []
     for ep in range(1, n_episodes + 1):
         s = env.reset()
         episode_reward = 0
         terminated = False
         steps = 0
-        
+
         while not terminated and steps < 20:
             # Chiến lược Epsilon-Greedy chọn hành động
             if np.random.rand() < epsilon:
                 a = np.random.choice(n_actions) # Thăm dò (Exploration)
             else:
                 a = np.argmax(Q[s, :])          # Khai thác (Exploitation)
-                
+
             s_next, r, terminated = env.step(a)
             episode_reward += r
             steps += 1
-            
+
             # Cập nhật giá trị Q theo công thức Bellman Equation
             best_next_a = np.argmax(Q[s_next, :])
             td_target = r + gamma * Q[s_next, best_next_a] * (not terminated)
             td_error = td_target - Q[s, a]
             Q[s, a] += lr * td_error
-            
+
             s = s_next
-            
+
         returns_history.append(episode_reward)
         if ep % 20 == 0:
             avg_ret = np.mean(returns_history[-20:])

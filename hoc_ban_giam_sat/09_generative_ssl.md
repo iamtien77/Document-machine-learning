@@ -36,7 +36,7 @@ Dữ liệu đầu vào và các tham số cấu hình cho mô hình sinh bán g
 
 Kết quả đầu ra của mô hình sinh bán giám sát:
 
-1. **Bộ Tham số Phân phối Đầy đủ của Từng Lớp ($`\theta^*`$):**
+1. **Bộ Tham số Phân phối Đầy đủ của Từng Lớp ($`\theta^{\ast}`$):**
    * Trọng số tiên nghiệm của các lớp: $`\pi_c = P(Y=c)`$ với $`\sum_{c=1}^C \pi_c = 1`$.
    * Vector kỳ vọng trung bình tâm lớp: $`\mu_c \in \mathbb{R}^p`$.
    * Ma trận hiệp phương sai hình dạng lớp: $`\Sigma_c \in \mathbb{R}^{p \times p}`$.
@@ -187,18 +187,18 @@ Mô hình sinh bán giám sát phát huy tối đa hiệu quả trong các lĩnh
 ```mermaid
 flowchart TD
     DataPool["Dữ liệu: Tập có nhãn D_L và Tập chưa nhãn D_U"] --> InitMLE["Ước lượng Tham số Ban đầu từ D_L: {pi_c, mu_c, Sigma_c}"]
-    
+
     InitMLE --> E_Step["E-Step: Tính Trách nhiệm Xác suất Hậu nghiệm trên D_U: gamma_jc"]
-    
+
     subgraph EMLoop ["Chu trình Lặp Kỳ vọng - Cực đại hóa (EM Engine)"]
         E_Step --> M_Step["M-Step: Cập nhật Lại Tham số {pi_c, mu_c, Sigma_c} bằng Tổng Trọng số"]
         M_Step --> CalcLikelihood["Tính Hàm Hợp lý Toàn cục: ln L(theta)"]
         CalcLikelihood --> CheckConvergence{"Độ tăng Likelihood < Tol?"}
         CheckConvergence -->|"Chưa"| E_Step
     end
-    
+
     CheckConvergence -->|"Hội tụ"| OptimalParams["Khóa Bộ Tham số Phân phối Tối ưu: theta*"]
-    
+
     OptimalParams --> BayesClassifier["Quy tắc Phân loại Bayes: P(y=c | x)"]
     OptimalParams --> OutlierDetector["Động cơ Phát hiện Ngoại lai dựa trên Mật độ P(x)"]
 ```
@@ -259,7 +259,7 @@ class SemiSupervisedGMM:
             for k in range(self.K):
                 pdf_vals = multivariate_normal.pdf(X_U, mean=self.mu[k], cov=self.sigma[k])
                 gamma_U[:, k] = self.pi[k] * pdf_vals
-            
+
             sum_gamma = np.sum(gamma_U, axis=1, keepdims=True) + 1e-12
             gamma_U = gamma_U / sum_gamma # Chuẩn hóa thành phân phối xác suất
 
@@ -267,7 +267,7 @@ class SemiSupervisedGMM:
             for k in range(self.K):
                 mask_k = (y_L == k)
                 X_L_k = X_L[mask_k]
-                
+
                 # Trọng lượng kết hợp
                 weight_L = len(X_L_k)
                 weight_U = np.sum(gamma_U[:, k])
@@ -284,7 +284,7 @@ class SemiSupervisedGMM:
                 # Cập nhật sigma_k
                 diff_L = X_L_k - self.mu[k]
                 cov_L = np.dot(diff_L.T, diff_L) if len(X_L_k) > 0 else np.zeros((n_features, n_features))
-                
+
                 diff_U = X_U - self.mu[k]
                 cov_U = np.dot((gamma_U[:, k:k+1] * diff_U).T, diff_U)
 

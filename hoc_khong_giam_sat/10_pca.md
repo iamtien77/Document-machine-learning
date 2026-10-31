@@ -195,14 +195,14 @@ PCA được ứng dụng rộng rãi và hiệu quả nhất trong các kịch 
 flowchart TD
     RawData["Dữ liệu thô: X in R^(n x p)"] --> Scaling["Chuẩn hóa Z-Score: StandardScaler"]
     Scaling --> CenteredData["Dữ liệu chuẩn hóa: X_scaled (trung bình 0)"]
-    
+
     CenteredData --> SVD["Phân tích SVD: X_scaled = U * Sigma * V^T"]
     SVD --> ExtractEig["Tính Trị riêng lambda_j = sigma_j^2 / n"]
     ExtractEig --> Scree["Vẽ đồ thị Scree Plot & Tính CEVR(k)"]
-    
+
     Scree --> ChooseK{"Chọn k thỏa mãn CEVR >= 95%"}
     ChooseK --> Projection["Chiếu xuống không gian con: Z = X_scaled * V_k"]
-    
+
     Projection --> DownstreamML["Dữ liệu gọn nhẹ Z in R^(n x k) đưa vào ML"]
     Projection --> Reconstruction["Tái thiết lập dữ liệu: X_hat = Z * V_k^T + Mean"]
     Reconstruction --> ErrorEval["Đánh giá Sai số Tái tạo: MSE_recon"]

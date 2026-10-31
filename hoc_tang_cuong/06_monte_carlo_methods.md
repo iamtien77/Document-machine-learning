@@ -19,7 +19,7 @@ Các thuật toán Monte Carlo tiếp nhận dữ liệu từ các chuỗi tươ
 
 1. **Môi trường mô phỏng dạng hộp đen (Black-box Simulator):** Có khả năng sinh ra các quỹ đạo tương tác hoàn chỉnh từ trạng thái ban đầu tới trạng thái kết thúc.
 2. **Tập các quỹ đạo hoàn chỉnh (Collection of Complete Episodes):**
-   
+
 $$
 \tau_k = \left( s_0, a_0, r_1, s_1, a_1, r_2, \dots, s_{T-1}, a_{T-1}, r_T, s_T \right)
 $$
@@ -35,7 +35,7 @@ Thuật toán Monte Carlo cung cấp:
 
 1. **Hàm giá trị trạng thái ước lượng ($`V(s)`$):** Bảng giá trị trung bình phần thưởng tích lũy cho từng trạng thái.
 2. **Hàm giá trị hành động ($`Q(s, a)`$):** Bảng điểm cho từng cặp trạng thái - hành động phục vụ bài toán điều khiển tối ưu (MC Control).
-3. **Chính sách tối ưu ($`\pi^*(s)`$):** Được cải tiến theo nguyên lý tham lam $`\pi(s) = \arg\max_a Q(s, a)`$.
+3. **Chính sách tối ưu ($`\pi^{\ast}(s)`$):** Được cải tiến theo nguyên lý tham lam $`\pi(s) = \arg\max_a Q(s, a)`$.
 
 ---
 
@@ -44,7 +44,7 @@ Thuật toán Monte Carlo cung cấp:
 Chỉ số đánh giá độ tin cậy của thuật toán Monte Carlo:
 
 1. **Sai số bình phương trung bình (Mean Squared Error - MSE):**
-   
+
 $$
 \mathrm{MSE}(V) = \frac{1}{|\mathcal{S}|} \sum_{s \in \mathcal{S}} \left( V(s) - V_{\mathrm{true}}(s) \right)^2
 $$
@@ -152,26 +152,26 @@ class SimpleBlackjack:
         """Tạo một ván chơi hoàn chỉnh theo chính sách policy_fn."""
         player_hand = self.draw_hand()
         dealer_hand = self.draw_hand()
-        
+
         trajectory = [] # Lưu trữ các bộ (state, action, reward)
-        
+
         # Lượt của Người chơi
         while True:
             p_score, usable_ace = self.score(player_hand)
             if p_score > 21: # Người chơi bị quắc
                 break
-                
+
             state = (p_score, dealer_hand[0], usable_ace)
             action = policy_fn(state) # 0: Stick, 1: Hit
             trajectory.append((state, action))
-            
+
             if action == 1: # Rút bài
                 player_hand.append(self.draw_card())
             else: # Dừng bài
                 break
-                
+
         p_score, _ = self.score(player_hand)
-        
+
         # Nếu người chơi bị quắc -> Thua ngay lập tức
         if p_score > 21:
             reward = -1.0
@@ -182,7 +182,7 @@ class SimpleBlackjack:
                 if d_score >= 17:
                     break
                 dealer_hand.append(self.draw_card())
-                
+
             d_score, _ = self.score(dealer_hand)
             if d_score > 21 or p_score > d_score:
                 reward = 1.0  # Thắng
@@ -190,14 +190,14 @@ class SimpleBlackjack:
                 reward = -1.0 # Thua
             else:
                 reward = 0.0  # Hòa
-                
+
         return trajectory, reward
 
 
 def first_visit_monte_carlo(n_episodes=50000):
     """Thuật toán First-Visit Monte Carlo Policy Evaluation."""
     game = SimpleBlackjack()
-    
+
     # Chính sách cố định: Dừng nếu điểm >= 20, ngược lại rút tiếp
     def policy(state):
         player_score, _, _ = state
@@ -205,10 +205,10 @@ def first_visit_monte_carlo(n_episodes=50000):
 
     V = {} # Bảng giá trị V(s)
     returns = {} # Lưu tổng return và số lần xuất hiện
-    
+
     for ep in range(1, n_episodes + 1):
         trajectory, reward = game.play_episode(policy)
-        
+
         visited_in_episode = set()
         for state, action in trajectory:
             if state not in visited_in_episode:
@@ -218,7 +218,7 @@ def first_visit_monte_carlo(n_episodes=50000):
                 returns[state][0] += reward
                 returns[state][1] += 1
                 V[state] = returns[state][0] / returns[state][1]
-                
+
     return V
 
 # ==============================================================================
@@ -228,13 +228,13 @@ if __name__ == "__main__":
     np.random.seed(42)
     print("=== HUẤN LUYỆN ĐÁNH GIÁ GIÁ TRỊ FIRST-VISIT MONTE CARLO (BLACKJACK) ===")
     print("Mô phỏng 50,000 ván chơi để xấp xỉ kỳ vọng toán học...\n")
-    
+
     V_table = first_visit_monte_carlo(n_episodes=50000)
-    
+
     # Hiển thị mẫu giá trị ước lượng cho các trạng thái người chơi có 20 hoặc 21 điểm
     print(f"{'Điểm người chơi':<18} | {'Lá ngửa nhà cái':<18} | {'Có Át (Usable Ace)':<20} | {'Giá trị ước lượng V(s)':<22}")
     print("-" * 85)
-    
+
     sample_queries = [
         (21, 10, True), (21, 2, True),
         (20, 10, False), (20, 5, False),

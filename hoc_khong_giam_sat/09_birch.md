@@ -196,7 +196,7 @@ BIRCH đạt hiệu quả cao nhất trên các tập dữ liệu có các đặ
 flowchart TD
     RawData["Dữ liệu khổng lồ: n mẫu x p chiều"] --> SingleScan["Quét tuần tự 1 lượt (Single Pass)"]
     SingleScan --> InsertLoop["Thuật toán Chèn điểm vào CF-Tree"]
-    
+
     subgraph CFTreeStructure ["Cấu trúc CF-Tree trong Bộ nhớ RAM"]
         InsertLoop --> CheckRad{"Bán kính mới <= Threshold T?"}
         CheckRad -->|"Có"| MergeCF["Hợp nhất CF: CF_mới = CF_cũ + (1, x, ||x||^2)"]
@@ -205,7 +205,7 @@ flowchart TD
         CheckSplit -->|"Có"| SplitNode["Tách node thành 2 hạt giống xa nhất"]
         CheckSplit -->|"Không"| UpdatePath["Cập nhật ngược lên node cha"]
     end
-    
+
     CFTreeStructure --> LeafCentroids["Trích xuất m cụm vi mô tại lá (m << n)"]
     LeafCentroids --> GlobalCluster["Giai đoạn 3: Gom cụm toàn cục (Agglomerative)"]
     GlobalCluster --> FinalK["K Cụm vĩ mô hoàn chỉnh"]

@@ -52,7 +52,7 @@ Chỉ số thẩm định chất lượng thiết kế môi trường trước k
 
 1. **Mật độ phần thưởng (Reward Density Ratio):**
    Tỷ lệ phần trăm các bước chuyển trạng thái có phần thưởng khác không:
-   
+
 $$
 \text{Density} = \frac{1}{T} \sum_{t=1}^T \mathbb{I}(r_t \neq 0) \times 100\%
 $$
@@ -82,7 +82,7 @@ $$
 
 Việc tùy tiện cộng thêm điểm thưởng phụ (ví dụ: thưởng Agent tiến lại gần đích) thường dẫn đến hiện tượng **Reward Hacking** (Agent chạy tới rồi chạy lui liên tục để tích điểm khoảng cách mà không bao giờ chạm vạch đích).
 
-Định lý kinh điển của **Ng, Harada & Russell (ICML 1999)** chứng minh rằng: Một hàm thưởng bổ sung $`F(s, a, s')`$ được đảm bảo toán học **KHÔNG làm thay đổi tập chính sách tối ưu $`\pi^*`$** nếu và chỉ nếu nó có dạng sai phân thế năng:
+Định lý kinh điển của **Ng, Harada & Russell (ICML 1999)** chứng minh rằng: Một hàm thưởng bổ sung $`F(s, a, s')`$ được đảm bảo toán học **KHÔNG làm thay đổi tập chính sách tối ưu $`\pi^{\ast}`$** nếu và chỉ nếu nó có dạng sai phân thế năng:
 
 $$
 F(s, a, s') = \gamma \Phi(s') - \Phi(s)
@@ -168,29 +168,29 @@ class ContinuousNavigationEnv:
 
     def step(self, action):
         self.current_step += 1
-        
+
         # Cắt ngưỡng hành động vật lý an toàn
         action = np.clip(action, -0.2, 0.2)
         old_state = self.state
-        
+
         # Cập nhật trạng thái vật lý
         self.state = np.clip(self.state + action, -1.0, 1.0)
-        
+
         # Kiểm tra điều kiện đích
         terminated = abs(self.state - self.goal_pos) < 0.05
         truncated = self.current_step >= self.max_steps
-        
+
         # 1. Phần thưởng gốc: +100 khi chạm đích, -1 mỗi bước chi phí thời gian
         r_base = 100.0 if terminated else -1.0
-        
+
         # 2. Thành phần Potential-Based Reward Shaping: gamma * Phi(s') - Phi(s)
         phi_old = self.potential(old_state)
         phi_new = self.potential(self.state) if not terminated else 0.0
         f_shaping = self.gamma * phi_new - phi_old
-        
+
         # Phần thưởng tổng hợp an toàn
         total_reward = r_base + f_shaping
-        
+
         return self.state, total_reward, terminated, truncated, {"base_reward": r_base, "shaping": f_shaping}
 
 # ==============================================================================
@@ -199,20 +199,20 @@ class ContinuousNavigationEnv:
 if __name__ == "__main__":
     env = ContinuousNavigationEnv(gamma=0.99)
     s, _ = env.reset()
-    
+
     print("=== KIỂM THỬ THIẾT KẾ MÔI TRƯỜNG VÀ POTENTIAL REWARD SHAPING ===")
     print(f"Vị trí bắt đầu: {s:.2f} | Mục tiêu đích: {env.goal_pos:.2f}\n")
-    
+
     # Kịch bản 1: Đi đúng hướng về phía đích
     print("--- Kịch bản 1: Đi đúng hướng (Action = +0.2) ---")
     s, r, term, trunc, info = env.step(action=0.2)
     print(f"Trạng thái mới: {s:.2f} | Base Reward: {info['base_reward']:.2f} | Shaping: {info['shaping']:>+6.2f} | Total Reward: {r:>+6.2f}")
-    
+
     # Kịch bản 2: Đi sai hướng lùi xa đích
     print("\n--- Kịch bản 2: Đi sai hướng (Action = -0.2) ---")
     s, r, term, trunc, info = env.step(action=-0.2)
     print(f"Trạng thái mới: {s:.2f} | Base Reward: {info['base_reward']:.2f} | Shaping: {info['shaping']:>+6.2f} | Total Reward: {r:>+6.2f}")
-    
+
     print("\n=> Kết luận: PBRS cung cấp gradient phần thưởng dẫn đường tức thì mà không thể bị hack lặp lại.")
 ```
 

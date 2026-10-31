@@ -32,11 +32,11 @@ Quá trình huấn luyện các biến thể cải tiến của DQN tiếp nhậ
 
 ## Output
 
-1. **Bộ trọng số tối ưu của mạng giá trị ($`\theta^*`$):** Tham số hóa xấp xỉ hàm $`Q^*(s, a)`$ đạt chuẩn không thiên lệch hoặc phân tách Dueling.
+1. **Bộ trọng số tối ưu của mạng giá trị ($`\theta^{\ast}`$):** Tham số hóa xấp xỉ hàm $`Q^{\ast}(s, a)`$ đạt chuẩn không thiên lệch hoặc phân tách Dueling.
 2. **Chính sách suy luận tối ưu (Deterministic Greedy Policy):**
 
 $$
-\pi^*(s) = \arg\max_{a \in \mathcal{A}} Q(s, a; \theta^*)
+\pi^{\ast}(s) = \arg\max_{a \in \mathcal{A}} Q(s, a; \theta^{\ast})
 $$
 
 3. **Cấu trúc cây chỉ mục SumTree:** Phân cấp cây nhị phân lưu trữ tổng phân phối ưu tiên với độ phức tạp truy vấn $`\mathcal{O}(\log N)`$.
@@ -82,8 +82,8 @@ $$
 Toán tử $`\max`$ áp dụng trên các giá trị ước lượng nhiễu dẫn đến bất đẳng thức Jensen: $`\mathbb{E}[\max(X_1, X_2)] \ge \max(\mathbb{E}[X_1], \mathbb{E}[X_2])`$. Do đó, Vanilla DQN liên tục phóng đại giá trị kỳ vọng của các hành động phụ phụ thuộc vào biến động ngẫu nhiên.
 
 Double DQN giải quyết triệt để vấn đề này bằng cơ chế phân rã quyết định:
-- Dùng **mạng chính** ($`\theta_t`$) để **chọn hành động tốt nhất**: $`a^* = \arg\max_a Q(S_{t+1}, a; \theta_t)`$.
-- Dùng **mạng mục tiêu** ($`\theta_t^-`$) để **đo lường giá trị của hành động đó**: $`Q(S_{t+1}, a^*; \theta_t^-)`$.
+- Dùng **mạng chính** ($`\theta_t`$) để **chọn hành động tốt nhất**: $`a^{\ast} = \arg\max_a Q(S_{t+1}, a; \theta_t)`$.
+- Dùng **mạng mục tiêu** ($`\theta_t^-`$) để **đo lường giá trị của hành động đó**: $`Q(S_{t+1}, a^{\ast}; \theta_t^-)`$.
 
 $$
 Y_t^{\mathrm{DoubleQ}} = R_{t+1} + \gamma Q\left( S_{t+1}, \arg\max_{a} Q(S_{t+1}, a; \theta_t); \theta_t^- \right)
@@ -170,7 +170,7 @@ Rainbow DQN kết hợp 6 cải tiến bổ trợ lẫn nhau:
 2. **Prioritized Replay:** Tăng tần suất học từ các chuyển tiếp có TD-error lớn.
 3. **Dueling Networks:** Tách biệt biểu diễn môi trường và hành động.
 4. **Multi-step Learning (n-step TD):** Thay thế mục tiêu 1 bước bằng tổng phần thưởng chiết khấu $`n`$ bước:
-   
+
 $$
 R_t^{(n)} = \sum_{k=0}^{n-1} \gamma^k R_{t+k+1}
 $$
@@ -212,7 +212,7 @@ import torch.nn.functional as F
 # ==============================================================================
 class SumTree:
     """Cây nhị phân hoàn chỉnh lưu trữ tổng độ ưu tiên của các mẫu kinh nghiệm.
-    
+
     Các nút lá lưu độ ưu tiên p_i^alpha.
     Các nút cha lưu tổng của các nút con tương ứng.
     """
@@ -496,3 +496,4 @@ if __name__ == "__main__":
 - [3] Schaul, T., Quan, J., Antonoglou, I., & Silver, D. (2016). *Prioritized experience replay*. International Conference on Learning Representations (ICLR).
 - [4] Hessel, M., Modayil, J., Van Hasselt, H., Schaul, T., Ostrovski, G., Dabney, W., Horgan, D., Piot, B., Azar, M., & Silver, D. (2018). *Rainbow: Combining improvements in deep reinforcement learning*. Proceedings of the AAAI Conference on Artificial Intelligence, 32(1), 3215-3222.
 - [5] Mnih, V., Kavukcuoglu, K., Silver, D., et al. (2015). *Human-level control through deep reinforcement learning*. Nature, 518(7540), 529-533.
+

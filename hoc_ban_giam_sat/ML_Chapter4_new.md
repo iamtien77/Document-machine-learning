@@ -12,7 +12,7 @@ Trong thực tế, việc thu thập dữ liệu thô (ảnh, văn bản, bản 
 
 ### Các Khái Niệm Then Chốt (Key Concepts - tr. 2)
 1. **Dữ liệu có nhãn (Labeled Data):**
-   
+
 $$
 \mathcal{D}_L = \left\lbrace (x_1, y_1), (x_2, y_2), \dots, (x_{N_L}, y_{N_L}) \right\rbrace
 $$
@@ -20,7 +20,7 @@ $$
    Các điểm dữ liệu đi kèm với nhãn mục tiêu đích thực tế $`y_i`$. Số lượng $`N_L`$ thường rất nhỏ.
 
 2. **Dữ liệu không nhãn (Unlabeled Data):**
-   
+
 $$
 \mathcal{D}_U = \left\lbrace u_1, u_2, \dots, u_{N_U} \right\rbrace
 $$
@@ -123,7 +123,7 @@ Self-Training là kỹ thuật đóng gói (Wrapper Algorithm) đơn giản và 
 1. **Khởi tạo:** Huấn luyện bộ phân loại cơ sở $`f_\theta`$ trên $`\mathcal{D}_L`$.
 2. **Dự đoán:** Đưa toàn bộ mẫu không nhãn $`u \in \mathcal{D}_U`$ qua mô hình để thu được vector xác suất $`p_\theta(y \mid u)`$.
 3. **Chọn lọc tự tin (Confidence Selection):**
-   
+
 $$
 \mathcal{S} = \left\lbrace u \in \mathcal{D}_U \;\middle|\; \max_{c} p_\theta(y=c \mid u) \ge \tau \right\rbrace
 $$
@@ -153,13 +153,13 @@ $$
 Ma trận chuyển trạng thái xác suất $`T_{ij} = P(j \to i) = \frac{W_{ij}}{\sum_k W_{kj}}`$.
 Tại mỗi bước lặp $`t`$:
 1. Lan truyền phân phối nhãn qua các cạnh đồ thị:
-   
+
 $$
 Y^{(t)} = T \cdot Y^{(t-1)}
 $$
 
 2. **Kẹp chặt nhãn gốc (Clamping Condition):** Đặt lại các hàng tương ứng với dữ liệu có nhãn thật về đúng phân phối ban đầu:
-   
+
 $$
 Y_L^{(t)} = Y_L^{(0)}
 $$
@@ -193,7 +193,7 @@ S3VM (còn gọi là Transductive SVM - TSVM) mở rộng bài toán tối ưu c
 ### Hàm Mục Tiêu Tối Ưu Hóa S3VM
 
 $$
-\min_{w, b, y_u} \frac{1}{2} \|w\|^2 + C_L \sum_{i=1}^{N_L} \xi_i + C_U \sum_{j=1}^{N_U} \xi_j^*
+\min_{w, b, y_u} \frac{1}{2} \|w\|^2 + C_L \sum_{i=1}^{N_L} \xi_i + C_U \sum_{j=1}^{N_U} \xi_j^{\ast}
 $$
 
 Thỏa mãn các ràng buộc:
@@ -201,7 +201,7 @@ Thỏa mãn các ràng buộc:
 $$
 \begin{aligned}
 y_i (w^\top x_i + b) &\ge 1 - \xi_i, \quad &\xi_i \ge 0 \quad &\forall i \in \mathcal{D}_L \\
-y_j (w^\top u_j + b) &\ge 1 - \xi_j^*, \quad &\xi_j^* \ge 0 \quad &\forall j \in \mathcal{D}_U
+y_j (w^\top u_j + b) &\ge 1 - \xi_j^{\ast}, \quad &\xi_j^{\ast} \ge 0 \quad &\forall j \in \mathcal{D}_U
 \end{aligned}
 $$
 

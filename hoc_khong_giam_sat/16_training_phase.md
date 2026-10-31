@@ -118,22 +118,22 @@ Các tiêu chí nghiệm thu chất lượng trước khi phê duyệt đưa mô
 flowchart TD
     RawData["Dữ liệu thô từ Hồ dữ liệu (Data Lake)"] --> DataAudit["Data Audit & Schema Validation"]
     DataAudit --> CleanData["Dữ liệu sạch (Cleaned Data)"]
-    
+
     CleanData --> SplitStability["Tách tập: Dev Set (80%) và Stability Set (20%)"]
-    
+
     subgraph TuningEngine ["Động cơ Tối ưu hóa Siêu tham số"]
         SplitStability --> SearchK["Thử nghiệm dãy K in [2..10]"]
         SearchK --> InnerPipe["Pipeline: Scaler + PCA + KMeans"]
         InnerPipe --> CalcInternalScore["Tính Silhouette, DBI, Calinski-Harabasz"]
         CalcInternalScore --> SelectOptimal["Chọn cấu hình tối ưu K*"]
     end
-    
+
     SelectOptimal --> StabilityTest["Kiểm tra Tính ổn định Bootstrap trên Stability Set"]
     StabilityTest --> StabilityCheck{"ARI giữa các folds >= 0.85?"}
-    
+
     StabilityCheck -->|"Đạt yêu cầu"| FinalFit["Huấn luyện Pipeline hoàn chỉnh trên toàn bộ dữ liệu"]
     StabilityCheck -->|"Không đạt"| ReAudit["Rà soát lại dữ liệu: Tăng feature hoặc đổi thuật toán"]
-    
+
     FinalFit --> ExportArtifact["Lưu File: model_pipeline_v1.joblib"]
     FinalFit --> GenerateReport["Sinh Báo cáo Model Card & Phân tích Chân dung Cụm"]
 ```
@@ -172,12 +172,12 @@ for k in k_range:
         ('kmeans', KMeans(n_clusters=k, init='k-means++', n_init=10, random_state=42))
     ])
     temp_pipe.fit(X_dev)
-    
+
     # Đánh giá bằng Silhouette Score trên không gian sau khi biến đổi
     X_dev_trans = temp_pipe.named_steps['pca'].transform(temp_pipe.named_steps['scaler'].transform(X_dev))
     labels = temp_pipe.named_steps['kmeans'].labels_
     score = silhouette_score(X_dev_trans, labels)
-    
+
     if score > best_silhouette:
         best_silhouette = score
         best_k = k
@@ -217,7 +217,7 @@ if stability_ari >= 0.80:
         ('kmeans', KMeans(n_clusters=best_k, init='k-means++', n_init=20, random_state=42))
     ])
     pipe_production.fit(X_raw)
-    
+
     artifact_path = "unsupervised_cluster_pipeline_v1.joblib"
     joblib.dump(pipe_production, artifact_path)
     print(f"=> XUẤT THÀNH CÔNG: Đã đóng gói pipeline sản xuất vào '{artifact_path}'")

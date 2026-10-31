@@ -137,18 +137,18 @@ Phát hiện bất thường không giám sát được ứng dụng trọng y�
 ```mermaid
 flowchart TD
     StreamingEvent["Luồng Dữ liệu Sự kiện (Kafka Stream)"] --> Preprocessor["Chuẩn hóa & Tiền xử lý"]
-    
+
     subgraph DetectionEngine ["Động cơ Phát hiện Bất thường Đa Tầng"]
         Preprocessor --> iForest["Mô hình 1: Isolation Forest (Độ trễ < 5ms)"]
         Preprocessor --> LOFModel["Mô hình 2: Local Outlier Factor (Mật độ cục bộ)"]
-        
+
         iForest --> Score1["Anomaly Score: s_iForest"]
         LOFModel --> Score2["Anomaly Score: s_LOF"]
     end
-    
+
     Score1 --> EnsembleVoting{"Điểm số tổng hợp > Threshold?"}
     Score2 --> EnsembleVoting
-    
+
     EnsembleVoting -->|"Bình thường"| PassThrough["Chấp thuận Giao dịch (Pass)"]
     EnsembleVoting -->|"Bất thường"| TriggerAlarm["Kích hoạt Báo động: Đưa vào Hàng đợi Điều tra Fraud"]
 ```

@@ -9,12 +9,12 @@ Dự đoán từ các mẫu train gần nhất; baseline phi tuyến dễ hiểu
 k-Nearest Neighbors (kNN) là đại diện tiêu biểu nhất của trường phái **Học lười (Lazy Learning / Instance-based Learning)**. Khác với các mô hình tham số (như Hồi quy Tuyến tính hay Logistic) vốn cố gắng ép dữ liệu vào một phương trình toán học cố định trong quá trình huấn luyện, kNN không học bất kỳ một trọng số nào trong giai đoạn `fit`. Mô hình lưu trữ toàn bộ dữ liệu mẫu và chỉ thực sự tính toán khi có một truy vấn dự đoán mới xuất hiện.
 
 Năm 1967, hai nhà khoa học Thomas Cover và Peter Hart đã công bố một trong những định lý nền tảng nhất của lý thuyết nhận dạng mẫu:
-* Gọi $`R^*`$ là **Sai số Tối ưu Bayes (Bayes Error Rate)** — giới hạn sai số lý thuyết tối thiểu mà không một thuật toán nào trên thế giới có thể vượt qua khi biết trước phân phối xác suất thực tế.
+* Gọi $`R^{\ast}`$ là **Sai số Tối ưu Bayes (Bayes Error Rate)** — giới hạn sai số lý thuyết tối thiểu mà không một thuật toán nào trên thế giới có thể vượt qua khi biết trước phân phối xác suất thực tế.
 * Gọi $`R_{1\text{-NN}}`$ là sai số tiệm cận của thuật toán 1-Láng giềng gần nhất ($`k=1`$) khi kích thước tập huấn luyện tiến ra vô cùng ($`n \to \infty`$).
 * **Định lý Cover & Hart:**
 
 $$
-R^* \le R_{1\text{-NN}} \le 2 R^* (1 - R^*) \le 2 R^*
+R^{\ast} \le R_{1\text{-NN}} \le 2 R^{\ast} (1 - R^{\ast}) \le 2 R^{\ast}
 $$
 
 * *Ý nghĩa khoa học sâu sắc:* Ngay cả với phiên bản đơn giản nhất ($`k=1`$), sai số của thuật toán láng giềng gần nhất không bao giờ vượt quá **hai lần sai số tối ưu Bayes**! Đây là minh chứng toán học hùng hồn cho thấy các phương pháp phi tham số cục bộ có khả năng biểu diễn vô cùng mạnh mẽ mà không cần giả định trước bất kỳ dạng phân phối nào của dữ liệu.
@@ -149,7 +149,7 @@ Siêu tham số $`k`$ điều khiển trực tiếp bậc tự do thực tế c�
 * **Khi $`k = n`$ (Mô hình Cực kỳ Đơn giản):**
   * Mô hình luôn dự đoán lớp chiếm đa số hoặc trung bình toàn bộ tập train cho mọi điểm mới.
   * **Variance bằng đúng 0**, nhưng **Bias cực kỳ cao**. Mô hình hoàn toàn không học được bất kỳ cấu trúc cục bộ nào. Dẫn đến **Underfitting**.
-* *Kinh nghiệm thực nghiệm:* Chọn $`k`$ là số lẻ để tránh hòa phiếu trong bài toán nhị phân, và tìm $`k^*`$ tối ưu bằng Cross-Validation trong khoảng $`k \in [3, 25]`$.
+* *Kinh nghiệm thực nghiệm:* Chọn $`k`$ là số lẻ để tránh hòa phiếu trong bài toán nhị phân, và tìm $`k^{\ast}`$ tối ưu bằng Cross-Validation trong khoảng $`k \in [3, 25]`$.
 
 ### Key words
 

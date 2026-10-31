@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Trong các phương pháp Học bán giám sát truyền thống, việc gán nhãn giả (Pseudo-labeling) hay xây dựng đồ thị tương đồng thường gặp khó khăn lớn khi mở rộng lên không gian dữ liệu nhiều chiều và các mạng Deep Neural Networks khổng lồ. 
+Trong các phương pháp Học bán giám sát truyền thống, việc gán nhãn giả (Pseudo-labeling) hay xây dựng đồ thị tương đồng thường gặp khó khăn lớn khi mở rộng lên không gian dữ liệu nhiều chiều và các mạng Deep Neural Networks khổng lồ.
 
 **Ràng buộc Nhất quán (Consistency Regularization)** là một trong những trụ cột thành công và có ảnh hưởng sâu rộng nhất trong Học bán giám sát hiện đại (Sajjadi et al., 2016; Laine & Aila, 2017; Tarvainen & Valpola, 2017).
 
@@ -39,9 +39,9 @@ Dữ liệu và cấu hình phục vụ cơ chế Ràng buộc Nhất quán:
 
 Kết quả đầu ra của hệ thống huấn luyện nhất quán:
 
-1. **Mạng Học sinh Tối ưu (Optimal Student Network $`\theta^*`$):**
+1. **Mạng Học sinh Tối ưu (Optimal Student Network $`\theta^{\ast}`$):**
    * Mạng neuron chính được dùng để suy luận thời gian thực trong sản xuất.
-2. **Mạng Giáo viên Tích lũy (Ensemble Teacher Network $`\theta_{\text{EMA}}^*`$):**
+2. **Mạng Giáo viên Tích lũy (Ensemble Teacher Network $`\theta_{\text{EMA}}^{\ast}`$):**
    * Mạng có trọng số là trung bình trượt theo thời gian. Mạng này thường có độ chính xác và khả năng tổng quát hóa cao hơn cả mạng học sinh từ 1% đến 3%.
 3. **Mất mát Nhất quán (Consistency Loss Score):**
    * Thước đo định lượng sự sai lệch giữa các biến thể dự đoán của cùng một mẫu chưa nhãn.
@@ -128,24 +128,24 @@ Consistency Regularization là nền tảng của toàn bộ các hệ thống A
 ```mermaid
 flowchart TD
     BatchData["Mini-Batch: B_L (có nhãn) và B_U (chưa nhãn)"] --> ForkData["Phân nhánh Xử lý Dữ liệu"]
-    
+
     ForkData --> SupervisedBranch["Nhánh Có Giám sát: B_L"]
     SupervisedBranch --> StudentForwardL["Student Network f_theta(B_L)"]
     StudentForwardL --> CalcClassLoss["Tính Mất mát Phân loại: L_s = CrossEntropy(y, y_pred)"]
-    
+
     ForkData --> UnsupervisedBranch["Nhánh Chưa Nhãn: B_U"]
     UnsupervisedBranch --> AugStudent["Phép biến đổi Mạnh (Strong Aug): u'"]
     UnsupervisedBranch --> AugTeacher["Phép biến đổi Nhẹ (Weak Aug): u"]
-    
+
     AugStudent --> StudentForwardU["Student Network f_theta(u') -> z_student"]
     AugTeacher --> TeacherForwardU["Teacher Network f_theta_EMA(u) -> z_teacher"]
-    
+
     StudentForwardU --> CalcConsLoss["Tính Mất mát Nhất quán: L_u = ||z_student - z_teacher||^2"]
     TeacherForwardU --> CalcConsLoss
-    
+
     CalcClassLoss --> SumLoss["L_total = L_s + lambda(t) * L_u"]
     CalcConsLoss --> SumLoss
-    
+
     SumLoss --> GradStudent["Gradient Descent: Cập nhật Trọng số Student theta"]
     GradStudent --> UpdateTeacher["Cập nhật EMA cho Teacher: theta' = alpha * theta' + (1 - alpha) * theta"]
 ```
@@ -169,7 +169,7 @@ class SimpleMeanTeacherEngine:
         self.n_classes = n_classes
         self.alpha = alpha # Hệ số suy giảm EMA
         self.lambda_cons = lambda_cons
-        
+
         # Khởi tạo trọng số tuyến tính cho Student và Teacher
         np.random.seed(42)
         self.theta_student = np.random.randn(n_features, n_classes) * 0.1

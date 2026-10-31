@@ -71,14 +71,14 @@ $$
 
 Mô hình Deep SSL sau quá trình tối ưu cung cấp các kết quả đầu ra:
 
-1. **Bộ trọng số mạng tối ưu $`\theta^*`$ và Mô hình EMA $`\theta_{\mathrm{EMA}}`$:**
+1. **Bộ trọng số mạng tối ưu $`\theta^{\ast}`$ và Mô hình EMA $`\theta_{\mathrm{EMA}}`$:**
    Mạng nơ-ron đã học được không gian đặc trưng phân tách rõ nét giữa các cụm mật độ cao, tuân thủ giả định cụm (Cluster Assumption) và giả định đa tạp (Manifold Assumption).
 
 2. **Bộ phân loại quy nạp (Inductive Classifier):**
    Có khả năng dự đoán phân phối xác suất chuẩn xác $`p_\theta(y \mid x_{\mathrm{new}})`$ cho bất kỳ mẫu thử nghiệm mới nào ngoài phân phối huấn luyện mà không cần chạy lại thuật toán:
 
 $$
-\hat{y} = \arg\max_{c \in \lbrace 1, \dots, C \rbrace} f_{\theta^*}(x_{\mathrm{new}})_c
+\hat{y} = \arg\max_{c \in \lbrace 1, \dots, C \rbrace} f_{\theta^{\ast}(x_{\mathrm{new}})_c
 $$
 
 3. **Tập giả nhãn chất lượng cao cho toàn bộ tập dữ liệu không nhãn ban đầu:**
@@ -94,7 +94,7 @@ $$
    Chỉ số tiêu chuẩn trên các tập benchmark (CIFAR, SVHN, ImageNet):
 
 $$
-\mathrm{Error} = \frac{1}{N_{\mathrm{test}}} \sum_{k=1}^{N_{\mathrm{test}}} \mathbb{I}(\hat{y}_k \neq y_k^*) \times 100\%
+\mathrm{Error} = \frac{1}{N_{\mathrm{test}}} \sum_{k=1}^{N_{\mathrm{test}}} \mathbb{I}(\hat{y}_k \neq y_k^{\ast}) \times 100\%
 $$
 
 2. **Chỉ số F1-Score vĩ mô (Macro F1-Score):**
@@ -117,7 +117,7 @@ $$
    Tỷ lệ giả nhãn chính xác trong số các mẫu đã vượt qua ngưỡng tự tin:
 
 $$
-\mathrm{PL\text{-}Acc} = \frac{\sum_{b=1}^{B_U} \mathbb{I}(\max_c q_{b, c} \ge \tau \land \hat{y}_b = y_b^*)}{\sum_{b=1}^{B_U} \mathbb{I}(\max_c q_{b, c} \ge \tau)}
+\mathrm{PL\text{-}Acc} = \frac{\sum_{b=1}^{B_U} \mathbb{I}(\max_c q_{b, c} \ge \tau \land \hat{y}_b = y_b^{\ast})}{\sum_{b=1}^{B_U} \mathbb{I}(\max_c q_{b, c} \ge \tau)}
 $$
 
    Chỉ số này phải duy trì trên 95% để triệt tiêu hiệu ứng confirmation bias.
@@ -335,7 +335,7 @@ class TransformFixMatch:
             T.ToTensor(),
             T.Normalize(mean=mean, std=std)
         ])
-        
+
         # Mô phỏng Strong Augmentation tương đương RandAugment + Cutout
         self.strong = T.Compose([
             T.RandomHorizontalFlip(p=0.5),
@@ -365,12 +365,12 @@ class SimpleConvNet(nn.Module):
             nn.BatchNorm2d(64),
             nn.LeakyReLU(0.1),
             nn.MaxPool2d(2, 2), # 16x16
-            
+
             nn.Conv2d(64, 128, kernel_size=3, padding=1),
             nn.BatchNorm2d(128),
             nn.LeakyReLU(0.1),
             nn.MaxPool2d(2, 2), # 8x8
-            
+
             nn.Conv2d(128, 128, kernel_size=3, padding=1),
             nn.BatchNorm2d(128),
             nn.LeakyReLU(0.1),
@@ -405,7 +405,7 @@ class SyntheticImageDataset(Dataset):
         img = self.data[idx]
         if self.transform is not None:
             img = self.transform(img)
-            
+
         if self.is_labeled:
             return img, self.targets[idx]
         return img
@@ -415,12 +415,12 @@ class SyntheticImageDataset(Dataset):
 # 4. HUẤN LUYỆN FIXMATCH STEP VÀ METRIC TRACKING
 # ==============================================================================
 def train_fixmatch_one_epoch(
-    model, 
-    labeled_loader, 
-    unlabeled_loader, 
-    optimizer, 
-    device, 
-    threshold=0.95, 
+    model,
+    labeled_loader,
+    unlabeled_loader,
+    optimizer,
+    device,
+    threshold=0.95,
     lambda_u=1.0
 ):
     model.train()
@@ -455,7 +455,7 @@ def train_fixmatch_one_epoch(
 
         # 3. Forward tập không nhãn nhánh mạnh (Strong Augmentation)
         logits_u_s = model(u_s)
-        
+
         # 4. Tính Cross-Entropy giữa logits nhánh mạnh và pseudo-label với mask
         loss_u_per_sample = F.cross_entropy(logits_u_s, pseudo_labels, reduction='none')
         loss_u = (loss_u_per_sample * mask).mean()

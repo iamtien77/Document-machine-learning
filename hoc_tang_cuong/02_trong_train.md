@@ -56,7 +56,7 @@ Kết quả sinh ra trong và sau pha huấn luyện:
 Các chỉ số giám sát trực tiếp theo từng epoch/episode:
 
 1. **Sai số sai phân thời gian trung bình (Mean Absolute TD-Error):**
-   
+
 $$
 \bar{\delta}_k = \frac{1}{T_k} \sum_{t=1}^{T_k} \left| r_{t+1} + \gamma \max_{a'} Q(s_{t+1}, a') - Q(s_t, a_t) \right|
 $$
@@ -68,7 +68,7 @@ $$
 
 3. **Chỉ số cảnh báo sụp đổ chính sách (Policy Collapse Indicator):**
    Độ sụt giảm phần thưởng tức thời so với trung bình lịch sử:
-   
+
 $$
 \text{Drop} = \frac{\bar{G}_{\mathrm{recent}} - \bar{G}_{\mathrm{peak}}}{\bar{G}_{\mathrm{peak}}}
 $$
@@ -96,13 +96,13 @@ $$
 
 #### Hai mô hình suy giảm $`\epsilon`$ phổ biến:
 1. **Phân rã tuyến tính (Linear Decay):**
-   
+
 $$
 \epsilon_t = \max\left( \epsilon_{\min}, \epsilon_{\mathrm{start}} - \frac{\epsilon_{\mathrm{start}} - \epsilon_{\min}}{T_{\mathrm{decay}}} \cdot t \right)
 $$
 
 2. **Phân rã hàm mũ (Exponential Decay - Mượt mà hơn):**
-   
+
 $$
 \epsilon_t = \max\left( \epsilon_{\min}, \epsilon_{\mathrm{start}} \cdot e^{-\lambda t} \right)
 $$
@@ -171,7 +171,7 @@ import numpy as np
 
 class RLTrainingMonitor:
     """Bộ điều phối thăm dò và giám sát động thái huấn luyện Học tăng cường."""
-    
+
     def __init__(
         self,
         n_episodes: int = 500,
@@ -185,7 +185,7 @@ class RLTrainingMonitor:
         self.eps_min = eps_min
         self.eps_decay = eps_decay
         self.rolling_window = rolling_window
-        
+
         self.reward_history = []
         self.td_error_history = []
         self.best_rolling_reward = -np.inf
@@ -199,7 +199,7 @@ class RLTrainingMonitor:
         """Ghi nhận chỉ số cuối mỗi episode và kiểm tra cảnh báo sụt giảm."""
         self.reward_history.append(total_reward)
         self.td_error_history.append(avg_td_error)
-        
+
         # Tính toán điểm trung bình trượt
         if len(self.reward_history) >= self.rolling_window:
             rolling_reward = np.mean(self.reward_history[-self.rolling_window:])
@@ -224,24 +224,24 @@ class RLTrainingMonitor:
 if __name__ == "__main__":
     np.random.seed(42)
     monitor = RLTrainingMonitor(n_episodes=200, eps_start=1.0, eps_min=0.05, eps_decay=0.98)
-    
+
     print("=== MÔ PHỎNG ĐỘNG THÁI GIÁM SÁT PHA HUẤN LUYỆN RL ===")
     print(f"{'Episode':<8} | {'Epsilon':<8} | {'Raw Return':<12} | {'Rolling Reward':<16} | {'Avg TD-Error':<14} | {'Ghi chú'}")
     print("-" * 75)
-    
+
     for ep in range(1, 201):
         eps_val = monitor.update_epsilon()
-        
+
         # Giả lập reward tăng dần và TD-Error giảm dần theo quy luật học
         simulated_reward = -20.0 + (ep / 200.0) * 35.0 + np.random.normal(0, 3.0)
         simulated_td_error = max(0.05, 5.0 * np.exp(-ep / 50.0) + np.random.normal(0, 0.1))
-        
+
         # Đưa vào nhiễu gây sụt giảm giả định tại episode 120
         if 120 <= ep <= 130:
             simulated_reward -= 18.0
-            
+
         rolling_ret, is_best = monitor.record_episode(ep, simulated_reward, simulated_td_error)
-        
+
         if ep % 25 == 0 or ep == 1:
             note = "[BEST MODEL SAVED]" if is_best else ""
             print(f"{ep:<8} | {eps_val:>6.4f} | {simulated_reward:>+10.2f} | {rolling_ret:>+14.2f} | {simulated_td_error:>12.4f} | {note}")

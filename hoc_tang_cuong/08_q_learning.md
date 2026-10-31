@@ -7,7 +7,7 @@ Thuật toán Q-Learning, được phát minh bởi Chris Watkins trong luận �
 Bản chất cốt lõi của Q-Learning là một thuật toán **Off-Policy Temporal Difference Control**:
 - **Tính chất Off-Policy:** Tác tử có thể thu thập trải nghiệm bằng một chính sách hành vi linh hoạt (Behavior Policy, ví dụ như $`\epsilon`$-greedy với tỷ lệ ngẫu nhiên cao để thỏa sức khám phá môi trường), nhưng mục tiêu cập nhật bảng giá trị $`Q`$ lại luôn hướng về **chính sách tối ưu tuyệt đối (Target Policy là Greedy Policy: $`\max_{a'} Q(s', a')`$)**.
 - **Tính chất Không cần Mô hình (Model-Free):** Q-Learning không cần biết ma trận chuyển dịch xác suất hay hàm thưởng của môi trường.
-- **Hội tụ vững chắc (Convergence Guarantee):** Watkins & Dayan (1992) đã chứng minh toán học rằng bảng $`Q(s, a)`$ được đảm bảo hội tụ xác suất $100\%$ về giá trị tối ưu $`Q^*(s, a)`$, miễn là mọi cặp trạng thái - hành động đều được tác tử ghé thăm vô hạn lần và tốc độ học $`\alpha`$ suy giảm thỏa mãn điều kiện Robbins-Monro.
+- **Hội tụ vững chắc (Convergence Guarantee):** Watkins & Dayan (1992) đã chứng minh toán học rằng bảng $`Q(s, a)`$ được đảm bảo hội tụ xác suất $100\%$ về giá trị tối ưu $`Q^{\ast}(s, a)`$, miễn là mọi cặp trạng thái - hành động đều được tác tử ghé thăm vô hạn lần và tốc độ học $`\alpha`$ suy giảm thỏa mãn điều kiện Robbins-Monro.
 
 ---
 
@@ -17,7 +17,7 @@ Quá trình huấn luyện Q-Learning tiếp nhận các thành phần đầu v�
 
 1. **Môi trường rời rạc ($`\mathcal{E}`$):** Có không gian trạng thái hữu hạn $`\mathcal{S}`$ và không gian hành động rời rạc $`\mathcal{A}`$.
 2. **Bảng giá trị Q ban đầu (Q-Table):**
-   
+
 $$
 Q \in \mathbb{R}^{|\mathcal{S}| \times |\mathcal{A}|}
 $$
@@ -34,17 +34,17 @@ $$
 
 Kết quả đầu ra của thuật toán Q-Learning:
 
-1. **Bảng giá trị hành động tối ưu ($`Q^*(s, a)`$):** Ước lượng chính xác điểm số kỳ vọng tích lũy cho mọi cặp $`(s, a)`$.
-2. **Chính sách tất định tối ưu ($`\pi^*(s)`$):**
-   
+1. **Bảng giá trị hành động tối ưu ($`Q^{\ast}(s, a)`$):** Ước lượng chính xác điểm số kỳ vọng tích lũy cho mọi cặp $`(s, a)`$.
+2. **Chính sách tất định tối ưu ($`\pi^{\ast}(s)`$):**
+
 $$
-\pi^*(s) = \arg\max_{a \in \mathcal{A}} Q^*(s, a)
+\pi^{\ast}(s) = \arg\max_{a \in \mathcal{A}} Q^{\ast}(s, a)
 $$
 
-3. **Hàm giá trị trạng thái tối ưu ngầm định ($`V^*(s)`$):**
-   
+3. **Hàm giá trị trạng thái tối ưu ngầm định ($`V^{\ast}(s)`$):**
+
 $$
-V^*(s) = \max_{a \in \mathcal{A}} Q^*(s, a)
+V^{\ast}(s) = \max_{a \in \mathcal{A}} Q^{\ast}(s, a)
 $$
 
 ---
@@ -57,7 +57,7 @@ Chỉ số đánh giá năng lực hội tụ của Q-Learning:
    Điểm số trung bình qua 50 hoặc 100 episodes gần nhất. Đồ thị phải tăng dần và đạt trạng thái bình nguyên ổn định.
 
 2. **Sai số sai phân thời gian trung bình (Mean TD-Error $`\mathbb{E}[|\delta_t|]`$):**
-   
+
 $$
 |\delta_t| = \left| r_{t+1} + \gamma \max_{a'} Q(s_{t+1}, a') - Q(s_t, a_t) \right|
 $$
@@ -110,7 +110,7 @@ Lặp với mỗi Episode:
 
 ### 3. Điều Kiện Hội Tụ Toán Học (Watkins & Dayan, 1992)
 
-Thuật toán Q-Learning được chứng minh hội tụ về $`Q^*(s, a)`$ với xác suất $1$ khi thỏa mãn hai điều kiện tiêu chuẩn Robbins-Monro về tốc độ học:
+Thuật toán Q-Learning được chứng minh hội tụ về $`Q^{\ast}(s, a)`$ với xác suất $1$ khi thỏa mãn hai điều kiện tiêu chuẩn Robbins-Monro về tốc độ học:
 
 $$
 \sum_{t=1}^\infty \alpha_t(s, a) = \infty \quad \text{và} \quad \sum_{t=1}^\infty \alpha_t^2(s, a) < \infty
@@ -169,9 +169,9 @@ class MazeEnv:
         elif action == 1:  r = min(self.rows - 1, r + 1)
         elif action == 2:  c = max(0, c - 1)
         elif action == 3:  c = min(self.cols - 1, c + 1)
-        
+
         self.state = (r, c)
-        
+
         if self.state == self.goal:
             return self.state, 10.0, True
         elif self.state in self.traps:
@@ -190,7 +190,7 @@ class QLearningAgent:
         self.eps = eps_start
         self.eps_min = eps_min
         self.eps_decay = eps_decay
-        
+
         # Khởi tạo bảng Q-Table [16 x 4]
         self.Q = np.zeros((n_states, n_actions))
 
@@ -222,34 +222,34 @@ if __name__ == "__main__":
     np.random.seed(42)
     env = MazeEnv()
     agent = QLearningAgent(n_states=16, n_actions=4, lr=0.1, gamma=0.95, eps_start=1.0, eps_min=0.05, eps_decay=0.992)
-    
+
     n_episodes = 300
     rewards_history = []
-    
+
     print("=== HUẤN LUYỆN Q-LEARNING TRÊN MÔI TRƯỜNG MÊ CUNG CÓ BẪY ===")
     print(f"Tổng số Episodes: {n_episodes} | Learning Rate: {agent.lr} | Gamma: {agent.gamma}\n")
-    
+
     for ep in range(1, n_episodes + 1):
         state = env.reset()
         s_idx = agent.to_state_idx(state)
         total_reward = 0
         terminated = False
         steps = 0
-        
+
         while not terminated and steps < 50:
             action = agent.choose_action(s_idx)
             next_state, reward, terminated = env.step(action)
             s_next_idx = agent.to_state_idx(next_state)
-            
+
             agent.update(s_idx, action, reward, s_next_idx, terminated)
-            
+
             s_idx = s_next_idx
             total_reward += reward
             steps += 1
-            
+
         agent.decay_epsilon()
         rewards_history.append(total_reward)
-        
+
         if ep % 50 == 0:
             avg_rew = np.mean(rewards_history[-50:])
             print(f"Episode {ep:03d} | Epsilon: {agent.eps:.4f} | Avg Return (50 eps): {avg_rew:>+6.2f} | Bước đi: {steps}")
@@ -260,14 +260,14 @@ if __name__ == "__main__":
     path = [state]
     total_test_reward = 0
     terminated = False
-    
+
     while not terminated and len(path) < 15:
         s_idx = agent.to_state_idx(state)
         best_action = np.argmax(agent.Q[s_idx, :])
         state, r, terminated = env.step(best_action)
         path.append(state)
         total_test_reward += r
-        
+
     print(f"Lộ trình tối ưu Agent đã đi: {path}")
     print(f"Tổng điểm thưởng kiểm thử: {total_test_reward:.2f}")
     print(f"Số bước tối ưu tới đích: {len(path) - 1} bước (Đã né hoàn hảo các bẫy (1,1) và (2,2))")

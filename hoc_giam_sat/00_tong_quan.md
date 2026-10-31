@@ -145,14 +145,14 @@ Sơ đồ dùng một phương án cụ thể: chọn cấu hình bằng CV tron
 flowchart TD
     RawData["Dữ liệu thô ban đầu (Raw Data: X, y)"] --> DataAudit["Audit Schema, Định nghĩa Target & Leakage Check"]
     DataAudit --> SplitEngine{"Quy tắc Phân chia (Data Splitting)"}
-    
+
     SplitEngine -->|"Khóa hoàn toàn đến bước cuối"| TestSet["Test Set (Dữ liệu kiểm tra độc lập)"]
     SplitEngine --> DevSet["Development Set (Train + Validation)"]
-    
+
     DevSet --> TrainSet["Train: học mô hình và chọn cấu hình"]
     DevSet --> ValSet["Validation giữ riêng: chọn ngưỡng"]
     TrainSet --> FoldSplit["Chia CV phù hợp nhóm / thời gian / I.I.D."]
-    
+
     subgraph CVLoop ["Vòng lặp Huấn luyện & Tinh chỉnh (Cross-Validation)"]
         FoldSplit --> TrainFold["Phần train của lượt chia CV"]
         FoldSplit --> ValFold["Phần validation của lượt chia CV"]
@@ -161,12 +161,12 @@ flowchart TD
         ValFold --> TransVal
         TransVal --> ComputeMetrics["Tính Validation Metrics & OOF Predictions"]
     end
-    
+
     ComputeMetrics --> Tuning["Chọn Hyperparameters & Khóa Architecture"]
     Tuning --> FinalFit["Fit trên Train; calibration bằng CV trong Train nếu cần"]
     FinalFit --> CalibThresh["Dự đoán Validation và chọn ngưỡng; giữ nguyên mô hình"]
     ValSet --> CalibThresh
-    
+
     CalibThresh --> LockArtifact["Khóa Đóng gói Artifact (Pipeline + Model + Config)"]
     LockArtifact --> FinalEval["Đánh giá 1 lần duy nhất trên Test Set"]
     TestSet --> FinalEval
@@ -205,13 +205,13 @@ Bảng là gợi ý các điểm cần kiểm tra, không phải định nghĩa 
 
 ### Phân tích Lý thuyết Đánh đổi Thiên lệch - Phương sai (Bias-Variance Decomposition)
 
-**Đọc sâu:** trong regression với squared-error loss, giả sử $`y_0=f_*(x_0)+\epsilon`$, nhiễu có trung bình 0, phương sai $`\sigma^2`$ và độc lập với tập train. Tại $`x_0`$ cố định, kỳ vọng qua các tập train và nhiễu của mẫu mới phân rã như sau; đây không phải công thức cho mọi loại loss. [13]
+**Đọc sâu:** trong regression với squared-error loss, giả sử $`y_0=f_{\ast}(x_0)+\epsilon`$, nhiễu có trung bình 0, phương sai $`\sigma^2`$ và độc lập với tập train. Tại $`x_0`$ cố định, kỳ vọng qua các tập train và nhiễu của mẫu mới phân rã như sau; đây không phải công thức cho mọi loại loss. [13]
 
 $$
 \mathbb{E}[(y_0 - \hat{f}(x_0))^2] = \mathrm{Bias}[\hat{f}(x_0)]^2 + \mathrm{Var}[\hat{f}(x_0)] + \sigma^2
 $$
 
-1. **Bias (Thiên lệch):** Chênh lệch giữa dự đoán trung bình qua các tập train và $`f_*(x_0)`$. Bias cao có thể phản ánh giả định mô hình quá đơn giản.
+1. **Bias (Thiên lệch):** Chênh lệch giữa dự đoán trung bình qua các tập train và $`f_{\ast}(x_0)`$. Bias cao có thể phản ánh giả định mô hình quá đơn giản.
 2. **Variance (Phương sai):** Độ biến thiên của dự đoán khi thay tập train; variance cao thể hiện mô hình nhạy với dữ liệu huấn luyện.
 3. **Chiến lược kiểm soát:**
    * Tăng độ linh hoạt thường giúp giảm bias nhưng có thể tăng variance; cần kiểm bằng validation.

@@ -30,11 +30,11 @@ Dữ liệu và cấu hình phục vụ hàm mất mát trong quá trình huấn
 
 Kết quả sinh ra sau các vòng lặp tối ưu hóa:
 
-1. **Bộ Tham số Mô hình Hội tụ ($`\theta^*`$):**
+1. **Bộ Tham số Mô hình Hội tụ ($`\theta^{\ast}`$):**
    * Trọng số mạng neuron hoặc hệ số mô hình đã được tối ưu hóa cân bằng giữa hai không gian dữ liệu:
 
 $$
-\theta^* = \arg\min_{\theta} \mathcal{L}_{\text{total}}(\theta)
+\theta^{\ast} = \arg\min_{\theta} \mathcal{L}_{\text{total}}(\theta)
 $$
 
 2. **Lịch sử Biến thiên của Các Hàm Mất mát (Loss Trajectory):**
@@ -165,19 +165,19 @@ Chiến lược huấn luyện kết hợp mất mát được áp dụng rộng
 ```mermaid
 flowchart TD
     DataPool["Dữ liệu Huấn luyện: Batch D_L và Batch D_U"] --> SplitBatch["Tách Mini-batches: B_L (có nhãn) và B_U (chưa nhãn)"]
-    
+
     SplitBatch --> ForwardL["Forward Pass B_L qua Mô hình f(x; theta)"]
     SplitBatch --> ForwardU["Forward Pass B_U qua Mô hình f(u; theta)"]
-    
+
     ForwardL --> CalcLossS["Tính Mất mát Có giám sát: L_s(B_L) = CrossEntropy"]
-    
+
     ForwardU --> CheckSchedule["Tính Hệ số Trọng số Động: lambda(epoch)"]
     ForwardU --> CalcLossU["Tính Mất mát Không giám sát: L_u(B_U) (Entropy / Consistency)"]
-    
+
     CalcLossS --> TotalLossCalc["Tổng hợp: L_total = L_s + lambda(epoch) * L_u"]
     CalcLossU --> TotalLossCalc
     CheckSchedule --> TotalLossCalc
-    
+
     TotalLossCalc --> Backprop["Backpropagation: Tính Gradient dL_total / d(theta)"]
     Backprop --> OptimizerStep["Optimizer (AdamW / SGD): Cập nhật Tham số theta"]
     OptimizerStep --> CheckNext["Chuyển sang Batch tiếp theo cho đến hội tụ"]
@@ -200,14 +200,14 @@ class SemiSupervisedWeightScheduler:
         self.lambda_max = lambda_max
         self.rampup_epochs = rampup_epochs
         self.schedule_type = schedule_type
-        
+
     def get_weight(self, current_epoch):
         if current_epoch >= self.rampup_epochs:
             return self.lambda_max
-        
+
         # Tỷ lệ tiến độ từ 0.0 đến 1.0
         progress = current_epoch / self.rampup_epochs
-        
+
         if self.schedule_type == 'sigmoid':
             # Công thức chuẩn của Laine & Aila (2017)
             return self.lambda_max * np.exp(-5.0 * (1.0 - progress) ** 2)

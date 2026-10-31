@@ -32,11 +32,11 @@ Các thuật toán Quy hoạch động tiếp nhận mô hình MDP đầy đủ:
 
 Kết quả đầu ra của Quy hoạch động:
 
-1. **Hàm giá trị trạng thái tối ưu ($`V^*(s)`$):** Bảng giá trị chính xác cho mọi trạng thái $`s \in \mathcal{S}`$.
-2. **Chính sách tất định tối ưu ($`\pi^*(s)`$):** Bảng chỉ dẫn hành động tối ưu duy nhất tại từng ô trạng thái:
-   
+1. **Hàm giá trị trạng thái tối ưu ($`V^{\ast}(s)`$):** Bảng giá trị chính xác cho mọi trạng thái $`s \in \mathcal{S}`$.
+2. **Chính sách tất định tối ưu ($`\pi^{\ast}(s)`$):** Bảng chỉ dẫn hành động tối ưu duy nhất tại từng ô trạng thái:
+
 $$
-\pi^*(s) = \arg\max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V^*(s') \right)
+\pi^{\ast}(s) = \arg\max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V^{\ast}(s') \right)
 $$
 
 3. **Số vòng lặp và thời gian thực thi hội tụ.**
@@ -50,7 +50,7 @@ Chỉ số đánh giá và so sánh giữa Policy Iteration và Value Iteration:
 1. **Số vòng lặp chính sách (Policy Iterations):** Số lần chính sách $`\pi_k`$ được cập nhật trước khi đạt trạng thái ổn định tuyệt đối (`policy_stable = True`).
 2. **Tổng số lần quét trạng thái (Total State Sweeps):** Tổng số lần duyệt qua toàn bộ không gian trạng thái $`|\mathcal{S}|`$.
 3. **Độ phức tạp tính toán mỗi bước quét:**
-   
+
 $$
 \mathcal{O}\left( |\mathcal{S}|^2 \cdot |\mathcal{A}| \right)
 $$
@@ -78,7 +78,7 @@ Mọi thuật toán RL đều có thể được khái quát hóa thành sự t�
 
 - **Policy Evaluation:** Cố định chính sách $`\pi`$, điều chỉnh hàm giá trị $`V`$ sao cho phản ánh trung thực kỳ vọng phần thưởng của $`\pi`$.
 - **Policy Improvement:** Cố định hàm giá trị $`V`$, điều chỉnh chính sách $`\pi`$ trở nên tham lam hơn (Greedy) đối với $`V`$.
-- Quá trình này chỉ dừng lại khi chính sách tham lam đối với hàm giá trị của chính nó, nghĩa là cả $`V`$ và $`\pi`$ đều chạm tới điểm tối ưu Bellman $`V^*`$ và $`\pi^*`$.
+- Quá trình này chỉ dừng lại khi chính sách tham lam đối với hàm giá trị của chính nó, nghĩa là cả $`V`$ và $`\pi`$ đều chạm tới điểm tối ưu Bellman $`V^{\ast}`$ và $`\pi^{\ast}`$.
 
 ---
 
@@ -100,7 +100,7 @@ $$
 \pi_{\mathrm{new}}(s) = \arg\max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V(s') \right)
 $$
 
-Nếu $`\pi_{\mathrm{new}}(s) = \pi(s)`$ với mọi $`s \in \mathcal{S}`$, thuật toán kết thúc và trả về $`\pi^*`$.
+Nếu $`\pi_{\mathrm{new}}(s) = \pi(s)`$ với mọi $`s \in \mathcal{S}`$, thuật toán kết thúc và trả về $`\pi^{\ast}`$.
 
 ---
 
@@ -112,7 +112,7 @@ $$
 V_{k+1}(s) = \max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V_k(s') \right)
 $$
 
-Thuật toán lặp liên tục cho đến khi $`\max_s |V_{k+1}(s) - V_k(s)| < \theta`$. Sau đó, chính sách tối ưu $`\pi^*`$ được trích xuất chỉ trong một bước tham lam duy nhất.
+Thuật toán lặp liên tục cho đến khi $`\max_s |V_{k+1}(s) - V_k(s)| < \theta`$. Sau đó, chính sách tối ưu $`\pi^{\ast}`$ được trích xuất chỉ trong một bước tham lam duy nhất.
 
 ---
 
@@ -156,17 +156,17 @@ class GridWorld4x4:
         self.n_states = 16
         self.actions = ['UP', 'DOWN', 'LEFT', 'RIGHT']
         self.terminals = [0, 15]
-        
+
     def step(self, s, a):
         if s in self.terminals:
             return s, 0.0
-            
+
         r, c = s // 4, s % 4
         if a == 'UP':    r = max(0, r - 1)
         elif a == 'DOWN':  r = min(3, r + 1)
         elif a == 'LEFT':  c = max(0, c - 1)
         elif a == 'RIGHT': c = min(3, c + 1)
-        
+
         s_next = r * 4 + c
         reward = -1.0
         return s_next, reward
@@ -177,10 +177,10 @@ def policy_iteration(env, theta=1e-6):
     # Khởi tạo chính sách ngẫu nhiên đều
     pi = {s: np.random.choice(env.actions) for s in range(env.n_states)}
     V = np.zeros(env.n_states)
-    
+
     policy_iters = 0
     total_eval_sweeps = 0
-    
+
     while True:
         policy_iters += 1
         # 1. Policy Evaluation
@@ -199,7 +199,7 @@ def policy_iteration(env, theta=1e-6):
             V = V_new
             if delta < theta:
                 break
-                
+
         # 2. Policy Improvement
         policy_stable = True
         for s in range(env.n_states):
@@ -217,10 +217,10 @@ def policy_iteration(env, theta=1e-6):
             pi[s] = best_a
             if best_a != old_action:
                 policy_stable = False
-                
+
         if policy_stable:
             break
-            
+
     return V, pi, policy_iters, total_eval_sweeps
 
 
@@ -228,7 +228,7 @@ def value_iteration(env, theta=1e-6):
     """Giải bằng thuật toán Value Iteration."""
     V = np.zeros(env.n_states)
     sweeps = 0
-    
+
     while True:
         sweeps += 1
         delta = 0.0
@@ -246,7 +246,7 @@ def value_iteration(env, theta=1e-6):
         V = V_new
         if delta < theta:
             break
-            
+
     # Trích xuất chính sách tối ưu
     pi = {}
     for s in range(env.n_states):
@@ -262,7 +262,7 @@ def value_iteration(env, theta=1e-6):
                 best_val = val
                 best_a = a
         pi[s] = best_a
-        
+
     return V, pi, sweeps
 
 
@@ -272,20 +272,20 @@ def value_iteration(env, theta=1e-6):
 if __name__ == "__main__":
     np.random.seed(42)
     env = GridWorld4x4(gamma=1.0)
-    
+
     V_pi, pi_pi, p_iters, p_sweeps = policy_iteration(env)
     V_vi, pi_vi, vi_sweeps = value_iteration(env)
-    
+
     print("=== SO SÁNH POLICY ITERATION VS VALUE ITERATION (GRIDWORLD 4x4) ===")
     print(f"Policy Iteration : {p_iters} vòng lặp chính sách | Tổng số bước quét đánh giá: {p_sweeps}")
     print(f"Value Iteration  : {vi_sweeps} bước quét trạng thái trực tiếp")
     print("\n-> Kết quả: Cả hai đều tìm ra cùng hàm giá trị tối ưu V*(s):")
-    
+
     print("\nBẢNG GIÁ TRỊ V*(s) (4x4 Matrix):")
     for r in range(4):
         row = " | ".join(f"{V_vi[r*4 + c]:>6.1f}" for c in range(4))
         print(f"Hàng {r} | {row}")
-        
+
     print("\nCHÍNH SÁCH TỐI ƯU pi*(s):")
     arrows = {'UP': '^ UP ', 'DOWN': 'v DOWN', 'LEFT': '< LEFT', 'RIGHT': '> RGHT', 'TRM': ' TRM '}
     for r in range(4):

@@ -25,7 +25,7 @@ Train và validation đã split đúng; pipeline tiền xử lý; objective/loss
 Đầu vào kỹ thuật của giai đoạn này là một bài toán quy hoạch toán học tổng quát:
 
 $$
-\theta^* = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \;\; \mathcal{J}(\theta; D_{\text{train}}) = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \left[ \frac{1}{n} \sum_{i=1}^n L(y_i, f_\theta(x_i)) + \lambda \Omega(\theta) \right]
+\theta^{\ast} = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \;\; \mathcal{J}(\theta; D_{\text{train}}) = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \left[ \frac{1}{n} \sum_{i=1}^n L(y_i, f_\theta(x_i)) + \lambda \Omega(\theta) \right]
 $$
 
 Trong đó:
@@ -43,7 +43,7 @@ Pipeline đã fit, hyperparameter được chọn, lịch sử train/validation,
 ### Thành phần Hồ sơ Nghiệm thu Huấn luyện (Training Artifact Registry)
 
 Một giai đoạn huấn luyện hoàn tất chuẩn mực khoa học phải bàn giao một gói Artifact bao gồm:
-1. **Trọng số & Tham số tối ưu ($`\theta^*`$):** Ma trận hệ số, bias, các giá trị split ngưỡng của cây quyết định.
+1. **Trọng số & Tham số tối ưu ($`\theta^{\ast}`$):** Ma trận hệ số, bias, các giá trị split ngưỡng của cây quyết định.
 2. **Trạng thái Tiền xử lý (Fitted Transformers):** Mean/std của scaler, từ điển danh mục của encoder, giá trị thay thế của imputer được học riêng trong từng fold.
 3. **Ma trận Dự đoán Ngoài Fold (Out-Of-Fold Predictions Matrix):** Toàn bộ dự đoán trên tập train khi từng phần đóng vai trò validation fold, phục vụ kiểm toán hoặc làm đầu vào cho Stacking Ensemble.
 4. **Đồ thị Lịch sử Huấn luyện (Learning Trajectory):** Đường cong hội tụ của Training Loss và Validation Metric qua các bước lặp (epochs/iterations).
@@ -54,7 +54,7 @@ Một giai đoạn huấn luyện hoàn tất chuẩn mực khoa học phải b�
 
 **Loss** dùng để fit tham số: squared/absolute error cho regression, log loss hoặc hinge loss cho một số classifier. **Metric chọn mô hình** phản ánh mục tiêu thực tế và có thể khác loss; ví dụ recall khi bỏ sót ca dương tính tốn kém. Theo dõi chênh train và validation; so với baseline. [2]
 
-Một cách viết chung: $`\theta^* = \mathop{\mathrm{arg\,min}}_{\theta} \left[\frac{1}{n}\sum_i L(y_i,f_\theta(x_i)) + \lambda R(\theta)\right]`$. `L` là loss, `R` là regularization, $`\lambda`$ điều khiển mức phạt. Công thức này hợp với nhiều mô hình tham số, nhưng kNN và cây học theo cơ chế khác. Metric chọn mô hình có thể không khả vi nên không nhất thiết là loss tối ưu.
+Một cách viết chung: $`\theta^{\ast} = \mathop{\mathrm{arg\,min}}_{\theta} \left[\frac{1}{n}\sum_i L(y_i,f_\theta(x_i)) + \lambda R(\theta)\right]`$. `L` là loss, `R` là regularization, $`\lambda`$ điều khiển mức phạt. Công thức này hợp với nhiều mô hình tham số, nhưng kNN và cây học theo cơ chế khác. Metric chọn mô hình có thể không khả vi nên không nhất thiết là loss tối ưu.
 
 ### Bản chất của Hàm Mất mát Thay thế (Surrogate Loss Function)
 
@@ -118,7 +118,7 @@ Tùy thuộc vào cấu trúc đại số của hàm mục tiêu, thuật toán 
    * Tiêu biểu: Hồi quy tuyến tính OLS thông qua phương trình chuẩn (Normal Equation):
 
 $$
-\theta^* = (X^\top X)^{-1} X^\top y
+\theta^{\ast} = (X^\top X)^{-1} X^\top y
 $$
 
    * *Ưu điểm:* Nghiệm chính xác tuyệt đối, không cần chọn learning rate hay số vòng lặp.
@@ -141,7 +141,7 @@ $$
 Khi dữ liệu có kích thước hạn chế nhưng cần thực hiện cả việc tinh chỉnh siêu tham số lẫn ước lượng sai số tổng quát hóa một cách không thiên lệch:
 
 * **Vòng ngoài (Outer Loop - $`K_{\text{outer}}`$ folds):** Dùng duy nhất để đánh giá hiệu năng tổng quát hóa của toàn bộ quy trình.
-* **Vòng trong (Inner Loop - $`K_{\text{inner}}`$ folds):** Được thực thi bên trong mỗi fold train của vòng ngoài để tìm ra bộ siêu tham số $`\theta^*`$ tốt nhất.
+* **Vòng trong (Inner Loop - $`K_{\text{inner}}`$ folds):** Được thực thi bên trong mỗi fold train của vòng ngoài để tìm ra bộ siêu tham số $`\theta^{\ast}`$ tốt nhất.
 
 ```text
 [ Toàn bộ Dữ liệu Nghiên cứu ]

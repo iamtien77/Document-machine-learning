@@ -19,7 +19,7 @@ Dữ liệu đầu vào và các siêu tham số cốt lõi:
 
 1. **Ma trận dữ liệu đặc trưng:**
    * $`X = [x_1, x_2, \dots, x_n]^\top \in \mathbb{R}^{n \times p}`$: Tập gồm $`n`$ mẫu quan sát, mỗi mẫu có $`p`$ chiều đặc trưng số liên tục.
-   * **Khuyến nghị tiền xử lý:** 
+   * **Khuyến nghị tiền xử lý:**
      * Đối với dữ liệu có số chiều quá lớn ($`p > 50`$), khuyến nghị chạy PCA trước để giảm về $`30 \sim 50`$ chiều nhằm khử nhiễu và tăng tốc độ tính toán ma trận khoảng cách.
      * Chuẩn hóa thang đo (StandardScaler hoặc MinMaxScaler).
 2. **Siêu tham số của t-SNE:**
@@ -192,18 +192,18 @@ t-SNE và UMAP là công cụ bắt buộc trong các lĩnh vực xử lý dữ 
 flowchart TD
     RawData["Dữ liệu thô: X in R^(n x p) (p rất lớn, vd: p=500)"] --> Scaling["Chuẩn hóa Z-Score: StandardScaler"]
     Scaling --> ScaledData["Dữ liệu chuẩn hóa: X_scaled"]
-    
+
     ScaledData --> PCADenoise["Bước 1: PCA giảm chiều sơ bộ (50 chiều) để khử nhiễu"]
     PCADenoise --> ReducedPCA["Dữ liệu trung gian: X_pca in R^(n x 50)"]
-    
+
     ReducedPCA --> ChooseAlgo{"Chọn Thuật toán Trực quan hóa"}
-    
+
     ChooseAlgo -->|"Chi tiết vi mô cục bộ"| TSNEPipe["t-SNE Pipeline (Perplexity = 30)"]
     ChooseAlgo -->|"Tốc độ & Cấu trúc toàn cục"| UMAPPipe["UMAP Pipeline (n_neighbors=15, min_dist=0.1)"]
-    
+
     TSNEPipe --> Coord2D_TSNE["Tọa độ 2D: Y_tsne in R^(n x 2)"]
     UMAPPipe --> Coord2D_UMAP["Tọa độ 2D: Y_umap in R^(n x 2)"]
-    
+
     Coord2D_TSNE --> ScatterPlot["Vẽ Đồ thị Phân tán 2D (Interactive Scatter Plot)"]
     Coord2D_UMAP --> ScatterPlot
 ```

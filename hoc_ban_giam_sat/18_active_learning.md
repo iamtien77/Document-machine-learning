@@ -25,7 +25,7 @@ Quy trình Học chủ động tiếp nhận các nguồn tài nguyên đầu v�
    Số lượng mẫu tối đa được phép chọn ra trong mỗi chu kỳ lặp để gửi cho chuyên gia (ví dụ: $`B = 20`$ mẫu mỗi vòng).
 
 4. **Chuyên gia thẩm định (Oracle Annotator):**
-   Con người hoặc hệ thống phân tích phòng thí nghiệm đảm bảo cung cấp nhãn thực tế $`y^*`$ chuẩn xác 100% khi nhận được yêu cầu truy vấn.
+   Con người hoặc hệ thống phân tích phòng thí nghiệm đảm bảo cung cấp nhãn thực tế $`y^{\ast}`$ chuẩn xác 100% khi nhận được yêu cầu truy vấn.
 
 5. **Chiến lược chọn mẫu (Query Strategy):**
    Hàm tính toán điểm giá trị thông tin (Acquisition Function / Informativeness Measure) $`\phi(u)`$ trên từng mẫu không nhãn.
@@ -36,16 +36,16 @@ Quy trình Học chủ động tiếp nhận các nguồn tài nguyên đầu v�
 
 Mỗi vòng lặp của quy trình Học chủ động cung cấp đầu ra:
 
-1. **Tập mẫu truy vấn tối ưu ($`\mathcal{S}^* \subset \mathcal{U}`$ với $`|\mathcal{S}^*| = B`$):**
-   
+1. **Tập mẫu truy vấn tối ưu ($`\mathcal{S}^{\ast} \subset \mathcal{U}`$ với $`|\mathcal{S}^{\ast}| = B`$):**
+
 $$
-\mathcal{S}^* = \arg\max_{\mathcal{S} \subset \mathcal{U}, |\mathcal{S}| = B} \sum_{u \in \mathcal{S}} \phi(u)
+\mathcal{S}^{\ast} = \arg\max_{\mathcal{S} \subset \mathcal{U}, |\mathcal{S}| = B} \sum_{u \in \mathcal{S}} \phi(u)
 $$
 
 2. **Tập dữ liệu có nhãn mở rộng ($`\mathcal{L}_{t+1}`$):**
-   
+
 $$
-\mathcal{L}_{t+1} = \mathcal{L}_t \cup \left\lbrace (x, y_{\mathrm{oracle}}^*) \mid x \in \mathcal{S}^* \right\rbrace
+\mathcal{L}_{t+1} = \mathcal{L}_t \cup \left\lbrace (x, y_{\mathrm{oracle}}^{\ast}) \mid x \in \mathcal{S}^{\ast} \right\rbrace
 $$
 
 3. **Mô hình cập nhật $`f_{\theta_{t+1}}`$:** Đạt hiệu năng tăng vọt trên tập kiểm thử độc lập chỉ với một lượng nhỏ nhãn mới bổ sung.
@@ -61,7 +61,7 @@ Chỉ số đánh giá chuyên biệt cho Học chủ động:
 
 2. **Diện tích dưới đường cong học (Area Under the Learning Curve - AULC):**
    Tích phân hiệu năng qua toàn bộ chu trình truy vấn:
-   
+
 $$
 \mathrm{AULC} = \frac{1}{T} \sum_{t=1}^T \mathrm{Metric}(f_{\theta_t})
 $$
@@ -70,7 +70,7 @@ $$
 
 3. **Tỷ số Tiết kiệm Nhãn (Label Reduction Ratio - LRR):**
    So sánh số lượng nhãn cần thiết của Active Learning so với lấy mẫu ngẫu nhiên truyền thống (Passive Random Sampling) để cùng chạm tới một ngưỡng hiệu năng $`\text{Acc}_0`$:
-   
+
 $$
 \mathrm{LRR} = \left(1 - \frac{N_{\mathrm{AL}}}{N_{\mathrm{Random}}}\right) \times 100\%
 $$
@@ -172,7 +172,7 @@ warnings.filterwarnings('ignore')
 
 class ActiveLearningQueryEngine:
     """Động cơ tính toán chiến lược chọn mẫu cho Học Chủ Động."""
-    
+
     @staticmethod
     def least_confidence(probs: np.ndarray) -> np.ndarray:
         """Tính điểm bất định theo Least Confidence (càng cao càng bất định)."""
@@ -203,52 +203,52 @@ if __name__ == "__main__":
     np.random.seed(42)
     digits = load_digits()
     X, y = digits.data / 16.0, digits.target
-    
+
     # Chia tập Test độc lập (30%)
     from sklearn.model_selection import train_test_split
     X_pool, X_test, y_pool, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
-    
+
     n_pool = len(X_pool)
     budget_per_round = 15
     n_rounds = 6
-    
+
     print(f"=== MÔ PHỎNG CHU TRÌNH ACTIVE LEARNING (Ngân sách: {budget_per_round} mẫu/vòng) ===")
-    
+
     # Khởi tạo 2 bản sao: 1 cho Active Learning (Entropy), 1 cho Random Sampling
     init_idx = np.random.choice(n_pool, size=20, replace=False)
-    
+
     labeled_al = list(init_idx)
     pool_al = list(set(range(n_pool)) - set(init_idx))
-    
+
     labeled_rnd = list(init_idx)
     pool_rnd = list(set(range(n_pool)) - set(init_idx))
-    
+
     print(f"{'Vòng':<6} | {'Số mẫu L':<10} | {'Active (Entropy) Acc':<22} | {'Random Sampling Acc':<22} | {'Độ vượt trội Δ':<15}")
     print("-" * 85)
-    
+
     for r in range(1, n_rounds + 1):
         # 1. Huấn luyện mô hình Active Learning
         clf_al = LogisticRegression(max_iter=200, random_state=42)
         clf_al.fit(X_pool[labeled_al], y_pool[labeled_al])
         acc_al = accuracy_score(y_test, clf_al.predict(X_test))
-        
+
         # 2. Huấn luyện mô hình Random Sampling
         clf_rnd = LogisticRegression(max_iter=200, random_state=42)
         clf_rnd.fit(X_pool[labeled_rnd], y_pool[labeled_rnd])
         acc_rnd = accuracy_score(y_test, clf_rnd.predict(X_test))
-        
+
         delta = (acc_al - acc_rnd) * 100
         print(f"Vòng {r:<2} | {len(labeled_al):<10} | {acc_al*100:>6.2f}%                 | {acc_rnd*100:>6.2f}%                 | {delta:>+6.2f}%")
-        
+
         # 3. Chọn mẫu vòng kế tiếp cho Active Learning theo Entropy
         probs_pool = clf_al.predict_proba(X_pool[pool_al])
         uncertainties = ActiveLearningQueryEngine.entropy_sampling(probs_pool)
         query_al_idx = np.argsort(-uncertainties)[:budget_per_round]
-        
+
         selected_al = [pool_al[i] for i in query_al_idx]
         labeled_al.extend(selected_al)
         pool_al = list(set(pool_al) - set(selected_al))
-        
+
         # 4. Chọn mẫu ngẫu nhiên cho Random Sampling
         selected_rnd = np.random.choice(pool_rnd, size=budget_per_round, replace=False)
         labeled_rnd.extend(selected_rnd)

@@ -274,17 +274,17 @@ Mô hình Hỗn hợp Gauss phù hợp nhất với các tập dữ liệu có t
 flowchart TD
     RawData["Dữ liệu thực tế: X in R^(n x p)"] --> Scaling["Chuẩn hóa thang đo: StandardScaler"]
     Scaling --> ScaledData["Dữ liệu chuẩn hóa: X_scaled"]
-    
+
     subgraph GridSearch ["Dò tìm Cấu hình Siêu tham số Tối ưu"]
         ScaledData --> LoopK["Duyệt K in {1, 2, ..., K_max}"]
         LoopK --> LoopCov["Duyệt covariance_type in {spherical, diag, tied, full}"]
         LoopCov --> FitEM["Huấn luyện GMM qua thuật toán EM"]
         FitEM --> CalcIC["Tính toán chỉ số BIC và AIC"]
     end
-    
+
     CalcIC --> SelectBest["Chọn cặp (K, covariance_type) có BIC thấp nhất"]
     SelectBest --> FinalModel["Huấn luyện Mô hình GMM Tối ưu"]
-    
+
     FinalModel --> SoftInfer["Trích xuất Ma trận Trách nhiệm Soft: Gamma"]
     FinalModel --> HardInfer["Gán nhãn Cứng MAP: y_hat = argmax(gamma)"]
     FinalModel --> DensityScore["Tính Log-Likelihood phục vụ Anomaly Detection"]

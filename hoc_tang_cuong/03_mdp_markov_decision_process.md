@@ -29,20 +29,20 @@ $$
 
 3. **Mô hình xác suất chuyển trạng thái ($`\mathcal{P}`$):**
    Ten-xơ 3 chiều xác định xác suất chuyển sang trạng thái $`s'`$ nếu Agent thực hiện hành động $`a`$ tại trạng thái $`s`$:
-   
+
 $$
 \mathcal{P}_{ss'}^a = P(S_{t+1} = s' \mid S_t = s, A_t = a)
 $$
 
    Thỏa mãn điều kiện chuẩn hóa xác suất:
-   
+
 $$
 \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a = 1, \quad \forall s \in \mathcal{S}, \forall a \in \mathcal{A}
 $$
 
 4. **Hàm phần thưởng kỳ vọng ($`\mathcal{R}`$):**
    Giá trị phần thưởng trung bình nhận được khi thực hiện hành động $`a`$ tại trạng thái $`s`$ và chuyển sang $`s'`$:
-   
+
 $$
 \mathcal{R}_s^a = \mathbb{E}[R_{t+1} \mid S_t = s, A_t = a] = \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \cdot \mathcal{R}(s, a, s')
 $$
@@ -56,18 +56,18 @@ $$
 
 Giải một bài toán MDP mang lại hai kết quả đầu ra cốt lõi:
 
-1. **Chính sách tối ưu (Optimal Policy $`\pi^*`$):**
+1. **Chính sách tối ưu (Optimal Policy $`\pi^{\ast}`$):**
    Bảng chỉ dẫn hành động tối ưu cho từng trạng thái:
-   
+
 $$
-\pi^*(s) = \arg\max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V^*(s') \right)
+\pi^{\ast}(s) = \arg\max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V^{\ast}(s') \right)
 $$
 
-2. **Hàm giá trị trạng thái tối ưu (Optimal Value Function $`V^*(s)`$):**
+2. **Hàm giá trị trạng thái tối ưu (Optimal Value Function $`V^{\ast}(s)`$):**
    Giá trị lớn nhất có thể đạt được từ mỗi trạng thái $`s`$, thỏa mãn phương trình tối ưu Bellman:
-   
+
 $$
-V^*(s) = \max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V^*(s') \right)
+V^{\ast}(s) = \max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V^{\ast}(s') \right)
 $$
 
 ---
@@ -78,7 +78,7 @@ Chỉ số đánh giá mức độ chính xác khi mô hình hóa bài toán dư
 
 1. **Sai số kiểm định tính chất Markov (Markov Violation Residual):**
    Đo lường mức độ chênh lệch giữa phân phối xác suất khi xét lịch sử dài và khi chỉ xét bước hiện tại:
-   
+
 $$
 \Delta_{\mathrm{Markov}} = \max_{s_t, a_t, s_{t-1}} \left| P(s_{t+1} \mid s_t, a_t) - P(s_{t+1} \mid s_t, a_t, s_{t-1}) \right|
 $$
@@ -87,7 +87,7 @@ $$
 
 2. **Dung sai hội quy hoạch động (Value Bellman Residual):**
    Sai số lớn nhất giữa hai vòng lặp giá trị liên tiếp:
-   
+
 $$
 \Delta_k = \max_{s \in \mathcal{S}} |V_{k+1}(s) - V_k(s)|
 $$
@@ -182,16 +182,16 @@ class GridWorldMDP:
         self.step_cost = step_cost
         self.rows = 3
         self.cols = 4
-        
+
         # Danh sách trạng thái hợp lệ (bỏ ô tường (1,1) theo chỉ số 0-based)
         self.states = [
             (r, c) for r in range(self.rows) for c in range(self.cols)
             if (r, c) != (1, 1) # Bức tường ở ô (1, 1)
         ]
-        
+
         self.actions = ['UP', 'DOWN', 'LEFT', 'RIGHT']
         self.terminals = {(2, 3): 1.0, (1, 3): -1.0} # Ô đích (+1) và Ô bẫy (-1)
-        
+
         # Bản đồ các hướng quay vuông góc
         self.action_effects = {
             'UP': {'main': (1, 0), 'left': (0, -1), 'right': (0, 1)},
@@ -211,14 +211,14 @@ class GridWorldMDP:
         """Trả về danh sách các bộ (xác suất, trạng thái mới, phần thưởng)."""
         if s in self.terminals:
             return [(1.0, s, 0.0)]
-            
+
         effects = self.action_effects[a]
         transitions = [
             (0.8, self._next_state(s, effects['main'])),
             (0.1, self._next_state(s, effects['left'])),
             (0.1, self._next_state(s, effects['right']))
         ]
-        
+
         results = []
         for prob, s_next in transitions:
             reward = self.terminals.get(s_next, self.step_cost)
@@ -296,7 +296,7 @@ if __name__ == "__main__":
             for c in range(mdp.cols)
         )
         print(f"Hàng {r+1} | {row_str}")
-        
+
     print("\n=> Khung toán học MDP giải quyết trọn vẹn yếu tố bất định và cung cấp đường đi tối ưu an toàn.")
 ```
 

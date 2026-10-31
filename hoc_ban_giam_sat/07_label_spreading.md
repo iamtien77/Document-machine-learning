@@ -32,13 +32,13 @@ Dữ liệu đầu vào và các tham số cấu hình của Label Spreading:
 
 Kết quả đầu ra của thuật toán Label Spreading:
 
-1. **Ma trận Điểm số Nhãn Phân loại Tối ưu ($`F^* \in \mathbb{R}^{n \times C}`$):**
-   * Ma trận trạng thái dừng cân bằng, trong đó phần tử $`F_{ic}^*`$ thể hiện mức độ tự tin để điểm $`x_i`$ được gán vào lớp $`c`$.
+1. **Ma trận Điểm số Nhãn Phân loại Tối ưu ($`F^{\ast} \in \mathbb{R}^{n \times C}`$):**
+   * Ma trận trạng thái dừng cân bằng, trong đó phần tử $`F_{ic}^{\ast}`$ thể hiện mức độ tự tin để điểm $`x_i`$ được gán vào lớp $`c`$.
 2. **Vector Nhãn Suy diễn Toàn cục (Transduced Labels):**
    * Nhãn gán theo quy tắc cực đại:
 
 $$
-\hat{y}_i = \arg\max_{c \in \lbrace 1, \dots, C \rbrace} F_{ic}^*
+\hat{y}_i = \arg\max_{c \in \lbrace 1, \dots, C \rbrace} F_{ic}^{\ast}
 $$
 
    * **Khác biệt quan trọng:** Nhãn của các điểm thuộc $`D_L`$ có thể thay đổi so với nhãn ban đầu nếu mô hình phát hiện ra điểm đó là nhãn bị gán sai.
@@ -100,7 +100,7 @@ Vì cả hai thành phần đều được cộng dồn sau mỗi bước (thay 
 Khi số vòng lặp tiến ra vô cùng ($`t \to \infty`$), chuỗi hình học ma trận hội tụ về nghiệm giải tích đóng:
 
 $$
-F^* = \lim_{t \to \infty} F^{(t)} = (1 - \alpha) \left( \sum_{k=0}^\infty (\alpha S)^k \right) Y
+F^{\ast} = \lim_{t \to \infty} F^{(t)} = (1 - \alpha) \left( \sum_{k=0}^\infty (\alpha S)^k \right) Y
 $$
 
 Vì bán kính phổ của $`\alpha S`$ nhỏ hơn 1 (do $`\alpha < 1`$ và $`\rho(S) \le 1`$), áp dụng khai triển chuỗi Neumann ma trận:
@@ -112,7 +112,7 @@ $$
 Từ đó ta có công thức nghiệm đóng tức thời:
 
 $$
-F^* = (1 - \alpha) (I - \alpha S)^{-1} Y
+F^{\ast} = (1 - \alpha) (I - \alpha S)^{-1} Y
 $$
 
 * **Ý nghĩa:** Ma trận $`(I - \alpha S)^{-1}`$ chính là toán tử chính quy hóa Laplace (Laplacian Regularizer). Thuật toán có thể giải trực tiếp bằng các phương pháp phân rã Cholesky hoặc Conjugate Gradient mà không cần chạy vòng lặp lặp lại từng bước.
@@ -146,9 +146,9 @@ Label Spreading là thuật toán hàng đầu khi môi trường dữ liệu c�
 flowchart TD
     DataIn["Dữ liệu Hợp nhất: X in R^(n x p) và Nhãn Y in [0, 1]^(n x C)"] --> AffinityMatrix["Xây dựng Ma trận Tương đồng: W_ij = exp(-gamma * ||x_i - x_j||^2)"]
     AffinityMatrix --> DegreeMatrix["Tính Ma trận Bậc: D_ii = sum_j W_ij"]
-    
+
     DegreeMatrix --> SymLaplacian["Chuẩn hóa Đối xứng Laplace: S = D^(-1/2) * W * D^(-1/2)"]
-    
+
     subgraph SoftClampLoop ["Vòng lặp Kẹp Mềm (Soft Clamping)"]
         SymLaplacian --> Propagate["Thành phần Lan truyền Láng giềng: alpha * S * F^(t)"]
         DataIn --> KeepAnchor["Thành phần Neo giữ Nhãn gốc: (1 - alpha) * Y"]
@@ -157,10 +157,10 @@ flowchart TD
         CombineStep --> ConvergeCheck{"||F^(t+1) - F^(t)|| < tol?"}
         ConvergeCheck -->|"Chưa"| Propagate
     end
-    
+
     ConvergeCheck -->|"Hội tụ"| FinalScore["Ma trận Điểm số Hội tụ F*"]
     FinalScore --> AssignFinal["Gán nhãn Cực đại: y_hat_i = argmax_c F*_ic"]
-    
+
     AssignFinal --> DetectNoise["So sánh y_hat với nhãn ban đầu của D_L"]
     DetectNoise --> NoiseList["Phát hiện & Sửa lỗi các mẫu bị gán nhãn sai ban đầu"]
 ```

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Phương trình Bellman (được đặt theo tên nhà toán học Richard Bellman, người khai sinh ra Quy hoạch động vào thập niên 1950) là **trái tim toán học của toàn bộ lý thuyết Học tăng cường**. 
+Phương trình Bellman (được đặt theo tên nhà toán học Richard Bellman, người khai sinh ra Quy hoạch động vào thập niên 1950) là **trái tim toán học của toàn bộ lý thuyết Học tăng cường**.
 
 Phương trình này thiết lập mối quan hệ đệ quy nền tảng: **Giá trị của trạng thái hiện tại bằng phần thưởng kỳ vọng tức thời cộng với giá trị chiết khấu của trạng thái kế tiếp**.
 
@@ -22,13 +22,13 @@ Quá trình thiết lập và giải phương trình Bellman tiếp nhận các 
 2. **Chính sách đánh giá ($`\pi(a \mid s)`$):** Phân phối xác suất chọn hành động $`a`$ khi đang ở trạng thái $`s`$.
 3. **Mô hình động học của môi trường:**
    - Ma trận xác suất chuyển trạng thái:
-   
+
 $$
 \mathcal{P}_{ss'}^a = P(S_{t+1} = s' \mid S_t = s, A_t = a)
 $$
 
    - Hàm phần thưởng kỳ vọng:
-   
+
 $$
 \mathcal{R}(s, a, s') = \mathbb{E}[R_{t+1} \mid S_t = s, A_t = a, S_{t+1} = s']
 $$
@@ -41,15 +41,15 @@ $$
 
 Phương trình Bellman cung cấp nghiệm là các hàm giá trị:
 
-1. **Hàm giá trị trạng thái (State-Value Function $`V^\pi(s)`$ hoặc $`V^*(s)`$):**
+1. **Hàm giá trị trạng thái (State-Value Function $`V^\pi(s)`$ hoặc $`V^{\ast}(s)`$):**
    Ước lượng mức độ tốt/xấu khi Agent đứng ở trạng thái $`s`$.
 
-2. **Hàm giá trị hành động (Action-Value / Q-Function $`Q^\pi(s, a)`$ hoặc $`Q^*(s, a)`$):**
+2. **Hàm giá trị hành động (Action-Value / Q-Function $`Q^\pi(s, a)`$ hoặc $`Q^{\ast}(s, a)`$):**
    Ước lượng mức độ tốt/xấu khi Agent thực hiện hành động $`a`$ tại trạng thái $`s`$.
 
 3. **Nghiệm đóng giải tích dạng ma trận (Matrix Closed-Form Solution):**
    Dành cho bài toán MDP quy mô nhỏ có số trạng thái hữu hạn đã biết trước mô hình:
-   
+
 $$
 V^\pi = \left( I - \gamma \mathcal{P}^\pi \right)^{-1} \mathcal{R}^\pi
 $$
@@ -62,7 +62,7 @@ Chỉ số định lượng chất lượng hội tụ của phương trình Bel
 
 1. **Độ dư Bellman vô cùng (Bellman Residual / Bellman Error):**
    Đo lường mức độ vi phạm phương trình Bellman lớn nhất trên toàn bộ không gian trạng thái:
-   
+
 $$
 \mathrm{Residual}(V) = \| V - \mathcal{T}^\pi V \|_\infty = \max_{s \in \mathcal{S}} \left| V(s) - \left( \sum_{a} \pi(a \mid s) \sum_{s'} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V(s') \right) \right) \right|
 $$
@@ -71,9 +71,9 @@ $$
 
 2. **Tốc độ co rút hình học (Contraction Rate):**
    Theo định lý Banach, sai số giảm theo cấp số nhân với công bội $`\gamma`$:
-   
+
 $$
-\| V_{k+1} - V^* \|_\infty \le \gamma \| V_k - V^* \|_\infty
+\| V_{k+1} - V^{\ast} \|_\infty \le \gamma \| V_k - V^{\ast} \|_\infty
 $$
 
 ---
@@ -126,16 +126,16 @@ $$
 
 Thay vì lấy trung bình theo chính sách $`\pi`$, chính sách tối ưu luôn chọn hành động mang lại giá trị cực đại ($`\max`$):
 
-#### A. Phương Trình Tối Ưu Cho $`V^*(s)`$
+#### A. Phương Trình Tối Ưu Cho $`V^{\ast}(s)`$
 
 $$
-V^*(s) = \max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V^*(s') \right)
+V^{\ast}(s) = \max_{a \in \mathcal{A}} \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma V^{\ast}(s') \right)
 $$
 
-#### B. Phương Trình Tối Ưu Cho $`Q^*(s, a)`$
+#### B. Phương Trình Tối Ưu Cho $`Q^{\ast}(s, a)`$
 
 $$
-Q^*(s, a) = \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma \max_{a' \in \mathcal{A}} Q^*(s', a') \right)
+Q^{\ast}(s, a) = \sum_{s' \in \mathcal{S}} \mathcal{P}_{ss'}^a \left( \mathcal{R}(s, a, s') + \gamma \max_{a' \in \mathcal{A}} Q^{\ast}(s', a') \right)
 $$
 
 > **Lưu ý then chốt:** Vì có toán tử $`\max`$, phương trình tối ưu Bellman là **hệ phương trình phi tuyến**, không thể giải trực tiếp bằng nghịch đảo ma trận tuyến tính $`(I - \gamma P)^{-1}`$ mà bắt buộc phải giải bằng các phương pháp lặp (Value Iteration, Policy Iteration, Q-Learning).
@@ -190,14 +190,14 @@ class BellmanSolver:
         self.gamma = gamma
         self.n_states = 3
         self.state_names = ["Trạng thái 1", "Trạng thái 2", "Trạng thái 3"]
-        
+
         # Ma trận xác suất chuyển trạng thái P^pi kích thước [3 x 3]
         self.P = np.array([
             [0.6, 0.3, 0.1],
             [0.2, 0.7, 0.1],
             [0.0, 0.4, 0.6]
         ])
-        
+
         # Vector phần thưởng kỳ vọng R^pi
         self.R = np.array([1.0, 2.0, -1.0])
 
@@ -212,19 +212,19 @@ class BellmanSolver:
         """Giải bằng phép lặp toán tử Bellman: V_{k+1} = R + gamma * P * V_k."""
         V = np.zeros(self.n_states)
         history = []
-        
+
         for k in range(max_iters):
             # Cập nhật Bellman Backup
             V_new = self.R + self.gamma * self.P.dot(V)
-            
+
             # Tính độ dư Bellman cực đại
             residual = np.max(np.abs(V_new - V))
             history.append(residual)
             V = V_new
-            
+
             if residual < theta:
                 break
-                
+
         return V, k + 1, history
 
 # ==============================================================================
@@ -232,16 +232,16 @@ class BellmanSolver:
 # ==============================================================================
 if __name__ == "__main__":
     solver = BellmanSolver(gamma=0.9)
-    
+
     # 1. Giải nghiệm đóng giải tích
     V_exact = solver.solve_analytical()
-    
+
     # 2. Giải bằng phép lặp Bellman Backup
     V_iter, iters, hist = solver.solve_iterative()
-    
+
     print("=== ĐỐI CHIẾU NGHIỆM PHƯƠNG TRÌNH KỲ VỌNG BELLMAN ===")
     print(f"Hệ số chiết khấu gamma: {solver.gamma} | Ngưỡng hội tụ: 1e-7\n")
-    
+
     print(f"{'Trạng thái':<15} | {'Nghiệm đóng Ma trận':<20} | {'Nghiệm lặp Bellman':<20} | {'Sai số tuyệt đối':<18}")
     print("-" * 80)
     for i, name in enumerate(solver.state_names):

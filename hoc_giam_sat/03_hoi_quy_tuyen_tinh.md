@@ -172,7 +172,7 @@ $$
 Do hàm chuẩn $`L_1`$ không khả vi tại điểm $`0`$, Lasso không thể giải trực tiếp bằng Gradient Descent thông thường mà sử dụng **Coordinate Descent (Hạ từng tọa độ)**. Tại mỗi bước lặp, thuật toán cố định toàn bộ các tham số khác và tối ưu duy nhất biến $`w_j`$ thông qua toán tử ngưỡng mềm (Soft-Thresholding Operator):
 
 $$
-w_j^* = \mathcal{S}_{\lambda}(\rho_j) = \mathrm{sign}(\rho_j) \max(0, \lvert \rho_j \rvert - \lambda)
+w_j^{\ast} = \mathcal{S}_{\lambda}(\rho_j) = \mathrm{sign}(\rho_j) \max(0, \lvert \rho_j \rvert - \lambda)
 $$
 
 Trong đó $`\rho_j = x_j^\top (y - \sum_{k \neq j} w_k x_k)`$ là mức độ tương quan giữa biến $`x_j`$ và phần dư còn lại của mô hình. Nếu $`|\rho_j| \le \lambda`$, hệ số $`w_j`$ lập tức bị ép chặt về $`0`$.

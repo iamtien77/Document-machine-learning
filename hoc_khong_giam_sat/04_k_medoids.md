@@ -4,7 +4,7 @@
 
 Phân hoạch dữ liệu thành $`K`$ cụm dựa trên các **điểm đại diện thực tế (Medoids)** thay vì trung bình số học ảo như K-Means. Đây là thuật toán gom cụm **kháng ngoại lai (Robust Clustering)** kinh điển nhất: bằng cách tối thiểu hóa tổng khoảng cách tuyệt đối bất kỳ ($`L_1`$, Manhattan, Cosine, Gower) thay vì bình phương khoảng cách Euclid ($`L_2`$), K-Medoids hoàn toàn không bị thao túng bởi các điểm ngoại lai cực đoan (Outliers) hay các thuộc tính có đuôi phân phối dài. [1][2]
 
-**Ví dụ dẫn nhập:** Trong phân tích dữ liệu lâm sàng y tế, mỗi bệnh nhân được mô tả qua hàng chục xét nghiệm sinh hóa phức tạp và có nhiều chỉ số dị biệt do bệnh lý hiếm. 
+**Ví dụ dẫn nhập:** Trong phân tích dữ liệu lâm sàng y tế, mỗi bệnh nhân được mô tả qua hàng chục xét nghiệm sinh hóa phức tạp và có nhiều chỉ số dị biệt do bệnh lý hiếm.
 * K-Means sẽ tạo ra một tâm cụm là trung bình số học của các chỉ số — một "bệnh nhân ảo" không hề tồn tại trong thực tế và không thể giải thích về mặt y khoa.
 * K-Medoids bắt buộc tâm cụm phải là một **bệnh nhân có thật trong hồ sơ** ($`m_k \in X`$). Bác sĩ có thể dùng trực tiếp hồ sơ của bệnh nhân đại diện này làm ca bệnh tham chiếu tiêu chuẩn (Archetype Patient) cho toàn bộ nhóm bệnh nhân đó.
 

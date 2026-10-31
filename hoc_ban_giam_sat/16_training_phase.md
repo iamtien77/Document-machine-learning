@@ -38,7 +38,7 @@ Pha huấn luyện bán giám sát tiếp nhận các thành phần đầu vào:
 
 Kết thúc pha huấn luyện, hệ thống bàn giao các thành phần đóng gói (Training Artifacts):
 
-1. **Trọng số tối ưu của mô hình EMA ($`\theta_{\mathrm{EMA}}^*`$):** Mô hình đã được làm mịn phương sai, có khả năng tổng quát hóa cao nhất trên tập kiểm định.
+1. **Trọng số tối ưu của mô hình EMA ($`\theta_{\mathrm{EMA}}^{\ast}`$):** Mô hình đã được làm mịn phương sai, có khả năng tổng quát hóa cao nhất trên tập kiểm định.
 2. **Nhật ký huấn luyện định lượng (Training Logs):**
    - Lịch sử suy giảm của hàm mất mát có giám sát $`\mathcal{L}_s`$ và mất mát không nhãn $`\mathcal{L}_u`$.
    - Tỷ lệ kích hoạt mặt nạ tự tin (Mask Utilization Rate) theo từng epoch.
@@ -53,14 +53,14 @@ Các chỉ số giám sát trực tiếp trong pha huấn luyện:
 
 1. **Mất mát kiểm định có giám sát (Validation Cross-Entropy Loss):**
    Chỉ số quyết định để lưu Checkpoint và kích hoạt dừng sớm:
-   
+
 $$
 \mathcal{L}_{\mathrm{val}}(\theta) = -\frac{1}{N_{\mathrm{val}}} \sum_{i=1}^{N_{\mathrm{val}}} \log f_\theta(x_i^{\mathrm{val}})_{y_i^{\mathrm{val}}}
 $$
 
 2. **Tỷ lệ tận dụng mặt nạ (Mask Utilization Rate $`\mathcal{U}_t`$):**
    Tỷ lệ phần trăm các mẫu không nhãn vượt qua ngưỡng cắt tự tin $`\tau`$:
-   
+
 $$
 \mathcal{U}_t = \frac{1}{B_U} \sum_{b=1}^{B_U} \mathbb{I}\left(\max_{c} q_{b, c}^{(t)} \ge \tau\right) \times 100\%
 $$
@@ -159,7 +159,7 @@ import time
 
 class SSLTrainingCoordinator:
     """Module điều phối pha huấn luyện bán giám sát chuẩn công nghiệp."""
-    
+
     def __init__(
         self,
         max_steps: int = 10000,
@@ -197,28 +197,28 @@ class SSLTrainingCoordinator:
         """Mô phỏng chu kỳ huấn luyện 5 epochs để kiểm tra động thái chỉ số."""
         print("=== BẮT ĐẦU MÔ PHỎNG PHA HUẤN LUYỆN BÁN GIÁM SÁT ===")
         print(f"Ngưỡng tự tin tau: {self.threshold} | Warmup Steps: {self.warmup_steps} | Lambda Max: {self.lambda_max}\n")
-        
+
         # Giả lập tham số mô hình
         student_w = np.ones(5)
         teacher_w = np.ones(5)
-        
+
         steps = [500, 1000, 2000, 5000, 10000]
         for step in steps:
             lambda_u = self.get_current_lambda_u(step)
-            
+
             # Giả lập độ tự tin của mô hình tăng dần theo số step
             simulated_conf = np.random.beta(a=1 + step/2000, b=2, size=100)
             mask, util_rate = self.compute_mask_utilization(simulated_conf)
-            
+
             # Cập nhật trọng số
             student_w += np.random.normal(0, 0.01, size=5)
             teacher_w = self.update_ema_weights(student_w, teacher_w)
-            
+
             # Giả lập loss
             loss_s = max(0.1, 2.0 - step / 6000)
             loss_u = max(0.05, 1.5 - step / 8000)
             total_loss = loss_s + lambda_u * loss_u
-            
+
             print(f"Step {step:05d} | Lambda_u: {lambda_u:.4f} | Mask Rate: {util_rate*100:>5.1f}% | Loss_s: {loss_s:.4f} | Loss_u: {loss_u:.4f} | Total Loss: {total_loss:.4f}")
 
 # Thực thi kiểm thử

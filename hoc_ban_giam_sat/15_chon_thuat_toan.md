@@ -18,7 +18,7 @@ Việc lựa chọn thuật toán đòi hỏi phân tích toàn diện 4 chiều
 1. **Quy mô và Tỷ lệ Dữ liệu:**
    - Số lượng mẫu có nhãn $`N_L`$ và số lượng mẫu không nhãn $`N_U`$.
    - Tỷ lệ gán nhãn:
-   
+
 $$
 \eta = \frac{N_L}{N_L + N_U}
 $$
@@ -58,7 +58,7 @@ Khung quyết định cung cấp đầu ra rõ ràng:
 Các chỉ số dùng để đưa ra quyết định chấp thuận (Acceptance Gate):
 
 1. **Hệ số Tăng trưởng Bán giám sát (SSL Gain):**
-   
+
 $$
 \Delta_{\mathrm{SSL}} = \mathrm{Metric}(\mathcal{M}_{\mathrm{SSL}}) - \mathrm{Metric}(\mathcal{M}_{\mathrm{Supervised}})
 $$
@@ -69,7 +69,7 @@ $$
    Phương sai của điểm số đánh giá qua 5 lần chia dữ liệu độc lập. Mô hình tốt phải có $`\sigma^2 \le 0.005`$.
 
 3. **Hệ số Chi phí Tính toán (Computational Overhead Ratio):**
-   
+
 $$
 \rho_{\mathrm{comp}} = \frac{T_{\mathrm{train}}(\mathcal{M}_{\mathrm{SSL}})}{T_{\mathrm{train}}(\mathcal{M}_{\mathrm{Supervised}})}
 $$
@@ -150,7 +150,7 @@ Bảng hướng dẫn ánh xạ các bài toán công nghiệp điển hình và
 ```python
 class SSLAlgorithmAdvisor:
     """Hệ thống cố vấn lựa chọn thuật toán Học Bán Giám Sát chuẩn hóa."""
-    
+
     @staticmethod
     def advise(
         modality: str,            # 'tabular', 'image', 'text', 'graph'
@@ -162,7 +162,7 @@ class SSLAlgorithmAdvisor:
     ) -> dict:
         total_n = n_labeled + n_unlabeled
         label_ratio = n_labeled / total_n if total_n > 0 else 0
-        
+
         # 1. Kiểm tra an toàn tỷ lệ nhãn
         if label_ratio > 0.5:
             return {
@@ -170,7 +170,7 @@ class SSLAlgorithmAdvisor:
                 "primary": "Standard Supervised Model",
                 "reason": f"Tỷ lệ nhãn cao ({label_ratio*100:.1f}%). Dữ liệu có giám sát đã đủ mạnh, SSL không mang lại lợi ích biên đáng kể."
             }
-            
+
         # 2. Xử lý dữ liệu Đồ thị (Graph)
         if modality == 'graph' or is_transductive_only:
             if total_n <= 30000:
@@ -188,7 +188,7 @@ class SSLAlgorithmAdvisor:
                     "params": {"kernel": "knn", "n_neighbors": 7, "alpha": 0.2},
                     "reason": "Quy mô lớn cần dùng đồ thị thưa k-NN để tránh quá tải bộ nhớ O(N^2)."
                 }
-                
+
         # 3. Xử lý dữ liệu Hình ảnh / Âm thanh
         if modality == 'image':
             if gpu_available and n_unlabeled >= 1000:
@@ -206,7 +206,7 @@ class SSLAlgorithmAdvisor:
                     "params": {"threshold": 0.90, "max_iter": 10},
                     "reason": "Hạn chế tài nguyên phần cứng, sử dụng trích xuất đặc trưng có sẵn kết hợp Self-Training."
                 }
-                
+
         # 4. Xử lý dữ liệu Bảng (Tabular)
         if modality == 'tabular':
             if has_multi_view:
@@ -231,7 +231,7 @@ class SSLAlgorithmAdvisor:
                     "params": {"threshold": 0.85, "k_best": 50},
                     "reason": "Dữ liệu bảng quy mô lớn, tương thích tối đa với mô hình cây quyết định gradient boosting."
                 }
-                
+
         # 5. Mặc định
         return {
             "decision": "USE_SELF_TRAINING",
@@ -246,7 +246,7 @@ if __name__ == "__main__":
         {"name": "Bảng Gian lận", "modality": "tabular", "n_labeled": 200, "n_unlabeled": 50000, "gpu_available": False},
         {"name": "Phân loại Web", "modality": "tabular", "n_labeled": 100, "n_unlabeled": 2000, "has_multi_view": True},
     ]
-    
+
     print("=== TƯ VẤN THUẬT TOÁN BÁN GIÁM SÁT TỰ ĐỘNG ===")
     for c in cases:
         rec = SSLAlgorithmAdvisor.advise(

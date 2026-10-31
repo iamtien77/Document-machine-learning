@@ -154,8 +154,8 @@ $$
 * **Quy trình tìm ngưỡng khoa học:**
   1. Quét các giá trị xác suất duy nhất trên **Tập Validation**, đồng thời xét phương án luôn dương và luôn âm để không bỏ sót nghiệm biên. Nếu có điểm bằng 1, phương án luôn âm cần xét riêng vì quy tắc $`\hat{p}_i\ge\tau`$ với $`\tau\le1`$ không biểu diễn được nó.
   2. Tính toán $`\mathrm{TotalCost}(\tau)`$ tại từng điểm cắt.
-  3. Chọn $`\tau^* = \mathop{\mathrm{arg\,min}}_{\tau} \mathrm{TotalCost}(\tau)`$.
-  4. Đóng băng $`\tau^*`$ và áp dụng cố định sang **Tập Test** để đo lường chi phí thực tế.
+  3. Chọn $`\tau^{\ast} = \mathop{\mathrm{arg\,min}}_{\tau} \mathrm{TotalCost}(\tau)`$.
+  4. Đóng băng $`\tau^{\ast}`$ và áp dụng cố định sang **Tập Test** để đo lường chi phí thực tế.
 
 ---
 

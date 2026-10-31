@@ -6,7 +6,7 @@ Trong quá trình huấn luyện mô hình học không giám sát, kỹ sư ph�
 
 **Ví dụ dẫn nhập:** Khi chạy K-Means với 5 cụm ($`K = 5`$), mỗi lần chạy với một random seed khác nhau có thể cho ra các vị trí tâm cụm khác biệt và điểm Inertia chênh lệch nhau. Quá trình huấn luyện chuẩn mực đòi hỏi phải chạy nhiều lần khởi tạo độc lập (`n_init = 10`), so sánh giá trị hàm mất mát để chọn nghiệm tốt nhất, đồng thời quét dải $`K \in [2, 10]`$ để tìm ra cấu trúc tự nhiên nhất.
 
-Ký hiệu: ma trận huấn luyện $`X \in \mathbb{R}^{n \times p}`$. Không gian tham số mô hình cần ước lượng là $`\Theta`$ (ví dụ: tọa độ các tâm cụm $`\mu = \lbrace \mu_1, \dots, \mu_K \rbrace`$, hoặc ma trận trọng số chiếu $`W \in \mathbb{R}^{p \times d}`$). Cần tìm $`\theta^* \in \Theta`$ làm cực trị hóa hàm mục tiêu $`\mathcal{J}(\theta; X)`$. [2]
+Ký hiệu: ma trận huấn luyện $`X \in \mathbb{R}^{n \times p}`$. Không gian tham số mô hình cần ước lượng là $`\Theta`$ (ví dụ: tọa độ các tâm cụm $`\mu = \lbrace \mu_1, \dots, \mu_K \rbrace`$, hoặc ma trận trọng số chiếu $`W \in \mathbb{R}^{p \times d}`$). Cần tìm $`\theta^{\ast} \in \Theta`$ làm cực trị hóa hàm mục tiêu $`\mathcal{J}(\theta; X)`$. [2]
 
 **Cách đọc lần đầu:** nắm ví dụ trên rồi đi tiếp qua các mục Input → Output → Evaluation metrics → How it works. Phần định lý bất khả thi Kleinberg bên dưới giải thích giới hạn lý thuyết; có thể quay lại sau khi hiểu quy trình quét siêu tham số.
 
@@ -36,9 +36,9 @@ Trong bài báo nổi tiếng *"An Impossibility Theorem for Clustering"* (NIPS 
 
 ## Output
 
-- Bộ tham số tối ưu $`\theta^*`$ của mô hình sau khi hội tụ:
-  * Tọa độ các tâm cụm: $`\mu_1^*, \dots, \mu_K^* \in \mathbb{R}^p`$.
-  * Hoặc ma trận hiệp phương sai từng cụm: $`\Sigma_1^*, \dots, \Sigma_K^* \in \mathbb{R}^{p \times p}`$.
+- Bộ tham số tối ưu $`\theta^{\ast}`$ của mô hình sau khi hội tụ:
+  * Tọa độ các tâm cụm: $`\mu_1^{\ast}, \dots, \mu_K^{\ast} \in \mathbb{R}^p`$.
+  * Hoặc ma trận hiệp phương sai từng cụm: $`\Sigma_1^{\ast}, \dots, \Sigma_K^{\ast} \in \mathbb{R}^{p \times p}`$.
   * Hoặc các vector riêng trực giao: $`w_1, \dots, w_d \in \mathbb{R}^p`$.
 - Vector nhãn cụm được gán trên tập train: $`\hat{y} \in \lbrace 0, 1, \dots, K-1 \rbrace^n`$.
 - Lịch sử hội tụ: đồ thị hàm mất mát theo từng vòng lặp, giá trị hàm mục tiêu tại điểm dừng.
@@ -130,12 +130,12 @@ for k in k_range:
     # Huấn luyện đa khởi tạo
     km = KMeans(n_clusters=k, init='k-means++', n_init=10, random_state=42)
     labels = km.fit_predict(X_scaled)
-    
+
     # Đo lường các chỉ số
     inertia = km.inertia_
     sil = silhouette_score(X_scaled, labels)
     db = davies_bouldin_score(X_scaled, labels)
-    
+
     results.append({'k': k, 'inertia': inertia, 'silhouette': sil, 'davies_bouldin': db})
     print(f"K={k:2d} | Inertia: {inertia:8.2f} | Silhouette: {sil:6.4f} | DB Index: {db:6.4f}")
 

@@ -41,14 +41,14 @@ Hệ thống DQN tiếp nhận các nguồn dữ liệu và cấu hình huấn l
 
 Mô hình DQN sau khi huấn luyện cung cấp:
 
-1. **Bộ trọng số mạng nơ-ron tối ưu ($`\theta^*`$):**
-   Xấp xỉ hàm $`Q_\theta(s, a) \approx Q^*(s, a)`$.
+1. **Bộ trọng số mạng nơ-ron tối ưu ($`\theta^{\ast}`$):**
+   Xấp xỉ hàm $`Q_\theta(s, a) \approx Q^{\ast}(s, a)`$.
 
 2. **Chính sách suy luận tất định thời gian thực:**
    Chỉ với một lần truyền thẳng (Forward Pass), mạng xuất ra vector giá trị của toàn bộ các hành động:
-   
+
 $$
-a^* = \arg\max_{a \in \mathcal{A}} Q_\theta(s, a)
+a^{\ast} = \arg\max_{a \in \mathcal{A}} Q_\theta(s, a)
 $$
 
 3. **Năng lực xử lý không gian trạng thái vô hạn:** Không còn bị giới hạn bởi bộ nhớ bảng Q-Table truyền thống.
@@ -61,7 +61,7 @@ Chỉ số đánh giá độ ổn định và hiệu năng của DQN:
 
 1. **Điểm số Episode Return trung bình trượt:** Thước đo thành công cuối cùng của bài toán (ví dụ: đạt điểm tối đa 500 liên tục trên CartPole-v1, hoặc vượt kỷ lục người chơi trên game Atari Breakout).
 2. **Mất mát Bellman trung bình (Mean Bellman Loss):**
-   
+
 $$
 \mathcal{L}(\theta) = \frac{1}{B} \sum_{i=1}^B \left( y_i - Q_\theta(s_i, a_i) \right)^2
 $$
@@ -118,14 +118,14 @@ DQN duy trì đồng thời hai mạng nơ-ron có kiến trúc giống hệt nh
 
 #### B. Mạng Mục Tiêu Độc Lập (Separate Target Network)
 - **Vấn đề Moving Target:** Trong công thức Q-Learning chuẩn:
-  
+
 $$
 y = r + \gamma \max_{a'} Q_\theta(s', a')
 $$
 
   Cả mục tiêu $`y`$ và giá trị dự đoán $`Q_\theta(s, a)`$ đều phụ thuộc vào cùng một bộ trọng số $`\theta`$. Mỗi khi cập nhật $`\theta`$ để tiến gần tới $`y`$, thì chính $`y`$ cũng bị dịch chuyển sang vị trí khác (giống như con lừa đuổi theo củ cà rốt treo trước mũi).
 - **Giải pháp của DQN:** Cố định mục tiêu bằng mạng $`\theta^-`$:
-  
+
 $$
 y_i = r_i + (1 - d_i) \cdot \gamma \max_{a' \in \mathcal{A}} Q_{\theta^-}(s'_i, a')
 $$
@@ -207,7 +207,7 @@ class SimpleQNetwork:
         self.state_dim = state_dim
         self.action_dim = action_dim
         self.lr = lr
-        
+
         # Trọng số W1: [state_dim, 16], W2: [16, action_dim]
         self.W1 = np.random.randn(state_dim, 16) * np.sqrt(2.0 / state_dim)
         self.b1 = np.zeros(16)
@@ -232,22 +232,22 @@ class SimpleQNetwork:
         """Một bước cập nhật Gradient Descent trên mini-batch."""
         batch_size = len(states)
         q_pred = self.forward(states)
-        
+
         # Đạo hàm sai số MSE đối với output
         grad_out = np.zeros_like(q_pred)
         for i in range(batch_size):
             grad_out[i, actions[i]] = 2.0 * (q_pred[i, actions[i]] - targets[i]) / batch_size
-            
+
         # Lan truyền ngược (Backprop)
         grad_W2 = np.dot(self.a1.T, grad_out)
         grad_b2 = np.sum(grad_out, axis=0)
-        
+
         grad_a1 = np.dot(grad_out, self.W2.T)
         grad_z1 = grad_a1 * (self.z1 > 0) # ReLU derivative
-        
+
         grad_W1 = np.dot(states.T, grad_z1)
         grad_b1 = np.sum(grad_z1, axis=0)
-        
+
         # Cập nhật trọng số
         self.W2 -= self.lr * np.clip(grad_W2, -1.0, 1.0)
         self.b2 -= self.lr * np.clip(grad_b2, -1.0, 1.0)
@@ -265,7 +265,7 @@ class DQNAgent:
         self.batch_size = batch_size
         self.target_update = target_update
         self.step_counter = 0
-        
+
         self.memory = ReplayBuffer(capacity=5000)
         self.online_net = SimpleQNetwork(state_dim, action_dim, lr=0.005)
         self.target_net = SimpleQNetwork(state_dim, action_dim)
@@ -280,17 +280,17 @@ class DQNAgent:
     def train_iteration(self):
         if len(self.memory) < self.batch_size:
             return
-            
+
         states, actions, rewards, next_states, dones = self.memory.sample(self.batch_size)
-        
+
         # 1. Tính Q-Target bằng TARGET NETWORK (đóng băng)
         next_q_vals = self.target_net.forward(next_states)
         max_next_q = np.max(next_q_vals, axis=1)
         targets = rewards + (1.0 - dones) * self.gamma * max_next_q
-        
+
         # 2. Cập nhật ONLINE NETWORK bằng Gradient Descent
         self.online_net.train_step(states, actions, targets)
-        
+
         # 3. Đồng bộ định kỳ sang Target Network
         self.step_counter += 1
         if self.step_counter % self.target_update == 0:
@@ -303,11 +303,11 @@ class DQNAgent:
 if __name__ == "__main__":
     np.random.seed(42)
     random.seed(42)
-    
+
     agent = DQNAgent(state_dim=4, action_dim=2, gamma=0.99, batch_size=16, target_update=50)
     print("=== MÔ PHỎNG QUY TRÌNH HUẤN LUYỆN DEEP Q-NETWORK (DQN) ===")
     print("Khởi tạo Replay Buffer và Target Network độc lập...\n")
-    
+
     # Nạp dữ liệu mô phỏng vào Replay Buffer
     for _ in range(200):
         s = np.random.randn(4)
@@ -322,7 +322,7 @@ if __name__ == "__main__":
     test_state = np.array([0.05, 0.2, -0.1, 0.4], dtype=np.float32)
     q_preds = agent.online_net.forward(np.expand_dims(test_state, 0))[0]
     best_act = agent.select_action(test_state, epsilon=0.0)
-    
+
     print(f"Trạng thái đầu vào: {test_state}")
     print(f"Giá trị Q dự đoán [Q(s, 0), Q(s, 1)]: [{q_preds[0]:.4f}, {q_preds[1]:.4f}]")
     print(f"Hành động tối ưu suy luận được: Hành động {best_act}")
@@ -336,3 +336,4 @@ if __name__ == "__main__":
 - [1] Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). *Playing Atari with deep reinforcement learning*. arXiv preprint arXiv:1312.5602.
 - [2] Mnih, V., Kavukcuoglu, K., Silver, D., Rusu, A. A., Veness, J., Bellemare, M. G., ... & Hassabis, D. (2015). *Human-level control through deep reinforcement learning*. Nature, 518(7540), 529-533.
 - [3] Sutton, R. S., & Barto, A. G. (2018). *Reinforcement learning: An introduction* (Chapter 11: Off-policy Methods with Approximation, Section 11.3: The Deadly Triad). MIT Press.
+

@@ -182,17 +182,17 @@ results = []
 
 for ratio in label_ratios:
     n_labeled = int(ratio * n_train)
-    
+
     # Tạo chỉ số có phân tầng để giữ đúng n_labeled mẫu
     train_indices = np.arange(n_train)
     idx_labeled, _ = train_test_split(
         train_indices, train_size=ratio, random_state=42, stratify=y_train_full
     )
-    
+
     # Tạo nhãn bán giám sát (-1 cho mẫu không nhãn)
     y_train_semi = np.full(n_train, -1)
     y_train_semi[idx_labeled] = y_train_full[idx_labeled]
-    
+
     # --------------------------------------------------------------------------
     # A. Supervised Baseline (Chỉ học trên n_labeled mẫu)
     # --------------------------------------------------------------------------
@@ -201,7 +201,7 @@ for ratio in label_ratios:
     sup_model.fit(X_train_full[idx_labeled], y_train_full[idx_labeled])
     t_sup = time.time() - t0
     sup_f1 = f1_score(y_test, sup_model.predict(X_test), average='macro')
-    
+
     # --------------------------------------------------------------------------
     # B. Self-Training Classifier (Base: Logistic Regression)
     # --------------------------------------------------------------------------
@@ -211,7 +211,7 @@ for ratio in label_ratios:
     st_model.fit(X_train_full, y_train_semi)
     t_st = time.time() - t0
     st_f1 = f1_score(y_test, st_model.predict(X_test), average='macro')
-    
+
     # --------------------------------------------------------------------------
     # C. Label Spreading (Đồ thị RBF kernel)
     # --------------------------------------------------------------------------
@@ -220,7 +220,7 @@ for ratio in label_ratios:
     ls_model.fit(X_train_full, y_train_semi)
     t_ls = time.time() - t0
     ls_f1 = f1_score(y_test, ls_model.predict(X_test), average='macro')
-    
+
     results.append({
         'ratio': ratio,
         'n_labeled': n_labeled,

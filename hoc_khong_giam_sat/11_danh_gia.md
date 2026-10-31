@@ -142,7 +142,7 @@ $$
 \text{ARI} = \frac{\text{RI} - \mathbb{E}[\text{RI}]}{\max(\text{RI}) - \mathbb{E}[\text{RI}]} \in [-1, +1]
 $$
 
-* **Ý nghĩa:** 
+* **Ý nghĩa:**
   * $`\text{ARI} = 1.0`$: Cụm dự đoán trùng khớp hoàn toàn với nhãn thực tế (chấp nhận hoán vị tên cụm).
   * $`\text{ARI} \le 0.0`$: Gán nhãn ngẫu nhiên độc lập không có giá trị học máy.
 
@@ -184,19 +184,19 @@ Quy tắc áp dụng các thước đo đánh giá theo từng bối cảnh th�
 flowchart TD
     Data["Dữ liệu chuẩn hóa: X_scaled"] --> ClusterEngine["Chạy Thuật toán Gom cụm qua dãy K in [2, K_max]"]
     ClusterEngine --> MultiLabels["Tập các nhãn dự đoán: {y_hat_K}"]
-    
+
     subgraph InternalEval ["Đánh giá Nội tại Đa Tiêu chí (Multi-criteria)"]
         MultiLabels --> CalcSil["Tính Hệ số Silhouette S(K)"]
         MultiLabels --> CalcDBI["Tính Davies-Bouldin Index DBI(K)"]
         MultiLabels --> CalcCH["Tính Calinski-Harabasz CH(K)"]
         MultiLabels --> CalcWCSS["Tính Tổng bình phương nội cụm WCSS(K)"]
     end
-    
+
     CalcSil --> DecisionMatrix{"Tổng hợp Tiêu chí Tối ưu"}
     CalcDBI --> DecisionMatrix
     CalcCH --> DecisionMatrix
     CalcWCSS --> DecisionMatrix
-    
+
     DecisionMatrix --> PickBestK["Khuyến nghị K* tối ưu (S lớn, DBI nhỏ, Elbow)"]
     PickBestK --> SilPlot["Vẽ Silhouette Plot chẩn đoán chi tiết"]
 ```
@@ -236,17 +236,17 @@ print("-" * 75)
 for k in k_candidates:
     kmeans = KMeans(n_clusters=k, init='k-means++', n_init=10, random_state=42)
     labels = kmeans.fit_predict(X)
-    
+
     s_score = silhouette_score(X, labels)
     dbi_score = davies_bouldin_score(X, labels)
     ch_score = calinski_harabasz_score(X, labels)
     wcss = kmeans.inertia_
-    
+
     silhouette_records.append(s_score)
     dbi_records.append(dbi_score)
     ch_records.append(ch_score)
     wcss_records.append(wcss)
-    
+
     print(f"{k:<4} | {s_score:<12.4f} | {dbi_score:<15.4f} | {ch_score:<18.2f} | {wcss:<15.2f}")
 
 # Tìm K tối ưu theo Silhouette và DBI

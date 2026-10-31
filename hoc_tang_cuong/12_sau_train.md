@@ -18,7 +18,7 @@ Giai đoạn sau huấn luyện (Post-Training) là bước chuyển tiếp quy�
 
 Quy trình đánh giá và khai thác sau huấn luyện tiếp nhận các thành phần:
 
-1. **Mô hình tác tử tối ưu ($`\pi_\theta^*`$ hoặc $`Q_\theta^*`$):** Trọng số mạng nơ-ron đóng băng sau quá trình hội tụ (không còn cập nhật gradient).
+1. **Mô hình tác tử tối ưu ($`\pi_\theta^{\ast}`$ hoặc $`Q_\theta^{\ast}`$):** Trọng số mạng nơ-ron đóng băng sau quá trình hội tụ (không còn cập nhật gradient).
 2. **Tập cấu hình môi trường kiểm thử (Evaluation Benchmarks):**
    - Danh sách $`K`$ hạt giống ngẫu nhiên độc lập ($`K \ge 30`$).
    - Dải biến thiên thông số vật lý (khối lượng, ma sát, quán tính, độ trễ tín hiệu).
@@ -82,12 +82,12 @@ Trong giai đoạn huấn luyện, tác tử duy trì tính ngẫu nhiên để 
 - **Phương pháp Value-based (DQN/DDQN):** Thiết lập vĩnh viễn $`\epsilon = 0`$. Chọn hành động đạt giá trị cao nhất:
 
 $$
-a^* = \arg\max_{a \in \mathcal{A}} Q(s, a; \theta^*)
+a^{\ast} = \arg\max_{a \in \mathcal{A}} Q(s, a; \theta^{\ast})
 $$
 
 - **Phương pháp Policy-based (REINFORCE/A2C/PPO):** Thay vì lấy mẫu ngẫu nhiên từ phân phối $`a \sim \pi(a|s)`$:
-  - Trong không gian rời rạc: $`a^* = \arg\max_{a} \pi(a|s; \theta^*)`$.
-  - Trong không gian liên tục: Sử dụng trực tiếp vector kỳ vọng $`a^* = \boldsymbol{\mu}(s; \theta^*)`$, triệt tiêu hoàn toàn vector phương sai $`\boldsymbol{\sigma}(s)`$.
+  - Trong không gian rời rạc: $`a^{\ast} = \arg\max_{a} \pi(a|s; \theta^{\ast})`$.
+  - Trong không gian liên tục: Sử dụng trực tiếp vector kỳ vọng $`a^{\ast} = \boldsymbol{\mu}(s; \theta^{\ast})`$, triệt tiêu hoàn toàn vector phương sai $`\boldsymbol{\sigma}(s)`$.
 
 ---
 
@@ -467,3 +467,4 @@ if __name__ == "__main__":
 - [3] Tobin, J., Fong, R., Ray, A., Schneider, J., Zaremba, W., & Abbeel, P. (2017). *Domain randomization for transferring deep neural networks from simulation to the real world*. IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 23-30.
 - [4] Achiam, J., Held, D., Tamar, A., & Abbeel, P. (2017). *Constrained policy optimization*. International Conference on Machine Learning (ICML), PMLR, 70, 22-31.
 - [5] Alshiekh, M., Bloem, R., Ehlers, R., Könighofer, B., Niekum, S., & Topcu, U. (2018). *Safe reinforcement learning via shielding*. Proceedings of the AAAI Conference on Artificial Intelligence, 32(1), 266-273.
+
