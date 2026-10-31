@@ -8,6 +8,16 @@ Training phase học tham số/quy tắc từ những ví dụ có nhãn `(X, y)
 
 Phân biệt ba việc: **fit tham số** (ví dụ hệ số `w`, nút cây), **chọn hyperparameter** (ví dụ `C`, `k`, `max_depth`) và **đánh giá cuối**. Mỗi việc dùng dữ liệu với quyền truy cập khác nhau để hạn chế overfitting vào tập đánh giá.
 
+### Ranh giới Giữa Thử nghiệm Khoa học và Kỹ nghệ Đóng gói (From Research to Engineering)
+
+Một sai lầm phổ biến trong đào tạo là chỉ xem huấn luyện như việc gọi hàm `model.fit(X, y)` trong một Jupyter Notebook. Trong kỹ nghệ học máy chuyên nghiệp, Training Phase là một **dây chuyền sản xuất tự động, có thể tái lập và có thể kiểm toán được (Reproducible & Auditable Production Line)**.
+
+Giai đoạn này đòi hỏi sự tách biệt tuyệt đối giữa:
+1. **Môi trường Khám phá (Exploration Environment):** Nơi nhà nghiên cứu thử nghiệm các giả thuyết, vẽ đồ thị phân tích và so sánh các họ thuật toán khác nhau.
+2. **Dây chuyền Đóng gói (Packaging Pipeline):** Nơi toàn bộ các bước biến đổi dữ liệu (từ vector hóa, điền khuyết, chuẩn hóa đến mô hình dự đoán) được kết nối thành một đối tượng bất biến (Immutable Pipeline Artifact), đảm bảo rằng khi chuyển giao sang môi trường suy luận, dữ liệu thô mới sẽ trải qua **chính xác 100% cùng một chuỗi các phép toán số học**.
+
+---
+
 ## Input
 
 | Đầu vào | Nội dung cần có | Vì sao cần |
@@ -21,11 +31,29 @@ Phân biệt ba việc: **fit tham số** (ví dụ hệ số `w`, nút cây), *
 
 Ví dụ Iris ở Chương 2: `X` gồm bốn phép đo hoa, `y` là một trong ba loài. Với dữ liệu nghiệp vụ, phải thêm ID nhóm hoặc timestamp nếu các hàng không độc lập hay mục tiêu là dự đoán tương lai. [1][3]
 
+### Quản lý Phiên bản Dữ liệu & Mã nguồn (Data & Code Lineage)
+
+Để đảm bảo tính tái lập trong nghiên cứu khoa học, mọi đợt huấn luyện bắt buộc phải ghi nhận ba hàm băm (Hash Fingerprints):
+* **Data Hash:** Băm mã hóa (SHA-256) của tập dữ liệu huấn luyện (sử dụng các công cụ như DVC - Data Version Control).
+* **Code Hash:** Git commit hash chính xác của kho mã nguồn thực hiện huấn luyện.
+* **Environment Manifest:** Tệp khóa cấu hình thư viện chính xác (ví dụ: `requirements.txt` với số phiên bản cố định của `numpy`, `scipy`, `scikit-learn`).
+
+---
+
 ## Output
 
 **Artifact chính:** pipeline đã `fit` gồm mọi bước tiền xử lý và estimator. Nếu bài toán cần xác suất/nhãn cuối, artifact hoặc cấu hình kèm theo còn phải chứa calibrator, threshold và thứ tự nhãn lớp. Không lưu mô hình riêng mà quên scaler/encoder đã học. [4]
 
 **Hồ sơ đi kèm:** schema đầu vào, danh sách/ý nghĩa feature, phiên bản dữ liệu và code, tham số/hyperparameter, seed, kết quả CV/validation, baseline, báo cáo test cuối, lỗi theo nhóm, ngày train và giới hạn áp dụng. Đầu ra của training phase là **đầu vào của inference phase**; một người chỉ có dữ liệu mới và artifact này phải tạo được dự đoán theo đúng cùng phép biến đổi.
+
+### Tiêu chuẩn Thẻ Báo cáo Mô hình (Model Card Standard)
+
+Theo chuẩn mực nghiên cứu quốc tế (Mitchell et al., 2019), một artifact mô hình hoàn chỉnh phải đi kèm một tài liệu `MODEL_CARD.md` tóm lược:
+* **Mục đích thiết kế (Intended Use):** Mô hình được thiết kế cho tác vụ nào? Trong điều kiện hoạt động nào?
+* **Cảnh báo giới hạn (Out-of-Scope Use Cases):** Những trường hợp nào tuyệt đối không được phép sử dụng mô hình (ví dụ: dữ liệu ngoại suy ngoài miền tuổi $18-60$)?
+* **Phân tích Công bằng & Đạo đức (Fairness & Bias Disclosures):** Hiệu năng của mô hình trên các nhóm thiểu số hoặc nhóm nhạy cảm.
+
+---
 
 ## Evaluation metrics
 
@@ -39,6 +67,8 @@ Ví dụ Iris ở Chương 2: `X` gồm bốn phép đo hoa, `y` là một trong
 Với classification, chọn metric theo chi phí sai: accuracy có thể che lớp hiếm; precision/recall phụ thuộc threshold; AP/ROC-AUC đánh giá khả năng xếp hạng nhưng không tự xác định ngưỡng. Với regression, MAE dễ diễn giải, RMSE nhấn mạnh lỗi lớn, R² cho góc nhìn bổ sung. Luôn so với **dummy baseline** trên cùng split. [5]
 
 Ví dụ nếu bỏ sót ca dương tính rất tốn kém, có thể chọn recall làm metric chính và đặt ràng buộc precision tối thiểu. Ngưỡng cụ thể phải được chọn trên dữ liệu phát triển, không được chọn bằng test.
+
+---
 
 ## How it works
 
@@ -62,6 +92,25 @@ Raw labeled data
   → test cuối → báo cáo + artifact cho inference
 ```
 
+### Quy trình Kiểm thử Bất biến Đầu ra (Golden Samples Invariant Verification)
+
+Trước khi chuyển giao artifact mô hình cho đội ngũ kỹ nghệ triển khai, bắt buộc phải thực hiện bài kiểm tra tính toàn vẹn serialization:
+
+1. **Trích xuất Golden Dataset ($D_{\text{gold}}$):** Chọn từ $5$ đến $10$ mẫu dữ liệu đại diện, bao gồm:
+   * Các mẫu điển hình ở trung tâm phân phối.
+   * Các mẫu có giá trị khuyết (Missing Values).
+   * Các mẫu ở biên cực trị (Edge Cases / Outliers).
+2. **Ghi nhận Baseline Inference trước khi lưu:**
+   $$\hat{Y}_{\text{pre}} = \text{Pipeline}_{\text{memory}}.\text{predict\_proba}(D_{\text{gold}})$$
+3. **Tuần tự hóa (Serialize):** Lưu pipeline ra đĩa (ví dụ: định dạng `.joblib`, `.pickle`, hoặc chuẩn mở `ONNX`).
+4. **Giải tuần tự hóa (Deserialize) trong tiến trình độc lập:** Nạp lại pipeline từ file đã lưu:
+   $$\hat{Y}_{\text{post}} = \text{Pipeline}_{\text{disk}}.\text{predict\_proba}(D_{\text{gold}})$$
+5. **Kiểm định sai số số học (Assertion):**
+   $$\max \lvert \hat{Y}_{\text{pre}} - \hat{Y}_{\text{post}} \rvert \le 10^{-6}$$
+   Nếu sai số lớn hơn ngưỡng dung sai số thực hoặc thứ tự các cột nhãn lớp bị đảo lộn, **hủy bỏ đợt phát hành ngay lập tức**.
+
+---
+
 ## Data used
 
 | Tập dữ liệu | Được phép dùng để | Không được dùng để |
@@ -72,6 +121,8 @@ Raw labeled data
 | Test giữ riêng | Báo cáo hiệu năng cuối của pipeline đã khóa | Chọn feature, mô hình, hyperparameter, calibrator hay threshold |
 
 Trường hợp dùng CV hoặc refit trên train+validation phải ghi rõ mẫu nào đã được dùng để fit classifier. Một validation set đã trở thành dữ liệu fit classifier không còn là holdout độc lập cho calibration. [2][7]
+
+---
 
 ## Design
 
@@ -93,8 +144,12 @@ Trường hợp dùng CV hoặc refit trên train+validation phải ghi rõ mẫ
 | **Data leakage** | Thông tin không hợp lệ từ test/tương lai/nhãn đi vào train hoặc lựa chọn mô hình. | Làm đánh giá quá lạc quan vì mô hình thấy thông tin không hợp lệ | Rủi ro phải chặn ở split, preprocessing và tuning |
 | **Calibration** | Fit/kiểm sự phù hợp giữa xác suất dự đoán và tần suất thật trên dữ liệu hợp lệ. | Làm xác suất đầu ra gần với tần suất quan sát | Bước bổ sung sau fit nếu quyết định cần xác suất đáng tin |
 | **Artifact** | Pipeline, tham số và cấu hình đã khóa để inference dùng lại. | Đảm bảo dùng đúng preprocessing và tham số khi triển khai | Đầu ra được lưu sau training để inference nạp lại |
+| **Model Card** | Bản tài liệu học thuật đặc tả nguồn gốc, hiệu năng và giới hạn sử dụng mô hình. | Đảm bảo tính minh bạch, đạo đức và khả năng kiểm toán hệ thống. | Chuẩn mực chuyển giao từ phòng nghiên cứu sang sản xuất. |
+| **ONNX** | Chuẩn định dạng mở đại diện cho các mô hình học máy (Open Neural Network Exchange). | Tách biệt mô hình khỏi framework Python, tối ưu tốc độ thực thi đa nền tảng. | Định dạng lưu trữ tối ưu cho triển khai công nghiệp. |
 
-### Nguồn
+---
+
+## Nguồn
 
 - [1] [PDF Chương 2: Supervised Learning](<../Tài liệu học tập/ML_Chapter2_new.pdf>)
 - [2] [scikit-learn: Cross-validation](https://scikit-learn.org/stable/modules/cross_validation.html)
@@ -105,3 +160,4 @@ Trường hợp dùng CV hoặc refit trên train+validation phải ghi rõ mẫ
 - [7] [scikit-learn: Probability calibration](https://scikit-learn.org/stable/modules/calibration.html)
 - [8] [scikit-learn: Decision threshold](https://scikit-learn.org/stable/modules/classification_threshold.html)
 - [9] [scikit-learn: Model persistence](https://scikit-learn.org/stable/model_persistence.html)
+- [10] Mitchell, M., et al. (2019). *Model Cards for Model Reporting*. Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT*), 220-229.
