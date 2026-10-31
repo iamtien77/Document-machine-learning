@@ -223,3 +223,4 @@ if __name__ == "__main__":
 - [1] Ng, A. Y., Harada, D., & Russell, S. (1999). *Policy invariance under reward transformations: Theory and application to reward shaping*. Proceedings of the Sixteenth International Conference on Machine Learning (ICML), 278-287.
 - [2] Amodei, D., Olah, C., Steinhardt, J., Christiano, P., Schulman, J., & Mané, D. (2016). *Concrete problems in AI safety*. arXiv preprint arXiv:1606.06565.
 - [3] Towers, M., et al. (2023). *Gymnasium: A standard interface for reinforcement learning environments*. arXiv preprint arXiv:2407.17032.
+

@@ -256,3 +256,4 @@ if __name__ == "__main__":
 - [1] Sutton, R. S., & Barto, A. G. (2018). *Reinforcement learning: An introduction* (Chapter 2: Multi-armed Bandits). MIT Press.
 - [2] Thrun, S. B. (1992). *The role of exploration in learning control*. Handbook of intelligent control: Neural, fuzzy, and adaptive approaches, 527-559.
 - [3] Henderson, P., Islam, R., Bachman, P., Pineau, J., Precup, D., & Meger, D. (2018). *Deep reinforcement learning that matters*. Proceedings of the AAAI Conference on Artificial Intelligence, 32(1).
+
