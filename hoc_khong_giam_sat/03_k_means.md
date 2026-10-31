@@ -206,3 +206,4 @@ print(f"Số vòng lặp hội tụ: {model.n_iter_}")
 - [3] Arthur, D., & Vassilvitskii, S. (2007). *k-means++: The advantages of careful seeding*. SODA.
 - [4] Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning* (Chapter 14.3.6: K-means Clustering). Springer.
 - [5] [scikit-learn User Guide: K-means](https://scikit-learn.org/stable/modules/clustering.html#k-means).
+
