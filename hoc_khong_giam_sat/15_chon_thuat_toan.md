@@ -63,7 +63,7 @@ Bộ tiêu chí so sánh đối đầu giữa các ứng viên thuật toán:
 | **Dữ liệu chứa nhiều ngoại lai cực đoan (Outliers), khoảng cách phi Euclid** | **K-Medoids (PAM / CLARANS)** | **DBSCAN** | Chi phí tính toán ma trận medoid $`O(n^2)`$ |
 | **Cần trực quan hóa cấu trúc gia phả, taxonomy phân cấp** | **Agglomerative Hierarchical** | **Dendrogram cắt ngưỡng** | Giới hạn $`n < 10^4`$ để tránh tràn bộ nhớ RAM |
 | **Dữ liệu siêu lớn ($`n > 10^6`$), bộ nhớ RAM hạn chế** | **BIRCH** | **MiniBatchKMeans** | Thiết lập tham số `threshold` và `branching_factor` |
-| **Giảm chiều tuyến tính, khử đa cộng tuyến** | **PCA** | **Kernel PCA** (nếu phi tuyến) | Kiểm tra tỷ lệ phương sai tích lũy $`\text{CEVR} \ge 90\%`$ |
+| **Giảm chiều tuyến tính, khử đa cộng tuyến** | **PCA** | **Kernel PCA** (nếu phi tuyến) | Kiểm tra tỷ lệ phương sai tích lũy $`\text{CEVR} \ge 0.90`$ |
 | **Trực quan hóa đa tạp 2D/3D (Manifold Visualization)** | **t-SNE** (chi tiết vi mô) | **UMAP** (cả vi mô lẫn toàn cục) | Giảm về 50 chiều bằng PCA trước; chỉnh `perplexity`/`n_neighbors` |
 
 ---

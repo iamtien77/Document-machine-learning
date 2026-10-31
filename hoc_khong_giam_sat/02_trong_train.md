@@ -29,7 +29,7 @@ Trong bài báo nổi tiếng *"An Impossibility Theorem for Clustering"* (NIPS 
   * Với K-Means / K-Medoids: dải số cụm $`K \in [2, 15]`$, phương pháp khởi tạo (`k-means++` vs `random`).
   * Với DBSCAN / OPTICS: dải bán kính $`\varepsilon \in [0.1, 2.0]`$, số láng giềng tối thiểu $`\text{MinPts} \in [3, 20]`$.
   * Với GMM: loại ma trận hiệp phương sai (`covariance_type`: `full`, `tied`, `diag`, `spherical`).
-  * Với PCA: số thành phần chính $`d`$ hoặc ngưỡng phương sai giải thích tối thiểu ($`95\%`$).
+  * Với PCA: số thành phần chính $`d`$ hoặc ngưỡng phương sai giải thích tối thiểu (95%).
 - Tiêu chí dừng thuật toán: số vòng lặp tối đa (`max_iter`) và ngưỡng dung sai hội tụ (`tol`).
 
 ---

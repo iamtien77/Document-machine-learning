@@ -64,7 +64,7 @@ Chỉ số SLA đánh giá tầng phục vụ suy luận bán giám sát:
 3. **Tỷ lệ chuyển tiếp phòng vệ (Fallback Rate):**
 
 $$
-\text{Rate}_{\mathrm{fallback}} = \frac{N_{\mathrm{fallback}}}{N_{\mathrm{total}}} \times 100\%
+\text{Rate}_{\mathrm{fallback}} = \frac{N_{\mathrm{fallback}}}{N_{\mathrm{total}}} \times 100
 $$
 
    Tỷ lệ này tăng đột biến là dấu hiệu cảnh báo phân phối dữ liệu đầu vào đã bị trôi dạt (Data Drift).
@@ -106,7 +106,7 @@ Mô hình đồ thị như **Label Spreading** không thể tính toán trực t
 Dự đoán nhãn của $`x_{\mathrm{new}}`$ dựa trên khoảng cách tới các mẫu trong đồ thị huấn luyện ban đầu có trọng số nhãn phân bố $`F^{\ast}`$:
 
 $$
-p(y = c \mid x_{\mathrm{new}}) = \frac{\sum_{i \in \mathcal{N}_k(x_{\mathrm{new}})} W(x_{\mathrm{new}}, x_i) \cdot F_{i, c}^{\ast}{\sum_{i \in \mathcal{N}_k(x_{\mathrm{new}})} W(x_{\mathrm{new}}, x_i)}
+p(y = c \mid x_{\mathrm{new}}) = \frac{\sum_{i \in \mathcal{N}_k(x_{\mathrm{new}})} W(x_{\mathrm{new}}, x_i) \cdot F_{i, c}^{\ast}}{\sum_{i \in \mathcal{N}_k(x_{\mathrm{new}})} W(x_{\mathrm{new}}, x_i)}
 $$
 
 Trong đó $`W(x_{\mathrm{new}}, x_i) = \exp\left(-\gamma \|x_{\mathrm{new}} - x_i\|^2\right)`$.

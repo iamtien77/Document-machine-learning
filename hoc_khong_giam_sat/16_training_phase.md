@@ -56,7 +56,7 @@ Các tiêu chí nghiệm thu chất lượng trước khi phê duyệt đưa mô
    * Áp dụng kỹ thuật lấy mẫu lặp lại (Bootstrap Resampling) trên $`X_{\text{train}}`$ qua 20 lần chạy độc lập. Tính chỉ số Adjusted Rand Index (ARI) giữa các lần chạy: nếu $`\text{ARI} > 0.85`$, chứng tỏ cấu trúc cụm là thực chất và bền vững, không phải ảo giác ngẫu nhiên do thuật toán tự vẽ ra.
 2. **Hệ số Silhouette Toàn cục và Kiểm tra Độ rộng Cụm:**
    * Hệ số Silhouette toàn cục phải vượt ngưỡng tối thiểu (thường yêu cầu $`S \ge 0.40`$).
-   * Không có cụm nào bị chiếm tỷ lệ dưới $`2\%`$ tổng số mẫu (trừ khi bài toán đặc thù là phát hiện bất thường).
+   * Không có cụm nào bị chiếm tỷ lệ dưới 2% tổng số mẫu (trừ khi bài toán đặc thù là phát hiện bất thường).
 3. **Thời gian Huấn luyện và Kích thước Tệp Artifact:**
    * Thời gian chạy huấn luyện nằm trong ngân sách cho phép của hệ thống CI/CD; dung lượng tệp artifact không vượt quá giới hạn bộ nhớ của máy chủ suy luận.
 

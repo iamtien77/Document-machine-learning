@@ -31,7 +31,7 @@ Nếu dữ liệu có `n` mẫu train, `p` chiều, mỗi bản ghi inference ph
 
 kNN dựa trên giả định căn bản: **Các điểm nằm gần nhau trong không gian đặc trưng thì có nhãn hoặc giá trị mục tiêu tương tự nhau**. Tuy nhiên, giả định này sụp đổ hoàn toàn khi số chiều $`p`$ tăng cao:
 
-1. **Sự loãng không gian (Empty Space Phenomenon):** Thể tích của một khối cầu $`p`$-chiều tỷ lệ với $`r^p`$. Để bao phủ một tỷ lệ thể tích cố định (ví dụ $`10\%`$ dữ liệu) nhằm tìm $`k`$ láng giềng, bán kính lân cận $`r`$ phải mở rộng rất nhanh theo công thức $`r = (0.1)^{1/p}`$. Khi $`p = 50`$, $`r \approx 0.95`$, nghĩa là thuật toán buộc phải quét gần như toàn bộ không gian dữ liệu để gom đủ $`k`$ mẫu! Khi đó, các mẫu được gọi là "gần nhất" thực chất lại ở rất xa nhau.
+1. **Sự loãng không gian (Empty Space Phenomenon):** Thể tích của một khối cầu $`p`$-chiều tỷ lệ với $`r^p`$. Để bao phủ một tỷ lệ thể tích cố định (ví dụ 10% dữ liệu) nhằm tìm $`k`$ láng giềng, bán kính lân cận $`r`$ phải mở rộng rất nhanh theo công thức $`r = (0.1)^{1/p}`$. Khi $`p = 50`$, $`r \approx 0.95`$, nghĩa là thuật toán buộc phải quét gần như toàn bộ không gian dữ liệu để gom đủ $`k`$ mẫu! Khi đó, các mẫu được gọi là "gần nhất" thực chất lại ở rất xa nhau.
 2. **Sự cô lập khoảng cách (Distance Concentration):** Khi số chiều $`p \to \infty`$, khoảng cách giữa điểm gần nhất ($`d_{\min}`$) và điểm xa nhất ($`d_{\max}`$) từ một điểm truy vấn bất kỳ hội tụ về cùng một giá trị:
 
 $$

@@ -64,7 +64,7 @@ $$
 Bài toán tối ưu hóa của S3VM / TSVM được phát biểu như sau: Tìm vector trọng số $`w`$, hệ số chệch $`b`$, và nhãn giả $`y_j^{\ast} \in \lbrace -1, +1 \rbrace`$ cho các điểm chưa nhãn để giải bài toán tối thiểu hóa:
 
 $$
-\min_{w, b, y^{\ast} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n_l} \max(0, 1 - y_i(w^\top x_i + b)) + C^{\ast} \sum_{j=1}^{n_u} \max(0, 1 - y_j^{\ast}(w^\top u_j + b))
+\min_{w, b, y^{\ast}} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n_l} \max(0, 1 - y_i(w^\top x_i + b)) + C^{\ast} \sum_{j=1}^{n_u} \max(0, 1 - y_j^{\ast}(w^\top u_j + b))
 $$
 
 Kèm theo ràng buộc cân bằng phân bổ nhãn để tránh nghiệm suy biến:

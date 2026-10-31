@@ -61,7 +61,7 @@ $$
 \text{Precision}_{\text{pseudo}} = \frac{\sum_{j \in D_{\text{pseudo}}} \mathbb{I}(\hat{y}_j = y_j^{\ast})}{|D_{\text{pseudo}}|}
 $$
 
-   * **Chỉ số Sống còn:** Nếu $`\text{Precision}_{\text{pseudo}} < 85\%`$, các nhãn rác sẽ xâm nhập vào tập train và phá hỏng ranh giới quyết định.
+   * **Chỉ số Sống còn:** Nếu $`\text{Precision}_{\text{pseudo}} < 85`$%, các nhãn rác sẽ xâm nhập vào tập train và phá hỏng ranh giới quyết định.
 2. **Mức Tăng trưởng F1-Score / Accuracy ($`\Delta`$):**
    * So sánh hiệu năng của mô hình Self-Training so với mô hình cơ sở khi chỉ huấn luyện trên $`D_L`$.
 3. **Tỷ lệ Kết nạp Giả nhãn (Acceptance Rate):**

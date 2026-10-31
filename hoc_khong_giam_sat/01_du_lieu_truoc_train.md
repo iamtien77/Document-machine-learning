@@ -64,7 +64,7 @@ Chất lượng tiền xử lý trong học không giám sát được đánh gi
    Trước khi chuẩn hóa, tỷ số giữa biến có phương sai lớn nhất và nhỏ nhất có thể lên đến hàng triệu ($`10^6`$). Sau khi chuẩn hóa qua `StandardScaler` hoặc `RobustScaler`, tỷ số này phải được đưa về gần mức $`1.0`$:
 
 $$
-\frac{\max_j \mathrm{Var}(X_{\ast}, j})}{\min_j \mathrm{Var}(X_{\ast}, j})} \approx 1
+\frac{\max_j \mathrm{Var}(X_{:, j})}{\min_j \mathrm{Var}(X_{:, j})} \approx 1
 $$
 
 2. **Hệ số Bất đối xứng (Skewness Score):**

@@ -63,7 +63,7 @@ $$
 \Delta_{\mathrm{SSL}} = \mathrm{Metric}(\mathcal{M}_{\mathrm{SSL}}) - \mathrm{Metric}(\mathcal{M}_{\mathrm{Supervised}})
 $$
 
-   Nguyên tắc: Chỉ chấp thuận mô hình bán giám sát nếu $`\Delta_{\mathrm{SSL}} \ge 2.0\%`$ và vượt qua kiểm định t-test với $`p\text{-value} < 0.05`$.
+   Nguyên tắc: Chỉ chấp thuận mô hình bán giám sát nếu $`\Delta_{\mathrm{SSL}} \ge 2.0`$% và vượt qua kiểm định t-test với $`p\text{-value} < 0.05`$.
 
 2. **Độ ổn định đa mầm ngẫu nhiên (Seed Stability Variance):**
    Phương sai của điểm số đánh giá qua 5 lần chia dữ liệu độc lập. Mô hình tốt phải có $`\sigma^2 \le 0.005`$.
@@ -74,7 +74,7 @@ $$
 \rho_{\mathrm{comp}} = \frac{T_{\mathrm{train}}(\mathcal{M}_{\mathrm{SSL}})}{T_{\mathrm{train}}(\mathcal{M}_{\mathrm{Supervised}})}
 $$
 
-   Nếu $`\rho_{\mathrm{comp}} > 20`$ nhưng $`\Delta_{\mathrm{SSL}} < 1\%`$, dự án nên ưu tiên thu thập thêm nhãn thủ công thay vì triển khai SSL phức tạp.
+   Nếu $`\rho_{\mathrm{comp}} > 20`$ nhưng $`\Delta_{\mathrm{SSL}} < 1`$%, dự án nên ưu tiên thu thập thêm nhãn thủ công thay vì triển khai SSL phức tạp.
 
 ---
 

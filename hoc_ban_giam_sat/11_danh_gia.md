@@ -17,13 +17,13 @@ Tài liệu này chuẩn hóa quy trình đánh giá khoa học cho Học bán g
 Dữ liệu đầu vào và các hiện vật cần thiết cho quy trình đánh giá:
 
 1. **Tập Kiểm tra Độc lập Giữ Riêng (Hold-out Test Set - $`D_{\text{test}}`$):**
-   * Tập gồm $`n_{\text{test}}`$ mẫu có nhãn chuẩn $`100\%`$ được tách ra ngay từ đầu, tuyệt đối không tham gia vào bất kỳ khâu nào của quá trình tiền xử lý hay huấn luyện bán giám sát.
+   * Tập gồm $`n_{\text{test}}`$ mẫu có nhãn chuẩn 100% được tách ra ngay từ đầu, tuyệt đối không tham gia vào bất kỳ khâu nào của quá trình tiền xử lý hay huấn luyện bán giám sát.
 2. **Nhãn Ẩn của Tập Chưa Nhãn ($`y_U^{\ast}`$ - Dùng trong Môi trường Nghiên cứu Benchmark):**
    * Nhãn thực tế của các mẫu trong $`D_U`$ (bị cố tình ẩn đi lúc train) dùng để kiểm toán chất lượng giả nhãn nội bộ.
 3. **Dãy Tỷ lệ Nhãn Cần Khảo sát (Label Fraction Spectrum - $`\alpha`$):**
-   * Dãy tỷ lệ $`\alpha \in \lbrace 1\%, 2\%, 5\%, 10\%, 20\%, 50\% \rbrace`$ để vẽ đường cong hiệu quả khai thác nhãn.
+   * Dãy tỷ lệ $`\alpha \in \lbrace 0.01, 0.02, 0.05, 0.10, 0.20, 0.50 \rbrace`$ để vẽ đường cong hiệu quả khai thác nhãn.
 4. **Số lượng Lần Chạy Lặp Lại Độc lập (Random Splits / Seeds):**
-   * Tối thiểu 5 lần chạy với các hạt giống ngẫu nhiên khác nhau để tính khoảng tin cậy thống kê (Confidence Intervals $`95\%`$).
+   * Tối thiểu 5 lần chạy với các hạt giống ngẫu nhiên khác nhau để tính khoảng tin cậy thống kê (Confidence Intervals 95%).
 
 ---
 
@@ -51,7 +51,7 @@ $$
 $$
 
 $$
-\Delta_{\text{rel}} = \frac{\text{Score}_{\text{SSL}} - \text{Score}_{\text{Baseline}}}{\text{Score}_{\text{Full}} - \text{Score}_{\text{Baseline}}} \times 100\%
+\Delta_{\text{rel}} = \frac{\text{Score}_{\text{SSL}} - \text{Score}_{\text{Baseline}}}{\text{Score}_{\text{Full}} - \text{Score}_{\text{Baseline}}} \times 100
 $$
 
    * $`\Delta_{\text{rel}}`$ phản ánh tỷ lệ phần trăm khoảng cách giữa Baseline và mô hình lý tưởng Full-Supervised mà giải pháp SSL đã thu hẹp được.

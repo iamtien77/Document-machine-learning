@@ -36,11 +36,11 @@ $$
 
 ## Output
 
-1. **Bộ trọng số tối ưu mạng chính sách ($`\theta^{\ast}`$):** Tham số hóa phân phối hành động tối ưu $`\pi_{\theta^{\ast}(a|s)`$.
+1. **Bộ trọng số tối ưu mạng chính sách ($`\theta^{\ast}`$):** Tham số hóa phân phối hành động tối ưu $`\pi_{\theta^{\ast}}(a|s)`$.
 2. **Bộ trọng số mạng Baseline trạng thái ($`w^{\ast}`$):** Xấp xỉ hàm giá trị $`V_w(s) \approx \mathbb{E}[G_t \mid S_t = s]`$.
 3. **Chính sách hành động suy luận:**
-   - Trong quá trình khai thác tất định: $`a^{\ast} = \arg\max_a \pi_{\theta^{\ast}(a|s)`$ (rời rạc) hoặc $`a^{\ast} = \boldsymbol{\mu}(s; \theta^{\ast})`$ (liên tục).
-   - Trong quá trình lấy mẫu ngẫu nhiên: $`a \sim \pi_{\theta^{\ast}(\cdot|s)`$.
+   - Trong quá trình khai thác tất định: $`a^{\ast} = \arg\max_a \pi_{\theta^{\ast}}(a|s)`$ (rời rạc) hoặc $`a^{\ast} = \boldsymbol{\mu}(s; \theta^{\ast})`$ (liên tục).
+   - Trong quá trình lấy mẫu ngẫu nhiên: $`a \sim \pi_{\theta^{\ast}}(\cdot|s)`$.
 4. **Log quỹ đạo huấn luyện:** Lịch sử tổn thất chính sách, giá trị phần thưởng hoàn trả $`G_t`$, và độ đo Entropy phân phối.
 
 ---

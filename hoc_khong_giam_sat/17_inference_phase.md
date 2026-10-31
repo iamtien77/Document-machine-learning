@@ -28,7 +28,7 @@ Dữ liệu đầu vào cho hệ thống suy luận:
      ```
    * **Chế độ Theo lô (Batch Job):** Bảng dữ liệu lớn hàng triệu dòng từ kho dữ liệu (Data Warehouse / Parquet table) cần được phân cụm định kỳ hàng đêm.
 3. **Bảng Ngưỡng Bán kính Cụm (Cluster Radius Thresholds):**
-   * Vector ngưỡng $`\vec{\tau} = [\tau_1, \tau_2, \dots, \tau_K]^\top`$, trong đó $`\tau_k`$ là khoảng cách tối đa cho phép để một điểm được coi là thành viên hợp lệ của cụm $`k`$ (thường chọn bằng phân vị $`99\%`$ khoảng cách nội cụm khi train).
+   * Vector ngưỡng $`\vec{\tau} = [\tau_1, \tau_2, \dots, \tau_K]^\top`$, trong đó $`\tau_k`$ là khoảng cách tối đa cho phép để một điểm được coi là thành viên hợp lệ của cụm $`k`$ (thường chọn bằng phân vị 99% khoảng cách nội cụm khi train).
 
 ---
 
@@ -61,7 +61,7 @@ Các chỉ số vận hành kỹ thuật (Operational SLAs) để giám sát d�
 2. **Thông lượng Phục vụ (Throughput - RPS):**
    * Số lượng yêu cầu suy luận xử lý thành công trên mỗi giây (Requests Per Second).
 3. **Tỷ lệ Ngoại lai Thời gian thực (Real-time Outlier Rate):**
-   * Tỷ lệ các yêu cầu bị gán nhãn ngoại lai trong 24 giờ gần nhất: nếu tỷ lệ này vượt quá $`5\%`$, gửi cảnh báo tới đội ngũ kỹ sư.
+   * Tỷ lệ các yêu cầu bị gán nhãn ngoại lai trong 24 giờ gần nhất: nếu tỷ lệ này vượt quá 5%, gửi cảnh báo tới đội ngũ kỹ sư.
 4. **Chỉ số Ổn định Phân bổ PSI (Population Stability Index):**
    * So sánh phân bố tỷ lệ phần trăm giữa các cụm trong ngày hôm nay so với tập dữ liệu huấn luyện lịch sử.
 
@@ -122,8 +122,8 @@ $$
 
 4. **Kiểm tra Ngưỡng Ngoại lai Guardrail:**
    * Xác định cụm ứng viên gần nhất: $`k^{\ast} = \arg\min_{k} d_k`$.
-   * Nếu $`d_{k^{\ast} \le \tau_{k^{\ast}`$: Trả về nhãn cụm $`k^{\ast}`$.
-   * Nếu $`d_{k^{\ast} > \tau_{k^{\ast}`$: Trả về nhãn $`-1`$ kèm thông điệp cảnh báo ngoại lai.
+   * Nếu $`d_{k^{\ast}} \le \tau_{k^{\ast}}`$: Trả về nhãn cụm $`k^{\ast}`$.
+   * Nếu $`d_{k^{\ast}} > \tau_{k^{\ast}}`$: Trả về nhãn $`-1`$ kèm thông điệp cảnh báo ngoại lai.
 
 ---
 

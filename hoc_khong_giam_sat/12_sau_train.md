@@ -65,7 +65,7 @@ $$
 $$
 
 3. **Tỷ lệ Điểm Ngoại vi Mới (Unseen Outlier Rate):**
-   * Tỷ lệ các mẫu mới có khoảng cách tới tâm cụm gần nhất vượt quá ngưỡng phân vị $`99\%`$ của tập huấn luyện: nếu tỷ lệ này tăng vọt từ $`1\%`$ lên $`10\%`$, chứng tỏ không gian dữ liệu đã xuất hiện các cụm mới chưa từng tồn tại trước đây.
+   * Tỷ lệ các mẫu mới có khoảng cách tới tâm cụm gần nhất vượt quá ngưỡng phân vị 99% của tập huấn luyện: nếu tỷ lệ này tăng vọt từ 1% lên 10%, chứng tỏ không gian dữ liệu đã xuất hiện các cụm mới chưa từng tồn tại trước đây.
 
 ---
 

@@ -76,7 +76,7 @@ $$
    Đo lường mức độ giảm lỗi kiểm thử của mô hình bán giám sát so với baseline giám sát thuần túy hướng tới mốc lý tưởng (Oracle):
 
 $$
-\mathrm{RER} = \frac{\mathrm{Error}_{\mathrm{Supervised}} - \mathrm{Error}_{\mathrm{SSL}}}{\mathrm{Error}_{\mathrm{Supervised}} - \mathrm{Error}_{\mathrm{Oracle}}} \times 100\%
+\mathrm{RER} = \frac{\mathrm{Error}_{\mathrm{Supervised}} - \mathrm{Error}_{\mathrm{SSL}}}{\mathrm{Error}_{\mathrm{Supervised}} - \mathrm{Error}_{\mathrm{Oracle}}} \times 100
 $$
 
 3. **Thời gian huấn luyện trung bình (Execution Time in Seconds):**

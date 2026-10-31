@@ -28,8 +28,8 @@ Trước khi viết bất kỳ dòng mã tiền xử lý nào, kỹ sư nghiên 
 |---|---|---|---|---|---|---|
 | `user_id` | String/UUID | Identifier | Khóa định danh | 0% | Giữ lại làm Group ID | Rất cao nếu split ngẫu nhiên |
 | `transaction_time` | Timestamp | Temporal | Giờ UTC chuẩn | 0% | Khóa phân chia thời gian | Cần chặn mọi feature sau mốc này |
-| `age` | Integer | Numerical | $`[18, 100]`$ | $`< 2\%`$ | Impute median trong fold | Thấp |
-| `income` | Float | Numerical | $`\ge 0`$ (Lệch phải) | $`15\%`$ | Median + Thêm cờ `income_isna` | Thấp |
+| `age` | Integer | Numerical | $`[18, 100]`$ | < 2% | Impute median trong fold | Thấp |
+| `income` | Float | Numerical | $`\ge 0`$ (Lệch phải) | 15% | Median + Thêm cờ `income_isna` | Thấp |
 | `account_status` | String | Categorical | `{'active', 'locked'}` | 0% | One-Hot / Ordinal Encoding | Trung bình (cần kiểm thời điểm đổi status) |
 | `target_churn` | Binary | Target ($`y`$) | $`\{0, 1\}`$ | 0% | Xác nhận sau 30 ngày | **Cấm đưa vào ma trận $`X`$** |
 

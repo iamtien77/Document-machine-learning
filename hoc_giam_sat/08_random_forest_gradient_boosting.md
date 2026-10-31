@@ -6,7 +6,7 @@ Kết hợp nhiều cây để tăng chất lượng trên dữ liệu bảng. R
 
 ### Triết lý Học Tập Hợp (Ensemble Learning) & Định lý Bồi thẩm đoàn Condorcet
 
-Trong khoa học chính trị và thống kê toán học, **Định lý Bồi thẩm đoàn Condorcet (1785)** khẳng định: Nếu một nhóm thẩm phán cùng bỏ phiếu độc lập về một vụ án, và mỗi cá nhân có xác suất đưa ra quyết định đúng $`p > 0.5`$ (tốt hơn đoán mò ngẫu nhiên), thì khi số lượng thẩm phán tham gia hội đồng tiến ra vô cùng, xác suất quyết định chung của tập thể đúng sẽ tiệm cận tuyệt đối về $`100\%`$.
+Trong khoa học chính trị và thống kê toán học, **Định lý Bồi thẩm đoàn Condorcet (1785)** khẳng định: Nếu một nhóm thẩm phán cùng bỏ phiếu độc lập về một vụ án, và mỗi cá nhân có xác suất đưa ra quyết định đúng $`p > 0.5`$ (tốt hơn đoán mò ngẫu nhiên), thì khi số lượng thẩm phán tham gia hội đồng tiến ra vô cùng, xác suất quyết định chung của tập thể đúng sẽ tiệm cận tuyệt đối về 100%.
 
 Học Tập hợp (Ensemble Learning) đưa nguyên lý này vào khoa học máy tính: Thay vì tìm kiếm một "siêu mô hình" hoàn hảo duy nhất, ta huấn luyện một tập hợp các mô hình thành phần (Base Learners) rồi gộp kết quả lại. Hai nhánh phát triển rực rỡ nhất là:
 
@@ -75,7 +75,7 @@ $$
 
 * **Phân tích giới hạn tiệm cận:**
   Khi số lượng cây $`B \to \infty`$, số hạng $`\frac{1 - \rho}{B} \sigma^2 \to 0`$. Tuy nhiên, tổng phương sai **tiến về cận dưới cố định là $`\rho \sigma^2`$**!
-  * Nếu các cây giống nhau hoàn toàn ($`\rho = 1`$): Việc gộp $`1{,}000`$ cây cũng không làm giảm được dù chỉ $`1\%`$ phương sai!
+  * Nếu các cây giống nhau hoàn toàn ($`\rho = 1`$): Việc gộp $`1{,}000`$ cây cũng không làm giảm được dù chỉ 1% phương sai!
   * **Đột phá của Leo Breiman (2001):** Để đẩy phương sai xuống mức tối thiểu, **bắt buộc phải làm giảm hệ số tương quan $`\rho`$**. Breiman đưa ra kỹ thuật **Random Feature Subspace Selection**: Tại mỗi nút phân nhánh, chỉ cho phép thuật toán chọn từ một tập con ngẫu nhiên gồm $`m`$ đặc trưng:
 
 $$

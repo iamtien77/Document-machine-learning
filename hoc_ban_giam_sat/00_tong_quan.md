@@ -31,7 +31,7 @@ $$
 D_U = \lbrace x_{n_l + 1}, x_{n_l + 2}, \dots, x_{n_l + n_u} \rbrace \subset \mathcal{X}
 $$
 
-   * Đặc thù quy mô: Thông thường $`n_u \gg n_l`$ (ví dụ: $`n_l = 100`$ mẫu có nhãn, nhưng $`n_u = 50,000`$ mẫu chưa nhãn). Tỷ lệ nhãn $`\alpha = \frac{n_l}{n_l + n_u}`$ thường chỉ dao động từ $`0.1\%`$ đến $`5\%`$.
+   * Đặc thù quy mô: Thông thường $`n_u \gg n_l`$ (ví dụ: $`n_l = 100`$ mẫu có nhãn, nhưng $`n_u = 50,000`$ mẫu chưa nhãn). Tỷ lệ nhãn $`\alpha = \frac{n_l}{n_l + n_u}`$ thường chỉ dao động từ 0.1% đến 5%.
 3. **Yêu cầu phân phối I.I.D. đồng nhất:**
    * Cả $`D_L`$ và $`D_U`$ đều phải được lấy mẫu độc lập từ cùng một phân phối biên xác suất tiềm ẩn $`P(X)`$. Nếu phân phối của $`D_U`$ bị lệch nghiêm trọng so với $`D_L`$ (Covariate Shift / Domain Shift), dữ liệu chưa nhãn có thể gây phản tác dụng (Negative Transfer).
 

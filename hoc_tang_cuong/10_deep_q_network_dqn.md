@@ -76,7 +76,7 @@ $$
 
 DQN duy trì đồng thời hai mạng nơ-ron có kiến trúc giống hệt nhau:
 1. **Online Q-Network (Trọng số $`\theta`$):** Được cập nhật liên tục qua từng bước huấn luyện bằng thuật toán Gradient Descent.
-2. **Target Q-Network (Trọng số $`\theta^-`$):** Trọng số được đóng băng và chỉ sao chép từ mạng chính sau mỗi $`C`$ bước thời gian: $`\theta^- \leftarrow \theta`$.
+2. **Target Q-Network (Trọng số $`\theta^{-}`$):** Trọng số được đóng băng và chỉ sao chép từ mạng chính sau mỗi $`C`$ bước thời gian: $`\theta^{-} \leftarrow \theta`$.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -91,8 +91,8 @@ DQN duy trì đồng thời hai mạng nơ-ron có kiến trúc giống hệt nh
 │                                │                                            │
 │         ┌──────────────────────┴──────────────────────┐                     │
 │         ▼                                             ▼                     │
-│   [ONLINE NETWORK Q_θ]                      [TARGET NETWORK Q_θ^-]          │
-│  Tính Q_θ(s_i, a_i)                         Tính max_{a'} Q_θ^-(s'_i, a')   │
+│   [ONLINE NETWORK Q_θ]                      [TARGET NETWORK Q_θ^{-}]          │
+│  Tính Q_θ(s_i, a_i)                         Tính max_{a'} Q_θ^{-}(s'_i, a')   │
 │         │                                             │                     │
 │         ▼                                             ▼                     │
 │    Ước lượng                                    Mục tiêu Target y_i         │
@@ -104,7 +104,7 @@ DQN duy trì đồng thời hai mạng nơ-ron có kiến trúc giống hệt nh
 │                                ▼                                            │
 │                  Lan truyền ngược cập nhật θ                                │
 │                                │                                            │
-│                  Mỗi C bước: θ^- ← θ (Đồng bộ)                              │
+│                  Mỗi C bước: θ^{-} ← θ (Đồng bộ)                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -124,13 +124,13 @@ y = r + \gamma \max_{a'} Q_\theta(s', a')
 $$
 
   Cả mục tiêu $`y`$ và giá trị dự đoán $`Q_\theta(s, a)`$ đều phụ thuộc vào cùng một bộ trọng số $`\theta`$. Mỗi khi cập nhật $`\theta`$ để tiến gần tới $`y`$, thì chính $`y`$ cũng bị dịch chuyển sang vị trí khác (giống như con lừa đuổi theo củ cà rốt treo trước mũi).
-- **Giải pháp của DQN:** Cố định mục tiêu bằng mạng $`\theta^-`$:
+- **Giải pháp của DQN:** Cố định mục tiêu bằng mạng $`\theta^{-}`$:
 
 $$
-y_i = r_i + (1 - d_i) \cdot \gamma \max_{a' \in \mathcal{A}} Q_{\theta^-}(s'_i, a')
+y_i = r_i + (1 - d_i) \cdot \gamma \max_{a' \in \mathcal{A}} Q_{\theta^{-}}(s'_i, a')
 $$
 
-  Vì $`\theta^-`$ không thay đổi trong suốt $`C`$ bước, mục tiêu $`y_i`$ là một giá trị tĩnh ổn định, cho phép thuật toán quy hoạch hồi quy hội tụ chuẩn xác.
+  Vì $`\theta^{-}`$ không thay đổi trong suốt $`C`$ bước, mục tiêu $`y_i`$ là một giá trị tĩnh ổn định, cho phép thuật toán quy hoạch hồi quy hội tụ chuẩn xác.
 
 ---
 

@@ -4,7 +4,7 @@
 
 Trong các hệ thống học máy thực tế, dữ liệu thu thập được thường xuyên bị xâm nhập bởi các quan sát dị biệt, sai lệch nghiêm trọng so với phần lớn quần thể dữ liệu thông thường. Những quan sát này được gọi là **Điểm bất thường (Anomalies)** hoặc **Điểm ngoại lai (Outliers)**. Chúng có thể là kết quả của lỗi đo lường cảm biến, lỗi nhập liệu, hoặc phản ánh các sự kiện có giá trị kinh doanh đặc biệt cao (như giao dịch gian lận tài chính, tấn công xâm nhập mạng máy tính, hoặc dấu hiệu suy thoái sức khỏe bất ngờ của bệnh nhân).
 
-Vì các sự kiện bất thường diễn ra rất hiếm (thường chiếm dưới $`1\%`$) và liên tục biến đổi hình thái mới, việc thu thập nhãn để huấn luyện mô hình phân loại có giám sát là bất khả thi. **Phát hiện Bất thường Không giám sát (Unsupervised Anomaly Detection)** giải quyết bài toán này bằng cách học cấu trúc chuẩn tắc của dữ liệu bình thường mà không cần nhãn, từ đó tính toán điểm số bất thường (Anomaly Score) cho từng quan sát.
+Vì các sự kiện bất thường diễn ra rất hiếm (thường chiếm dưới 1%) và liên tục biến đổi hình thái mới, việc thu thập nhãn để huấn luyện mô hình phân loại có giám sát là bất khả thi. **Phát hiện Bất thường Không giám sát (Unsupervised Anomaly Detection)** giải quyết bài toán này bằng cách học cấu trúc chuẩn tắc của dữ liệu bình thường mà không cần nhãn, từ đó tính toán điểm số bất thường (Anomaly Score) cho từng quan sát.
 
 Bốn thuật toán nền tảng tiêu biểu nhất trong lĩnh vực này bao gồm:
 1. **Isolation Forest (iForest):** Cô lập điểm dị biệt bằng cách cắt ngẫu nhiên cây nhị phân; điểm bất thường có đường đi từ gốc tới lá ngắn hơn đáng kể so với điểm bình thường.
@@ -47,7 +47,7 @@ Kết quả đầu ra của mô hình phát hiện bất thường:
 Khi đánh giá mô hình phát hiện bất thường trong môi trường kiểm thử (nơi có một lượng nhỏ nhãn kiểm tra đối chứng):
 
 1. **Đường cong ROC-AUC và Precision-Recall AUC (PR-AUC):**
-   * Vì bài toán có độ mất cân bằng lớp cực đoan (ngoại lai chỉ chiếm $`< 1\%`$), chỉ số Accuracy hoàn toàn vô nghĩa. **PR-AUC (Average Precision)** là thước đo quan trọng nhất phản ánh khả năng bắt trúng các ca dị biệt mà không gây báo động nhầm diện rộng.
+   * Vì bài toán có độ mất cân bằng lớp cực đoan (ngoại lai chỉ chiếm < 1%), chỉ số Accuracy hoàn toàn vô nghĩa. **PR-AUC (Average Precision)** là thước đo quan trọng nhất phản ánh khả năng bắt trúng các ca dị biệt mà không gây báo động nhầm diện rộng.
 2. **Precision tại Ngưỡng Top-K (Precision@K):**
    * Đo lường độ chính xác trong số $`K`$ trường hợp có điểm số bất thường cao nhất được gửi tới đội ngũ chuyên viên điều tra.
 3. **Tỷ lệ Báo động Nhầm (False Positive Rate - FPR):**

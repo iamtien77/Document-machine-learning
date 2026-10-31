@@ -52,7 +52,7 @@ Artifact suy luận (`preprocessing + model + threshold/calibration`), báo cáo
    * *Ví dụ:* Cùng một căn hộ $`80\,\text{m}^2`$ tại một quận, trước đại dịch có giá 3 tỷ, sau đại dịch do lạm phát giá nhảy vọt lên 5 tỷ. Hoặc kẻ lừa đảo thay đổi thủ đoạn rửa tiền để qua mặt các quy tắc cũ.
 3. **Prior Probability Shift (Dịch chuyển Tiền nghiệm nhãn):**
    * *Định nghĩa toán học:* Tỷ lệ xuất hiện của các lớp mục tiêu $`P(Y)`$ thay đổi theo thời gian.
-   * *Ví dụ:* Tỷ lệ mắc một bệnh truyền nhiễm tăng vọt từ $`0.1\%`$ lên $`15\%`$ khi có đợt bùng phát dịch mới.
+   * *Ví dụ:* Tỷ lệ mắc một bệnh truyền nhiễm tăng vọt từ 0.1% lên 15% khi có đợt bùng phát dịch mới.
 
 ### Các Thước đo Thống kê Giám sát Drift Tự động
 
@@ -101,8 +101,8 @@ Không bao giờ thay thế đột ngột một mô hình đang phục vụ ngư
    * Mọi request thực tế được gửi đến cả hai mô hình, nhưng **chỉ có dự đoán của $`M_{\text{current}}`$ được trả về cho người dùng**.
    * Dự đoán của $`M_{\text{new}}`$ được ghi vào log để đo lường độ trễ (latency), mức độ tiêu tốn tài nguyên và tính ổn định trong điều kiện tải thực tế.
 2. **Triển khai Chim hoàng yến (Canary Deployment):**
-   * Điều hướng một tỷ lệ lưu lượng nhỏ ($`1\% \to 5\%`$) sang mô hình mới.
-   * Giám sát chặt chẽ tỷ lệ lỗi và phản hồi của người dùng. Nếu các chỉ số ổn định, tăng dần tỷ lệ lên $`25\% \to 50\% \to 100\%`$.
+   * Điều hướng một tỷ lệ lưu lượng nhỏ (1% $\to$ 5%) sang mô hình mới.
+   * Giám sát chặt chẽ tỷ lệ lỗi và phản hồi của người dùng. Nếu các chỉ số ổn định, tăng dần tỷ lệ lên 25% $\to$ 50% $\to$ 100%.
    * Nếu có sự cố, cơ chế **Rollback tự động** sẽ lập tức điều hướng toàn bộ traffic trở về phiên bản an toàn trước đó trong vòng vài giây.
 3. **Thử nghiệm A/B Trực tuyến (Online A/B Testing):**
    * Phân chia người dùng ngẫu nhiên thành hai nhánh độc lập để so sánh chỉ số kinh doanh cốt lõi (Conversion Rate, Doanh thu, Click-Through Rate) giữa mô hình mới và mô hình cũ.

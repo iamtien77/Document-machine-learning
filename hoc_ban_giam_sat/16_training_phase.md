@@ -62,13 +62,13 @@ $$
    Tỷ lệ phần trăm các mẫu không nhãn vượt qua ngưỡng cắt tự tin $`\tau`$:
 
 $$
-\mathcal{U}_t = \frac{1}{B_U} \sum_{b=1}^{B_U} \mathbb{I}\left(\max_{c} q_{b, c}^{(t)} \ge \tau\right) \times 100\%
+\mathcal{U}_t = \frac{1}{B_U} \sum_{b=1}^{B_U} \mathbb{I}\left(\max_{c} q_{b, c}^{(t)} \ge \tau\right) \times 100
 $$
 
    Quỹ đạo lý tưởng: Tăng dần từ $0\% \to 5\%$ trong giai đoạn warm-up lên $70\% \to 90\%$ khi mô hình hội tụ.
 
 3. **Tỷ lệ phân bổ lớp của giả nhãn (Class Distribution Balance):**
-   Đo lường độ lệch chuẩn của số lượng giả nhãn gán cho từng lớp. Nếu một lớp chiếm $`> 60\%`$ tổng số giả nhãn trong khi dữ liệu gốc cân bằng, hệ thống sẽ cảnh báo nguy cơ sụp đổ phân phối.
+   Đo lường độ lệch chuẩn của số lượng giả nhãn gán cho từng lớp. Nếu một lớp chiếm > 60% tổng số giả nhãn trong khi dữ liệu gốc cân bằng, hệ thống sẽ cảnh báo nguy cơ sụp đổ phân phối.
 
 ---
 

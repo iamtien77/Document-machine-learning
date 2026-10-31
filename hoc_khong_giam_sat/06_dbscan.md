@@ -8,7 +8,7 @@ Phát hiện các cụm dữ liệu có **hình dạng hình học bất kỳ** 
 * K-Means sẽ chia bản đồ thành các hình tròn cố định, vô tình cắt đôi một tuyến đường cao tốc uốn lượn dài 20 km và ép các phương tiện chạy rải rác ở ngoại ô vào các cụm nội đô.
 * DBSCAN tự động "lan truyền" dọc theo tuyến đường có mật độ xe đông đúc để nhận diện nguyên vẹn toàn bộ cung đường kẹt xe có hình dạng bất kỳ, đồng thời tự động đánh dấu các xe đơn lẻ ở vùng ngoại vi là **Nhiễu (Noise)**.
 
-Ký hiệu: tập dữ liệu $`X = \lbrace x_1, \dots, x_n \rbrace \subset \mathbb{R}^p`$. Hai siêu tham số hình học là bán kính lân cận $`\varepsilon > 0`$ và số láng giềng tối thiểu $`\text{MinPts} \in \mathbb{N}^+`$. Mô hình tìm phân hoạch các cụm mật độ và tập hợp các điểm nhiễu $`\text{Noise} \subset X`$. [1]
+Ký hiệu: tập dữ liệu $`X = \lbrace x_1, \dots, x_n \rbrace \subset \mathbb{R}^p`$. Hai siêu tham số hình học là bán kính lân cận $`\varepsilon > 0`$ và số láng giềng tối thiểu $`\text{MinPts} \in \mathbb{N}^{+}`$. Mô hình tìm phân hoạch các cụm mật độ và tập hợp các điểm nhiễu $`\text{Noise} \subset X`$. [1]
 
 **Cách đọc lần đầu:** nắm ví dụ trên rồi đi tiếp qua các mục Input → Output → Evaluation metrics → How it works. Phần kỹ thuật đồ thị K-Distance bên dưới giải thích cách chọn siêu tham số; có thể quay lại sau khi hiểu quy tắc phân loại 3 loại điểm.
 
@@ -41,8 +41,8 @@ Khác với K-Means (vốn chia không gian bằng các siêu phẳng tuyến t�
 ## Input
 
 - Ma trận đặc trưng số $`X \in \mathbb{R}^{n \times p}`$ đã được chuẩn hóa qua `StandardScaler` hoặc `RobustScaler`.
-- Bán kính vùng lân cận `eps` ($`\varepsilon \in \mathbb{R}^+`$): Khoảng cách tối đa để hai điểm được coi là láng giềng của nhau.
-- Số lượng mẫu tối thiểu `min_samples` ($`\text{MinPts} \in \mathbb{N}^+`$): Số lượng điểm tối thiểu bắt buộc phải có trong vùng bán kính $`\varepsilon`$ để hình thành một vùng đậm đặc.
+- Bán kính vùng lân cận `eps` ($`\varepsilon \in \mathbb{R}^{+}`$): Khoảng cách tối đa để hai điểm được coi là láng giềng của nhau.
+- Số lượng mẫu tối thiểu `min_samples` ($`\text{MinPts} \in \mathbb{N}^{+}`$): Số lượng điểm tối thiểu bắt buộc phải có trong vùng bán kính $`\varepsilon`$ để hình thành một vùng đậm đặc.
 - Hàm khoảng cách `metric`: Mặc định là `euclidean`, có thể tùy biến thành `manhattan`, `cosine` hoặc `haversine` (cho tọa độ kinh độ/vĩ độ GPS).
 
 ### Tác động của Hai Siêu tham số $`\varepsilon`$ và $`\text{MinPts}`$

@@ -20,7 +20,7 @@ Dữ liệu đầu vào và các tham số cấu hình cho GMM:
    * $`X = [x_1, x_2, \dots, x_n]^\top \in \mathbb{R}^{n \times p}`$: Tập gồm $`n`$ mẫu quan sát độc lập, mỗi mẫu có $`p`$ chiều đặc trưng số liên tục.
    * **Yêu cầu tiền xử lý:** Bắt buộc chuẩn hóa tỷ lệ (StandardScaler: đưa về trung bình 0 và độ lệch chuẩn 1). Nếu các chiều có đơn vị đo chênh lệch lớn, ma trận hiệp phương sai có thể bị chi phối bởi các biến có thang đo lớn, dẫn đến lỗi suy biến ma trận (Singular Matrix).
 2. **Số lượng thành phần Gauss ($`K`$):**
-   * Số lượng cụm cần tìm trong dữ liệu ($`K \in \mathbb{N}^+`$). Nếu chưa biết trước $`K`$, giá trị này được lựa chọn thông qua các tiêu chuẩn thông tin thống kê như BIC hoặc AIC.
+   * Số lượng cụm cần tìm trong dữ liệu ($`K \in \mathbb{N}^{+}`$). Nếu chưa biết trước $`K`$, giá trị này được lựa chọn thông qua các tiêu chuẩn thông tin thống kê như BIC hoặc AIC.
 3. **Cấu hình dạng Ma trận Hiệp phương sai (`covariance_type`):**
    * `'full'`: Mỗi cụm có một ma trận hiệp phương sai tổng quát đối xứng xác định dương $`\Sigma_k`$ riêng ($`p(p+1)/2`$ tham số tự do cho mỗi cụm). Cho phép các cụm có hình dạng ellipsoid định hướng tùy ý.
    * `'tied'`: Tất cả các cụm dùng chung một ma trận hiệp phương sai $`\Sigma`$. Các cụm có cùng kích thước và hướng xoay elip nhưng khác tâm.
@@ -262,7 +262,7 @@ Mô hình Hỗn hợp Gauss phù hợp nhất với các tập dữ liệu có t
 2. **Dữ liệu phân cụm có hình dạng elip định hướng:**
    * Dữ liệu y sinh, dữ liệu cảm biến nơi hai chỉ số có sự tương quan tuyến tính tự nhiên (ví dụ: chiều cao và cân nặng; huyết áp tâm thu và huyết áp tâm trương). K-Means sẽ chia cắt vô lý cụm elip này, trong khi GMM bắt trọn cấu trúc phân phối.
 3. **Bài toán Phát hiện Điểm Bất thường (Anomaly Detection):**
-   * Sau khi huấn luyện GMM trên tập dữ liệu bình thường, mật độ xác suất $`p(x)`$ đóng vai trò là điểm số chuẩn hóa. Bất kỳ mẫu mới $`x_{\text{test}}`$ nào có $`p(x_{\text{test}}) < \tau`$ (dưới ngưỡng phân vị $`1\%`$ hoặc $`5\%`$) đều được cảnh báo là ngoại lai bất thường.
+   * Sau khi huấn luyện GMM trên tập dữ liệu bình thường, mật độ xác suất $`p(x)`$ đóng vai trò là điểm số chuẩn hóa. Bất kỳ mẫu mới $`x_{\text{test}}`$ nào có $`p(x_{\text{test}}) < \tau`$ (dưới ngưỡng phân vị 1% hoặc 5%) đều được cảnh báo là ngoại lai bất thường.
 
 ---
 

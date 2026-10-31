@@ -55,7 +55,7 @@ $$
 \text{Utilization}(t) = \frac{1}{|D_U|} \sum_{u_j \in D_U} \mathbb{I}\left( \max_{c} P(y=c \mid u_j) \ge \tau \right)
 $$
 
-   * Nếu chỉ số này tăng từ $`5\%`$ ở epoch đầu lên $`80\%`$ ở các epoch cuối, chứng tỏ mô hình đang tự tin lan truyền nhãn thành công.
+   * Nếu chỉ số này tăng từ 5% ở epoch đầu lên 80% ở các epoch cuối, chứng tỏ mô hình đang tự tin lan truyền nhãn thành công.
 2. **Hàm Mất mát Kết hợp Tổng thể ($`\mathcal{L}_{\text{total}}`$):**
    * Giá trị hàm mất mát tổng hợp phải giảm đơn điệu và hội tụ ổn định.
 3. **Độ chính xác trên Tập Validation Giữ Riêng (Validation Accuracy):**

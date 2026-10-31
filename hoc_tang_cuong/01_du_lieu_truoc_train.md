@@ -54,11 +54,11 @@ Chỉ số thẩm định chất lượng thiết kế môi trường trước k
    Tỷ lệ phần trăm các bước chuyển trạng thái có phần thưởng khác không:
 
 $$
-\text{Density} = \frac{1}{T} \sum_{t=1}^T \mathbb{I}(r_t \neq 0) \times 100\%
+\text{Density} = \frac{1}{T} \sum_{t=1}^T \mathbb{I}(r_t \neq 0) \times 100
 $$
 
-   - Sparse Reward: Mật độ $`< 1\%`$ (rất khó học nếu không có kỹ thuật hỗ trợ).
-   - Dense Reward: Mật độ $`> 80\%`$ (Agent nhận phản hồi liên tục).
+   - Sparse Reward: Mật độ < 1% (rất khó học nếu không có kỹ thuật hỗ trợ).
+   - Dense Reward: Mật độ > 80% (Agent nhận phản hồi liên tục).
 
 2. **Tương quan giữa Phần thưởng tích lũy và Tiến độ thực tế (Alignment Correlation):**
    Hệ số tương quan Pearson giữa tổng điểm thưởng $`G`$ và thước đo hoàn thành nghiệp vụ độc lập $`M_{\mathrm{real}}`$. Phải đạt $`\rho \ge 0.85`$.

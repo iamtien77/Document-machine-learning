@@ -215,7 +215,7 @@ Siêu phẳng tối ưu buộc phải thỏa mãn:
 ## 9. Tổng Kết và Khuyến Nghị Thực Hành Xuyên Suốt
 
 1. **Hiểu rõ giả định dữ liệu:** Học bán giám sát chỉ phát huy tác dụng khi dữ liệu tuân thủ Giả định Cụm (Cluster), Giả định Đa tạp (Manifold) hoặc Giả định Trơn (Smoothness). Nếu dữ liệu phân bố ngẫu nhiên không có cấu trúc cụm, SSL không thể cải thiện hiệu năng so với học có giám sát.
-2. **Khởi đầu từ Baseline đơn giản:** Luôn xây dựng mô hình có giám sát làm mốc so sánh chuẩn trước khi áp dụng SSL. Chỉ đưa SSL vào sử dụng khi chỉ số đánh giá vượt trội rõ rệt ($`\Delta_{\mathrm{SSL}} \ge 2\%`$).
+2. **Khởi đầu từ Baseline đơn giản:** Luôn xây dựng mô hình có giám sát làm mốc so sánh chuẩn trước khi áp dụng SSL. Chỉ đưa SSL vào sử dụng khi chỉ số đánh giá vượt trội rõ rệt ($`\Delta_{\mathrm{SSL}} \ge 2`$%).
 3. **Ưu tiên thuật toán phù hợp dạng dữ liệu:**
    - Dữ liệu dạng bảng: Dùng **Self-Training** kết hợp LightGBM hoặc **Tri-Training**.
    - Dữ liệu đồ thị/mạng lưới: Dùng **Label Spreading** với hệ số kẹp nhãn $`\alpha = 0.2`$.

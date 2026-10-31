@@ -32,7 +32,7 @@ $$
 ## Input
 
 - Ma trận đặc trưng số $`X \in \mathbb{R}^{n \times p}`$ hoặc **Ma trận độ không tương đồng (Dissimilarity / Distance Matrix)** $`D \in \mathbb{R}^{n \times n}`$, trong đó $`D_{ij} = D(x_i, x_j)`$.
-- Số lượng cụm mong muốn $`K \in \mathbb{N}^+`$ ($`1 < K \ll n`$).
+- Số lượng cụm mong muốn $`K \in \mathbb{N}^{+}`$ ($`1 < K \ll n`$).
 - Hàm khoảng cách tùy chọn: `metric='manhattan'`, `metric='cosine'`, `metric='euclidean'` hoặc ma trận khoảng cách tùy biến (như khoảng cách Gower cho dữ liệu hỗn hợp).
 - Phương pháp thuật toán: `pam` (chính xác), `alternate` (nhanh tương tự Lloyd), hoặc `clara` cho tập dữ liệu lớn.
 

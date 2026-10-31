@@ -28,7 +28,7 @@ $$
 ## Input
 
 - Ma trận đặc trưng số $`X \in \mathbb{R}^{n \times p}`$ đã được chuẩn hóa thang đo qua `StandardScaler` hoặc `RobustScaler`.
-- Số lượng cụm mong muốn $`K \in \mathbb{N}^+`$ ($`1 < K \ll n`$).
+- Số lượng cụm mong muốn $`K \in \mathbb{N}^{+}`$ ($`1 < K \ll n`$).
 - Số lần khởi tạo độc lập `n_init` (mặc định là 10 trong Scikit-learn).
 - Ngưỡng dung sai dừng hội tụ `tol` (thường là $`10^{-4}`$) và số vòng lặp tối đa `max_iter` (thường là 300).
 

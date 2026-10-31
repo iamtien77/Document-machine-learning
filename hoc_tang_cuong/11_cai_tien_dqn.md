@@ -76,17 +76,17 @@ $$
 Trong Vanilla DQN, mục tiêu TD được tính bằng:
 
 $$
-Y_t^{\mathrm{DQN}} = R_{t+1} + \gamma \max_{a} Q\left( S_{t+1}, a; \theta_t^- \right) = R_{t+1} + \gamma Q\left( S_{t+1}, \arg\max_a Q(S_{t+1}, a; \theta_t^-); \theta_t^- \right)
+Y_t^{\mathrm{DQN}} = R_{t+1} + \gamma \max_{a} Q\left( S_{t+1}, a; \theta_t^{-} \right) = R_{t+1} + \gamma Q\left( S_{t+1}, \arg\max_a Q(S_{t+1}, a; \theta_t^{-}); \theta_t^{-} \right)
 $$
 
 Toán tử $`\max`$ áp dụng trên các giá trị ước lượng nhiễu dẫn đến bất đẳng thức Jensen: $`\mathbb{E}[\max(X_1, X_2)] \ge \max(\mathbb{E}[X_1], \mathbb{E}[X_2])`$. Do đó, Vanilla DQN liên tục phóng đại giá trị kỳ vọng của các hành động phụ phụ thuộc vào biến động ngẫu nhiên.
 
 Double DQN giải quyết triệt để vấn đề này bằng cơ chế phân rã quyết định:
 - Dùng **mạng chính** ($`\theta_t`$) để **chọn hành động tốt nhất**: $`a^{\ast} = \arg\max_a Q(S_{t+1}, a; \theta_t)`$.
-- Dùng **mạng mục tiêu** ($`\theta_t^-`$) để **đo lường giá trị của hành động đó**: $`Q(S_{t+1}, a^{\ast}; \theta_t^-)`$.
+- Dùng **mạng mục tiêu** ($`\theta_t^{-}`$) để **đo lường giá trị của hành động đó**: $`Q(S_{t+1}, a^{\ast}; \theta_t^{-})`$.
 
 $$
-Y_t^{\mathrm{DoubleQ}} = R_{t+1} + \gamma Q\left( S_{t+1}, \arg\max_{a} Q(S_{t+1}, a; \theta_t); \theta_t^- \right)
+Y_t^{\mathrm{DoubleQ}} = R_{t+1} + \gamma Q\left( S_{t+1}, \arg\max_{a} Q(S_{t+1}, a; \theta_t); \theta_t^{-} \right)
 $$
 
 ```

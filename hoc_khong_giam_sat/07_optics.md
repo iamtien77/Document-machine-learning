@@ -10,7 +10,7 @@ Giải quyết bài toán gom cụm mật độ khi tập dữ liệu chứa **c
 * DBSCAN thất bại vì nếu chọn $`\varepsilon`$ theo khu vực nông thôn thì cả thành phố bị gộp thành một khối dính chùm; nếu chọn theo thành phố thì cả vùng nông thôn bị xóa sổ thành Nhiễu (Noise).
 * OPTICS nhận diện hoàn hảo cả hai cấu trúc nhờ biểu đồ mật độ khả đạt đa tầng.
 
-Ký hiệu: tập dữ liệu $`X = \lbrace x_1, \dots, x_n \rbrace`$, số láng giềng tối thiểu $`\text{MinPts} \in \mathbb{N}^+`$ và bán kính tối đa $`\varepsilon_{\max}`$. Mô hình xuất ra mảng thứ tự sắp xếp các điểm $`\text{ordering}`$ và mảng khoảng cách khả đạt tương ứng $`\text{reachability}`$. [1]
+Ký hiệu: tập dữ liệu $`X = \lbrace x_1, \dots, x_n \rbrace`$, số láng giềng tối thiểu $`\text{MinPts} \in \mathbb{N}^{+}`$ và bán kính tối đa $`\varepsilon_{\max}`$. Mô hình xuất ra mảng thứ tự sắp xếp các điểm $`\text{ordering}`$ và mảng khoảng cách khả đạt tương ứng $`\text{reachability}`$. [1]
 
 **Cách đọc lần đầu:** nắm ví dụ trên rồi đi tiếp qua các mục Input → Output → Evaluation metrics → How it works. Phần toán học về khoảng cách lõi và khoảng cách khả đạt bên dưới giải thích cơ sở giải thuật; có thể quay lại sau khi hiểu cách đọc biểu đồ Reachability Plot.
 
@@ -41,7 +41,7 @@ Reachability
 ## Input
 
 - Ma trận đặc trưng số $`X \in \mathbb{R}^{n \times p}`$ đã được chuẩn hóa thang đo.
-- `min_samples` ($`\text{MinPts} \in \mathbb{N}^+`$): Số mẫu tối thiểu để xác định một vùng đậm đặc (mặc định là 5).
+- `min_samples` ($`\text{MinPts} \in \mathbb{N}^{+}`$): Số mẫu tối thiểu để xác định một vùng đậm đặc (mặc định là 5).
 - `max_eps` ($`\varepsilon_{\max}`$): Bán kính tối đa để tìm kiếm láng giềng (mặc định là $`\infty`$ để quét toàn bộ không gian; có thể đặt một giá trị hữu hạn để giảm chi phí tính toán).
 - `cluster_method`: Phương pháp trích xuất cụm từ biểu đồ khả đạt:
   * `'xi'` ($\xi$ - trích xuất dựa trên độ dốc thung lũng, tự động tìm cụm phân cấp).

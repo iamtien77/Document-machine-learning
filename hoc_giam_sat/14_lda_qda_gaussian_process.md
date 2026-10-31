@@ -99,7 +99,7 @@ $$
 
 Với prior mean bằng 0 và nhiễu Gaussian có phương sai $`\sigma _n^{2}`$, đặt $`K = [k(x_i,x_j)] + \sigma _n^{2}I`$, $`k_{\ast}=[k(x_i,x_{\ast})]`$. Dự đoán giá trị hàm ẩn tại điểm mới có $`\mu _{\ast} = k_{\ast}^{\top}K^{-1}y`$ và $`v_{\ast} = k(x_{\ast},x_{\ast}) - k_{\ast}^{\top}K^{-1}k_{\ast}`$. Đây là công thức cho **latent function**; phương sai của quan sát mới còn cộng thành phần nhiễu nếu mô hình hóa observation noise. Trong tính toán số, giải hệ tuyến tính bằng phân rã ma trận thay vì lập nghịch đảo tường minh. [2]
 
-**Trực giác:** gần các điểm train theo kernel, $`k_{\ast}`$ lớn nên mean chịu ảnh hưởng mạnh từ nhãn train và variance thường nhỏ hơn prior. Xa vùng dữ liệu, mean quay về prior mean và variance có thể tăng. Mức tăng phụ thuộc kernel/length-scale và noise; một khoảng $`\mu_{\ast}\pm 1.96\sqrt{v_{\ast}`$ chỉ có cách hiểu xác suất dưới giả định posterior phù hợp, không tự bảo đảm coverage thực tế. [2]
+**Trực giác:** gần các điểm train theo kernel, $`k_{\ast}`$ lớn nên mean chịu ảnh hưởng mạnh từ nhãn train và variance thường nhỏ hơn prior. Xa vùng dữ liệu, mean quay về prior mean và variance có thể tăng. Mức tăng phụ thuộc kernel/length-scale và noise; một khoảng $`\mu_{\ast} \pm 1.96\sqrt{v_{\ast}}`$ chỉ có cách hiểu xác suất dưới giả định posterior phù hợp, không tự bảo đảm coverage thực tế. [2]
 
 **Fit/predict:** chọn kernel (ví dụ RBF hoặc Matérn) và mô hình nhiễu → fit tham số kernel qua log-marginal-likelihood hoặc giữ cố định → giải hệ kernel trên train → tính mean/variance cho điểm mới → kiểm MAE/RMSE và coverage trên dữ liệu giữ riêng. Tối ưu marginal likelihood có thể gặp nghiệm cục bộ; thử nhiều khởi tạo hoặc kiểm CV khi cần. [2]
 

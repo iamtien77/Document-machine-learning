@@ -91,7 +91,7 @@ $$
 
 ```text
        ROC CURVE (TPR vs FPR)                   PR CURVE (Precision vs Recall)
-   1.0 ^         .---'                      1.0 ^------.
+   1.0 ^         .---'                      1.0 ^{-}-----.
        |       .'                           |           \
  TPR   |     .'                       Prec  |            \
        |   .'                               |             `---.

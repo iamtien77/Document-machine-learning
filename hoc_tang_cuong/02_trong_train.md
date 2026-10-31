@@ -73,7 +73,7 @@ $$
 \text{Drop} = \frac{\bar{G}_{\mathrm{recent}} - \bar{G}_{\mathrm{peak}}}{\bar{G}_{\mathrm{peak}}}
 $$
 
-   Nếu $`\text{Drop} < -30\%`$, hệ thống kích hoạt cảnh báo bất ổn định.
+   Nếu $`\text{Drop} < -0.30`$, hệ thống kích hoạt cảnh báo bất ổn định.
 
 ---
 

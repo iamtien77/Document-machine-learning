@@ -9,7 +9,7 @@ Kết hợp nhiều mô hình yếu (thường là cây rất nông) thành clas
 ### Câu hỏi Mở Lịch sử của Kearns & Valiant (1988) & Đột phá AdaBoost
 
 Trong lý thuyết học máy tính toán (Computational Learning Theory), Leslie Valiant (1984) đã xây dựng khung lý thuyết **Học Khả năng Đúng Xấp xỉ (PAC Learning - Probably Approximately Correct)**. Trong khung lý thuyết này, Michael Kearns và Leslie Valiant (1988, 1989) đã đặt ra một câu hỏi mở có tính chất nền tảng làm trăn trở toàn bộ giới khoa học máy tính:
-> *"Liệu một lớp các thuật toán học yếu (Weak Learners — tức là các bộ phân loại chỉ cần đạt độ chính xác nhỉnh hơn đoán mò ngẫu nhiên $`50\% + \gamma`$) có thể được kết hợp để tạo ra một thuật toán học mạnh (Strong Learner — có khả năng đạt độ chính xác tùy ý $`1 - \varepsilon`$) hay không?"*
+> *"Liệu một lớp các thuật toán học yếu (Weak Learners — tức là các bộ phân loại chỉ cần đạt độ chính xác nhỉnh hơn đoán mò ngẫu nhiên $`0.5 + \gamma`$) có thể được kết hợp để tạo ra một thuật toán học mạnh (Strong Learner — có khả năng đạt độ chính xác tùy ý $`1 - \varepsilon`$) hay không?"*
 
 Năm 1990, Robert Schapire đưa ra lời giải đầu tiên, và đến năm 1995, Yoav Freund cùng Robert Schapire đã hoàn thiện giải thuật **AdaBoost (Adaptive Boosting)**. Công trình này đã chứng minh về mặt toán học rằng câu trả lời là **CÓ**. Với đóng góp lịch sử này, Freund và Schapire đã vinh dự nhận Giải thưởng Gödel danh giá vào năm 2003.
 

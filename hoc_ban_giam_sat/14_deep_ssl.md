@@ -78,7 +78,7 @@ Mô hình Deep SSL sau quá trình tối ưu cung cấp các kết quả đầu 
    Có khả năng dự đoán phân phối xác suất chuẩn xác $`p_\theta(y \mid x_{\mathrm{new}})`$ cho bất kỳ mẫu thử nghiệm mới nào ngoài phân phối huấn luyện mà không cần chạy lại thuật toán:
 
 $$
-\hat{y} = \arg\max_{c \in \lbrace 1, \dots, C \rbrace} f_{\theta^{\ast}(x_{\mathrm{new}})_c
+\hat{y} = \arg\max_{c \in \lbrace 1, \dots, C \rbrace} f_{\theta^{\ast}}(x_{\mathrm{new}})_c
 $$
 
 3. **Tập giả nhãn chất lượng cao cho toàn bộ tập dữ liệu không nhãn ban đầu:**
@@ -94,7 +94,7 @@ $$
    Chỉ số tiêu chuẩn trên các tập benchmark (CIFAR, SVHN, ImageNet):
 
 $$
-\mathrm{Error} = \frac{1}{N_{\mathrm{test}}} \sum_{k=1}^{N_{\mathrm{test}}} \mathbb{I}(\hat{y}_k \neq y_k^{\ast}) \times 100\%
+\mathrm{Error} = \frac{1}{N_{\mathrm{test}}} \sum_{k=1}^{N_{\mathrm{test}}} \mathbb{I}(\hat{y}_k \neq y_k^{\ast}) \times 100
 $$
 
 2. **Chỉ số F1-Score vĩ mô (Macro F1-Score):**

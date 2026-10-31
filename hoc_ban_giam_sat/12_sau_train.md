@@ -66,7 +66,7 @@ $$
 Nhãn xác suất của điểm mới được tính bằng trung bình có trọng số của các nhãn trạng thái dừng $`F_i^{\ast}`$:
 
 $$
-F(x_{\text{new}}) = \frac{\sum_{i=1}^n w_i(x_{\text{new}}) F_i^{\ast}{\sum_{i=1}^n w_i(x_{\text{new}})}
+F(x_{\text{new}}) = \frac{\sum_{i=1}^n w_i(x_{\text{new}}) F_i^{\ast}}{\sum_{i=1}^n w_i(x_{\text{new}})}
 $$
 
 $$

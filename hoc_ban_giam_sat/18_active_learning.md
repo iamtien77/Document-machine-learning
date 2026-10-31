@@ -72,7 +72,7 @@ $$
    So sánh số lượng nhãn cần thiết của Active Learning so với lấy mẫu ngẫu nhiên truyền thống (Passive Random Sampling) để cùng chạm tới một ngưỡng hiệu năng $`\text{Acc}_0`$:
 
 $$
-\mathrm{LRR} = \left(1 - \frac{N_{\mathrm{AL}}}{N_{\mathrm{Random}}}\right) \times 100\%
+\mathrm{LRR} = \left(1 - \frac{N_{\mathrm{AL}}}{N_{\mathrm{Random}}}\right) \times 100
 $$
 
    Trong các bài toán thực tế, LRR thường đạt từ 50% đến 85%.

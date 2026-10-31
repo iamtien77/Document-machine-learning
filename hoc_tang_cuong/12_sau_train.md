@@ -44,10 +44,10 @@ Quy trình đánh giá và khai thác sau huấn luyện tiếp nhận các thà
 1. **Phần thưởng tích lũy trung bình và khoảng tin cậy (Mean Return with 95% Bootstrap CI):**
 
 $$
-\bar{G} = \frac{1}{K} \sum_{k=1}^K G^{(k)}, \quad \mathrm{CI}_{95\%} = \left[ q_{0.025}, q_{0.975} \right]
+\bar{G} = \frac{1}{K} \sum_{k=1}^K G^{(k)}, \quad \mathrm{CI}_{0.95} = \left[ q_{0.025}, q_{0.975} \right]
 $$
 
-2. **Giá trị rủi ro có điều kiện (Conditional Value at Risk - $`\mathrm{CVaR}_\alpha`$):** Đo lường kỳ vọng của $`\alpha \times 100\%`$ các quỹ đạo có kết quả tồi tệ nhất, thể hiện rủi ro sập đổ của hệ thống:
+2. **Giá trị rủi ro có điều kiện (Conditional Value at Risk - $`\mathrm{CVaR}_\alpha`$):** Đo lường kỳ vọng của $`\alpha \times 100`$% các quỹ đạo có kết quả tồi tệ nhất, thể hiện rủi ro sập đổ của hệ thống:
 
 $$
 \mathrm{CVaR}_\alpha(G) = \mathbb{E}\left[ G \mid G \le \mathrm{VaR}_\alpha(G) \right]
