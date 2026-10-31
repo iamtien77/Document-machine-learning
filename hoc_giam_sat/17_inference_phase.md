@@ -31,7 +31,7 @@ Trong lý thuyết quyết định Bayes (Bayesian Decision Theory), quá trình
    * Được chuyển đổi qua hàm kích hoạt (như Sigmoid / Softmax) và đã vượt qua bài kiểm tra độ tin cậy thống kê (Reliability Diagram).
    * *Ý nghĩa:* Khi mô hình dự đoán $\hat{p} = 0.8$ cho $100$ bệnh nhân, thực tế phải có đúng xấp xỉ $80$ bệnh nhân mang bệnh.
 3. **Tầng 3: Quyết định nhị phân / Hành động thực tế ($\hat{y} \in \{0, 1\}$):**
-   * Áp dụng ngưỡng cắt tối ưu $\tau^*$ đã được tính toán từ ma trận chi phí ở giai đoạn đánh giá:
+   * Áp dụng ngưỡng cắt tối ưu $`\tau^*`$ đã được tính toán từ ma trận chi phí ở giai đoạn đánh giá:
 
      $$\hat{y} = \begin{cases} 1 & \text{nếu } \hat{p} \ge \tau^* \\ 0 & \text{nếu } \hat{p} < \tau^* \end{cases}$$
 

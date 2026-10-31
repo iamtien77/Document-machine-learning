@@ -45,10 +45,10 @@ Artifact suy luận (`preprocessing + model + threshold/calibration`), báo cáo
 ```
 
 1. **Covariate Shift (Dịch chuyển Biến đồng thuận):**
-   * *Định nghĩa toán học:* Phân phối xác suất của các đặc trưng đầu vào thay đổi $P_{\text{train}}(X) \neq P_{\text{prod}}(X)$, nhưng quy luật điều kiện sinh nhãn giữ nguyên $P(Y \mid X = x)$.
+   * *Định nghĩa toán học:* Phân phối xác suất của các đặc trưng đầu vào thay đổi $`P_{\text{train}}(X) \neq P_{\text{prod}}(X)`$, nhưng quy luật điều kiện sinh nhãn giữ nguyên $P(Y \mid X = x)$.
    * *Ví dụ:* Một mô hình chấm điểm tín dụng được train chủ yếu trên người trẻ tuổi ($20-30$ tuổi), nhưng khi ngân hàng chạy chiến dịch quảng cáo mới, khách hàng nộp hồ sơ chủ yếu là người trung niên ($40-60$ tuổi).
 2. **Concept Drift (Trôi dạt Khái niệm):**
-   * *Định nghĩa toán học:* Bản chất mối quan hệ ánh xạ giữa đầu vào và nhãn mục tiêu bị thay đổi $P_{\text{train}}(Y \mid X) \neq P_{\text{prod}}(Y \mid X)$, ngay cả khi phân phối đầu vào $P(X)$ hoàn toàn không đổi.
+   * *Định nghĩa toán học:* Bản chất mối quan hệ ánh xạ giữa đầu vào và nhãn mục tiêu bị thay đổi $`P_{\text{train}}(Y \mid X) \neq P_{\text{prod}}(Y \mid X)`$, ngay cả khi phân phối đầu vào $P(X)$ hoàn toàn không đổi.
    * *Ví dụ:* Cùng một căn hộ $80\,\text{m}^2$ tại một quận, trước đại dịch có giá 3 tỷ, sau đại dịch do lạm phát giá nhảy vọt lên 5 tỷ. Hoặc kẻ lừa đảo thay đổi thủ đoạn rửa tiền để qua mặt các quy tắc cũ.
 3. **Prior Probability Shift (Dịch chuyển Tiền nghiệm nhãn):**
    * *Định nghĩa toán học:* Tỷ lệ xuất hiện của các lớp mục tiêu $P(Y)$ thay đổi theo thời gian.
@@ -84,7 +84,7 @@ Khi mô hình chạy trên production, nhãn thực tế $y$ thường bị tr�
 4. Triển khai có kiểm soát; theo dõi dữ liệu vào, đầu ra, latency, chất lượng khi nhãn thật có sẵn. So sánh với baseline hoặc mô hình đang chạy.
 5. Khi cảnh báo, điều tra nguồn thay đổi; thu thập nhãn mới, đánh giá lại trên dữ liệu gần đây, rồi quyết định retrain và kiểm thử phiên bản mới.
 
-**Ví dụ chọn threshold:** trên tập threshold riêng, với mỗi ngưỡng ứng viên `t`, dự đoán dương khi $p\ge t$, tính `TP/FP/FN/TN` và chi phí $c_{FN}\times FN+c_{FP}\times FP$. Chọn `t` có chi phí thấp nhất trong các ngưỡng thỏa ràng buộc công suất xử lý; khóa `t` rồi chỉ báo cáo test. Nếu xác suất chưa calibration, không diễn giải $p=0.8$ thành “80% chắc chắn” trước khi kiểm tra calibration. [3][4]
+**Ví dụ chọn threshold:** trên tập threshold riêng, với mỗi ngưỡng ứng viên `t`, dự đoán dương khi $p\ge t$, tính `TP/FP/FN/TN` và chi phí $`c_{FN}\times FN+c_{FP}\times FP`$. Chọn `t` có chi phí thấp nhất trong các ngưỡng thỏa ràng buộc công suất xử lý; khóa `t` rồi chỉ báo cáo test. Nếu xác suất chưa calibration, không diễn giải $p=0.8$ thành “80% chắc chắn” trước khi kiểm tra calibration. [3][4]
 
 **Runbook khi có cảnh báo:** xác nhận dữ liệu đầu vào/schema → xác định nhóm/thời gian bị ảnh hưởng → kiểm có thay đổi pipeline hay nguồn nhãn → đo chất lượng trên mẫu đã có nhãn → so với baseline và phiên bản trước → chỉ retrain khi dữ liệu mới/nhãn mới giải thích được vấn đề → kiểm test mới và rollback plan. Các ngưỡng cảnh báo phải lấy từ baseline vận hành và chi phí thực tế, không tự đặt một con số chung cho mọi hệ thống. [1]
 
@@ -93,9 +93,9 @@ Khi mô hình chạy trên production, nhãn thực tế $y$ thường bị tr�
 Không bao giờ thay thế đột ngột một mô hình đang phục vụ người dùng bằng một file model mới mà không qua các bước đệm an toàn:
 
 1. **Triển khai Bóng (Shadow Deployment / Dark Launching):**
-   * Mô hình mới ($M_{\text{new}}$) được triển khai song song với mô hình hiện tại ($M_{\text{current}}$).
-   * Mọi request thực tế được gửi đến cả hai mô hình, nhưng **chỉ có dự đoán của $M_{\text{current}}$ được trả về cho người dùng**.
-   * Dự đoán của $M_{\text{new}}$ được ghi vào log để đo lường độ trễ (latency), mức độ tiêu tốn tài nguyên và tính ổn định trong điều kiện tải thực tế.
+   * Mô hình mới ($`M_{\text{new}}`$) được triển khai song song với mô hình hiện tại ($`M_{\text{current}}`$).
+   * Mọi request thực tế được gửi đến cả hai mô hình, nhưng **chỉ có dự đoán của $`M_{\text{current}}`$ được trả về cho người dùng**.
+   * Dự đoán của $`M_{\text{new}}`$ được ghi vào log để đo lường độ trễ (latency), mức độ tiêu tốn tài nguyên và tính ổn định trong điều kiện tải thực tế.
 2. **Triển khai Chim hoàng yến (Canary Deployment):**
    * Điều hướng một tỷ lệ lưu lượng nhỏ ($1\% \to 5\%$) sang mô hình mới.
    * Giám sát chặt chẽ tỷ lệ lỗi và phản hồi của người dùng. Nếu các chỉ số ổn định, tăng dần tỷ lệ lên $25\% \to 50\% \to 100\%$.

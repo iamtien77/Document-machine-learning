@@ -12,7 +12,7 @@ Kỹ sư học máy phải giải quyết đồng thời hai bài toán tối ư
 1. **Khớp tín hiệu (Signal Fitting):** Tối thiểu hóa sai số giữa dự đoán của mô hình và nhãn thực tế trên tập huấn luyện thông qua một thuật toán tối ưu hóa (như Gradient Descent hoặc giải tích ma trận).
 2. **Kiểm soát Năng lực (Capacity Control):** Hạn chế "sức chứa" hoặc độ linh hoạt của $\mathcal{H}$ để ngăn mô hình ghi nhớ các biến động ngẫu nhiên (nhiễu).
 
-Nguyên lý then chốt của khoa học thực nghiệm: **Tập kiểm tra ($D_{\text{test}}$) phải được xem như một "hộp đen niêm phong" tuyệt đối.** Mọi quyết định lựa chọn kiến trúc thuật toán, điều chỉnh siêu tham số và dừng huấn luyện sớm đều phải được thực hiện hoàn toàn trên tập phát triển ($D_{\text{dev}}$) thông qua kỹ thuật Kiểm định chéo (Cross-Validation).
+Nguyên lý then chốt của khoa học thực nghiệm: **Tập kiểm tra ($`D_{\text{test}}`$) phải được xem như một "hộp đen niêm phong" tuyệt đối.** Mọi quyết định lựa chọn kiến trúc thuật toán, điều chỉnh siêu tham số và dừng huấn luyện sớm đều phải được thực hiện hoàn toàn trên tập phát triển ($`D_{\text{dev}}`$) thông qua kỹ thuật Kiểm định chéo (Cross-Validation).
 
 ---
 
@@ -29,7 +29,7 @@ $$\theta^* = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \;\; \mathcal{J}(\th
 Trong đó:
 * $\Theta$: Không gian tham số có thể đạt được.
 * $L(y, \hat{y})$: Hàm mất mát khả vi (Differentiable Loss Function) đo lường sai số trên từng điểm dữ liệu.
-* $\Omega(\theta)$: Số hạng điều chuẩn (Regularizer) phạt độ phức tạp của vector tham số (ví dụ chuẩn $L_2$: $\frac{1}{2}\|\theta\|_2^2$ hoặc chuẩn $L_1$: $\|\theta\|_1$).
+* $\Omega(\theta)$: Số hạng điều chuẩn (Regularizer) phạt độ phức tạp của vector tham số (ví dụ chuẩn $`L_2`$: $`\frac{1}{2}\|\theta\|_2^2`$ hoặc chuẩn $`L_1`$: $`\|\theta\|_1`$).
 * $\lambda \ge 0$: Siêu tham số điều khiển cường độ điều chuẩn.
 
 ---
@@ -41,7 +41,7 @@ Pipeline đã fit, hyperparameter được chọn, lịch sử train/validation,
 ### Thành phần Hồ sơ Nghiệm thu Huấn luyện (Training Artifact Registry)
 
 Một giai đoạn huấn luyện hoàn tất chuẩn mực khoa học phải bàn giao một gói Artifact bao gồm:
-1. **Trọng số & Tham số tối ưu ($\theta^*$):** Ma trận hệ số, bias, các giá trị split ngưỡng của cây quyết định.
+1. **Trọng số & Tham số tối ưu ($`\theta^*`$):** Ma trận hệ số, bias, các giá trị split ngưỡng của cây quyết định.
 2. **Trạng thái Tiền xử lý (Fitted Transformers):** Mean/std của scaler, từ điển danh mục của encoder, giá trị thay thế của imputer được học riêng trong từng fold.
 3. **Ma trận Dự đoán Ngoài Fold (Out-Of-Fold Predictions Matrix):** Toàn bộ dự đoán trên tập train khi từng phần đóng vai trò validation fold, phục vụ kiểm toán hoặc làm đầu vào cho Stacking Ensemble.
 4. **Đồ thị Lịch sử Huấn luyện (Learning Trajectory):** Đường cong hội tụ của Training Loss và Validation Metric qua các bước lặp (epochs/iterations).
@@ -52,7 +52,7 @@ Một giai đoạn huấn luyện hoàn tất chuẩn mực khoa học phải b�
 
 **Loss** dùng để fit tham số: squared/absolute error cho regression, log loss hoặc hinge loss cho một số classifier. **Metric chọn mô hình** phản ánh mục tiêu thực tế và có thể khác loss; ví dụ recall khi bỏ sót ca dương tính tốn kém. Theo dõi chênh train và validation; so với baseline. [2]
 
-Một cách viết chung: $\theta^* = \mathop{\mathrm{arg\,min}}_{\theta} \left[\frac{1}{n}\sum_i L(y_i,f_\theta(x_i)) + \lambda R(\theta)\right]$. `L` là loss, `R` là regularization, $\lambda$ điều khiển mức phạt. Công thức này hợp với nhiều mô hình tham số, nhưng kNN và cây học theo cơ chế khác. Metric chọn mô hình có thể không khả vi nên không nhất thiết là loss tối ưu.
+Một cách viết chung: $`\theta^* = \mathop{\mathrm{arg\,min}}_{\theta} \left[\frac{1}{n}\sum_i L(y_i,f_\theta(x_i)) + \lambda R(\theta)\right]`$. `L` là loss, `R` là regularization, $\lambda$ điều khiển mức phạt. Công thức này hợp với nhiều mô hình tham số, nhưng kNN và cây học theo cơ chế khác. Metric chọn mô hình có thể không khả vi nên không nhất thiết là loss tối ưu.
 
 ### Bản chất của Hàm Mất mát Thay thế (Surrogate Loss Function)
 
@@ -63,8 +63,8 @@ Tại sao không tối ưu trực tiếp Accuracy hay F1-Score trong lúc train?
 
 * Hàm này là hàm bậc thang: đạo hàm tại mọi điểm khả vi đều bằng 0, và không liên tục tại điểm phân chia ranh giới. Do đó, các thuật toán tối ưu hóa dựa trên gradient (Gradient-based Optimization) hoàn toàn bất lực.
 * **Giải pháp học thuật:** Sử dụng một **hàm mất mát thay thế lồi (Convex Surrogate Loss)** chặn trên hàm 0-1:
-  * *Binary Cross-Entropy / Log Loss:* $L_{\text{logistic}}(y, f) = \log(1 + e^{-y f})$ (mịn, khả vi vô hạn, tiệm cận xác suất hậu nghiệm).
-  * *Hinge Loss (SVM):* $L_{\text{hinge}}(y, f) = \max(0, 1 - y f)$ (lồi, liên tục từng khúc, tạo ra nghiệm thưa với các vector hỗ trợ).
+  * *Binary Cross-Entropy / Log Loss:* $`L_{\text{logistic}}(y, f) = \log(1 + e^{-y f})`$ (mịn, khả vi vô hạn, tiệm cận xác suất hậu nghiệm).
+  * *Hinge Loss (SVM):* $`L_{\text{hinge}}(y, f) = \max(0, 1 - y f)`$ (lồi, liên tục từng khúc, tạo ra nghiệm thưa với các vector hỗ trợ).
 
 ```text
  Loss
@@ -132,8 +132,8 @@ Tùy thuộc vào cấu trúc đại số của hàm mục tiêu, thuật toán 
 
 Khi dữ liệu có kích thước hạn chế nhưng cần thực hiện cả việc tinh chỉnh siêu tham số lẫn ước lượng sai số tổng quát hóa một cách không thiên lệch:
 
-* **Vòng ngoài (Outer Loop - $K_{\text{outer}}$ folds):** Dùng duy nhất để đánh giá hiệu năng tổng quát hóa của toàn bộ quy trình.
-* **Vòng trong (Inner Loop - $K_{\text{inner}}$ folds):** Được thực thi bên trong mỗi fold train của vòng ngoài để tìm ra bộ siêu tham số $\theta^*$ tốt nhất.
+* **Vòng ngoài (Outer Loop - $`K_{\text{outer}}`$ folds):** Dùng duy nhất để đánh giá hiệu năng tổng quát hóa của toàn bộ quy trình.
+* **Vòng trong (Inner Loop - $`K_{\text{inner}}`$ folds):** Được thực thi bên trong mỗi fold train của vòng ngoài để tìm ra bộ siêu tham số $`\theta^*`$ tốt nhất.
 
 ```text
 [ Toàn bộ Dữ liệu Nghiên cứu ]
@@ -174,7 +174,7 @@ Train dùng để học trọng số/quy tắc; validation hoặc các fold dùn
 
 | Triệu chứng đường cong | Nguyên nhân gốc rễ (Root Cause) | Hành động khắc phục khoa học |
 |---|---|---|
-| **Cả Train Loss và Val Loss đều cao, hội tụ gần nhau ở mức sai số lớn.** | **High Bias (Underfitting):** Mô hình quá nông hoặc giả định quá cứng nhắc, không hấp thụ được tín hiệu. | 1. Tăng năng lực mô hình (thêm layer, tăng độ sâu cây).<br>2. Kỹ nghệ thêm đặc trưng phi tuyến ($x_1 x_2, x^2$).<br>3. Giảm bớt hệ số phạt điều chuẩn $\lambda$. |
+| **Cả Train Loss và Val Loss đều cao, hội tụ gần nhau ở mức sai số lớn.** | **High Bias (Underfitting):** Mô hình quá nông hoặc giả định quá cứng nhắc, không hấp thụ được tín hiệu. | 1. Tăng năng lực mô hình (thêm layer, tăng độ sâu cây).<br>2. Kỹ nghệ thêm đặc trưng phi tuyến ($`x_1 x_2, x^2`$).<br>3. Giảm bớt hệ số phạt điều chuẩn $\lambda$. |
 | **Train Loss rất thấp, nhưng Val Loss cao, khoảng cách giữa 2 đường lớn (Gap rộng).** | **High Variance (Overfitting):** Mô hình ghi nhớ cả nhiễu ngẫu nhiên của tập train. | 1. Thu thập thêm dữ liệu huấn luyện mới.<br>2. Tăng cường điều chuẩn (L1/L2 penalty, Dropout).<br>3. Giảm số lượng biến (Feature Selection).<br>4. Áp dụng Early Stopping. |
 | **Val Loss dao động dữ dội, không ổn định qua các epoch.** | **Tốc độ học quá lớn hoặc Batch Size quá nhỏ.** | 1. Giảm Learning Rate hoặc dùng Learning Rate Scheduler.<br>2. Tăng kích thước Mini-batch.<br>3. Kiểm tra lại nhãn bị nhiễu/lộn xộn. |
 | **Train Loss cao hơn hẳn Val Loss.** | **Kỹ thuật Regularization hoặc Dropout chỉ kích hoạt lúc train.** | Hiện tượng bình thường nếu dùng Dropout hoặc Data Augmentation lúc train (vốn bị tắt khi evaluate trên Val). |

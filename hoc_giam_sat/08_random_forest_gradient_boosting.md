@@ -46,7 +46,7 @@ Classification: F1, PR-AUC/ROC-AUC, log loss/calibration tùy mục tiêu. Regre
 
 **Ví dụ gộp:** ba cây regression dự đoán `10,12,17` thì forest lấy trung bình `13`. Với classifier, nếu xác suất lớp A từ ba cây là `0.9,0.4,0.4`, trung bình là `0.567`, nên lớp A thắng ở bài toán nhị phân mặc dù chỉ một cây có $p(A)>0.5$. Ví dụ này cho thấy không nên diễn đạt implementation scikit-learn đơn thuần là majority vote. [6]
 
-**Boosting trực giác:** bắt đầu với dự đoán hằng $F_{0}$; ở vòng `m`, fit cây nhỏ theo hướng giảm loss hiện tại rồi cập nhật $F_m(x)=F_{m-1}(x)+\eta h_m(x)$. Với squared error, hướng giảm loss liên quan residual $y-F_{m-1}(x)$; với loss khác, pseudo-residual là gradient âm tương ứng. [1][3]
+**Boosting trực giác:** bắt đầu với dự đoán hằng $`F_{0}`$; ở vòng `m`, fit cây nhỏ theo hướng giảm loss hiện tại rồi cập nhật $`F_m(x)=F_{m-1}(x)+\eta h_m(x)`$. Với squared error, hướng giảm loss liên quan residual $`y-F_{m-1}(x)`$; với loss khác, pseudo-residual là gradient âm tương ứng. [1][3]
 
 ### Random Forest: bagging và OOB
 
@@ -64,8 +64,8 @@ Bagging làm giảm độ biến động nếu lỗi của các cây không hoà
 
 #### Chứng minh Toán học: Tại sao Phải Làm Giảm Tương quan Giữa các Cây?
 
-Xét một tập hợp $B$ cây quyết định ngẫu nhiên $T_1(x), T_2(x), \dots, T_B(x)$. Giả sử mỗi cây có phương sai dự đoán là $\sigma^2$ và hệ số tương quan giữa hai cây bất kỳ là $\rho = \mathrm{Corr}(T_i, T_j)$.
-Dự đoán trung bình của rừng là $\bar{T}(x) = \frac{1}{B} \sum_{b=1}^B T_b(x)$.
+Xét một tập hợp $B$ cây quyết định ngẫu nhiên $`T_1(x), T_2(x), \dots, T_B(x)`$. Giả sử mỗi cây có phương sai dự đoán là $\sigma^2$ và hệ số tương quan giữa hai cây bất kỳ là $`\rho = \mathrm{Corr}(T_i, T_j)`$.
+Dự đoán trung bình của rừng là $`\bar{T}(x) = \frac{1}{B} \sum_{b=1}^B T_b(x)`$.
 
 Phương sai của mô hình tổ hợp được tính chính xác bằng công thức thống kê:
 
@@ -82,9 +82,9 @@ $$\mathrm{Var}(\bar{T}) = \frac{1}{B^2} \left[ \sum_{b=1}^B \mathrm{Var}(T_b) + 
 
 ### Gradient Boosting: loss và cập nhật tuần tự
 
-Với regression dùng squared error, bắt đầu $F_{0}$ bằng một giá trị hằng hợp lý, thường là trung bình target theo loss. Tại mỗi vòng, tính pseudo-residual từ gradient âm của loss tại dự đoán hiện tại, fit cây $h_m$ vào tín hiệu đó, rồi cập nhật với learning rate $\eta$. Với classification log loss, cây cập nhật score/logit; xác suất được tạo từ score theo liên kết của loss. Công thức chính xác có thể khác theo implementation/loss, nên không diễn giải boosting classification như cộng trực tiếp nhãn lớp. [1][3]
+Với regression dùng squared error, bắt đầu $`F_{0}`$ bằng một giá trị hằng hợp lý, thường là trung bình target theo loss. Tại mỗi vòng, tính pseudo-residual từ gradient âm của loss tại dự đoán hiện tại, fit cây $`h_m`$ vào tín hiệu đó, rồi cập nhật với learning rate $\eta$. Với classification log loss, cây cập nhật score/logit; xác suất được tạo từ score theo liên kết của loss. Công thức chính xác có thể khác theo implementation/loss, nên không diễn giải boosting classification như cộng trực tiếp nhãn lớp. [1][3]
 
-**Ví dụ squared error:** $y=[2,4]$, dự đoán ban đầu $F_{0}=[3,3]$, residual `[-1,+1]`. Giả sử cây đầu tiên dự đoán đúng residual này và $\eta =0.5$, mô hình mới cho `[2.5,3.5]`; lỗi bình phương từng điểm giảm từ `1` xuống `0.25`. Ví dụ nhằm giải thích một bước fit, không là benchmark.
+**Ví dụ squared error:** $y=[2,4]$, dự đoán ban đầu $`F_{0}=[3,3]`$, residual `[-1,+1]`. Giả sử cây đầu tiên dự đoán đúng residual này và $\eta =0.5$, mô hình mới cho `[2.5,3.5]`; lỗi bình phương từng điểm giảm từ `1` xuống `0.25`. Ví dụ nhằm giải thích một bước fit, không là benchmark.
 
 **Early stopping:** dành một validation fold từ phần phát triển hoặc dùng CV; theo dõi loss/metric sau mỗi vòng và dừng khi không còn cải thiện theo quy tắc đã đặt. Không dùng test để chọn `n_estimators`. `subsample<1` tạo stochastic gradient boosting; OOB improvement của nó là chỉ báo khác với OOB score của forest và cần đọc theo đúng estimator. [1][8]
 
@@ -96,15 +96,15 @@ Hàm mục tiêu cần tối thiểu hóa:
 
 $$\mathcal{J}(F) = \sum_{i=1}^n L(y_i, F(x_i))$$
 
-Coi vector dự đoán $[F(x_1), F(x_2), \dots, F(x_n)]^\top \in \mathbb{R}^n$ như các biến số cần tối ưu. Theo giải tích, hướng giảm nhanh nhất của hàm mất mát chính là hướng của **vector gradient âm (Negative Gradient)**.
+Coi vector dự đoán $`[F(x_1), F(x_2), \dots, F(x_n)]^\top \in \mathbb{R}^n`$ như các biến số cần tối ưu. Theo giải tích, hướng giảm nhanh nhất của hàm mất mát chính là hướng của **vector gradient âm (Negative Gradient)**.
 
 1. **Tính toán Pseudo-Residuals tại vòng $m$:**
 
    $$r_{im} = - \left[ \frac{\partial L(y_i, F(x_i))}{\partial F(x_i)} \right]_{F(x) = F_{m-1}(x)}$$
 
-   * *Với hàm Squared Error Loss $L = \frac{1}{2}(y - F)^2$:* $r_{im} = y_i - F_{m-1}(x_i)$ (chính là phần dư số học).
-   * *Với hàm Log Loss (Logistic) $L = - [y \ln p + (1-y) \ln(1-p)]$:* $r_{im} = y_i - p_i$ (chênh lệch xác suất).
-2. **Khớp cây hồi quy cơ sở:** Huấn luyện cây $h_m(x)$ nhận đầu vào là $X$ để dự đoán mục tiêu là vector gradient âm $r_{im}$.
+   * *Với hàm Squared Error Loss $L = \frac{1}{2}(y - F)^2$:* $`r_{im} = y_i - F_{m-1}(x_i)`$ (chính là phần dư số học).
+   * *Với hàm Log Loss (Logistic) $L = - [y \ln p + (1-y) \ln(1-p)]$:* $`r_{im} = y_i - p_i`$ (chênh lệch xác suất).
+2. **Khớp cây hồi quy cơ sở:** Huấn luyện cây $`h_m(x)`$ nhận đầu vào là $X$ để dự đoán mục tiêu là vector gradient âm $`r_{im}`$.
 3. **Cập nhật Hàm Ensemble:**
 
    $$F_m(x) = F_{m-1}(x) + \eta \cdot h_m(x)$$

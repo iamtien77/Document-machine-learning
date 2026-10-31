@@ -68,7 +68,7 @@ Khi mở rộng sang bài toán phân loại $K$ lớp, việc gộp các chỉ 
   $$\text{Macro-F1} = \frac{1}{K} \sum_{k=1}^K \text{F1}_k$$
 
   *Đặc tính:* Mỗi lớp có trọng số bằng nhau, kể cả lớp hiếm. Một lớp thất bại vẫn có thể bị che khi số lớp lớn, nên xem thêm F1 từng lớp.
-* **Weighted-Average:** Tính metric từng lớp rồi nhân với tỷ trọng số lượng mẫu (Support $n_k$):
+* **Weighted-Average:** Tính metric từng lớp rồi nhân với tỷ trọng số lượng mẫu (Support $`n_k`$):
 
   $$\text{Weighted-F1} = \frac{1}{n} \sum_{k=1}^K n_k \cdot \text{F1}_k$$
 
@@ -105,14 +105,14 @@ Khi mở rộng sang bài toán phân loại $K$ lớp, việc gộp các chỉ 
 
 ### Các Thước đo Hồi quy & Chỉ số $R^2$ Hiệu chỉnh (Adjusted $R^2$)
 
-**Regression:** với $e_{i}=y_{i}-\hat{y}_{i}$, $\mathrm{MAE}=\frac{1}{n}\sum_i\lvert e_i\rvert$, $\mathrm{MSE}=\frac{1}{n}\sum_i e_i^2$, $\mathrm{RMSE}=\sqrt{\mathrm{MSE}}$, $R^2=1-\frac{\sum_i e_i^2}{\sum_i(y_i-\bar{y}_{\mathrm{test}})^2}$. Trong phép tính R² trên test, $\bar{y}_{test}$ là trung bình `y_true` của **tập đánh giá** theo định nghĩa metric; nó không đồng nhất với DummyRegressor đã fit trung bình train. Nếu `y_true` hằng, R² có trường hợp biên cần xem quy ước thư viện. [2]
+**Regression:** với $`e_{i}=y_{i}-\hat{y}_{i}`$, $`\mathrm{MAE}=\frac{1}{n}\sum_i\lvert e_i\rvert`$, $`\mathrm{MSE}=\frac{1}{n}\sum_i e_i^2`$, $\mathrm{RMSE}=\sqrt{\mathrm{MSE}}$, $`R^2=1-\frac{\sum_i e_i^2}{\sum_i(y_i-\bar{y}_{\mathrm{test}})^2}`$. Trong phép tính R² trên test, $`\bar{y}_{test}`$ là trung bình `y_true` của **tập đánh giá** theo định nghĩa metric; nó không đồng nhất với DummyRegressor đã fit trung bình train. Nếu `y_true` hằng, R² có trường hợp biên cần xem quy ước thư viện. [2]
 
 **Chỉ số $R^2$ Hiệu chỉnh (Adjusted $R^2$):**
 Với **OLS không regularization, có intercept, fit trên cùng tập train có target không hằng**, khi thêm biến mà vẫn giữ các biến cũ (mô hình lồng nhau), $R^2$ **trên train** không giảm: mô hình mới có thể đặt hệ số biến thêm bằng 0. Điều này không bảo đảm $R^2$ trên validation/test tăng và không áp dụng chung cho mọi thuật toán. Adjusted $R^2$ điều chỉnh mức phù hợp trên train theo số tham số: [13]
 
 $$R_{\text{adj}}^2 = 1 - \left[ \frac{(1 - R^2)(n - 1)}{n - p - 1} \right]$$
 
-Trong đó $n$ là số mẫu train, $p$ là số hệ số predictor không tính intercept; công thức dùng cho thiết kế OLS đầy đủ hạng với $n>p+1$. $R_{\text{adj}}^2$ giảm nếu mức giảm sai số không đủ bù số tham số thêm vào. Chỉ số này không thay thế đánh giá trên dữ liệu chưa thấy.
+Trong đó $n$ là số mẫu train, $p$ là số hệ số predictor không tính intercept; công thức dùng cho thiết kế OLS đầy đủ hạng với $n>p+1$. $`R_{\text{adj}}^2`$ giảm nếu mức giảm sai số không đủ bù số tham số thêm vào. Chỉ số này không thay thế đánh giá trên dữ liệu chưa thấy.
 
 **PR-AUC cần gọi tên rõ:** `average_precision_score` của scikit-learn (AP) tính trung bình có trọng số các precision khi recall tăng; nó **khác** diện tích nội suy hình thang dưới PR curve. Khi báo cáo, ghi rõ “AP” hay “trapezoidal PR-AUC” và cách tính. Baseline AP của dự đoán ngẫu nhiên thường liên quan prevalence lớp dương; so sánh cùng tập dữ liệu và cùng định nghĩa. [2]
 
@@ -129,7 +129,7 @@ Trong đó $n$ là số mẫu train, $p$ là số hệ số predictor không tí
 
 ### Thuật toán Tìm Ngưỡng Tối ưu theo Ma trận Chi phí (Optimal Threshold Search)
 
-Giả sử mô hình xuất ra $\hat{p}_i$, một ước lượng của $P(y_i=1 \mid x_i)$. Quyết định nhị phân $\hat{y}_i \in \{0, 1\}$ phụ thuộc vào ngưỡng $\tau \in [0, 1]$:
+Giả sử mô hình xuất ra $`\hat{p}_i`$, một ước lượng của $`P(y_i=1 \mid x_i)`$. Quyết định nhị phân $`\hat{y}_i \in \{0, 1\}`$ phụ thuộc vào ngưỡng $\tau \in [0, 1]$:
 
 $$\hat{y}_i(\tau) = \mathbb{I}(\hat{p}_i \ge \tau)$$
 
@@ -138,10 +138,10 @@ Tổng tổn thất nghiệp vụ được định nghĩa:
 $$\mathrm{TotalCost}(\tau) = C_{FP} \cdot \sum_{i: y_i=0} \mathbb{I}(\hat{p}_i \ge \tau) + C_{FN} \cdot \sum_{i: y_i=1} \mathbb{I}(\hat{p}_i < \tau)$$
 
 * **Quy trình tìm ngưỡng khoa học:**
-  1. Quét các giá trị xác suất duy nhất trên **Tập Validation**, đồng thời xét phương án luôn dương và luôn âm để không bỏ sót nghiệm biên. Nếu có điểm bằng 1, phương án luôn âm cần xét riêng vì quy tắc $\hat{p}_i\ge\tau$ với $\tau\le1$ không biểu diễn được nó.
+  1. Quét các giá trị xác suất duy nhất trên **Tập Validation**, đồng thời xét phương án luôn dương và luôn âm để không bỏ sót nghiệm biên. Nếu có điểm bằng 1, phương án luôn âm cần xét riêng vì quy tắc $`\hat{p}_i\ge\tau`$ với $\tau\le1$ không biểu diễn được nó.
   2. Tính toán $\mathrm{TotalCost}(\tau)$ tại từng điểm cắt.
-  3. Chọn $\tau^* = \mathop{\mathrm{arg\,min}}_{\tau} \mathrm{TotalCost}(\tau)$.
-  4. Đóng băng $\tau^*$ và áp dụng cố định sang **Tập Test** để đo lường chi phí thực tế.
+  3. Chọn $`\tau^* = \mathop{\mathrm{arg\,min}}_{\tau} \mathrm{TotalCost}(\tau)`$.
+  4. Đóng băng $`\tau^*`$ và áp dụng cố định sang **Tập Test** để đo lường chi phí thực tế.
 
 ---
 

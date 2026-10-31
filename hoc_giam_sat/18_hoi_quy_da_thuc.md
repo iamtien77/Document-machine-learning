@@ -48,7 +48,7 @@ $$M = \binom{p + d}{d} = \frac{(p + d)!}{p! \, d!}$$
 
 ## Output
 
-Pipeline gồm `PolynomialFeatures` đã định cấu hình và estimator đã fit; dự đoán $\hat{y}$ là số theo đơn vị target. Với một biến và bậc 2, $\hat{y}=b+w_{1}x+w_{2}x^{2}$. Với hai biến và bậc 2, có thể có $x_{1}$, $x_{2}$, $x_{1}^{2}$, $x_{1}x_{2}$, $x_{2}^{2}$. Mô hình phi tuyến theo `x` nhưng **tuyến tính theo các hệ số `w`**. [1]
+Pipeline gồm `PolynomialFeatures` đã định cấu hình và estimator đã fit; dự đoán $\hat{y}$ là số theo đơn vị target. Với một biến và bậc 2, $`\hat{y}=b+w_{1}x+w_{2}x^{2}`$. Với hai biến và bậc 2, có thể có $`x_{1}`$, $`x_{2}`$, $`x_{1}^{2}`$, $`x_{1}x_{2}`$, $`x_{2}^{2}`$. Mô hình phi tuyến theo `x` nhưng **tuyến tính theo các hệ số `w`**. [1]
 
 ---
 
@@ -60,7 +60,7 @@ So MAE/RMSE/R² với hồi quy tuyến tính bậc 1 và DummyRegressor trên c
 
 ## How it works
 
-Đặt ánh xạ $\phi _d(x)$ chứa các monomial đến bậc `d`; sau đó fit $\hat{y}=b+w^{\top}\phi _d(x)$ bằng OLS hoặc mô hình có regularization. Với $p=2$, $d=2$, $\phi (x)=[x_{1},x_{2},x_{1}^{2},x_{1}x_{2},x_{2}^{2}]$ nếu intercept được fit riêng. Objective của Ridge sau biến đổi là $\lVert \Phi w-y\rVert_{2}^{2}+\alpha \lVert w\rVert_{2}^{2}$; $\Phi$ là ma trận feature đa thức. [1]
+Đặt ánh xạ $`\phi _d(x)`$ chứa các monomial đến bậc `d`; sau đó fit $`\hat{y}=b+w^{\top}\phi _d(x)`$ bằng OLS hoặc mô hình có regularization. Với $p=2$, $d=2$, $`\phi (x)=[x_{1},x_{2},x_{1}^{2},x_{1}x_{2},x_{2}^{2}]`$ nếu intercept được fit riêng. Objective của Ridge sau biến đổi là $`\lVert \Phi w-y\rVert_{2}^{2}+\alpha \lVert w\rVert_{2}^{2}`$; $\Phi$ là ma trận feature đa thức. [1]
 
 **Ví dụ fit tay:** train có `(x,y)=(-1,1),(0,0),(1,1)`. Đường bậc 2 $\hat{y}=x^{2}$ khớp cả ba điểm; với $x=2$, nó dự đoán `4`. Bậc 1 không thể đi qua ba điểm này cùng lúc. Tuy nhiên ba điểm train không chứng minh $\hat{y}=4$ là đúng ngoài miền `[-1,1]`; phải kiểm validation/test phản ánh vùng sử dụng. [1]
 
@@ -101,7 +101,7 @@ Giả sử đặc trưng $x \in [1, 100]$:
 
 Sự chênh lệch thang đo hàng triệu lần giữa các cột sẽ gây ra hai thảm họa:
 1. **Ma trận suy biến (Ill-conditioned Gram Matrix):** Các giải thuật đại số số học bị tràn số hoặc tích lũy sai số làm tròn nghiêm trọng.
-2. **Hỏng cơ chế Regularization:** Số hạng phạt L2 $\alpha \sum w_j^2$ sẽ chỉ tập trung co cụm hệ số của các bậc thấp mà bỏ qua bậc cao, hoặc ngược lại.
+2. **Hỏng cơ chế Regularization:** Số hạng phạt L2 $`\alpha \sum w_j^2`$ sẽ chỉ tập trung co cụm hệ số của các bậc thấp mà bỏ qua bậc cao, hoặc ngược lại.
 * **Chuẩn mực Pipeline bắt buộc:**
 
   $$\text{Raw Features } X \longrightarrow \text{PolynomialFeatures} \longrightarrow \mathbf{StandardScaler} \longrightarrow \text{Ridge / Lasso}$$
@@ -130,12 +130,12 @@ Nên chọn khi cần mô hình cong có kiểm soát và số feature vừa ph�
 
 | Thuật ngữ | Là gì? | Tác dụng trực tiếp | Vai trò trong quy trình |
 |---|---|---|---|
-| **Basis function $\phi (x)$** | Phép biến đổi đầu vào thành feature mới như $x^{2}$ hoặc $x_{1}x_{2}$. | Tạo biểu diễn mới để mô hình tuyến tính học quan hệ cong | Bước biến đổi feature trước khi fit hồi quy |
+| **Basis function $\phi (x)$** | Phép biến đổi đầu vào thành feature mới như $x^{2}$ hoặc $`x_{1}x_{2}`$. | Tạo biểu diễn mới để mô hình tuyến tính học quan hệ cong | Bước biến đổi feature trước khi fit hồi quy |
 | **Degree / bậc `d`** | Tổng số mũ lớn nhất của các monomial được tạo. | Điều khiển mức phức tạp và số hạng được tạo | Hyperparameter chọn trên validation |
-| **Monomial** | Một tích của các lũy thừa feature, ví dụ $x_{1}^{2}x_{2}$. | Là một cột cụ thể của ma trận feature đa thức | Thành phần mà hồi quy gán hệ số riêng |
-| **Interaction term** | Tích giữa các feature khác nhau, như $x_{1}x_{2}$, mô tả tác động kết hợp. | Cho mô hình biểu diễn ảnh hưởng phối hợp của nhiều feature | Cột bổ sung trong feature expansion |
+| **Monomial** | Một tích của các lũy thừa feature, ví dụ $`x_{1}^{2}x_{2}`$. | Là một cột cụ thể của ma trận feature đa thức | Thành phần mà hồi quy gán hệ số riêng |
+| **Interaction term** | Tích giữa các feature khác nhau, như $`x_{1}x_{2}`$, mô tả tác động kết hợp. | Cho mô hình biểu diễn ảnh hưởng phối hợp của nhiều feature | Cột bổ sung trong feature expansion |
 | **Feature expansion** | Tăng số cột từ feature gốc sang tập các monomial; có thể làm số chiều bùng nổ. | Tăng sức biểu diễn nhưng cũng tăng nguy cơ overfit | Bước tiền xử lý phải fit/áp nhất quán trong pipeline |
-| **Linear in coefficients** | $\hat{y}$ vẫn là tổng $w_j\phi _j(x)$ nên tuyến tính theo trọng số `w`, dù cong theo `x`. | Cho phép dùng tối ưu của hồi quy tuyến tính trên feature mới | Tính chất của mô hình sau khi mở rộng feature |
+| **Linear in coefficients** | $\hat{y}$ vẫn là tổng $`w_j\phi _j(x)`$ nên tuyến tính theo trọng số `w`, dù cong theo `x`. | Cho phép dùng tối ưu của hồi quy tuyến tính trên feature mới | Tính chất của mô hình sau khi mở rộng feature |
 | **Extrapolation** | Dự đoán ngoài miền train; đa thức bậc cao có thể tăng rất nhanh ở vùng này. | Có thể làm giá trị dự đoán tăng mạnh ngoài vùng quan sát | Giới hạn cần xét khi sử dụng mô hình cho đầu vào mới |
 | **Runge's Phenomenon** | Hiện tượng dao động dữ dội ở sát hai biên khi tăng bậc đa thức nội suy. | Gây ra sai số dự đoán khổng lồ ở vùng biên phân phối. | Lời cảnh tỉnh kinh điển chống lại việc over-parameter hóa đa thức. |
 | **Weierstrass Theorem** | Định lý toán học chứng minh đa thức có thể xấp xỉ mọi hàm liên tục. | Cơ sở lý thuyết của phương pháp mở rộng đa thức. | Nền tảng giải tích của xấp xỉ hàm trong Machine Learning. |

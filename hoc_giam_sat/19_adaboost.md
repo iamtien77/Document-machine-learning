@@ -23,7 +23,7 @@ Năm 1990, Robert Schapire đưa ra lời giải đầu tiên, và đến năm 1
 
 ## Output
 
-Danh sách weak learners $h_{1},\ldots ,h_M$ và trọng số đóng góp của từng learner. Dự đoán nhị phân kinh điển dùng dấu của tổng $\sum _m \alpha _m h_m(x)$; implementation đa lớp như `AdaBoostClassifier` có quy tắc SAMME và có thể xuất score/xác suất theo API. Xác suất ước lượng cần được kiểm calibration nếu dùng để quyết định theo rủi ro. [1][3]
+Danh sách weak learners $`h_{1},\ldots ,h_M`$ và trọng số đóng góp của từng learner. Dự đoán nhị phân kinh điển dùng dấu của tổng $`\sum _m \alpha _m h_m(x)`$; implementation đa lớp như `AdaBoostClassifier` có quy tắc SAMME và có thể xuất score/xác suất theo API. Xác suất ước lượng cần được kiểm calibration nếu dùng để quyết định theo rủi ro. [1][3]
 
 ### Ranh giới Quyết định Tuyến tính Tổng hợp
 
@@ -31,7 +31,7 @@ Dự đoán cuối cùng cho một mẫu mới $x$ được tạo ra bằng phé
 
 $$H(x) = \mathrm{sign}\left( \sum_{m=1}^M \alpha_m h_m(x) \right)$$
 
-Trong đó $\alpha_m$ là "tiếng nói" hay trọng số đóng góp của mô hình cơ sở thứ $m$. Mô hình nào có tỷ lệ lỗi thấp hơn sẽ được trao quyền quyết định lớn hơn.
+Trong đó $`\alpha_m`$ là "tiếng nói" hay trọng số đóng góp của mô hình cơ sở thứ $m$. Mô hình nào có tỷ lệ lỗi thấp hơn sẽ được trao quyền quyết định lớn hơn.
 
 ---
 
@@ -43,7 +43,7 @@ Classification: precision/recall/F1 theo lớp, confusion matrix, AP/ROC-AUC n�
 
 ## How it works
 
-**AdaBoost nhị phân kinh điển:** khởi tạo $w_i=1/n$. Ở vòng `m`, fit weak learner theo trọng số $w_i$; tính lỗi có trọng số $e_m=\frac{\sum_i w_i\,\mathbf{1}[h_m(x_i)\ne y_i]}{\sum_i w_i}$; khi $0<e_m<0.5$, đặt $\alpha_m=\frac{1}{2}\ln\left(\frac{1-e_m}{e_m}\right)$; cập nhật $w_i\leftarrow w_i \exp (-\alpha _m y_i h_m(x_i))$, rồi chuẩn hóa. Mẫu bị dự đoán sai được tăng trọng số tương đối. Nếu $e_m=0$, công thức log có biên vô hạn và thuật toán thường dừng vì đã fit hoàn hảo; nếu learner không tốt hơn ngẫu nhiên ($e_m\ge 0.5$), cần dừng hoặc xử lý theo quy tắc của implementation thay vì áp công thức máy móc. Công thức này mô tả **binary AdaBoost cổ điển**; không thay thế công thức của mọi phiên bản đa lớp/API. [1][2][3]
+**AdaBoost nhị phân kinh điển:** khởi tạo $`w_i=1/n`$. Ở vòng `m`, fit weak learner theo trọng số $`w_i`$; tính lỗi có trọng số $`e_m=\frac{\sum_i w_i\,\mathbf{1}[h_m(x_i)\ne y_i]}{\sum_i w_i}`$; khi $`0<e_m<0.5`$, đặt $`\alpha_m=\frac{1}{2}\ln\left(\frac{1-e_m}{e_m}\right)`$; cập nhật $`w_i\leftarrow w_i \exp (-\alpha _m y_i h_m(x_i))`$, rồi chuẩn hóa. Mẫu bị dự đoán sai được tăng trọng số tương đối. Nếu $`e_m=0`$, công thức log có biên vô hạn và thuật toán thường dừng vì đã fit hoàn hảo; nếu learner không tốt hơn ngẫu nhiên ($`e_m\ge 0.5`$), cần dừng hoặc xử lý theo quy tắc của implementation thay vì áp công thức máy móc. Công thức này mô tả **binary AdaBoost cổ điển**; không thay thế công thức của mọi phiên bản đa lớp/API. [1][2][3]
 
 **Ví dụ một vòng:** bốn mẫu cùng trọng số `0.25`; weak learner sai đúng một mẫu nên $e=0.25$, $\alpha=\frac{1}{2}\ln 3\approx 0.549$. Sau cập nhật và chuẩn hóa, mẫu sai có trọng số `0.5`, ba mẫu đúng mỗi mẫu khoảng `1/6`. Vòng kế tiếp vì thế chú ý mẫu sai nhiều hơn. Ví dụ này giải thích fit, không là điểm benchmark.
 
@@ -63,21 +63,21 @@ Năm 2000, Jerome Friedman, Trevor Hastie và Robert Tibshirani đã làm sáng 
 
 $$L(y, f(x)) = \exp(-y f(x))$$
 
-1. Tại vòng $m$, mô hình hiện tại là $f_m(x) = f_{m-1}(x) + \alpha_m h_m(x)$.
+1. Tại vòng $m$, mô hình hiện tại là $`f_m(x) = f_{m-1}(x) + \alpha_m h_m(x)`$.
 2. Hàm mục tiêu cần tối thiểu hóa tại bước $m$:
 
    $$\mathcal{J}(\alpha, h) = \sum_{i=1}^n \exp\left( -y_i [f_{m-1}(x_i) + \alpha h(x_i)] \right) = \sum_{i=1}^n w_i^{(m)} \exp(-y_i \alpha h(x_i))$$
 
-   Trong đó $w_i^{(m)} = \exp(-y_i f_{m-1}(x_i))$ chính là trọng số của mẫu thứ $i$ được tích lũy từ các vòng trước!
-3. Phân rã tổng mất mát thành hai nhóm (nhóm phân loại đúng $y_i h(x_i) = 1$ và nhóm phân loại sai $y_i h(x_i) = -1$):
+   Trong đó $`w_i^{(m)} = \exp(-y_i f_{m-1}(x_i))`$ chính là trọng số của mẫu thứ $i$ được tích lũy từ các vòng trước!
+3. Phân rã tổng mất mát thành hai nhóm (nhóm phân loại đúng $`y_i h(x_i) = 1`$ và nhóm phân loại sai $`y_i h(x_i) = -1`$):
 
    $$\mathcal{J} = e^{-\alpha} \sum_{y_i = h(x_i)} w_i^{(m)} + e^\alpha \sum_{y_i \neq h(x_i)} w_i^{(m)} = (e^\alpha - e^{-\alpha}) \sum_{i=1}^n w_i^{(m)} \mathbb{I}(y_i \neq h(x_i)) + e^{-\alpha} \sum_{i=1}^n w_i^{(m)}$$
 
-4. Để tìm $\alpha_m$ tối ưu, lấy đạo hàm riêng theo $\alpha$ và cho bằng $0$:
+4. Để tìm $`\alpha_m`$ tối ưu, lấy đạo hàm riêng theo $\alpha$ và cho bằng $0$:
 
    $$\frac{\partial \mathcal{J}}{\partial \alpha} = e^\alpha \sum_{y_i \neq h} w_i^{(m)} - e^{-\alpha} \sum_{y_i = h} w_i^{(m)} = 0$$
 
-   Đặt tỷ lệ lỗi có trọng số $e_m = \frac{\sum_{y_i \neq h} w_i^{(m)}}{\sum_{i=1}^n w_i^{(m)}}$, phương trình trên trở thành:
+   Đặt tỷ lệ lỗi có trọng số $`e_m = \frac{\sum_{y_i \neq h} w_i^{(m)}}{\sum_{i=1}^n w_i^{(m)}}`$, phương trình trên trở thành:
 
    $$e^\alpha e_m - e^{-\alpha} (1 - e_m) = 0 \iff e^{2\alpha} = \frac{1 - e_m}{e_m} \implies \alpha_m = \frac{1}{2} \ln \left( \frac{1 - e_m}{e_m} \right)$$
 
@@ -85,12 +85,12 @@ $$L(y, f(x)) = \exp(-y f(x))$$
 
 ### Mở rộng Đa lớp: Thuật toán SAMME (Zhu et al., 2009)
 
-Trong bài toán đa lớp ($K > 2$), một bộ phân loại đoán mò ngẫu nhiên sẽ có tỷ lệ chính xác là $1/K$, nghĩa là tỷ lệ sai lên tới $\frac{K-1}{K}$. Nếu áp dụng công thức nhị phân cổ điển (đòi hỏi $e_m < 0.5$), thuật toán sẽ bị dừng ngay lập tức khi $K \ge 3$.
+Trong bài toán đa lớp ($K > 2$), một bộ phân loại đoán mò ngẫu nhiên sẽ có tỷ lệ chính xác là $1/K$, nghĩa là tỷ lệ sai lên tới $\frac{K-1}{K}$. Nếu áp dụng công thức nhị phân cổ điển (đòi hỏi $`e_m < 0.5`$), thuật toán sẽ bị dừng ngay lập tức khi $K \ge 3$.
 Thuật toán **SAMME (Stagewise Additive Modeling using a Multi-class Exponential loss function)** mở rộng công thức trọng số mô hình:
 
 $$\alpha_m = \ln \left( \frac{1 - e_m}{e_m} \right) + \ln(K - 1)$$
 
-Nhờ số hạng $\ln(K - 1)$, thuật toán chỉ yêu cầu weak learner đạt độ chính xác lớn hơn mức ngẫu nhiên $1/K$ ($e_m < \frac{K-1}{K}$) là đã có thể gán trọng số dương $\alpha_m > 0$.
+Nhờ số hạng $\ln(K - 1)$, thuật toán chỉ yêu cầu weak learner đạt độ chính xác lớn hơn mức ngẫu nhiên $1/K$ ($`e_m < \frac{K-1}{K}`$) là đã có thể gán trọng số dương $`\alpha_m > 0`$.
 
 ---
 
@@ -123,9 +123,9 @@ Mặc dù có nền tảng toán học đẹp đẽ, AdaBoost có một nhược
 | Thuật ngữ | Là gì? | Tác dụng trực tiếp | Vai trò trong quy trình |
 |---|---|---|---|
 | **Weak learner** | Mô hình cơ sở đơn giản, ví dụ cây một tầng; các learner được gộp thành ensemble. | Tạo dự đoán đơn giản để ensemble cải thiện qua nhiều vòng | Mô hình cơ sở được fit ở mỗi vòng AdaBoost |
-| **Sample weight $w_i$** | Mức ảnh hưởng của mẫu `i` khi fit learner ở vòng hiện tại. | Làm mẫu khó có ảnh hưởng lớn hơn ở vòng tiếp theo | Trọng số truyền từ vòng trước vào learner hiện tại |
-| **Weighted error $e_m$** | Tỷ lệ lỗi của learner sau khi tính theo trọng số mẫu. | Đo lỗi có xét mức quan trọng của từng mẫu | Căn cứ tính hệ số learner trong công thức AdaBoost cổ điển |
-| **Learner weight $\alpha _m$** | Mức đóng góp của learner `m` vào dự đoán ensemble trong công thức cổ điển. | Quy định learner nào ảnh hưởng mạnh tới dự đoán chung | Trọng số gộp đầu ra của các learner |
+| **Sample weight $`w_i`$** | Mức ảnh hưởng của mẫu `i` khi fit learner ở vòng hiện tại. | Làm mẫu khó có ảnh hưởng lớn hơn ở vòng tiếp theo | Trọng số truyền từ vòng trước vào learner hiện tại |
+| **Weighted error $`e_m`$** | Tỷ lệ lỗi của learner sau khi tính theo trọng số mẫu. | Đo lỗi có xét mức quan trọng của từng mẫu | Căn cứ tính hệ số learner trong công thức AdaBoost cổ điển |
+| **Learner weight $`\alpha _m`$** | Mức đóng góp của learner `m` vào dự đoán ensemble trong công thức cổ điển. | Quy định learner nào ảnh hưởng mạnh tới dự đoán chung | Trọng số gộp đầu ra của các learner |
 | **Boosting round** | Một vòng fit learner mới và cập nhật trọng số mẫu. | Thêm một learner và cập nhật mức chú ý vào mẫu | Đơn vị lặp của quá trình huấn luyện AdaBoost |
 | **Stump** | Cây quyết định chỉ có một phép tách, thường dùng làm weak learner. | Tạo quy tắc phân lớp đơn giản, dễ làm weak learner | Base estimator thường gặp của AdaBoost |
 | **Learning rate** | Hệ số điều chỉnh đóng góp của learner theo API, cần tune cùng số vòng. | Co mức đóng góp mỗi vòng để kiểm soát việc học | Hyperparameter tune cùng số learner |

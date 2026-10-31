@@ -9,7 +9,7 @@ Tìm ranh giới phân loại có margin lớn (SVC/LinearSVC) hoặc hàm dự 
 Support Vector Machine (SVM) được phát triển bởi Vladimir Vapnik và Corinna Cortes (1995) tại phòng thí nghiệm Bell Labs. Đây được coi là một trong những thành tựu toán học rực rỡ nhất của lý thuyết học máy cổ điển.
 
 Thay vì tiếp cận theo nguyên lý Tối thiểu hóa Rủi ro Thực nghiệm thông thường (Empirical Risk Minimization - ERM, vốn rất dễ dẫn đến Overfitting), Vapnik đã đề xuất **Nguyên lý Tối thiểu hóa Rủi ro Cấu trúc (Structural Risk Minimization - SRM)** dựa trên **Chiều VC (Vapnik-Chervonenkis Dimension)**:
-* Chiều VC đo lường dung lượng hoặc độ linh hoạt của một không gian hàm. Vapnik đã chứng minh rằng: Sai số tổng quát hóa trên dữ liệu mới $\mathcal{R}(f)$ được chặn trên bởi sai số huấn luyện thực nghiệm $\hat{\mathcal{R}}_n(f)$ cộng với một số hạng tỷ lệ thuận với Chiều VC:
+* Chiều VC đo lường dung lượng hoặc độ linh hoạt của một không gian hàm. Vapnik đã chứng minh rằng: Sai số tổng quát hóa trên dữ liệu mới $\mathcal{R}(f)$ được chặn trên bởi sai số huấn luyện thực nghiệm $`\hat{\mathcal{R}}_n(f)`$ cộng với một số hạng tỷ lệ thuận với Chiều VC:
 
   $$\mathcal{R}(f) \le \hat{\mathcal{R}}_n(f) + \mathcal{O}\left( \sqrt{\frac{h \ln(n/h) - \ln(\eta)}{n}} \right)$$
 
@@ -45,30 +45,30 @@ SVC: F1, ROC-AUC/PR-AUC từ score, confusion matrix; SVR: MAE/RMSE/R². Thêm t
 
 SVM tối ưu margin kèm phạt lỗi trên mẫu vi phạm. `C` điều khiển trade-off giữa margin và lỗi train; kernel RBF đo độ giống phi tuyến, `gamma` điều khiển tầm ảnh hưởng của mẫu. SVR tối ưu sai số với epsilon-insensitive loss. [1][2]
 
-Với binary linear SVM và nhãn $y_{i}\in \{-1,+1\}$, một objective phổ biến là $\tfrac{1}{2}\lVert w\rVert^{2} + C\sum_i \max (0,1-y_{i}(w^{\top}x_{i}+b))$. Hinge loss bằng 0 khi mẫu nằm đúng phía và ngoài margin. Dự đoán nhãn theo dấu của $w^{\top}x+b$; điểm có độ lớn lớn hơn nằm xa ranh giới hơn, nhưng không tự động là xác suất. [1]
+Với binary linear SVM và nhãn $`y_{i}\in \{-1,+1\}`$, một objective phổ biến là $`\tfrac{1}{2}\lVert w\rVert^{2} + C\sum_i \max (0,1-y_{i}(w^{\top}x_{i}+b))`$. Hinge loss bằng 0 khi mẫu nằm đúng phía và ngoài margin. Dự đoán nhãn theo dấu của $w^{\top}x+b$; điểm có độ lớn lớn hơn nằm xa ranh giới hơn, nhưng không tự động là xác suất. [1]
 
 **Ví dụ:** nếu một điểm có $y=+1$ và score `0.2`, hinge loss là $\max(0,1-0.2)=0.8$; nếu score `1.5` thì loss bằng 0. Support vectors là những điểm ảnh hưởng đến ranh giới trong nghiệm SVM. [1][2]
 
 ### Bài toán Tối ưu Lồi & Phương pháp Nhân tử Lagrange (Primal vs. Dual Formulation)
 
 Xét bài toán SVM phân loại nhị phân mềm (Soft-margin SVM):
-Khoảng cách hình học từ một điểm tới siêu phẳng $w^\top x + b = 0$ là $\frac{|w^\top x + b|}{\|w\|_2}$. Khoảng cách lề giữa hai lớp là $\gamma = \frac{2}{\|w\|_2}$.
-Do đó, tối đa hóa lề $\frac{2}{\|w\|_2}$ tương đương với tối thiểu hóa $\frac{1}{2}\|w\|_2^2$.
+Khoảng cách hình học từ một điểm tới siêu phẳng $w^\top x + b = 0$ là $`\frac{|w^\top x + b|}{\|w\|_2}`$. Khoảng cách lề giữa hai lớp là $`\gamma = \frac{2}{\|w\|_2}`$.
+Do đó, tối đa hóa lề $`\frac{2}{\|w\|_2}`$ tương đương với tối thiểu hóa $`\frac{1}{2}\|w\|_2^2`$.
 
 1. **Bài toán Gốc (Primal Optimization Problem):**
 
    $$\min_{w, b, \xi} \frac{1}{2} \|w\|_2^2 + C \sum_{i=1}^n \xi_i \quad \text{sao cho} \quad y_i (w^\top x_i + b) \ge 1 - \xi_i, \;\; \xi_i \ge 0$$
 
-   Trong đó $\xi_i$ là các biến bù lỏng (Slack Variables) cho phép một số mẫu vi phạm lề.
+   Trong đó $`\xi_i`$ là các biến bù lỏng (Slack Variables) cho phép một số mẫu vi phạm lề.
 2. **Hàm Lagrange và Điều kiện KKT (Karush-Kuhn-Tucker):**
-   Thiết lập hàm Lagrange với các nhân tử $\alpha_i \ge 0$ và $\mu_i \ge 0$:
+   Thiết lập hàm Lagrange với các nhân tử $`\alpha_i \ge 0`$ và $`\mu_i \ge 0`$:
 
    $$\mathcal{L}(w, b, \xi, \alpha, \mu) = \frac{1}{2}\|w\|_2^2 + C\sum_{i=1}^n \xi_i - \sum_{i=1}^n \alpha_i \left[ y_i (w^\top x_i + b) - 1 + \xi_i \right] - \sum_{i=1}^n \mu_i \xi_i$$
 
    Lấy đạo hàm riêng theo các biến gốc $w, b, \xi$ và cho bằng $0$:
-   * $\frac{\partial \mathcal{L}}{\partial w} = 0 \implies w = \sum_{i=1}^n \alpha_i y_i x_i$
-   * $\frac{\partial \mathcal{L}}{\partial b} = 0 \implies \sum_{i=1}^n \alpha_i y_i = 0$
-   * $\frac{\partial \mathcal{L}}{\partial \xi_i} = 0 \implies C - \alpha_i - \mu_i = 0 \implies 0 \le \alpha_i \le C$
+   * $`\frac{\partial \mathcal{L}}{\partial w} = 0 \implies w = \sum_{i=1}^n \alpha_i y_i x_i`$
+   * $`\frac{\partial \mathcal{L}}{\partial b} = 0 \implies \sum_{i=1}^n \alpha_i y_i = 0`$
+   * $`\frac{\partial \mathcal{L}}{\partial \xi_i} = 0 \implies C - \alpha_i - \mu_i = 0 \implies 0 \le \alpha_i \le C`$
 3. **Bài toán Đối ngẫu Lagrange (Dual Problem):**
    Thế các biểu thức trên ngược lại vào hàm Lagrange, ta thu được bài toán đối ngẫu chỉ còn phụ thuộc vào $\alpha$:
 
@@ -88,7 +88,7 @@ Do đó, tối đa hóa lề $\frac{2}{\|w\|_2}$ tương đương với tối th
 
 ### Mánh khóe Hạt nhân (The Kernel Trick) & Định lý Mercer
 
-Vì bài toán đối ngẫu chỉ phụ thuộc vào tích vô hướng giữa các điểm dữ liệu $x_i^\top x_j$, ta có thể thực hiện một bước nhảy vọt phi thường:
+Vì bài toán đối ngẫu chỉ phụ thuộc vào tích vô hướng giữa các điểm dữ liệu $`x_i^\top x_j`$, ta có thể thực hiện một bước nhảy vọt phi thường:
 * Ánh xạ dữ liệu từ không gian gốc $x \in \mathbb{R}^p$ lên một Không gian Đặc trưng Hilbert $\mathcal{H}$ có số chiều cao hơn (hoặc vô hạn chiều) thông qua hàm phi tuyến $\phi(x)$.
 * Thay vì phải tính toán tọa độ cực kỳ phức tạp $\phi(x)$, ta sử dụng một **Hàm nhân (Kernel Function)**:
 
@@ -103,7 +103,7 @@ Vì bài toán đối ngẫu chỉ phụ thuộc vào tích vô hướng giữa 
 
 ### SVR: vùng sai số `epsilon`
 
-Với hàm tuyến tính $f(x)=w^{\top}x+b$, một cách viết objective của ε-SVR là $\tfrac{1}{2}\lVert w\rVert^{2} + C\sum _{i} \max (0, \lvert y_{i}-f(x_{i})\rvert-\epsilon )$. Lỗi có độ lớn không vượt $\epsilon$ không bị phạt bởi phần ε-insensitive; lỗi vượt ra ngoài bị phạt theo khoảng vượt. Ví dụ $y=10$, $\hat{y}=9.8$, $\epsilon =0.3$ cho loss dữ liệu bằng `0`; nếu $\hat{y}=9.4$ thì loss dữ liệu bằng `0.6-0.3=0.3` trước khi nhân `C`. `C` càng lớn càng ưu tiên khớp train, trong khi $\epsilon$ lớn tạo vùng miễn phạt rộng hơn và thường ít support vectors hơn. [1][5]
+Với hàm tuyến tính $f(x)=w^{\top}x+b$, một cách viết objective của ε-SVR là $`\tfrac{1}{2}\lVert w\rVert^{2} + C\sum _{i} \max (0, \lvert y_{i}-f(x_{i})\rvert-\epsilon )`$. Lỗi có độ lớn không vượt $\epsilon$ không bị phạt bởi phần ε-insensitive; lỗi vượt ra ngoài bị phạt theo khoảng vượt. Ví dụ $y=10$, $\hat{y}=9.8$, $\epsilon =0.3$ cho loss dữ liệu bằng `0`; nếu $\hat{y}=9.4$ thì loss dữ liệu bằng `0.6-0.3=0.3` trước khi nhân `C`. `C` càng lớn càng ưu tiên khớp train, trong khi $\epsilon$ lớn tạo vùng miễn phạt rộng hơn và thường ít support vectors hơn. [1][5]
 
 ```text
        y ^                          + epsilon (Biên trên của ống)

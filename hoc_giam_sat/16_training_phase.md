@@ -96,7 +96,7 @@ Raw labeled data
 
 Trước khi chuyển giao artifact mô hình cho đội ngũ kỹ nghệ triển khai, bắt buộc phải thực hiện bài kiểm tra tính toàn vẹn serialization:
 
-1. **Trích xuất Golden Dataset ($D_{\text{gold}}$):** Chọn từ $5$ đến $10$ mẫu dữ liệu đại diện, bao gồm:
+1. **Trích xuất Golden Dataset ($`D_{\text{gold}}`$):** Chọn từ $5$ đến $10$ mẫu dữ liệu đại diện, bao gồm:
    * Các mẫu điển hình ở trung tâm phân phối.
    * Các mẫu có giá trị khuyết (Missing Values).
    * Các mẫu ở biên cực trị (Edge Cases / Outliers).

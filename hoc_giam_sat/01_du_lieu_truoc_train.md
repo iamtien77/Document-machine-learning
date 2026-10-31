@@ -43,7 +43,7 @@ Trước khi viết bất kỳ dòng mã tiền xử lý nào, kỹ sư nghiên 
 
 ### Tính Độc lập Không gian Toán học của các Tập Phân chia
 
-Một phép phân chia dữ liệu $D$ thành tập huấn luyện ($D_{\text{train}}$), tập kiểm định ($D_{\text{val}}$) và tập kiểm tra ($D_{\text{test}}$) được định nghĩa là chuẩn mực khi và chỉ khi thỏa mãn đồng thời 2 điều kiện tiên quyết:
+Một phép phân chia dữ liệu $D$ thành tập huấn luyện ($`D_{\text{train}}`$), tập kiểm định ($`D_{\text{val}}`$) và tập kiểm tra ($`D_{\text{test}}`$) được định nghĩa là chuẩn mực khi và chỉ khi thỏa mãn đồng thời 2 điều kiện tiên quyết:
 
 1. **Tính rời rạc tuyệt đối (Mutual Exclusivity):**
 
@@ -72,11 +72,11 @@ Một phép phân chia dữ liệu $D$ thành tập huấn luyện ($D_{\text{tr
 
    * Nếu $IR > 10$: Phải áp dụng phân tầng (*Stratified Split*), tuyệt đối không dùng Accuracy làm metric chính; chuyển sang PR-AUC, F1-macro hoặc Brier Score.
 2. **Hệ số Phóng đại Phương sai (Variance Inflation Factor - VIF):**
-   Đo lường mức độ đa cộng tuyến giữa các biến độc lập $x_j$:
+   Đo lường mức độ đa cộng tuyến giữa các biến độc lập $`x_j`$:
 
    $$\mathrm{VIF}_j = \frac{1}{1 - R_j^2}$$
 
-   Trong đó $R_j^2$ là hệ số xác định khi hồi quy $x_j$ theo toàn bộ $p-1$ biến còn lại. $\mathrm{VIF}_j > 5$ hoặc $10$ báo hiệu tương quan cao, làm mất ổn định hệ số trong các mô hình tuyến tính.
+   Trong đó $`R_j^2`$ là hệ số xác định khi hồi quy $`x_j`$ theo toàn bộ $p-1$ biến còn lại. $`\mathrm{VIF}_j > 5`$ hoặc $10$ báo hiệu tương quan cao, làm mất ổn định hệ số trong các mô hình tuyến tính.
 3. **Chỉ số Cardinality (Số lượng giá trị phân biệt):**
    Với biến định danh, tỷ lệ giữa số giá trị phân biệt và tổng số hàng. Biến có cardinality quá cao (như ID, địa chỉ IP) nếu không xử lý đúng sẽ gây overfit nghiêm trọng.
 
@@ -119,18 +119,18 @@ Rò rỉ dữ liệu xảy ra khi thông tin ngoài luồng từ bên ngoài t�
 ### Ví dụ Số học Minh họa: Thảm họa Fit Scaler Ngoài Fold
 
 Xét một tập dữ liệu gồm 4 mẫu một chiều $X = [10, 20, 30, 100]$:
-* Giả sử ta chia: $X_{\text{train}} = [10, 20, 30]$, $X_{\text{test}} = [100]$.
+* Giả sử ta chia: $`X_{\text{train}} = [10, 20, 30]`$, $`X_{\text{test}} = [100]`$.
 
 * **Cách làm SAI (Fit trên toàn bộ dữ liệu trước split):**
-  * $\mu_{\text{all}} = \frac{10 + 20 + 30 + 100}{4} = 40$, $\sigma_{\text{all}} \approx 35.35$.
+  * $`\mu_{\text{all}} = \frac{10 + 20 + 30 + 100}{4} = 40`$, $`\sigma_{\text{all}} \approx 35.35`$.
   * Mẫu huấn luyện thứ ba ($30$) được biến đổi thành:
 
     $$z_3 = \frac{30 - 40}{35.35} \approx -0.28$$
 
-  * *Nhận xét:* Giá trị $z_3$ của train bị kéo dịch chuyển sang âm vì có sự hiện diện của giá trị ngoại lai $100$ bên tập test! Tập train đã gián tiếp biết tập test có giá trị lớn.
+  * *Nhận xét:* Giá trị $`z_3`$ của train bị kéo dịch chuyển sang âm vì có sự hiện diện của giá trị ngoại lai $100$ bên tập test! Tập train đã gián tiếp biết tập test có giá trị lớn.
 
 * **Cách làm ĐÚNG CHUẨN KHOA HỌC (Fit CHỈ trên train):**
-  * $\mu_{\text{train}} = \frac{10 + 20 + 30}{3} = 20$, $\sigma_{\text{train}} \approx 8.16$.
+  * $`\mu_{\text{train}} = \frac{10 + 20 + 30}{3} = 20`$, $`\sigma_{\text{train}} \approx 8.16`$.
   * Mẫu huấn luyện thứ ba ($30$) được biến đổi chuẩn tắc:
 
     $$z_3 = \frac{30 - 20}{8.16} \approx +1.22$$
@@ -174,14 +174,14 @@ Ví dụ bảng giá nhà: `X` gồm diện tích, vị trí, năm xây; `y` là
 Hiểu rõ bản chất toán học của dữ liệu khuyết giúp lựa chọn phương pháp xử lý chính xác:
 
 1. **MCAR (Missing Completely at Random - Khuyết hoàn toàn ngẫu nhiên):**
-   * Xác suất một giá trị bị khuyết không phụ thuộc vào chính nó và cũng không phụ thuộc vào bất kỳ biến quan sát nào khác: $P(M \mid Y_{\text{obs}}, Y_{\text{mis}}) = P(M)$.
+   * Xác suất một giá trị bị khuyết không phụ thuộc vào chính nó và cũng không phụ thuộc vào bất kỳ biến quan sát nào khác: $`P(M \mid Y_{\text{obs}}, Y_{\text{mis}}) = P(M)`$.
    * *Cách xử lý:* Có thể loại bỏ dòng (Drop row) nếu tỷ lệ nhỏ, hoặc impute đơn giản bằng Mean/Median.
 2. **MAR (Missing at Random - Khuyết ngẫu nhiên có điều kiện):**
-   * Xác suất bị khuyết phụ thuộc vào các biến quan sát được nhưng không phụ thuộc vào giá trị chưa quan sát: $P(M \mid Y_{\text{obs}}, Y_{\text{mis}}) = P(M \mid Y_{\text{obs}})$.
+   * Xác suất bị khuyết phụ thuộc vào các biến quan sát được nhưng không phụ thuộc vào giá trị chưa quan sát: $`P(M \mid Y_{\text{obs}}, Y_{\text{mis}}) = P(M \mid Y_{\text{obs}})`$.
    * *Ví dụ:* Nam giới ít khi trả lời câu hỏi về thu nhập hơn nữ giới, nhưng trong nhóm nam giới thì việc trả lời không phụ thuộc vào mức lương cao hay thấp.
    * *Cách xử lý:* KNN Imputer, Iterative Imputer (MICE) dựa trên các biến đã quan sát.
 3. **MNAR (Missing Not at Random - Khuyết không ngẫu nhiên):**
-   * Xác suất bị khuyết phụ thuộc trực tiếp vào chính giá trị bị thiếu đó: $P(M \mid Y_{\text{obs}}, Y_{\text{mis}}) \neq P(M \mid Y_{\text{obs}})$.
+   * Xác suất bị khuyết phụ thuộc trực tiếp vào chính giá trị bị thiếu đó: $`P(M \mid Y_{\text{obs}}, Y_{\text{mis}}) \neq P(M \mid Y_{\text{obs}})`$.
    * *Ví dụ:* Những người có thu nhập cực kỳ cao thường cố tình từ chối kê khai thu nhập.
    * *Cách xử lý:* Bắt buộc phải tạo thêm một biến nhị phân chỉ báo thiếu (`income_is_missing = 1`), kết hợp với mô hình hóa đặc thù.
 

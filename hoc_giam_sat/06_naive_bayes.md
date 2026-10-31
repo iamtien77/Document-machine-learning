@@ -40,7 +40,7 @@ Macro F1 và per-class precision/recall cho lớp không cân bằng; confusion 
 
 ## How it works
 
-Ước lượng $P(y)$ và $P(x_j\mid y)$ từ train, rồi dùng $P(y\mid x) \propto P(y) \prod_j P(x_j\mid y)$. Tính trong log-space để ổn định số. Smoothing (ví dụ `alpha` trong MultinomialNB) tránh xác suất 0 cho feature chưa thấy. [1]
+Ước lượng $P(y)$ và $`P(x_j\mid y)`$ từ train, rồi dùng $`P(y\mid x) \propto P(y) \prod_j P(x_j\mid y)`$. Tính trong log-space để ổn định số. Smoothing (ví dụ `alpha` trong MultinomialNB) tránh xác suất 0 cho feature chưa thấy. [1]
 
 **Ví dụ tính tay:** giả sử $P(\mathrm{spam})=0.4$, $P(\mathrm{sale}\mid \mathrm{spam})=0.5$, $P(\mathrm{sale}\mid \mathrm{ham})=0.1$, $P(\mathrm{ham})=0.6$. Với email chỉ chứa tín hiệu “sale”, điểm chưa chuẩn hóa là $0.4\times 0.5=0.20$ cho spam và $0.6\times 0.1=0.06$ cho ham; sau chuẩn hóa, $P(\mathrm{spam}\mid \mathrm{sale})=0.20/(0.20+0.06)\approx 0.769$. Ví dụ này giả định cách biểu diễn một feature đơn giản; email thực tế có nhiều feature và smoothing.
 
@@ -50,9 +50,9 @@ Macro F1 và per-class precision/recall cho lớp không cân bằng; confusion 
 
 | Biến thể | Thống kê fit | Phù hợp và lưu ý |
 |---|---|---|
-| GaussianNB | Mean $\mu_{cj}$, variance $\sigma_{cj}^2$ | Feature liên tục; `var_smoothing` giúp ổn định khi variance rất nhỏ |
-| MultinomialNB | Xác suất token $\theta_{cj}$ | Count không âm; $\alpha$ smoothing chống xác suất 0 |
-| BernoulliNB | Xác suất feature có mặt $\theta_{cj}$ | Feature 0/1; **vắng mặt** cũng đóng góp vào score |
+| GaussianNB | Mean $`\mu_{cj}`$, variance $`\sigma_{cj}^2`$ | Feature liên tục; `var_smoothing` giúp ổn định khi variance rất nhỏ |
+| MultinomialNB | Xác suất token $`\theta_{cj}`$ | Count không âm; $\alpha$ smoothing chống xác suất 0 |
+| BernoulliNB | Xác suất feature có mặt $`\theta_{cj}`$ | Feature 0/1; **vắng mặt** cũng đóng góp vào score |
 
 **GaussianNB — mật độ có điều kiện:**
 
@@ -72,11 +72,11 @@ $$
 P(x_j\mid y=c)=\theta_{cj}^{x_j}(1-\theta_{cj})^{1-x_j}
 $$
 
-Ở MultinomialNB, $N_{cj}$ là tổng số lần token `j` xuất hiện trong văn bản lớp `c`; `V` là kích thước vocabulary. Công thức trên mô tả Laplace/Lidstone smoothing khi $\alpha$ là hằng chung. Từng estimator có quy ước và tham số API riêng; không dùng một công thức Gaussian cho count hoặc Bernoulli. [1]
+Ở MultinomialNB, $`N_{cj}`$ là tổng số lần token `j` xuất hiện trong văn bản lớp `c`; `V` là kích thước vocabulary. Công thức trên mô tả Laplace/Lidstone smoothing khi $\alpha$ là hằng chung. Từng estimator có quy ước và tham số API riêng; không dùng một công thức Gaussian cho count hoặc Bernoulli. [1]
 
 **Ví dụ fit MultinomialNB:** vocabulary gồm `sale`, `meeting`; trong văn bản spam train có tổng count `(3,1)`, ham `(1,3)`, hai lớp có prior `0.5`. Với $\alpha =1$, ta có $P(\mathrm{sale}\mid \mathrm{spam})=4/6$, $P(\mathrm{meeting}\mid \mathrm{spam})=2/6$; ham đảo lại. Email mới `sale sale meeting` có score chưa chuẩn hóa: spam $0.5\times (4/6)^{2}\times (2/6)=2/27$, ham $0.5\times (2/6)^{2}\times (4/6)=1/27$. Posterior sau chuẩn hóa là $P(\mathrm{spam}\mid x)=2/3$. Ví dụ giả định count đơn giản; không có kết quả benchmark.
 
-Khi `V` lớn, nhân nhiều xác suất rất nhỏ dễ underflow; tính $\log P(c)+\sum _j \log P(x_j\mid c)$ (hoặc dạng count tương ứng) rồi so score. Muốn xuất xác suất, chuẩn hóa các log-score ổn định số. [1]
+Khi `V` lớn, nhân nhiều xác suất rất nhỏ dễ underflow; tính $`\log P(c)+\sum _j \log P(x_j\mid c)`$ (hoặc dạng count tương ứng) rồi so score. Muốn xuất xác suất, chuẩn hóa các log-score ổn định số. [1]
 
 ### Chứng minh Toán học: Bản chất Giả định "Ngây thơ" (Conditional Independence)
 
@@ -84,10 +84,10 @@ Theo Định lý Bayes chính xác tuyệt đối:
 
 $$P(Y = c \mid x_1, x_2, \dots, x_p) = \frac{P(Y = c) \cdot P(x_1, x_2, \dots, x_p \mid Y = c)}{P(x_1, x_2, \dots, x_p)}$$
 
-Trong thực tế, việc ước lượng phân phối đồng thời đa biến $P(x_1, \dots, x_p \mid Y = c)$ đòi hỏi số lượng tham số khổng lồ cỡ $2^p$ (nếu các biến nhị phân), dẫn tới sụp đổ do "Lời nguyền số chiều" (Curse of Dimensionality).
+Trong thực tế, việc ước lượng phân phối đồng thời đa biến $`P(x_1, \dots, x_p \mid Y = c)`$ đòi hỏi số lượng tham số khổng lồ cỡ $2^p$ (nếu các biến nhị phân), dẫn tới sụp đổ do "Lời nguyền số chiều" (Curse of Dimensionality).
 
 **Giả định Độc lập Có điều kiện (The "Naive" Assumption):**
-Mô hình giả định rằng với điều kiện lớp $Y = c$ đã biết, sự xuất hiện của biến $x_j$ hoàn toàn độc lập với biến $x_k$:
+Mô hình giả định rằng với điều kiện lớp $Y = c$ đã biết, sự xuất hiện của biến $`x_j`$ hoàn toàn độc lập với biến $`x_k`$:
 
 $$P(x_1, x_2, \dots, x_p \mid Y = c) = \prod_{j=1}^p P(x_j \mid Y = c)$$
 

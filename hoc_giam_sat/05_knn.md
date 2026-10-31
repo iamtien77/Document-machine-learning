@@ -9,8 +9,8 @@ Dự đoán từ các mẫu train gần nhất; baseline phi tuyến dễ hiểu
 k-Nearest Neighbors (kNN) là đại diện tiêu biểu nhất của trường phái **Học lười (Lazy Learning / Instance-based Learning)**. Khác với các mô hình tham số (như Hồi quy Tuyến tính hay Logistic) vốn cố gắng ép dữ liệu vào một phương trình toán học cố định trong quá trình huấn luyện, kNN không học bất kỳ một trọng số nào trong giai đoạn `fit`. Mô hình lưu trữ toàn bộ dữ liệu mẫu và chỉ thực sự tính toán khi có một truy vấn dự đoán mới xuất hiện.
 
 Năm 1967, hai nhà khoa học Thomas Cover và Peter Hart đã công bố một trong những định lý nền tảng nhất của lý thuyết nhận dạng mẫu:
-* Gọi $R^*$ là **Sai số Tối ưu Bayes (Bayes Error Rate)** — giới hạn sai số lý thuyết tối thiểu mà không một thuật toán nào trên thế giới có thể vượt qua khi biết trước phân phối xác suất thực tế.
-* Gọi $R_{1\text{-NN}}$ là sai số tiệm cận của thuật toán 1-Láng giềng gần nhất ($k=1$) khi kích thước tập huấn luyện tiến ra vô cùng ($n \to \infty$).
+* Gọi $`R^*`$ là **Sai số Tối ưu Bayes (Bayes Error Rate)** — giới hạn sai số lý thuyết tối thiểu mà không một thuật toán nào trên thế giới có thể vượt qua khi biết trước phân phối xác suất thực tế.
+* Gọi $`R_{1\text{-NN}}`$ là sai số tiệm cận của thuật toán 1-Láng giềng gần nhất ($k=1$) khi kích thước tập huấn luyện tiến ra vô cùng ($n \to \infty$).
 * **Định lý Cover & Hart:**
 
   $$R^* \le R_{1\text{-NN}} \le 2 R^* (1 - R^*) \le 2 R^*$$
@@ -23,14 +23,14 @@ Năm 1967, hai nhà khoa học Thomas Cover và Peter Hart đã công bố một
 
 `X` số/đã vector hóa, `y` là lớp hoặc giá trị liên tục; chọn khoảng cách (thường Euclidean), số láng giềng `k` và cách trọng số theo khoảng cách.
 
-Nếu dữ liệu có `n` mẫu train, `p` chiều, mỗi bản ghi inference phải qua đúng phép scale/vector hóa đã fit. Với biến categorical, khoảng cách Euclidean trên mã số tùy ý thường không có ý nghĩa; cần encoding/metric phù hợp với ngữ nghĩa. Chọn $k\le n_{train}$ và kiểm cả tỷ lệ lớp trong vùng lân cận. [1]
+Nếu dữ liệu có `n` mẫu train, `p` chiều, mỗi bản ghi inference phải qua đúng phép scale/vector hóa đã fit. Với biến categorical, khoảng cách Euclidean trên mã số tùy ý thường không có ý nghĩa; cần encoding/metric phù hợp với ngữ nghĩa. Chọn $`k\le n_{train}`$ và kiểm cả tỷ lệ lớp trong vùng lân cận. [1]
 
 ### Lời nguyền Số chiều (Curse of Dimensionality - Richard Bellman)
 
 kNN dựa trên giả định căn bản: **Các điểm nằm gần nhau trong không gian đặc trưng thì có nhãn hoặc giá trị mục tiêu tương tự nhau**. Tuy nhiên, giả định này sụp đổ hoàn toàn khi số chiều $p$ tăng cao:
 
 1. **Sự loãng không gian (Empty Space Phenomenon):** Thể tích của một khối cầu $p$-chiều tỷ lệ với $r^p$. Để bao phủ một tỷ lệ thể tích cố định (ví dụ $10\%$ dữ liệu) nhằm tìm $k$ láng giềng, bán kính lân cận $r$ phải mở rộng rất nhanh theo công thức $r = (0.1)^{1/p}$. Khi $p = 50$, $r \approx 0.95$, nghĩa là thuật toán buộc phải quét gần như toàn bộ không gian dữ liệu để gom đủ $k$ mẫu! Khi đó, các mẫu được gọi là "gần nhất" thực chất lại ở rất xa nhau.
-2. **Sự cô lập khoảng cách (Distance Concentration):** Khi số chiều $p \to \infty$, khoảng cách giữa điểm gần nhất ($d_{\min}$) và điểm xa nhất ($d_{\max}$) từ một điểm truy vấn bất kỳ hội tụ về cùng một giá trị:
+2. **Sự cô lập khoảng cách (Distance Concentration):** Khi số chiều $p \to \infty$, khoảng cách giữa điểm gần nhất ($`d_{\min}`$) và điểm xa nhất ($`d_{\max}`$) từ một điểm truy vấn bất kỳ hội tụ về cùng một giá trị:
 
    $$\lim_{p \to \infty} \frac{d_{\max} - d_{\min}}{d_{\min}} = 0$$
 
@@ -46,7 +46,7 @@ Classification: lớp theo đa số hoặc tỉ lệ có trọng số của `k` 
 ### Bản chất Hình học: Biểu đồ Phân vùng Voronoi (Voronoi Tessellation)
 
 Đối với bộ phân loại 1-NN ($k=1$), không gian đặc trưng $\mathbb{R}^p$ được chia thành $n$ vùng đa diện lồi không chồng lặp gọi là **Các ô Voronoi (Voronoi Cells)**.
-* Mỗi ô Voronoi $V(x_i)$ bao gồm tất cả các điểm trong không gian có khoảng cách tới mẫu $x_i$ nhỏ hơn khoảng cách tới bất kỳ mẫu nào khác.
+* Mỗi ô Voronoi $`V(x_i)`$ bao gồm tất cả các điểm trong không gian có khoảng cách tới mẫu $`x_i`$ nhỏ hơn khoảng cách tới bất kỳ mẫu nào khác.
 * Ranh giới quyết định (Decision Boundary) giữa hai lớp khác nhau chính là hợp của các đoạn trung trực vuông góc ngăn cách giữa các ô Voronoi của các lớp đối lập. Ranh giới này có tính chất phi tuyến cục bộ phức tạp và cực kỳ linh hoạt.
 
 ```text
@@ -81,9 +81,9 @@ Dùng metric tương ứng bài toán (F1/PR-AUC cho classification, MAE/RMSE ch
 
 ### Khoảng cách và cách gộp
 
-Với `p` feature, $d_2(x,z)=\sqrt{\sum_j(x_j-z_j)^2}$ (Euclidean), $d_{1}(x,z)=\sum _j\lvert x_j-z_j\rvert$ (Manhattan). Minkowski tổng quát bậc $q\ge 1$ là $\left(\sum_j\lvert x_j-z_j\rvert^q\right)^{1/q}$. Metric chỉ có ích nếu giá trị “gần” phản ánh sự giống nhau liên quan target; chuẩn hóa feature là một phần của định nghĩa khoảng cách, không chỉ là bước làm đẹp dữ liệu. [1]
+Với `p` feature, $`d_2(x,z)=\sqrt{\sum_j(x_j-z_j)^2}`$ (Euclidean), $`d_{1}(x,z)=\sum _j\lvert x_j-z_j\rvert`$ (Manhattan). Minkowski tổng quát bậc $q\ge 1$ là $`\left(\sum_j\lvert x_j-z_j\rvert^q\right)^{1/q}`$. Metric chỉ có ích nếu giá trị “gần” phản ánh sự giống nhau liên quan target; chuẩn hóa feature là một phần của định nghĩa khoảng cách, không chỉ là bước làm đẹp dữ liệu. [1]
 
-Classification không trọng số chọn lớp có số láng giềng lớn nhất. Nếu dùng trọng số $a_i\ge 0$, điểm lớp `c` có thể viết $S_c=\sum_{i\in N_k(x)} a_i\,\mathbf{1}[y_i=c]$; xác suất ước lượng là $\frac{S_c}{\sum_i a_i}$. Regression có $\hat{y}=\frac{\sum_i a_i y_i}{\sum_i a_i}$; khi mọi $a_i=1$, đó là trung bình. Với $a_i\approx 1/d_i$, điểm trùng dữ liệu train ($d_i=0$) cần quy tắc riêng để tránh chia cho 0; kiểm hành vi của implementation được dùng. Tỷ lệ láng giềng không mặc nhiên là xác suất đã calibration. [1]
+Classification không trọng số chọn lớp có số láng giềng lớn nhất. Nếu dùng trọng số $`a_i\ge 0`$, điểm lớp `c` có thể viết $`S_c=\sum_{i\in N_k(x)} a_i\,\mathbf{1}[y_i=c]`$; xác suất ước lượng là $`\frac{S_c}{\sum_i a_i}`$. Regression có $`\hat{y}=\frac{\sum_i a_i y_i}{\sum_i a_i}`$; khi mọi $`a_i=1`$, đó là trung bình. Với $`a_i\approx 1/d_i`$, điểm trùng dữ liệu train ($`d_i=0`$) cần quy tắc riêng để tránh chia cho 0; kiểm hành vi của implementation được dùng. Tỷ lệ láng giềng không mặc nhiên là xác suất đã calibration. [1]
 
 **Ví dụ gộp có trọng số:** ba láng giềng của mẫu mới có nhãn `A,A,B`, khoảng cách `1,2,0.5`. Bỏ trọng số cho kết quả `A` (2 phiếu). Dùng trọng số nghịch đảo khoảng cách, điểm $A=1+0.5=1.5$, điểm $B=2$; kết quả thành `B`. Vì vậy metric, `k` và cách gộp là một phần của thiết kế mô hình.
 
@@ -143,7 +143,7 @@ Siêu tham số $k$ điều khiển trực tiếp bậc tự do thực tế củ
 * **Khi $k = n$ (Mô hình Cực kỳ Đơn giản):**
   * Mô hình luôn dự đoán lớp chiếm đa số hoặc trung bình toàn bộ tập train cho mọi điểm mới.
   * **Variance bằng đúng 0**, nhưng **Bias cực kỳ cao**. Mô hình hoàn toàn không học được bất kỳ cấu trúc cục bộ nào. Dẫn đến **Underfitting**.
-* *Kinh nghiệm thực nghiệm:* Chọn $k$ là số lẻ để tránh hòa phiếu trong bài toán nhị phân, và tìm $k^*$ tối ưu bằng Cross-Validation trong khoảng $k \in [3, 25]$.
+* *Kinh nghiệm thực nghiệm:* Chọn $k$ là số lẻ để tránh hòa phiếu trong bài toán nhị phân, và tìm $`k^*`$ tối ưu bằng Cross-Validation trong khoảng $k \in [3, 25]$.
 
 ### Key words
 
