@@ -347,3 +347,4 @@ print(f"Macro F1-Score: {f1_score(y_test, y_pred, average='macro'):.4f}")
 - [1] Kingma, D. P., Mohamed, S., Rezende, D. J., & Welling, M. (2014). *Semi-supervised learning with deep generative models*. Advances in Neural Information Processing Systems (NeurIPS), 27, 3581-3589.
 - [2] Nigam, K., McCallum, A. K., Thrun, S., & Mitchell, T. (2000). *Text classification from labeled and unlabeled documents using EM*. Machine Learning, 39(2), 103-134.
 - [3] Springenberg, J. T. (2015). *Unsupervised and semi-supervised learning with categorical generative adversarial networks*. International Conference on Learning Representations (ICLR).
+

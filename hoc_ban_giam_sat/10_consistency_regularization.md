@@ -234,3 +234,4 @@ print(f"Trọng số Teacher sau khi cập nhật EMA:\n{engine.theta_teacher[:2
 - [2] Tarvainen, A., & Valpola, H. (2017). *Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results*. Advances in Neural Information Processing Systems (NeurIPS), 30, 1195-1204.
 - [3] Sajjadi, M., Javanmardi, M., & Tasdizen, T. (2016). *Regularization with stochastic transformations and perturbations for deep semi-supervised learning*. Advances in Neural Information Processing Systems (NeurIPS), 29, 1163-1171.
 - [4] Miyato, T., Maeda, S. I., Koyama, M., & Ishii, S. (2018). *Virtual adversarial training: a regularization method for supervised and semi-supervised learning*. IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI), 41(8), 1979-1993.
+

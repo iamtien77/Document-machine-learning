@@ -240,3 +240,4 @@ run_ssl_benchmark(X_raw, y_true, label_ratios=[0.02, 0.05, 0.10, 0.20], n_repeat
 - [1] Oliver, A., Odena, A., Raffel, C. A., Cubuk, E. D., & Goodfellow, I. (2018). *Realistic evaluation of deep semi-supervised learning algorithms*. Advances in Neural Information Processing Systems (NeurIPS), 31, 3235-3246.
 - [2] Chapelle, O., Schölkopf, B., & Zien, A. (2006). *Semi-Supervised Learning* (Chapter 21: An Overview of Empirical Results). MIT Press.
 - [3] Van Engelen, J. E., & Hoos, H. H. (2020). *A survey on semi-supervised learning*. Machine Learning, 109(2), 373-440.
+
