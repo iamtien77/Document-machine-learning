@@ -32,6 +32,7 @@ Trong lý thuyết quyết định Bayes (Bayesian Decision Theory), quá trình
    * *Ý nghĩa:* Khi mô hình dự đoán $\hat{p} = 0.8$ cho $100$ bệnh nhân, thực tế phải có đúng xấp xỉ $80$ bệnh nhân mang bệnh.
 3. **Tầng 3: Quyết định nhị phân / Hành động thực tế ($\hat{y} \in \{0, 1\}$):**
    * Áp dụng ngưỡng cắt tối ưu $\tau^*$ đã được tính toán từ ma trận chi phí ở giai đoạn đánh giá:
+
      $$\hat{y} = \begin{cases} 1 & \text{nếu } \hat{p} \ge \tau^* \\ 0 & \text{nếu } \hat{p} < \tau^* \end{cases}$$
 
 ---
@@ -122,7 +123,9 @@ Không đặt một KPI cố định cho mọi ứng dụng; ngưỡng cảnh b�
 Trong các hệ thống phân tán và ứng dụng phục vụ thời gian thực, **độ trễ trung bình (Mean Latency) là một chỉ số che giấu lỗi cực kỳ nguy hiểm**:
 * Giả sử hệ thống xử lý $1000$ requests. Có $990$ requests trả về siêu nhanh trong $10\,\text{ms}$, nhưng có $10$ requests bị nghẽn mạng hoặc quá tải bộ nhớ và mất tới $5000\,\text{ms}$ ($5$ giây).
 * Độ trễ trung bình:
+
   $$\text{Mean} \approx \frac{990 \times 10 + 10 \times 5000}{1000} = 59.9\,\text{ms}$$
+
   Nhìn vào con số $59.9\,\text{ms}$, kỹ sư tưởng rằng hệ thống đang hoạt động trơn tru.
 * Nhưng xét theo phân vị:
   * $p50 = 10\,\text{ms}$ (50% người dùng nhận kết quả dưới 10ms).

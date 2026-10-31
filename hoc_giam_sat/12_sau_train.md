@@ -60,14 +60,18 @@ Khi mô hình chạy trên production, nhãn thực tế $y$ thường bị tr�
 
 1. **Chỉ số Ổn định Quần thể (Population Stability Index - PSI):**
    Chia miền giá trị của biến thành $B$ khoảng (bins) dựa trên tập huấn luyện, sau đó so sánh tỷ lệ quan sát giữa tập thực tế ($A$) và tập kỳ vọng lúc train ($E$):
+
    $$\mathrm{PSI} = \sum_{b=1}^B \left( \mathrm{Actual}_b - \mathrm{Expected}_b \right) \times \ln\left( \frac{\mathrm{Actual}_b}{\mathrm{Expected}_b} \right)$$
+
    * *Tiêu chuẩn nghiệm thu:*
      * $\mathrm{PSI} < 0.1$: Phân phối ổn định, không có thay đổi đáng kể.
      * $0.1 \le \mathrm{PSI} < 0.25$: Bắt đầu có sự dịch chuyển nhẹ, cần đưa vào danh sách theo dõi.
      * $\mathrm{PSI} \ge 0.25$: Dịch chuyển phân phối nghiêm trọng, kích hoạt quy trình cảnh báo và xem xét retrain.
 2. **Kiểm định Kolmogorov-Smirnov hai mẫu (Two-sample KS-Test):**
    Đo khoảng cách supremum giữa hai hàm phân phối tích lũy thực nghiệm (Empirical CDF):
+
    $$D_{\text{KS}} = \sup_x \lvert F_{\text{train}}(x) - F_{\text{prod}}(x) \rvert$$
+
    Nếu $p\text{-value} < 0.01$, bác bỏ giả thuyết cho rằng hai tập dữ liệu cùng xuất phát từ một phân phối.
 
 ---

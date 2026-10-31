@@ -12,7 +12,9 @@ Hai công cụ xem xét độ bất định, tùy mục tiêu và thiết kế �
 
 1. **Kiểm định giả thuyết thống kê (Hypothesis Testing):** Chênh lệch 0.5 điểm phần trăm chưa đủ để kết luận $A$ tốt hơn baseline $B$. McNemar có thể so kết quả đúng/sai ghép cặp trên cùng các mẫu độc lập. Không áp dụng máy móc paired t-test hoặc Wilcoxon cho điểm các fold: train chồng lặp làm điểm số phụ thuộc nhau. Nếu cần kiểm định, chọn phương pháp phù hợp thiết kế, xác định mức ý nghĩa trước và báo cáo độ lớn chênh lệch; $p<0.05$ không chứng minh lợi ích thực tế. [10][12]
 2. **Khoảng tin cậy Bootstrap (Bootstrap Confidence Intervals):** Với mô hình đã khóa và mẫu test độc lập, có thể tái lấy mẫu có hoàn lại các cặp nhãn–dự đoán. Percentile và BCa là các cách xây dựng khoảng; công thức sau chỉ là **xấp xỉ chuẩn**, cần phân phối ước lượng gần chuẩn và bias nhỏ:
+
    $$\widehat{\mathrm{Metric}} \pm 1.96 \times \mathrm{SE}_{\text{boot}}$$
+
    Khi so hai mô hình, dùng cùng chỉ số lấy mẫu cho cả hai. Dữ liệu theo nhóm/thời gian cần cách lấy mẫu giữ cấu trúc phụ thuộc. CI trên test cố định không bao quát biến thiên do huấn luyện lại hoặc distribution shift. [11]
 
 ---
@@ -62,13 +64,19 @@ Nếu mẫu số bằng 0, metric có thể không xác định; báo cáo số 
 Khi mở rộng sang bài toán phân loại $K$ lớp, việc gộp các chỉ số thành một điểm số duy nhất đòi hỏi sự thận trọng đặc biệt:
 
 * **Macro-Average:** Tính metric độc lập cho từng lớp rồi lấy trung bình cộng giản đơn:
+
   $$\text{Macro-F1} = \frac{1}{K} \sum_{k=1}^K \text{F1}_k$$
+
   *Đặc tính:* Mỗi lớp có trọng số bằng nhau, kể cả lớp hiếm. Một lớp thất bại vẫn có thể bị che khi số lớp lớn, nên xem thêm F1 từng lớp.
 * **Weighted-Average:** Tính metric từng lớp rồi nhân với tỷ trọng số lượng mẫu (Support $n_k$):
+
   $$\text{Weighted-F1} = \frac{1}{n} \sum_{k=1}^K n_k \cdot \text{F1}_k$$
+
   *Lưu ý:* Lớp đông mẫu đóng góp nhiều hơn. Weighted-F1 có thể cao dù F1 của lớp hiếm bằng 0, nên cần báo cáo metric và support từng lớp.
 * **Micro-Average:** Cộng dồn toàn bộ $TP, FP, FN$ của tất cả các lớp lại trước khi tính toán:
+
   $$\text{Micro-F1} = \text{Micro-Precision} = \text{Micro-Recall} = \text{Accuracy}$$
+
   Trong bài toán đơn nhãn (mỗi mẫu thuộc đúng 1 lớp), khi tính trên toàn bộ các lớp, Micro-F1 bằng Accuracy. Đẳng thức này không áp dụng chung cho multilabel hoặc khi chỉ chọn một số lớp.
 
 ### So sánh Toàn diện: Đường cong ROC vs. Đường cong Precision-Recall (PR)
@@ -101,7 +109,9 @@ Khi mở rộng sang bài toán phân loại $K$ lớp, việc gộp các chỉ 
 
 **Chỉ số $R^2$ Hiệu chỉnh (Adjusted $R^2$):**
 Với **OLS không regularization, có intercept, fit trên cùng tập train có target không hằng**, khi thêm biến mà vẫn giữ các biến cũ (mô hình lồng nhau), $R^2$ **trên train** không giảm: mô hình mới có thể đặt hệ số biến thêm bằng 0. Điều này không bảo đảm $R^2$ trên validation/test tăng và không áp dụng chung cho mọi thuật toán. Adjusted $R^2$ điều chỉnh mức phù hợp trên train theo số tham số: [13]
+
 $$R_{\text{adj}}^2 = 1 - \left[ \frac{(1 - R^2)(n - 1)}{n - p - 1} \right]$$
+
 Trong đó $n$ là số mẫu train, $p$ là số hệ số predictor không tính intercept; công thức dùng cho thiết kế OLS đầy đủ hạng với $n>p+1$. $R_{\text{adj}}^2$ giảm nếu mức giảm sai số không đủ bù số tham số thêm vào. Chỉ số này không thay thế đánh giá trên dữ liệu chưa thấy.
 
 **PR-AUC cần gọi tên rõ:** `average_precision_score` của scikit-learn (AP) tính trung bình có trọng số các precision khi recall tăng; nó **khác** diện tích nội suy hình thang dưới PR curve. Khi báo cáo, ghi rõ “AP” hay “trapezoidal PR-AUC” và cách tính. Baseline AP của dự đoán ngẫu nhiên thường liên quan prevalence lớp dương; so sánh cùng tập dữ liệu và cùng định nghĩa. [2]
@@ -120,9 +130,11 @@ Trong đó $n$ là số mẫu train, $p$ là số hệ số predictor không tí
 ### Thuật toán Tìm Ngưỡng Tối ưu theo Ma trận Chi phí (Optimal Threshold Search)
 
 Giả sử mô hình xuất ra $\hat{p}_i$, một ước lượng của $P(y_i=1 \mid x_i)$. Quyết định nhị phân $\hat{y}_i \in \{0, 1\}$ phụ thuộc vào ngưỡng $\tau \in [0, 1]$:
+
 $$\hat{y}_i(\tau) = \mathbb{I}(\hat{p}_i \ge \tau)$$
 
 Tổng tổn thất nghiệp vụ được định nghĩa:
+
 $$\mathrm{TotalCost}(\tau) = C_{FP} \cdot \sum_{i: y_i=0} \mathbb{I}(\hat{p}_i \ge \tau) + C_{FN} \cdot \sum_{i: y_i=1} \mathbb{I}(\hat{p}_i < \tau)$$
 
 * **Quy trình tìm ngưỡng khoa học:**
@@ -152,7 +164,9 @@ Các thuật toán như SVM, Random Forest, Naive Bayes hoặc Boosting có th�
 * *Random Forest:* Khó dự đoán xác suất sát 0 hoặc 1 do cơ chế bỏ phiếu trung bình từ nhiều cây con.
 
 **Thước đo chất lượng dự đoán xác suất (Brier Score, nhị phân):**
+
 $$\mathrm{BrierScore} = \frac{1}{n} \sum_{i=1}^n (\hat{p}_i - y_i)^2$$
+
 Brier Score có thể phân rã thành: $\text{Reliability} - \text{Resolution} + \text{Uncertainty}$. Điểm nhỏ hơn thể hiện sai số xác suất bình phương nhỏ hơn, nhưng **không tự chứng minh calibration tốt hơn** vì còn phụ thuộc resolution. Xem thêm calibration plot. [14]
 
 **Phương pháp khắc phục:** fit bộ hiệu chuẩn bằng dữ liệu tách khỏi dữ liệu fit mô hình nền hoặc bằng cross-validation phù hợp; không dùng test cuối để fit hay chọn phương pháp. [14]

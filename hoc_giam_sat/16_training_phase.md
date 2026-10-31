@@ -101,12 +101,18 @@ Trước khi chuyển giao artifact mô hình cho đội ngũ kỹ nghệ triể
    * Các mẫu có giá trị khuyết (Missing Values).
    * Các mẫu ở biên cực trị (Edge Cases / Outliers).
 2. **Ghi nhận Baseline Inference trước khi lưu:**
+
    $$\hat{Y}_{\text{pre}} = \text{Pipeline}_{\text{memory}}.\text{predict\_proba}(D_{\text{gold}})$$
+
 3. **Tuần tự hóa (Serialize):** Lưu pipeline ra đĩa (ví dụ: định dạng `.joblib`, `.pickle`, hoặc chuẩn mở `ONNX`).
 4. **Giải tuần tự hóa (Deserialize) trong tiến trình độc lập:** Nạp lại pipeline từ file đã lưu:
+
    $$\hat{Y}_{\text{post}} = \text{Pipeline}_{\text{disk}}.\text{predict\_proba}(D_{\text{gold}})$$
+
 5. **Kiểm định sai số số học (Assertion):**
+
    $$\max \lvert \hat{Y}_{\text{pre}} - \hat{Y}_{\text{post}} \rvert \le 10^{-6}$$
+
    Nếu sai số lớn hơn ngưỡng dung sai số thực hoặc thứ tự các cột nhãn lớp bị đảo lộn, **hủy bỏ đợt phát hành ngay lập tức**.
 
 ---

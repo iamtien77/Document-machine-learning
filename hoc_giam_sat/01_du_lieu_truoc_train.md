@@ -46,10 +46,14 @@ Trước khi viết bất kỳ dòng mã tiền xử lý nào, kỹ sư nghiên 
 Một phép phân chia dữ liệu $D$ thành tập huấn luyện ($D_{\text{train}}$), tập kiểm định ($D_{\text{val}}$) và tập kiểm tra ($D_{\text{test}}$) được định nghĩa là chuẩn mực khi và chỉ khi thỏa mãn đồng thời 2 điều kiện tiên quyết:
 
 1. **Tính rời rạc tuyệt đối (Mutual Exclusivity):**
+
    $$D_{\text{train}} \cap D_{\text{val}} = \emptyset, \quad D_{\text{train}} \cap D_{\text{test}} = \emptyset, \quad D_{\text{val}} \cap D_{\text{test}} = \emptyset$$
+
 2. **Tính độc lập thực thể (Entity/Group Independence):**
    Nếu mẫu dữ liệu gắn liền với thực thể $g \in G$ (ví dụ: bệnh nhân, khách hàng):
+
    $$\mathrm{Group}(D_{\text{train}}) \cap \mathrm{Group}(D_{\text{test}}) = \emptyset$$
+
    Đảm bảo mô hình được đánh giá trên khả năng tổng quát hóa cho **thực thể hoàn toàn mới**, chứ không phải nhận diện lại đặc tính của thực thể cũ.
 
 ---
@@ -63,11 +67,15 @@ Một phép phân chia dữ liệu $D$ thành tập huấn luyện ($D_{\text{tr
 ### Thước đo Đánh giá Chất lượng Dữ liệu Thô (Data Health Metrics)
 
 1. **Tỷ lệ Mất cân bằng Nhãn (Imbalance Ratio - $IR$):**
+
    $$IR = \frac{N_{\text{majority}}}{N_{\text{minority}}}$$
+
    * Nếu $IR > 10$: Phải áp dụng phân tầng (*Stratified Split*), tuyệt đối không dùng Accuracy làm metric chính; chuyển sang PR-AUC, F1-macro hoặc Brier Score.
 2. **Hệ số Phóng đại Phương sai (Variance Inflation Factor - VIF):**
    Đo lường mức độ đa cộng tuyến giữa các biến độc lập $x_j$:
+
    $$\mathrm{VIF}_j = \frac{1}{1 - R_j^2}$$
+
    Trong đó $R_j^2$ là hệ số xác định khi hồi quy $x_j$ theo toàn bộ $p-1$ biến còn lại. $\mathrm{VIF}_j > 5$ hoặc $10$ báo hiệu tương quan cao, làm mất ổn định hệ số trong các mô hình tuyến tính.
 3. **Chỉ số Cardinality (Số lượng giá trị phân biệt):**
    Với biến định danh, tỷ lệ giữa số giá trị phân biệt và tổng số hàng. Biến có cardinality quá cao (như ID, địa chỉ IP) nếu không xử lý đúng sẽ gây overfit nghiêm trọng.
@@ -116,15 +124,21 @@ Xét một tập dữ liệu gồm 4 mẫu một chiều $X = [10, 20, 30, 100]$
 * **Cách làm SAI (Fit trên toàn bộ dữ liệu trước split):**
   * $\mu_{\text{all}} = \frac{10 + 20 + 30 + 100}{4} = 40$, $\sigma_{\text{all}} \approx 35.35$.
   * Mẫu huấn luyện thứ ba ($30$) được biến đổi thành:
+
     $$z_3 = \frac{30 - 40}{35.35} \approx -0.28$$
+
   * *Nhận xét:* Giá trị $z_3$ của train bị kéo dịch chuyển sang âm vì có sự hiện diện của giá trị ngoại lai $100$ bên tập test! Tập train đã gián tiếp biết tập test có giá trị lớn.
 
 * **Cách làm ĐÚNG CHUẨN KHOA HỌC (Fit CHỈ trên train):**
   * $\mu_{\text{train}} = \frac{10 + 20 + 30}{3} = 20$, $\sigma_{\text{train}} \approx 8.16$.
   * Mẫu huấn luyện thứ ba ($30$) được biến đổi chuẩn tắc:
+
     $$z_3 = \frac{30 - 20}{8.16} \approx +1.22$$
+
   * Sau đó, áp dụng nguyên vẹn tham số đã fit sang test:
+
     $$z_{\text{test}} = \frac{100 - \mu_{\text{train}}}{\sigma_{\text{train}}} = \frac{100 - 20}{8.16} \approx +9.80$$
+
   * *Nhận xét:* Tập train hoàn toàn độc lập với sự tồn tại của điểm $100$, phản ánh chân thực khả năng tiếp nhận dữ liệu ngoại lai khi triển khai thực tế.
 
 ---

@@ -81,16 +81,20 @@ Khi `V` lớn, nhân nhiều xác suất rất nhỏ dễ underflow; tính $\log
 ### Chứng minh Toán học: Bản chất Giả định "Ngây thơ" (Conditional Independence)
 
 Theo Định lý Bayes chính xác tuyệt đối:
+
 $$P(Y = c \mid x_1, x_2, \dots, x_p) = \frac{P(Y = c) \cdot P(x_1, x_2, \dots, x_p \mid Y = c)}{P(x_1, x_2, \dots, x_p)}$$
 
 Trong thực tế, việc ước lượng phân phối đồng thời đa biến $P(x_1, \dots, x_p \mid Y = c)$ đòi hỏi số lượng tham số khổng lồ cỡ $2^p$ (nếu các biến nhị phân), dẫn tới sụp đổ do "Lời nguyền số chiều" (Curse of Dimensionality).
 
 **Giả định Độc lập Có điều kiện (The "Naive" Assumption):**
 Mô hình giả định rằng với điều kiện lớp $Y = c$ đã biết, sự xuất hiện của biến $x_j$ hoàn toàn độc lập với biến $x_k$:
+
 $$P(x_1, x_2, \dots, x_p \mid Y = c) = \prod_{j=1}^p P(x_j \mid Y = c)$$
+
 Khi đó, bài toán từ việc ước lượng bảng xác suất $2^p$ phần tử được rút gọn xuống chỉ còn ước lượng $2p$ tham số đơn biến! 
 
 Chuyển sang không gian Logarit để ngăn chặn hiện tượng tràn số dưới (Underflow):
+
 $$\hat{y} = \mathop{\mathrm{arg\,max}}_{c} \left[ \ln P(Y = c) + \sum_{j=1}^p \ln P(x_j \mid Y = c) \right]$$
 
 ### Nghịch lý Thú vị: Tại sao Naive Bayes Vẫn Hoạt động Tốt khi Giả định Bị Sai?

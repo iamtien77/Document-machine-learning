@@ -52,7 +52,9 @@ MAE cho sai số tuyệt đối dễ diễn giải; RMSE phạt lỗi lớn mạ
 ### Các Thước đo Kiểm định Suy diễn Nâng cao (Inferential Statistics)
 
 1. **Kiểm định Student's t-test cho từng hệ số:**
+
    $$t_j = \frac{\hat{w}_j}{\mathrm{SE}(\hat{w}_j)}$$
+
    Trong đó $\mathrm{SE}(\hat{w}_j) = \sigma \sqrt{[(X^\top X)^{-1}]_{jj}}$. Nếu giá trị $p\text{-value} > 0.05$, biến $x_j$ không có ý nghĩa thống kê trong việc dự đoán $y$ khi đã có mặt các biến còn lại.
 2. **Khoảng tin cậy cho Dự đoán (Prediction vs Confidence Intervals):**
    * *Confidence Interval:* Đo lường độ bất định khi ước lượng giá trị trung bình $\mathbb{E}[y \mid x_0]$.
@@ -113,7 +115,9 @@ Các cột của ma trận $X = [x_1, x_2, \dots, x_p]$ căng ra một không gi
 * Dự đoán của mô hình là một tổ hợp tuyến tính $\hat{y} = Xw = \sum_{j=1}^p w_j x_j$, do đó $\hat{y}$ **bắt buộc phải nằm trọn vẹn bên trong $\mathrm{Col}(X)$**.
 * Để tối thiểu hóa khoảng cách Euclid $\|y - \hat{y}\|_2^2$, điểm $\hat{y}$ tốt nhất phải là **hình chiếu trực giao của $y$ lên $\mathrm{Col}(X)$**.
 * Khi đó, vector phần dư $e = y - \hat{y}$ vuông góc (trực giao) với mọi vector cột $x_j$:
+
   $$X^\top (y - \hat{y}) = 0 \iff X^\top (y - Xw) = 0 \iff X^\top X w = X^\top y$$
+
   Từ đó suy ra phương trình chuẩn nổi tiếng: $w = (X^\top X)^{-1} X^\top y$.
 
 ```text
@@ -130,6 +134,7 @@ Các cột của ma trận $X = [x_1, x_2, \dots, x_p]$ căng ra một không gi
 ### Tại sao Lasso Triệt tiêu Hệ số về 0 trong khi Ridge thì Không?
 
 Bài toán Regularization có thể viết lại dưới dạng bài toán tối ưu hóa ràng buộc Karush-Kuhn-Tucker (KKT):
+
 $$\min_{w} \|y - Xw\|_2^2 \quad \text{sao cho} \quad \|w\|_p \le t$$
 
 ```text
@@ -153,7 +158,9 @@ $$\min_{w} \|y - Xw\|_2^2 \quad \text{sao cho} \quad \|w\|_p \le t$$
 ### Thuật toán Coordinate Descent & Toán tử Soft-Thresholding trong Lasso
 
 Do hàm chuẩn $L_1$ không khả vi tại điểm $0$, Lasso không thể giải trực tiếp bằng Gradient Descent thông thường mà sử dụng **Coordinate Descent (Hạ từng tọa độ)**. Tại mỗi bước lặp, thuật toán cố định toàn bộ các tham số khác và tối ưu duy nhất biến $w_j$ thông qua toán tử ngưỡng mềm (Soft-Thresholding Operator):
+
 $$w_j^* = \mathcal{S}_{\lambda}(\rho_j) = \mathrm{sign}(\rho_j) \max(0, \lvert \rho_j \rvert - \lambda)$$
+
 Trong đó $\rho_j = x_j^\top (y - \sum_{k \neq j} w_k x_k)$ là mức độ tương quan giữa biến $x_j$ và phần dư còn lại của mô hình. Nếu $|\rho_j| \le \lambda$, hệ số $w_j$ lập tức bị ép chặt về $0$.
 
 ---
