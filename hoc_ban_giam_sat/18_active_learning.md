@@ -5,7 +5,7 @@
 Tài liệu này hệ thống hóa lý thuyết, thuật toán và kiến trúc tích hợp giữa **Học chủ động (Active Learning - AL)** và **Học bán giám sát (Semi-Supervised Learning - SSL)**.
 
 Trong thực tế triển khai máy học, dữ liệu thô chưa gán nhãn thường rất dồi dào nhưng chi phí mời chuyên gia (bác sĩ, luật sư, chuyên gia thẩm định rủi ro) gán nhãn là nút thắt cổ chai lớn nhất. Hai nhánh công nghệ này tiếp cận giải quyết bài toán thiếu nhãn theo hai triết lý bổ trợ hoàn hảo cho nhau:
-- **Học bán giám sát (SSL):** *Tự động hóa hoàn toàn.* Mô hình tự khai thác cấu trúc phân phối hình học của dữ liệu không nhãn `$ \mathcal{D}_U $` để cải thiện ranh giới quyết định mà không làm phiền con người.
+- **Học bán giám sát (SSL):** *Tự động hóa hoàn toàn.* Mô hình tự khai thác cấu trúc phân phối hình học của dữ liệu không nhãn $`\mathcal{D}_U`$ để cải thiện ranh giới quyết định mà không làm phiền con người.
 - **Học chủ động (AL):** *Tối ưu hóa sự can thiệp của con người (Human-in-the-Loop).* Mô hình tự thẩm định độ bất định của chính nó, chủ động chọn lọc những mẫu dữ liệu mang giá trị thông tin cao nhất (Informativeness) để yêu cầu chuyên gia gán nhãn dưới một ngân sách hữu hạn.
 - **Học chủ động bán giám sát (Semi-Supervised Active Learning - SSAL):** Hợp nhất sức mạnh của cả hai: Các mẫu khó nhất nằm gần ranh giới quyết định được gửi cho chuyên gia (AL), trong khi các mẫu dễ có độ tự tin cao ở vùng mật độ cao được tự động gán giả nhãn (SSL), giúp giảm thiểu từ 80% đến 90% chi phí gán nhãn thực tế.
 
@@ -15,20 +15,20 @@ Trong thực tế triển khai máy học, dữ liệu thô chưa gán nhãn th�
 
 Quy trình Học chủ động tiếp nhận các nguồn tài nguyên đầu vào:
 
-1. **Bể dữ liệu không nhãn (Unlabeled Pool `$ \mathcal{U} $`):**
-   Tập hợp lớn các mẫu dữ liệu thô `$ \mathcal{U} = \lbrace u_1, u_2, \dots, u_{N_U} \rbrace $`.
+1. **Bể dữ liệu không nhãn (Unlabeled Pool $`\mathcal{U}`$):**
+   Tập hợp lớn các mẫu dữ liệu thô $`\mathcal{U} = \lbrace u_1, u_2, \dots, u_{N_U} \rbrace`$.
 
-2. **Tập dữ liệu có nhãn khởi đầu (Seed Labeled Set `$ \mathcal{L}_0 $`):**
-   Tập mẫu ban đầu rất nhỏ `$ \mathcal{L}_0 = \lbrace (x_i, y_i) \rbrace_{i=1}^{N_0} $` (thường chỉ 1 đến 5 mẫu mỗi lớp) dùng để khởi tạo mô hình học cơ sở.
+2. **Tập dữ liệu có nhãn khởi đầu (Seed Labeled Set $`\mathcal{L}_0`$):**
+   Tập mẫu ban đầu rất nhỏ $`\mathcal{L}_0 = \lbrace (x_i, y_i) \rbrace_{i=1}^{N_0}`$ (thường chỉ 1 đến 5 mẫu mỗi lớp) dùng để khởi tạo mô hình học cơ sở.
 
-3. **Ngân sách truy vấn mỗi vòng (Batch Query Budget `$ B $`):**
-   Số lượng mẫu tối đa được phép chọn ra trong mỗi chu kỳ lặp để gửi cho chuyên gia (ví dụ: `$ B = 20 $` mẫu mỗi vòng).
+3. **Ngân sách truy vấn mỗi vòng (Batch Query Budget $`B`$):**
+   Số lượng mẫu tối đa được phép chọn ra trong mỗi chu kỳ lặp để gửi cho chuyên gia (ví dụ: $`B = 20`$ mẫu mỗi vòng).
 
 4. **Chuyên gia thẩm định (Oracle Annotator):**
-   Con người hoặc hệ thống phân tích phòng thí nghiệm đảm bảo cung cấp nhãn thực tế `$ y^* $` chuẩn xác 100% khi nhận được yêu cầu truy vấn.
+   Con người hoặc hệ thống phân tích phòng thí nghiệm đảm bảo cung cấp nhãn thực tế $`y^*`$ chuẩn xác 100% khi nhận được yêu cầu truy vấn.
 
 5. **Chiến lược chọn mẫu (Query Strategy):**
-   Hàm tính toán điểm giá trị thông tin (Acquisition Function / Informativeness Measure) `$ \phi(u) $` trên từng mẫu không nhãn.
+   Hàm tính toán điểm giá trị thông tin (Acquisition Function / Informativeness Measure) $`\phi(u)`$ trên từng mẫu không nhãn.
 
 ---
 
@@ -36,19 +36,19 @@ Quy trình Học chủ động tiếp nhận các nguồn tài nguyên đầu v�
 
 Mỗi vòng lặp của quy trình Học chủ động cung cấp đầu ra:
 
-1. **Tập mẫu truy vấn tối ưu (`$ \mathcal{S}^* \subset \mathcal{U} $` với `$ |\mathcal{S}^*| = B $`):**
+1. **Tập mẫu truy vấn tối ưu ($`\mathcal{S}^* \subset \mathcal{U}`$ với $`|\mathcal{S}^*| = B`$):**
    
 $$
 \mathcal{S}^* = \arg\max_{\mathcal{S} \subset \mathcal{U}, |\mathcal{S}| = B} \sum_{u \in \mathcal{S}} \phi(u)
 $$
 
-2. **Tập dữ liệu có nhãn mở rộng (`$ \mathcal{L}_{t+1} $`):**
+2. **Tập dữ liệu có nhãn mở rộng ($`\mathcal{L}_{t+1}`$):**
    
 $$
 \mathcal{L}_{t+1} = \mathcal{L}_t \cup \left\lbrace (x, y_{\mathrm{oracle}}^*) \mid x \in \mathcal{S}^* \right\rbrace
 $$
 
-3. **Mô hình cập nhật `$ f_{\theta_{t+1}} $`:** Đạt hiệu năng tăng vọt trên tập kiểm thử độc lập chỉ với một lượng nhỏ nhãn mới bổ sung.
+3. **Mô hình cập nhật $`f_{\theta_{t+1}}`$:** Đạt hiệu năng tăng vọt trên tập kiểm thử độc lập chỉ với một lượng nhỏ nhãn mới bổ sung.
 
 ---
 
@@ -57,7 +57,7 @@ $$
 Chỉ số đánh giá chuyên biệt cho Học chủ động:
 
 1. **Đường cong học tập theo ngân sách (Learning Curve over Budget):**
-   Đồ thị biểu diễn mối quan hệ giữa số lượng mẫu có nhãn tích lũy `$ N_L $` (trục hoành) và điểm Accuracy / F1-Score kiểm thử (trục tung).
+   Đồ thị biểu diễn mối quan hệ giữa số lượng mẫu có nhãn tích lũy $`N_L`$ (trục hoành) và điểm Accuracy / F1-Score kiểm thử (trục tung).
 
 2. **Diện tích dưới đường cong học (Area Under the Learning Curve - AULC):**
    Tích phân hiệu năng qua toàn bộ chu trình truy vấn:
@@ -69,7 +69,7 @@ $$
    Điểm AULC càng lớn chứng minh mô hình học càng nhanh với ít nhãn nhất.
 
 3. **Tỷ số Tiết kiệm Nhãn (Label Reduction Ratio - LRR):**
-   So sánh số lượng nhãn cần thiết của Active Learning so với lấy mẫu ngẫu nhiên truyền thống (Passive Random Sampling) để cùng chạm tới một ngưỡng hiệu năng `$ \text{Acc}_0 $`:
+   So sánh số lượng nhãn cần thiết của Active Learning so với lấy mẫu ngẫu nhiên truyền thống (Passive Random Sampling) để cùng chạm tới một ngưỡng hiệu năng $`\text{Acc}_0`$:
    
 $$
 \mathrm{LRR} = \left(1 - \frac{N_{\mathrm{AL}}}{N_{\mathrm{Random}}}\right) \times 100\%
@@ -116,7 +116,7 @@ $$
 
 ### 2. Các Chiến Lược Truy Vấn Độ Bất Định Cốt Lõi (Uncertainty Sampling)
 
-Cho mô hình dự đoán phân phối xác suất `$ p_\theta(y \mid x) $` trên `$ C $` lớp:
+Cho mô hình dự đoán phân phối xác suất $`p_\theta(y \mid x)`$ trên $`C`$ lớp:
 
 #### A. Least Confidence (Ít tự tin nhất)
 Chọn những mẫu mà xác suất dự đoán của lớp đứng đầu là nhỏ nhất (mô hình hoang mang nhất về lớp tốt nhất):
@@ -126,7 +126,7 @@ $$
 $$
 
 #### B. Margin Sampling (Khoảng cách lề giữa hai lớp đứng đầu)
-Chọn những mẫu mà độ chênh lệch xác suất giữa lớp có khả năng cao nhất (`$ \hat{y}_1 $`) và lớp có khả năng cao thứ hai (`$ \hat{y}_2 $`) là nhỏ nhất:
+Chọn những mẫu mà độ chênh lệch xác suất giữa lớp có khả năng cao nhất ($`\hat{y}_1`$) và lớp có khả năng cao thứ hai ($`\hat{y}_2`$) là nhỏ nhất:
 
 $$
 \phi_{\mathrm{Margin}}(x) = -\left( p_\theta(\hat{y}_1 \mid x) - p_\theta(\hat{y}_2 \mid x) \right)
@@ -266,3 +266,4 @@ if __name__ == "__main__":
 - [2] Lewis, D. D., & Gale, W. A. (1994). *A sequential algorithm for training text classifiers*. Proceedings of the 17th Annual International ACM SIGIR Conference, 3-12.
 - [3] Sener, O., & Savarese, S. (2018). *Active learning for convolutional neural networks: A core-set approach*. International Conference on Learning Representations (ICLR).
 - [4] Zhu, X., Lafferty, J., & Ghahramani, Z. (2003). *Combining active learning and semi-supervised learning using Gaussian fields and harmonic functions*. ICML 2003 Workshop on The Continuum from Labeled to Unlabeled Data in Machine Learning and Data Mining.
+

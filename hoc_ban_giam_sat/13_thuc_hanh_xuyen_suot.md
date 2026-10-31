@@ -3,13 +3,13 @@
 ## Purpose
 
 Tài liệu này xây dựng một quy trình thực nghiệm bán giám sát hoàn chỉnh khép kín (End-to-End Semi-Supervised Benchmark Pipeline), cung cấp chuẩn mực so sánh khách quan giữa các nhóm giải thuật:
-- **Baseline có giám sát (Supervised Baseline):** Mô hình chỉ huấn luyện trên tập nhãn hạn chế `$ \mathcal{D}_L $`.
+- **Baseline có giám sát (Supervised Baseline):** Mô hình chỉ huấn luyện trên tập nhãn hạn chế $`\mathcal{D}_L`$.
 - **Học tự huấn luyện (Self-Training):** Cơ chế gán giả nhãn cứng lặp lại kết hợp bộ phân loại cơ sở.
 - **Lan truyền nhãn trên đồ thị (Label Spreading):** Cơ chế làm trơn hàm phân loại dựa trên ma trận kề chuẩn hóa đối xứng và ma trận Laplacian.
 - **Upper Bound có giám sát đầy đủ (Fully Supervised Oracle):** Mô hình được huấn luyện khi toàn bộ dữ liệu đều có nhãn thật 100%.
 
 Mục tiêu cốt lõi:
-1. Chứng minh định lượng tính hữu ích của dữ liệu không nhãn `$ \mathcal{D}_U $` khi tỷ lệ mẫu có nhãn `$ \eta = N_L / (N_L + N_U) $` suy giảm nghiêm trọng (từ 50% xuống 20%, 10%, 5%, 2%).
+1. Chứng minh định lượng tính hữu ích của dữ liệu không nhãn $`\mathcal{D}_U`$ khi tỷ lệ mẫu có nhãn $`\eta = N_L / (N_L + N_U)`$ suy giảm nghiêm trọng (từ 50% xuống 20%, 10%, 5%, 2%).
 2. Khảo sát hiện tượng suy giảm hiệu năng (Degradation / Negative Learning) khi các giả định bán giám sát bị vi phạm.
 3. Cung cấp mã nguồn thực thi độc lập chuẩn scikit-learn, trực quan hóa đường cong học tập (Learning Curves) và phân tích trade-off thời gian thực thi.
 
@@ -21,12 +21,12 @@ Thực nghiệm tiếp nhận đầu vào gồm tập dữ liệu chuẩn hóa v
 
 1. **Bộ dữ liệu thực nghiệm:**
    - Tập dữ liệu chữ số viết tay **Optical Recognition of Handwritten Digits (Digits)** hoặc **Breast Cancer Wisconsin**.
-   - Không gian đặc trưng: `$ X \in \mathbb{R}^{N \times d} $`, với số lượng mẫu `$ N = 1797 $`, chiều đặc trưng `$ d = 64 $`, số lớp `$ C = 10 $`.
-   - Nhãn thực tế: `$ y \in \lbrace 0, 1, \dots, C-1 \rbrace $`.
+   - Không gian đặc trưng: $`X \in \mathbb{R}^{N \times d}`$, với số lượng mẫu $`N = 1797`$, chiều đặc trưng $`d = 64`$, số lớp $`C = 10`$.
+   - Nhãn thực tế: $`y \in \lbrace 0, 1, \dots, C-1 \rbrace`$.
 
 2. **Tỷ lệ phân chia tập dữ liệu:**
-   - Tập kiểm thử độc lập (Hold-out Test Set): Chiếm 25% tổng số mẫu (`$ N_{\mathrm{test}} \approx 450 $`), nhãn được giữ kín tuyệt đối để đánh giá năng lực quy nạp (Inductive Performance).
-   - Tập huấn luyện kết hợp (Train Pool): Chiếm 75% tổng số mẫu (`$ N_{\mathrm{train}} \approx 1347 $`).
+   - Tập kiểm thử độc lập (Hold-out Test Set): Chiếm 25% tổng số mẫu ($`N_{\mathrm{test}} \approx 450`$), nhãn được giữ kín tuyệt đối để đánh giá năng lực quy nạp (Inductive Performance).
+   - Tập huấn luyện kết hợp (Train Pool): Chiếm 75% tổng số mẫu ($`N_{\mathrm{train}} \approx 1347`$).
 
 3. **Lưới tỷ lệ gán nhãn thực nghiệm (Labeling Ratios):**
 
@@ -34,12 +34,12 @@ $$
 \eta \in \left\lbrace 0.02, 0.05, 0.10, 0.20, 0.50 \right\rbrace
 $$
 
-   Mỗi tỷ lệ `$ \eta $` tương ứng với số lượng mẫu có nhãn `$ N_L = \lfloor \eta \cdot N_{\mathrm{train}} \rfloor $`. Các mẫu còn lại `$ N_U = N_{\mathrm{train}} - N_L $` bị ẩn nhãn (gán giá trị `-1` theo quy ước của `sklearn.semi_supervised`).
+   Mỗi tỷ lệ $`\eta`$ tương ứng với số lượng mẫu có nhãn $`N_L = \lfloor \eta \cdot N_{\mathrm{train}} \rfloor`$. Các mẫu còn lại $`N_U = N_{\mathrm{train}} - N_L`$ bị ẩn nhãn (gán giá trị `-1` theo quy ước của `sklearn.semi_supervised`).
 
 4. **Cấu hình mô hình:**
    - Base Classifier: Logistic Regression (bộ phân loại xác suất tuyến tính) hoặc Support Vector Machine với RBF kernel.
-   - Self-Training: Ngưỡng tự tin `$ \tau = 0.85 $`, số vòng lặp tối đa 10.
-   - Label Spreading: Kernel RBF với `$ \gamma = 0.05 $`, hệ số kẹp nhãn `$ \alpha = 0.2 $`.
+   - Self-Training: Ngưỡng tự tin $`\tau = 0.85`$, số vòng lặp tối đa 10.
+   - Label Spreading: Kernel RBF với $`\gamma = 0.05`$, hệ số kẹp nhãn $`\alpha = 0.2`$.
 
 ---
 
@@ -48,10 +48,10 @@ $$
 Kết quả đầu ra của pipeline thực hành xuyên suốt bao gồm:
 
 1. **Bảng số liệu hiệu năng tổng hợp:**
-   So sánh Macro F1-Score, Top-1 Accuracy và Thời gian huấn luyện (Fit Time) của 4 cấu hình mô hình theo từng mốc tỷ lệ gán nhãn `$ \eta $`.
+   So sánh Macro F1-Score, Top-1 Accuracy và Thời gian huấn luyện (Fit Time) của 4 cấu hình mô hình theo từng mốc tỷ lệ gán nhãn $`\eta`$.
 
 2. **Biểu đồ Đường cong Học tập Bán giám sát (Semi-Supervised Learning Curve):**
-   Đồ thị thể hiện mối quan hệ giữa tỷ lệ nhãn `$ \eta $` (trục hoành) và điểm F1-Score kiểm thử (trục tung).
+   Đồ thị thể hiện mối quan hệ giữa tỷ lệ nhãn $`\eta`$ (trục hoành) và điểm F1-Score kiểm thử (trục tung).
 
 3. **Chỉ số Delta cải thiện thực tế (SSL Gain):**
 
@@ -66,7 +66,7 @@ $$
 ## Evaluation metrics
 
 1. **Điểm F1-Score vĩ mô (Macro-Averaged F1-Score):**
-   Đo lường trung bình hiệu năng trên toàn bộ `$ C $` lớp đối tượng, đảm bảo không bị sai lệch bởi lớp chiếm đa số:
+   Đo lường trung bình hiệu năng trên toàn bộ $`C`$ lớp đối tượng, đảm bảo không bị sai lệch bởi lớp chiếm đa số:
 
 $$
 \mathrm{Macro\text{ }F1} = \frac{1}{C} \sum_{c=1}^C \frac{2 \cdot P_c \cdot R_c}{P_c + R_c}
@@ -108,11 +108,11 @@ Quy trình thực nghiệm xuyên suốt tuân thủ 5 giai đoạn chặt chẽ
 ```
 
 1. **Phân tầng dữ liệu (Stratified Partitioning):** Giữ nguyên tỷ lệ các lớp trong tập huấn luyện và tập kiểm thử độc lập.
-2. **Che giấu nhãn nhân tạo (Artificial Masking):** Với mỗi tỷ lệ `$ \eta $`, chọn ngẫu nhiên có phân tầng `$ N_L $` mẫu giữ nguyên nhãn gốc, và `$ N_U $` mẫu được chuyển thành nhãn `$ -1 $`.
+2. **Che giấu nhãn nhân tạo (Artificial Masking):** Với mỗi tỷ lệ $`\eta`$, chọn ngẫu nhiên có phân tầng $`N_L`$ mẫu giữ nguyên nhãn gốc, và $`N_U`$ mẫu được chuyển thành nhãn $`-1`$.
 3. **Huấn luyện đồng quy:**
-   - Supervised Baseline chỉ trích xuất đúng `$ N_L $` mẫu có nhãn thật để gọi `fit(X_L, y_L)`.
-   - Self-Training và Label Spreading tiếp nhận toàn bộ `$ N_{\mathrm{train}} $` mẫu gồm cả vector đặc trưng của `$ N_U $` với nhãn `-1` để khai thác hình học đa tạp.
-4. **Đánh giá quy nạp (Inductive Scoring):** Cả 3 mô hình dự đoán nhãn trên cùng tập kiểm thử `$ X_{\mathrm{test}} $` và so sánh với `$ y_{\mathrm{test}} $`.
+   - Supervised Baseline chỉ trích xuất đúng $`N_L`$ mẫu có nhãn thật để gọi `fit(X_L, y_L)`.
+   - Self-Training và Label Spreading tiếp nhận toàn bộ $`N_{\mathrm{train}}`$ mẫu gồm cả vector đặc trưng của $`N_U`$ với nhãn `-1` để khai thác hình học đa tạp.
+4. **Đánh giá quy nạp (Inductive Scoring):** Cả 3 mô hình dự đoán nhãn trên cùng tập kiểm thử $`X_{\mathrm{test}}`$ và so sánh với $`y_{\mathrm{test}}`$.
 
 ---
 

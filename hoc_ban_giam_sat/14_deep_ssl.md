@@ -35,7 +35,7 @@ $$
 \mathcal{D}_L = \left\lbrace (x_i, y_i) \right\rbrace_{i=1}^{N_L}
 $$
 
-   Trong đó `$ x_i \in \mathcal{X} $` là mẫu đầu vào (hình ảnh, văn bản), `$ y_i \in \lbrace 1, 2, \dots, C \rbrace $` là nhãn thực tế dạng one-hot vector hoặc chỉ số lớp. Số lượng mẫu `$ N_L $` thường rất nhỏ (ví dụ 4 đến 25 mẫu mỗi lớp).
+   Trong đó $`x_i \in \mathcal{X}`$ là mẫu đầu vào (hình ảnh, văn bản), $`y_i \in \lbrace 1, 2, \dots, C \rbrace`$ là nhãn thực tế dạng one-hot vector hoặc chỉ số lớp. Số lượng mẫu $`N_L`$ thường rất nhỏ (ví dụ 4 đến 25 mẫu mỗi lớp).
 
 2. **Tập dữ liệu không nhãn lớn (Unlabeled Dataset):**
 
@@ -43,27 +43,27 @@ $$
 \mathcal{D}_U = \left\lbrace u_j \right\rbrace_{j=1}^{N_U}
 $$
 
-   Trong đó `$ u_j \in \mathcal{X} $` cùng phân phối biên `$ p(x) $` với `$ \mathcal{D}_L $`, với quy mô `$ N_U \gg N_L $` (thường gấp từ 10 đến 100 lần).
+   Trong đó $`u_j \in \mathcal{X}`$ cùng phân phối biên $`p(x)`$ với $`\mathcal{D}_L`$, với quy mô $`N_U \gg N_L`$ (thường gấp từ 10 đến 100 lần).
 
 3. **Cặp phép biến đổi tăng cường dữ liệu (Augmentation Operators):**
-   - **Phép biến đổi yếu (Weak Augmentation `$ \alpha(\cdot) $`):** Các phép biến đổi bảo toàn cấu trúc không gian nhẹ, ví dụ lật ngang ngẫu nhiên (Random Horizontal Flip) và dịch chuyển tịnh tiến nhỏ (Random Crop/Translation).
-   - **Phép biến đổi mạnh (Strong Augmentation `$ \mathcal{A}(\cdot) $`):** Các phép biến đổi hình thái học và màu sắc cường độ cao không bảo toàn ngữ cảnh pixel, ví dụ RandAugment, CTAugment, AutoAugment hoặc CutOut.
+   - **Phép biến đổi yếu (Weak Augmentation $`\alpha(\cdot)`$):** Các phép biến đổi bảo toàn cấu trúc không gian nhẹ, ví dụ lật ngang ngẫu nhiên (Random Horizontal Flip) và dịch chuyển tịnh tiến nhỏ (Random Crop/Translation).
+   - **Phép biến đổi mạnh (Strong Augmentation $`\mathcal{A}(\cdot)`$):** Các phép biến đổi hình thái học và màu sắc cường độ cao không bảo toàn ngữ cảnh pixel, ví dụ RandAugment, CTAugment, AutoAugment hoặc CutOut.
 
 4. **Kiến trúc mạng nơ-ron sâu (Backbone Architecture):**
-   Mạng nơ-ron tích chập hoặc Transformer tham số hóa bởi vector trọng số `$ \theta $`:
+   Mạng nơ-ron tích chập hoặc Transformer tham số hóa bởi vector trọng số $`\theta`$:
 
 $$
 f_\theta: \mathcal{X} \to \Delta^{C-1}
 $$
 
-   Ánh xạ đầu vào sang không gian phân phối xác suất trên `$ C $` lớp đầu ra (thông qua hàm kích hoạt Softmax).
+   Ánh xạ đầu vào sang không gian phân phối xác suất trên $`C`$ lớp đầu ra (thông qua hàm kích hoạt Softmax).
 
 5. **Bộ siêu tham số điều khiển (Hyperparameters):**
-   - Tỷ lệ kích thước batch không nhãn so với có nhãn: `$ \mu = B_U / B_L $` (thường chọn `$ \mu \in [5, 7] $`).
-   - Ngưỡng cắt tự tin (Confidence Threshold): `$ \tau $` (trong FixMatch mặc định `$ \tau = 0.95 $`).
-   - Hệ số cân bằng hàm mất mát không nhãn: `$ \lambda_U $` (thường chọn `$ \lambda_U = 1.0 $`).
-   - Nhiệt độ làm sắc nét phân phối: `$ T $` (trong MixMatch, thường `$ T \in [0.5, 0.8] $`).
-   - Hệ số suy giảm trung bình động trọng số (EMA decay rate): `$ \beta_{\mathrm{EMA}} \in [0.999, 0.9999] $`.
+   - Tỷ lệ kích thước batch không nhãn so với có nhãn: $`\mu = B_U / B_L`$ (thường chọn $`\mu \in [5, 7]`$).
+   - Ngưỡng cắt tự tin (Confidence Threshold): $`\tau`$ (trong FixMatch mặc định $`\tau = 0.95`$).
+   - Hệ số cân bằng hàm mất mát không nhãn: $`\lambda_U`$ (thường chọn $`\lambda_U = 1.0`$).
+   - Nhiệt độ làm sắc nét phân phối: $`T`$ (trong MixMatch, thường $`T \in [0.5, 0.8]`$).
+   - Hệ số suy giảm trung bình động trọng số (EMA decay rate): $`\beta_{\mathrm{EMA}} \in [0.999, 0.9999]`$.
 
 ---
 
@@ -71,18 +71,18 @@ $$
 
 Mô hình Deep SSL sau quá trình tối ưu cung cấp các kết quả đầu ra:
 
-1. **Bộ trọng số mạng tối ưu `$ \theta^* $` và Mô hình EMA `$ \theta_{\mathrm{EMA}} $`:**
+1. **Bộ trọng số mạng tối ưu $`\theta^*`$ và Mô hình EMA $`\theta_{\mathrm{EMA}}`$:**
    Mạng nơ-ron đã học được không gian đặc trưng phân tách rõ nét giữa các cụm mật độ cao, tuân thủ giả định cụm (Cluster Assumption) và giả định đa tạp (Manifold Assumption).
 
 2. **Bộ phân loại quy nạp (Inductive Classifier):**
-   Có khả năng dự đoán phân phối xác suất chuẩn xác `$ p_\theta(y \mid x_{\mathrm{new}}) $` cho bất kỳ mẫu thử nghiệm mới nào ngoài phân phối huấn luyện mà không cần chạy lại thuật toán:
+   Có khả năng dự đoán phân phối xác suất chuẩn xác $`p_\theta(y \mid x_{\mathrm{new}})`$ cho bất kỳ mẫu thử nghiệm mới nào ngoài phân phối huấn luyện mà không cần chạy lại thuật toán:
 
 $$
 \hat{y} = \arg\max_{c \in \lbrace 1, \dots, C \rbrace} f_{\theta^*}(x_{\mathrm{new}})_c
 $$
 
 3. **Tập giả nhãn chất lượng cao cho toàn bộ tập dữ liệu không nhãn ban đầu:**
-   Kèm theo độ tự tin định lượng `$ \max_c p_\theta(y=c \mid u_j) $`, phục vụ các quy trình chắt lọc tri thức (Knowledge Distillation) hoặc làm giàu kho nhãn dữ liệu.
+   Kèm theo độ tự tin định lượng $`\max_c p_\theta(y=c \mid u_j)`$, phục vụ các quy trình chắt lọc tri thức (Knowledge Distillation) hoặc làm giàu kho nhãn dữ liệu.
 
 ---
 
@@ -105,7 +105,7 @@ $$
 $$
 
 3. **Tỷ lệ tận dụng mẫu không nhãn (Mask Utilization Rate):**
-   Tỷ lệ phần trăm các mẫu không nhãn trong batch vượt qua ngưỡng tự tin `$ \tau $` để đóng góp vào gradient cập nhật:
+   Tỷ lệ phần trăm các mẫu không nhãn trong batch vượt qua ngưỡng tự tin $`\tau`$ để đóng góp vào gradient cập nhật:
 
 $$
 \mathrm{Utilization} = \frac{1}{B_U} \sum_{b=1}^{B_U} \mathbb{I}(\max_c q_{b, c} \ge \tau)
@@ -146,23 +146,23 @@ Deep SSL hiện đại vận hành dựa trên sự kết hợp hài hòa của 
                                                                   [Cross-Entropy Loss L_u]
 ```
 
-1. **Consistency Regularization:** Dự đoán của mô hình phải bất biến đối với các phép biến dạng dữ liệu thực tế giữ nguyên ngữ nghĩa: `$ f_\theta(\alpha(u)) \approx f_\theta(\mathcal{A}(u)) $`.
+1. **Consistency Regularization:** Dự đoán của mô hình phải bất biến đối với các phép biến dạng dữ liệu thực tế giữ nguyên ngữ nghĩa: $`f_\theta(\alpha(u)) \approx f_\theta(\mathcal{A}(u))`$.
 2. **Entropy Minimization:** Ép ranh giới quyết định (decision boundary) đi qua các vùng thưa thớt dữ liệu bằng cách chuyển đổi phân phối mềm thành nhãn cứng (one-hot pseudo-label).
-3. **Data Augmentation Asymmetry:** Sử dụng phép tăng cường yếu `$ \alpha $` để sinh mục tiêu (target pseudo-label) có độ tin cậy cao, và sử dụng phép tăng cường mạnh `$ \mathcal{A} $` để tạo thử thách học tập cho mô hình.
+3. **Data Augmentation Asymmetry:** Sử dụng phép tăng cường yếu $`\alpha`$ để sinh mục tiêu (target pseudo-label) có độ tin cậy cao, và sử dụng phép tăng cường mạnh $`\mathcal{A}`$ để tạo thử thách học tập cho mô hình.
 
 ---
 
 ### 2. Thuật toán MixMatch
 
 MixMatch hợp nhất nhiều kỹ thuật vào một quy trình thống nhất:
-1. **Augmentation:** Với mỗi mẫu không nhãn `$ u_b $`, áp dụng phép tăng cường ngẫu nhiên `$ K $` lần để sinh ra `$ \lbrace u_{b, 1}, \dots, u_{b, K} \rbrace $`.
-2. **Label Guessing:** Dự đoán trung bình phân phối xác suất trên `$ K $` phiên bản:
+1. **Augmentation:** Với mỗi mẫu không nhãn $`u_b`$, áp dụng phép tăng cường ngẫu nhiên $`K`$ lần để sinh ra $`\lbrace u_{b, 1}, \dots, u_{b, K} \rbrace`$.
+2. **Label Guessing:** Dự đoán trung bình phân phối xác suất trên $`K`$ phiên bản:
 
 $$
 \bar{q}_b = \frac{1}{K} \sum_{k=1}^K f_\theta(u_{b, k})
 $$
 
-3. **Sharpening:** Giảm entropy của phân phối dự đoán thông qua nhiệt độ `$ T $`:
+3. **Sharpening:** Giảm entropy của phân phối dự đoán thông qua nhiệt độ $`T`$:
 
 $$
 \mathrm{Sharpen}(\bar{q}_b, T)_c = \frac{\bar{q}_{b, c}^{1/T}}{\sum_{j=1}^C \bar{q}_{b, j}^{1/T}}
@@ -180,44 +180,44 @@ $$
 \mathcal{L}_{\mathrm{MixMatch}} = \mathcal{L}_s(X', Y') + \lambda_U \mathcal{L}_u(U', Q')
 $$
 
-   Trong đó `$ \mathcal{L}_s $` dùng Cross-Entropy và `$ \mathcal{L}_u $` dùng sai số bình phương trung bình `$ L_2 $`.
+   Trong đó $`\mathcal{L}_s`$ dùng Cross-Entropy và $`\mathcal{L}_u`$ dùng sai số bình phương trung bình $`L_2`$.
 
 ---
 
 ### 3. Thuật toán FixMatch (Chuẩn mực SOTA tối giản)
 
-FixMatch loại bỏ nhu cầu suy luận `$ K $` lần và MixUp phức tạp, đạt hiệu năng vượt trội nhờ cơ chế ghép cặp yếu - mạnh:
+FixMatch loại bỏ nhu cầu suy luận $`K`$ lần và MixUp phức tạp, đạt hiệu năng vượt trội nhờ cơ chế ghép cặp yếu - mạnh:
 
 #### Bước 1: Tính toán trên mẫu có nhãn
-Với mini-batch có nhãn `$ \mathcal{B}_L = \left\lbrace (x_b, y_b) \right\rbrace_{b=1}^{B_L} $`, áp dụng weak augmentation `$ \alpha(x_b) $` và tính toán hàm mất mát phân loại có giám sát tiêu chuẩn:
+Với mini-batch có nhãn $`\mathcal{B}_L = \left\lbrace (x_b, y_b) \right\rbrace_{b=1}^{B_L}`$, áp dụng weak augmentation $`\alpha(x_b)`$ và tính toán hàm mất mát phân loại có giám sát tiêu chuẩn:
 
 $$
 \mathcal{L}_s = \frac{1}{B_L} \sum_{b=1}^{B_L} \mathrm{H}\left(y_b, f_\theta(\alpha(x_b))\right)
 $$
 
-Trong đó `$ \mathrm{H}(p, q) = -\sum_c p_c \log q_c $` là hàm mất mát Cross-Entropy.
+Trong đó $`\mathrm{H}(p, q) = -\sum_c p_c \log q_c`$ là hàm mất mát Cross-Entropy.
 
 #### Bước 2: Sinh giả nhãn từ Weak Augmentation
-Với mini-batch không nhãn `$ \mathcal{B}_U = \left\lbrace u_b \right\rbrace_{b=1}^{B_U} $`, đưa ảnh qua weak augmentation `$ \alpha(u_b) $` để thu được phân phối dự đoán:
+Với mini-batch không nhãn $`\mathcal{B}_U = \left\lbrace u_b \right\rbrace_{b=1}^{B_U}`$, đưa ảnh qua weak augmentation $`\alpha(u_b)`$ để thu được phân phối dự đoán:
 
 $$
 q_b = f_\theta(\alpha(u_b))
 $$
 
-Xác định độ tự tin cực đại `$ \max_c(q_{b, c}) $` và nhãn giả đoán nhận:
+Xác định độ tự tin cực đại $`\max_c(q_{b, c})`$ và nhãn giả đoán nhận:
 
 $$
 \hat{y}_b = \arg\max_c(q_{b, c})
 $$
 
 #### Bước 3: Ràng buộc nhất quán trên Strong Augmentation
-Mẫu không nhãn `$ u_b $` tiếp tục được đưa qua phép biến đổi mạnh `$ \mathcal{A}(u_b) $`. Hàm mất mát bán giám sát chỉ được kích hoạt nếu độ tự tin của nhánh yếu vượt qua ngưỡng định sẵn `$ \tau $`:
+Mẫu không nhãn $`u_b`$ tiếp tục được đưa qua phép biến đổi mạnh $`\mathcal{A}(u_b)`$. Hàm mất mát bán giám sát chỉ được kích hoạt nếu độ tự tin của nhánh yếu vượt qua ngưỡng định sẵn $`\tau`$:
 
 $$
 \mathcal{L}_u = \frac{1}{B_U} \sum_{b=1}^{B_U} \mathbb{I}\left(\max_c q_{b, c} \ge \tau\right) \cdot \mathrm{H}\left(\hat{y}_b, f_\theta(\mathcal{A}(u_b))\right)
 $$
 
-Trong đó `$ \mathbb{I}(\cdot) $` là hàm chỉ thị nhị phân (masking). Chú ý rằng gradient không truyền ngược (stop-gradient) qua nhánh sinh giả nhãn `$ q_b $`.
+Trong đó $`\mathbb{I}(\cdot)`$ là hàm chỉ thị nhị phân (masking). Chú ý rằng gradient không truyền ngược (stop-gradient) qua nhánh sinh giả nhãn $`q_b`$.
 
 #### Bước 4: Tối ưu hóa tổng thể
 
@@ -229,12 +229,12 @@ $$
 
 ### 4. Thuật toán FlexMatch (Curriculum Pseudo-Labeling)
 
-FixMatch sử dụng ngưỡng tĩnh `$ \tau = 0.95 $` cho tất cả các lớp. Điều này gây ra nghịch lý:
-- Các lớp dễ học sớm đạt ngưỡng `$ \tau $`, sinh nhiều giả nhãn và được củng cố liên tục.
+FixMatch sử dụng ngưỡng tĩnh $`\tau = 0.95`$ cho tất cả các lớp. Điều này gây ra nghịch lý:
+- Các lớp dễ học sớm đạt ngưỡng $`\tau`$, sinh nhiều giả nhãn và được củng cố liên tục.
 - Các lớp khó học có độ tự tin thấp, bị mask lọc bỏ gần hết, dẫn đến hiện tượng thiếu mẫu và suy giảm độ chính xác trên lớp đó.
 
 FlexMatch giới thiệu cơ chế **Curriculum Pseudo-Labeling (CPL)**:
-1. Theo dõi số lượng mẫu vượt ngưỡng ban đầu của từng lớp `$ c $` tại thời điểm huấn luyện `$ t $`:
+1. Theo dõi số lượng mẫu vượt ngưỡng ban đầu của từng lớp $`c`$ tại thời điểm huấn luyện $`t`$:
 
 $$
 \sigma_t(c) = \sum_{b=1}^{B_U} \mathbb{I}\left(\max_{c'} q_{b, c'} \ge \tau \land \arg\max_{c'} q_{b, c'} = c\right)
@@ -246,7 +246,7 @@ $$
 \beta_t(c) = \frac{\sigma_t(c)}{\max_{c'} \sigma_t(c')}
 $$
 
-3. Thiết lập ngưỡng động riêng cho từng lớp `$ \tau_t(c) $`:
+3. Thiết lập ngưỡng động riêng cho từng lớp $`\tau_t(c)`$:
 
 $$
 \tau_t(c) = \frac{\beta_t(c)}{2 - \beta_t(c)} \cdot \tau

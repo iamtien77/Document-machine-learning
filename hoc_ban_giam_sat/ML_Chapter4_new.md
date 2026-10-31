@@ -8,7 +8,7 @@
 
 Học bán giám sát (Semi-Supervised Learning - SSL) là phân nhánh của học máy kết hợp đồng thời cả **dữ liệu có nhãn (Labeled Data)** và **dữ liệu không nhãn (Unlabeled Data)** trong quá trình huấn luyện nhằm xây dựng mô hình dự đoán chính xác và khái quát hóa tốt hơn so với việc chỉ học thuần túy trên tập nhãn hạn chế.
 
-Trong thực tế, việc thu thập dữ liệu thô (ảnh, văn bản, bản ghi âm, tín hiệu cảm biến) thường rất dễ dàng và chi phí thấp, nhưng công đoạn gán nhãn chính xác bởi chuyên gia (bác sĩ, kỹ sư, nhà ngôn ngữ học) lại vô cùng tốn kém, mất thời gian và khó mở rộng quy mô. SSL tận dụng nguồn dữ liệu không nhãn khổng lồ để nhận diện hình học phân phối tiềm ẩn `$ p(x) $`, qua đó định hình lại ranh giới quyết định của hàm phân loại `$ p(y \mid x) $`.
+Trong thực tế, việc thu thập dữ liệu thô (ảnh, văn bản, bản ghi âm, tín hiệu cảm biến) thường rất dễ dàng và chi phí thấp, nhưng công đoạn gán nhãn chính xác bởi chuyên gia (bác sĩ, kỹ sư, nhà ngôn ngữ học) lại vô cùng tốn kém, mất thời gian và khó mở rộng quy mô. SSL tận dụng nguồn dữ liệu không nhãn khổng lồ để nhận diện hình học phân phối tiềm ẩn $`p(x)`$, qua đó định hình lại ranh giới quyết định của hàm phân loại $`p(y \mid x)`$.
 
 ### Các Khái Niệm Then Chốt (Key Concepts - tr. 2)
 1. **Dữ liệu có nhãn (Labeled Data):**
@@ -17,7 +17,7 @@ $$
 \mathcal{D}_L = \left\lbrace (x_1, y_1), (x_2, y_2), \dots, (x_{N_L}, y_{N_L}) \right\rbrace
 $$
 
-   Các điểm dữ liệu đi kèm với nhãn mục tiêu đích thực tế `$ y_i $`. Số lượng `$ N_L $` thường rất nhỏ.
+   Các điểm dữ liệu đi kèm với nhãn mục tiêu đích thực tế $`y_i`$. Số lượng $`N_L`$ thường rất nhỏ.
 
 2. **Dữ liệu không nhãn (Unlabeled Data):**
    
@@ -25,10 +25,10 @@ $$
 \mathcal{D}_U = \left\lbrace u_1, u_2, \dots, u_{N_U} \right\rbrace
 $$
 
-   Các điểm dữ liệu chỉ có vector đặc trưng đầu vào, hoàn toàn không có nhãn đích. Số lượng `$ N_U \gg N_L $`.
+   Các điểm dữ liệu chỉ có vector đặc trưng đầu vào, hoàn toàn không có nhãn đích. Số lượng $`N_U \gg N_L`$.
 
 3. **Mô hình học bán giám sát (SSL Model):**
-   Mô hình học máy tiếp nhận cả hai nguồn dữ liệu `$ \mathcal{D}_L \cup \mathcal{D}_U $`, tối ưu hóa hàm mục tiêu liên hợp bao gồm thành phần giám sát và thành phần điều quy không giám sát.
+   Mô hình học máy tiếp nhận cả hai nguồn dữ liệu $`\mathcal{D}_L \cup \mathcal{D}_U`$, tối ưu hóa hàm mục tiêu liên hợp bao gồm thành phần giám sát và thành phần điều quy không giám sát.
 
 ---
 
@@ -52,8 +52,8 @@ Quá trình học bán giám sát vận hành qua chu trình lặp khép kín g�
                        [5. Huấn luyện lại Mô hình (Model Retraining)]
 ```
 
-1. **Huấn luyện ban đầu (Initial Training):** Mô hình học máy cơ sở được huấn luyện sơ bộ trên lượng nhỏ dữ liệu có nhãn `$ \mathcal{D}_L $`.
-2. **Khai thác dữ liệu không nhãn (Leveraging Unlabeled Data):** Mô hình sử dụng tập `$ \mathcal{D}_U $` để khảo sát cấu trúc đa tạp, vùng tập trung mật độ cao và phân phối biên xác suất `$ p(x) $`.
+1. **Huấn luyện ban đầu (Initial Training):** Mô hình học máy cơ sở được huấn luyện sơ bộ trên lượng nhỏ dữ liệu có nhãn $`\mathcal{D}_L`$.
+2. **Khai thác dữ liệu không nhãn (Leveraging Unlabeled Data):** Mô hình sử dụng tập $`\mathcal{D}_U`$ để khảo sát cấu trúc đa tạp, vùng tập trung mật độ cao và phân phối biên xác suất $`p(x)`$.
 3. **Tinh chỉnh lặp (Iterative Refinement):** Mô hình liên tục tinh chỉnh các dự đoán trên tập dữ liệu không nhãn qua các vòng lặp hoặc các bước cập nhật gradient.
 4. **Lan truyền nhãn (Label Propagation):** Gán giả nhãn (pseudo-labels) cho các mẫu không nhãn dựa trên độ tự tin dự đoán cao nhất hoặc dựa trên liên kết đồ thị lân cận.
 5. **Huấn luyện lại mô hình (Model Retraining):** Mô hình được huấn luyện lại trên tập dữ liệu mở rộng kết hợp giữa nhãn gốc chuẩn xác và các giả nhãn tự tin mới được bổ sung.
@@ -110,8 +110,8 @@ Dựa trên cấu trúc cây phân loại học bán giám sát tổng thể, c�
  Co-Train)     FixMatch)     Label Spread)
 ```
 
-1. **Phương pháp Quy nạp (Inductive Methods):** Học một hàm dự đoán tổng quát `$ f: \mathcal{X} \to \mathcal{Y} $` có khả năng dự đoán tức thời cho bất kỳ điểm dữ liệu mới nào ngoài tập huấn luyện.
-2. **Phương pháp Quy nạp chuyển vị (Transductive Methods):** Tập trung gán nhãn tối ưu cho chính các điểm trong tập không nhãn hiện có `$ \mathcal{D}_U $`, tận dụng cấu trúc hình học của toàn bộ tập dữ liệu.
+1. **Phương pháp Quy nạp (Inductive Methods):** Học một hàm dự đoán tổng quát $`f: \mathcal{X} \to \mathcal{Y}`$ có khả năng dự đoán tức thời cho bất kỳ điểm dữ liệu mới nào ngoài tập huấn luyện.
+2. **Phương pháp Quy nạp chuyển vị (Transductive Methods):** Tập trung gán nhãn tối ưu cho chính các điểm trong tập không nhãn hiện có $`\mathcal{D}_U`$, tận dụng cấu trúc hình học của toàn bộ tập dữ liệu.
 
 ---
 
@@ -120,17 +120,17 @@ Dựa trên cấu trúc cây phân loại học bán giám sát tổng thể, c�
 *(Dẫn chiếu nghiên cứu khảo sát toàn diện: Self-Training: A Survey, arXiv:2202.12040)*
 
 Self-Training là kỹ thuật đóng gói (Wrapper Algorithm) đơn giản và phổ biến nhất trong lịch sử bán giám sát:
-1. **Khởi tạo:** Huấn luyện bộ phân loại cơ sở `$ f_\theta $` trên `$ \mathcal{D}_L $`.
-2. **Dự đoán:** Đưa toàn bộ mẫu không nhãn `$ u \in \mathcal{D}_U $` qua mô hình để thu được vector xác suất `$ p_\theta(y \mid u) $`.
+1. **Khởi tạo:** Huấn luyện bộ phân loại cơ sở $`f_\theta`$ trên $`\mathcal{D}_L`$.
+2. **Dự đoán:** Đưa toàn bộ mẫu không nhãn $`u \in \mathcal{D}_U`$ qua mô hình để thu được vector xác suất $`p_\theta(y \mid u)`$.
 3. **Chọn lọc tự tin (Confidence Selection):**
    
 $$
 \mathcal{S} = \left\lbrace u \in \mathcal{D}_U \;\middle|\; \max_{c} p_\theta(y=c \mid u) \ge \tau \right\rbrace
 $$
 
-   Chỉ những mẫu có xác suất vượt ngưỡng `$ \tau $` (ví dụ `$ \tau = 0.90 $`) mới được chuyển thành nhãn cứng `$ \hat{y} = \arg\max_c p_\theta(y=c \mid u) $`.
-4. **Cập nhật:** Hợp nhất `$ \mathcal{D}_L \leftarrow \mathcal{D}_L \cup \mathcal{S} $`, loại bỏ `$ \mathcal{S} $` khỏi `$ \mathcal{D}_U $`.
-5. **Lặp lại:** Huấn luyện lại `$ f_\theta $` trên tập dữ liệu mở rộng cho đến khi không còn mẫu nào vượt ngưỡng hoặc đạt số vòng lặp tối đa.
+   Chỉ những mẫu có xác suất vượt ngưỡng $`\tau`$ (ví dụ $`\tau = 0.90`$) mới được chuyển thành nhãn cứng $`\hat{y} = \arg\max_c p_\theta(y=c \mid u)`$.
+4. **Cập nhật:** Hợp nhất $`\mathcal{D}_L \leftarrow \mathcal{D}_L \cup \mathcal{S}`$, loại bỏ $`\mathcal{S}`$ khỏi $`\mathcal{D}_U`$.
+5. **Lặp lại:** Huấn luyện lại $`f_\theta`$ trên tập dữ liệu mở rộng cho đến khi không còn mẫu nào vượt ngưỡng hoặc đạt số vòng lặp tối đa.
 
 > **Hạn chế then chốt:** Rủi ro **Confirmation Bias (Tích lũy sai lệch)** — nếu mô hình dự đoán sai một nhãn và tự nạp vào tập huấn luyện với độ tự tin cao, sai lầm này sẽ được phóng đại trong các vòng lặp sau.
 
@@ -143,15 +143,15 @@ $$
 Phương pháp đồ thị coi mỗi điểm dữ liệu (cả có nhãn và không nhãn) là một đỉnh (node) trên đồ thị, và các cạnh biểu thị độ tương đồng hình học giữa chúng:
 
 ### Ma Trận Tương Đồng Gauss (RBF Kernel Weight Matrix)
-Trọng số liên kết giữa điểm `$ x_i $` và `$ x_j $`:
+Trọng số liên kết giữa điểm $`x_i`$ và $`x_j`$:
 
 $$
 W_{ij} = \exp\left( -\frac{\|x_i - x_j\|^2}{2\sigma^2} \right) \quad \text{với } W_{ii} = 0
 $$
 
 ### Quá Trình Lan Truyền Nhãn
-Ma trận chuyển trạng thái xác suất `$ T_{ij} = P(j \to i) = \frac{W_{ij}}{\sum_k W_{kj}} $`.
-Tại mỗi bước lặp `$ t $`:
+Ma trận chuyển trạng thái xác suất $`T_{ij} = P(j \to i) = \frac{W_{ij}}{\sum_k W_{kj}}`$.
+Tại mỗi bước lặp $`t`$:
 1. Lan truyền phân phối nhãn qua các cạnh đồ thị:
    
 $$
@@ -173,13 +173,13 @@ $$
 *(Dẫn chiếu công trình nền tảng: Blum & Mitchell, COLT 1998)*
 
 Co-Training khai thác tính đa góc nhìn (Multi-view) tự nhiên của bài toán:
-- **Giả định phân rã đặc trưng:** Không gian đặc trưng phân rã thành hai góc nhìn độc lập điều kiện `$ X = (X_1, X_2) $`. Ví dụ:
-  - Phân loại trang web: `$ X_1 $` là từ ngữ xuất hiện trên trang web; `$ X_2 $` là văn bản liên kết (anchor text) từ các trang khác trỏ về.
+- **Giả định phân rã đặc trưng:** Không gian đặc trưng phân rã thành hai góc nhìn độc lập điều kiện $`X = (X_1, X_2)`$. Ví dụ:
+  - Phân loại trang web: $`X_1`$ là từ ngữ xuất hiện trên trang web; $`X_2`$ là văn bản liên kết (anchor text) từ các trang khác trỏ về.
 - **Cơ chế hoạt động:**
-  1. Huấn luyện bộ phân loại `$ f_1 $` trên View 1 và `$ f_2 $` trên View 2 bằng tập nhãn ban đầu.
+  1. Huấn luyện bộ phân loại $`f_1`$ trên View 1 và $`f_2`$ trên View 2 bằng tập nhãn ban đầu.
   2. Mỗi mô hình dự đoán trên tập dữ liệu không nhãn.
-  3. `$ f_1 $` chọn ra các mẫu mà nó tự tin nhất để gán nhãn và nạp vào tập huấn luyện của `$ f_2 $`.
-  4. Ngược lại, `$ f_2 $` chọn các mẫu nó tự tin nhất để bổ sung cho `$ f_1 $`.
+  3. $`f_1`$ chọn ra các mẫu mà nó tự tin nhất để gán nhãn và nạp vào tập huấn luyện của $`f_2`$.
+  4. Ngược lại, $`f_2`$ chọn các mẫu nó tự tin nhất để bổ sung cho $`f_1`$.
   5. Hai mô hình hỗ trợ sửa sai chéo (Cross-validation) lẫn nhau, khắc phục hiệu quả rủi ro confirmation bias của Self-Training đơn lẻ.
 
 ---
@@ -188,7 +188,7 @@ Co-Training khai thác tính đa góc nhìn (Multi-view) tự nhiên của bài 
 
 *(Dẫn chiếu bài toán thực hành chuẩn: A simple semi-supervised strategy SVM Wine, Kaggle)*
 
-S3VM (còn gọi là Transductive SVM - TSVM) mở rộng bài toán tối ưu của SVM bằng cách tìm đồng thời siêu phẳng phân chia và phép gán nhãn nhị phân `$ y_u \in \lbrace -1, +1 \rbrace $` cho toàn bộ mẫu không nhãn sao cho độ rộng lề hình học (geometric margin) là lớn nhất:
+S3VM (còn gọi là Transductive SVM - TSVM) mở rộng bài toán tối ưu của SVM bằng cách tìm đồng thời siêu phẳng phân chia và phép gán nhãn nhị phân $`y_u \in \lbrace -1, +1 \rbrace`$ cho toàn bộ mẫu không nhãn sao cho độ rộng lề hình học (geometric margin) là lớn nhất:
 
 ### Hàm Mục Tiêu Tối Ưu Hóa S3VM
 
@@ -215,10 +215,10 @@ Siêu phẳng tối ưu buộc phải thỏa mãn:
 ## 9. Tổng Kết và Khuyến Nghị Thực Hành Xuyên Suốt
 
 1. **Hiểu rõ giả định dữ liệu:** Học bán giám sát chỉ phát huy tác dụng khi dữ liệu tuân thủ Giả định Cụm (Cluster), Giả định Đa tạp (Manifold) hoặc Giả định Trơn (Smoothness). Nếu dữ liệu phân bố ngẫu nhiên không có cấu trúc cụm, SSL không thể cải thiện hiệu năng so với học có giám sát.
-2. **Khởi đầu từ Baseline đơn giản:** Luôn xây dựng mô hình có giám sát làm mốc so sánh chuẩn trước khi áp dụng SSL. Chỉ đưa SSL vào sử dụng khi chỉ số đánh giá vượt trội rõ rệt (`$ \Delta_{\mathrm{SSL}} \ge 2\% $`).
+2. **Khởi đầu từ Baseline đơn giản:** Luôn xây dựng mô hình có giám sát làm mốc so sánh chuẩn trước khi áp dụng SSL. Chỉ đưa SSL vào sử dụng khi chỉ số đánh giá vượt trội rõ rệt ($`\Delta_{\mathrm{SSL}} \ge 2\%`$).
 3. **Ưu tiên thuật toán phù hợp dạng dữ liệu:**
    - Dữ liệu dạng bảng: Dùng **Self-Training** kết hợp LightGBM hoặc **Tri-Training**.
-   - Dữ liệu đồ thị/mạng lưới: Dùng **Label Spreading** với hệ số kẹp nhãn `$ \alpha = 0.2 $`.
+   - Dữ liệu đồ thị/mạng lưới: Dùng **Label Spreading** với hệ số kẹp nhãn $`\alpha = 0.2`$.
    - Dữ liệu văn bản / Đa cảm biến: Dùng **Co-Training**.
    - Dữ liệu hình ảnh sâu: Dùng **FixMatch / FlexMatch**.
 4. **Kết hợp với Active Learning:** Khi ngân sách cho phép, kết hợp giữa Active Learning (người gán nhãn các mẫu bất định gần ranh giới) và SSL (máy tự gán nhãn các mẫu tự tin sâu trong cụm) để tối ưu hóa triệt để chi phí gán nhãn.

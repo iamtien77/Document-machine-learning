@@ -4,7 +4,7 @@
 
 Tài liệu này chuẩn hóa kiến trúc pha huấn luyện (Training Phase Architecture) cho các mô hình học bán giám sát (Semi-Supervised Learning - SSL).
 
-Khác biệt căn bản giữa huấn luyện có giám sát truyền thống và huấn luyện bán giám sát nằm ở sự phối hợp động giữa hai luồng dữ liệu có nhãn `$ \mathcal{D}_L $` và không nhãn `$ \mathcal{D}_U $`. Nếu không có cơ chế điều phối khoa học, quá trình huấn luyện bán giám sát rất dễ gặp các hiện tượng lỗi nghiêm trọng:
+Khác biệt căn bản giữa huấn luyện có giám sát truyền thống và huấn luyện bán giám sát nằm ở sự phối hợp động giữa hai luồng dữ liệu có nhãn $`\mathcal{D}_L`$ và không nhãn $`\mathcal{D}_U`$. Nếu không có cơ chế điều phối khoa học, quá trình huấn luyện bán giám sát rất dễ gặp các hiện tượng lỗi nghiêm trọng:
 - **Tích lũy sai lệch (Confirmation Bias):** Mô hình tự củng cố các giả nhãn sai ban đầu, dẫn đến việc tối ưu hóa trên dữ liệu rác.
 - **Sụp đổ phân phối (Class Collapse / Representation Collapse):** Mô hình gán toàn bộ dữ liệu không nhãn vào một lớp dễ học duy nhất để giảm thiểu cực tiểu hàm mất mát cục bộ.
 - **Bất ổn định gradient đầu kỳ (Early Gradient Instability):** Gradient phát sinh từ các mẫu không nhãn có độ tự tin giả tạo lấn át hoàn toàn tín hiệu giám sát từ tập có nhãn thật.
@@ -18,19 +18,19 @@ Khung kiến trúc này thiết lập quy trình chuẩn mực từ lập lịch
 Pha huấn luyện bán giám sát tiếp nhận các thành phần đầu vào:
 
 1. **Bộ nạp dữ liệu kép (Dual Dataloader Pipeline):**
-   - **Luồng có nhãn (Labeled Loader):** Tạo các mini-batch kích thước `$ B_L $`. Dữ liệu được lặp tuần hoàn (Cycling/Repeat) để đảm bảo không bị gián đoạn khi duyệt hết epoch.
-   - **Luồng không nhãn (Unlabeled Loader):** Tạo các mini-batch kích thước `$ B_U = \mu \cdot B_L $`, trong đó `$ \mu \ge 1 $` là tỷ lệ mở rộng không nhãn (thường `$ \mu \in [3, 7] $`).
+   - **Luồng có nhãn (Labeled Loader):** Tạo các mini-batch kích thước $`B_L`$. Dữ liệu được lặp tuần hoàn (Cycling/Repeat) để đảm bảo không bị gián đoạn khi duyệt hết epoch.
+   - **Luồng không nhãn (Unlabeled Loader):** Tạo các mini-batch kích thước $`B_U = \mu \cdot B_L`$, trong đó $`\mu \ge 1`$ là tỷ lệ mở rộng không nhãn (thường $`\mu \in [3, 7]`$).
 
 2. **Mô hình học máy và Mạng bóng EMA:**
-   - Mạng nơ-ron chính `$ f_\theta $` với tham số `$ \theta $` được cập nhật qua đạo hàm riêng (Stochastic Gradient Descent).
-   - Mô hình trung bình động hàm mũ (Exponential Moving Average) `$ f_{\theta_{\mathrm{EMA}}} $` với hệ số phân rã `$ \beta_{\mathrm{EMA}} \in [0.999, 0.9999] $`.
+   - Mạng nơ-ron chính $`f_\theta`$ với tham số $`\theta`$ được cập nhật qua đạo hàm riêng (Stochastic Gradient Descent).
+   - Mô hình trung bình động hàm mũ (Exponential Moving Average) $`f_{\theta_{\mathrm{EMA}}}`$ với hệ số phân rã $`\beta_{\mathrm{EMA}} \in [0.999, 0.9999]`$.
 
 3. **Chiến lược lập lịch hàm mất mát (Loss Ramp-up Schedule):**
-   - Hàm tăng dần hệ số không nhãn `$ \lambda_U(t) $` theo bước huấn luyện `$ t $`.
-   - Thời gian khởi động (Warm-up Steps `$ T_{\mathrm{warm}} $`) trong đó mô hình chỉ tập trung học từ nhãn thật.
+   - Hàm tăng dần hệ số không nhãn $`\lambda_U(t)`$ theo bước huấn luyện $`t`$.
+   - Thời gian khởi động (Warm-up Steps $`T_{\mathrm{warm}}`$) trong đó mô hình chỉ tập trung học từ nhãn thật.
 
-4. **Tập kiểm định độc lập (Hold-out Validation Set `$ \mathcal{D}_{\mathrm{val}} $`):**
-   Gồm các mẫu có nhãn chuẩn xác 100%, độc lập tuyệt đối với cả `$ \mathcal{D}_L $` và `$ \mathcal{D}_U $`, dùng để giám sát khách quan quá trình hội tụ.
+4. **Tập kiểm định độc lập (Hold-out Validation Set $`\mathcal{D}_{\mathrm{val}}`$):**
+   Gồm các mẫu có nhãn chuẩn xác 100%, độc lập tuyệt đối với cả $`\mathcal{D}_L`$ và $`\mathcal{D}_U`$, dùng để giám sát khách quan quá trình hội tụ.
 
 ---
 
@@ -38,12 +38,12 @@ Pha huấn luyện bán giám sát tiếp nhận các thành phần đầu vào:
 
 Kết thúc pha huấn luyện, hệ thống bàn giao các thành phần đóng gói (Training Artifacts):
 
-1. **Trọng số tối ưu của mô hình EMA (`$ \theta_{\mathrm{EMA}}^* $`):** Mô hình đã được làm mịn phương sai, có khả năng tổng quát hóa cao nhất trên tập kiểm định.
+1. **Trọng số tối ưu của mô hình EMA ($`\theta_{\mathrm{EMA}}^*`$):** Mô hình đã được làm mịn phương sai, có khả năng tổng quát hóa cao nhất trên tập kiểm định.
 2. **Nhật ký huấn luyện định lượng (Training Logs):**
-   - Lịch sử suy giảm của hàm mất mát có giám sát `$ \mathcal{L}_s $` và mất mát không nhãn `$ \mathcal{L}_u $`.
+   - Lịch sử suy giảm của hàm mất mát có giám sát $`\mathcal{L}_s`$ và mất mát không nhãn $`\mathcal{L}_u`$.
    - Tỷ lệ kích hoạt mặt nạ tự tin (Mask Utilization Rate) theo từng epoch.
    - Độ chính xác thực tế của giả nhãn (Pseudo-Label Accuracy Tracking).
-3. **Thẻ siêu tham số và phiên bản (Model Metadata Artifact):** Ghi nhận cấu hình `$ \mu, \tau, \lambda_U, \beta_{\mathrm{EMA}} $`, thời gian thực thi và đường dẫn checkpoint.
+3. **Thẻ siêu tham số và phiên bản (Model Metadata Artifact):** Ghi nhận cấu hình $`\mu, \tau, \lambda_U, \beta_{\mathrm{EMA}}`$, thời gian thực thi và đường dẫn checkpoint.
 
 ---
 
@@ -58,8 +58,8 @@ $$
 \mathcal{L}_{\mathrm{val}}(\theta) = -\frac{1}{N_{\mathrm{val}}} \sum_{i=1}^{N_{\mathrm{val}}} \log f_\theta(x_i^{\mathrm{val}})_{y_i^{\mathrm{val}}}
 $$
 
-2. **Tỷ lệ tận dụng mặt nạ (Mask Utilization Rate `$ \mathcal{U}_t $`):**
-   Tỷ lệ phần trăm các mẫu không nhãn vượt qua ngưỡng cắt tự tin `$ \tau $`:
+2. **Tỷ lệ tận dụng mặt nạ (Mask Utilization Rate $`\mathcal{U}_t`$):**
+   Tỷ lệ phần trăm các mẫu không nhãn vượt qua ngưỡng cắt tự tin $`\tau`$:
    
 $$
 \mathcal{U}_t = \frac{1}{B_U} \sum_{b=1}^{B_U} \mathbb{I}\left(\max_{c} q_{b, c}^{(t)} \ge \tau\right) \times 100\%
@@ -68,7 +68,7 @@ $$
    Quỹ đạo lý tưởng: Tăng dần từ $0\% \to 5\%$ trong giai đoạn warm-up lên $70\% \to 90\%$ khi mô hình hội tụ.
 
 3. **Tỷ lệ phân bổ lớp của giả nhãn (Class Distribution Balance):**
-   Đo lường độ lệch chuẩn của số lượng giả nhãn gán cho từng lớp. Nếu một lớp chiếm `$ > 60\% $` tổng số giả nhãn trong khi dữ liệu gốc cân bằng, hệ thống sẽ cảnh báo nguy cơ sụp đổ phân phối.
+   Đo lường độ lệch chuẩn của số lượng giả nhãn gán cho từng lớp. Nếu một lớp chiếm $`> 60\%`$ tổng số giả nhãn trong khi dữ liệu gốc cân bằng, hệ thống sẽ cảnh báo nguy cơ sụp đổ phân phối.
 
 ---
 
@@ -111,27 +111,27 @@ $$
 ### 2. Các Cơ Chế Cốt Lõi Trong Pha Huấn Luyện
 
 #### A. Hàm Lập Lịch Tăng Dần Hệ Số Không Nhãn (Ramp-up Scheduling)
-Trong những bước đầu tiên của quá trình huấn luyện, mô hình chưa có khả năng phân loại chuẩn xác. Nếu áp dụng toàn bộ mất mát không nhãn ngay lập tức, các giả nhãn sai sẽ phá vỡ không gian đặc trưng. Do đó, hệ số `$ \lambda_U(t) $` được điều chỉnh tăng dần:
+Trong những bước đầu tiên của quá trình huấn luyện, mô hình chưa có khả năng phân loại chuẩn xác. Nếu áp dụng toàn bộ mất mát không nhãn ngay lập tức, các giả nhãn sai sẽ phá vỡ không gian đặc trưng. Do đó, hệ số $`\lambda_U(t)`$ được điều chỉnh tăng dần:
 
 $$
 \lambda_U(t) = \lambda_{\max} \cdot \exp\left( -5 \cdot \left(1 - \frac{t}{T_{\mathrm{warm}}}\right)^2 \right) \quad \text{với } t < T_{\mathrm{warm}}
 $$
 
-Khi `$ t \ge T_{\mathrm{warm}} $`, hệ số `$ \lambda_U(t) = \lambda_{\max} $`.
+Khi $`t \ge T_{\mathrm{warm}}`$, hệ số $`\lambda_U(t) = \lambda_{\max}`$.
 
 #### B. Cân Bằng Tỷ Lệ Batch Dữ Liệu ($\mu$)
-Tập dữ liệu không nhãn thường có quy mô lớn hơn nhiều so với tập có nhãn. Việc chọn tỷ lệ `$ \mu = B_U / B_L \in [3, 7] $` mang lại hai lợi ích:
-1. Đảm bảo mỗi bước cập nhật gradient đều có sự hiện diện của tín hiệu chuẩn từ tập `$ \mathcal{D}_L $`.
+Tập dữ liệu không nhãn thường có quy mô lớn hơn nhiều so với tập có nhãn. Việc chọn tỷ lệ $`\mu = B_U / B_L \in [3, 7]`$ mang lại hai lợi ích:
+1. Đảm bảo mỗi bước cập nhật gradient đều có sự hiện diện của tín hiệu chuẩn từ tập $`\mathcal{D}_L`$.
 2. Khai thác đa dạng nhiều mẫu không nhãn cùng lúc để ước lượng gradient không nhãn có phương sai thấp.
 
 #### C. Cập Nhật Trọng Số Trung Bình Động Hàm Mũ (EMA Updating)
-Mô hình chính `$ \theta $` dao động liên tục giữa các bước do nhiễu từ giả nhãn. Mô hình EMA lưu trữ trung bình lịch sử của các trọng số:
+Mô hình chính $`\theta`$ dao động liên tục giữa các bước do nhiễu từ giả nhãn. Mô hình EMA lưu trữ trung bình lịch sử của các trọng số:
 
 $$
 \theta_{\mathrm{EMA}}^{(t)} = \beta_{\mathrm{EMA}} \cdot \theta_{\mathrm{EMA}}^{(t-1)} + (1 - \beta_{\mathrm{EMA}}) \cdot \theta^{(t)}
 $$
 
-Trọng số `$ \theta_{\mathrm{EMA}} $` có bề mặt mất mát (loss landscape) phẳng hơn và khả năng chống quá khớp vượt trội.
+Trọng số $`\theta_{\mathrm{EMA}}`$ có bề mặt mất mát (loss landscape) phẳng hơn và khả năng chống quá khớp vượt trội.
 
 ---
 

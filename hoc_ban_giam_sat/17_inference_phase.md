@@ -16,14 +16,14 @@ Trong môi trường thực tế, việc đưa một mô hình bán giám sát v
 Hệ thống phục vụ suy luận tiếp nhận các thành phần đầu vào:
 
 1. **Yêu cầu truy vấn suy luận (Inference Request Payload):**
-   - Vector đặc trưng mẫu đơn lẻ `$ x_{\mathrm{new}} \in \mathbb{R}^d $` (trong API thời gian thực) hoặc lô mẫu `$ X_{\mathrm{batch}} \in \mathbb{R}^{B \times d} $` (trong xử lý hàng loạt theo ca).
+   - Vector đặc trưng mẫu đơn lẻ $`x_{\mathrm{new}} \in \mathbb{R}^d`$ (trong API thời gian thực) hoặc lô mẫu $`X_{\mathrm{batch}} \in \mathbb{R}^{B \times d}`$ (trong xử lý hàng loạt theo ca).
 
 2. **Artifact mô hình đã đóng gói (Packaged Model Artifact):**
    - Tệp trọng số mô hình EMA đã tối ưu hóa định dạng runtime (ví dụ `model_ema.onnx`, `model_quantized.tflite`, hoặc `model.joblib`).
-   - Tham số hiệu chuẩn nhiệt độ `$ T_{\mathrm{calib}} $` thu được từ tập kiểm định.
+   - Tham số hiệu chuẩn nhiệt độ $`T_{\mathrm{calib}}`$ thu được từ tập kiểm định.
 
 3. **Cấu hình ngưỡng phòng thủ (Serving Guard Thresholds):**
-   - Ngưỡng tự tin tối thiểu chấp nhận dự đoán: `$ \tau_{\mathrm{infer}} \in [0.70, 0.90] $`.
+   - Ngưỡng tự tin tối thiểu chấp nhận dự đoán: $`\tau_{\mathrm{infer}} \in [0.70, 0.90]`$.
    - Ngưỡng khoảng cách ngoại lai (Outlier Distance Threshold) đo khoảng cách tới cụm dữ liệu huấn luyện gần nhất.
 
 ---
@@ -39,10 +39,10 @@ $$
 $$
 
 2. **Vector xác suất đã hiệu chuẩn (Calibrated Probability Distribution):**
-   Vector `$ [p_1, p_2, \dots, p_C] $` phản ánh chân thực độ chắc chắn thống kê của quyết định.
+   Vector $`[p_1, p_2, \dots, p_C]`$ phản ánh chân thực độ chắc chắn thống kê của quyết định.
 
 3. **Trạng thái an toàn và cờ chuyển tiếp (Safety Status & Fallback Flag):**
-   - Trạng thái `ACCEPTED`: Độ tự tin vượt ngưỡng `$ \tau_{\mathrm{infer}} $`, hệ thống tự động xuất kết quả.
+   - Trạng thái `ACCEPTED`: Độ tự tin vượt ngưỡng $`\tau_{\mathrm{infer}}`$, hệ thống tự động xuất kết quả.
    - Trạng thái `UNCERTAIN_FALLBACK`: Độ tự tin dưới ngưỡng, chuyển yêu cầu sang chuyên gia thẩm định hoặc áp dụng luật nghiệp vụ mặc định.
 
 4. **Thời gian đáp ứng (Serving Latency):** Thời gian xử lý tính bằng mili-giây (ms).
@@ -55,11 +55,11 @@ Chỉ số SLA đánh giá tầng phục vụ suy luận bán giám sát:
 
 1. **Độ trễ phân vị P95 và P99 (Latency SLA):**
    Thời gian hoàn tất phản hồi cho 95% và 99% số lượng request:
-   - Hệ thống thời gian thực (Real-time Serving): `$ \text{P95} < 10\text{ ms} $`, `$ \text{P99} < 25\text{ ms} $`.
-   - Hệ thống theo lô (Batch Serving): Thông lượng `$ > 2,000 \text{ req/sec} $`.
+   - Hệ thống thời gian thực (Real-time Serving): $`\text{P95} < 10\text{ ms}`$, $`\text{P99} < 25\text{ ms}`$.
+   - Hệ thống theo lô (Batch Serving): Thông lượng $`> 2,000 \text{ req/sec}`$.
 
 2. **Sai số hiệu chuẩn kỳ vọng phục vụ (Serving ECE):**
-   Đo lường sai lệch giữa độ tự tin trả về và tỷ lệ đúng thực tế trên dữ liệu vận hành. ECE phải duy trì `$ \le 0.05 $`.
+   Đo lường sai lệch giữa độ tự tin trả về và tỷ lệ đúng thực tế trên dữ liệu vận hành. ECE phải duy trì $`\le 0.05`$.
 
 3. **Tỷ lệ chuyển tiếp phòng vệ (Fallback Rate):**
    
@@ -100,21 +100,21 @@ $$
 
 ### 2. Giải Pháp Quy Nạp Cho Mô Hình Đồ Thị Transductive
 
-Mô hình đồ thị như **Label Spreading** không thể tính toán trực tiếp nhãn cho mẫu mới `$ x_{\mathrm{new}} $` vì đồ thị cố định trên tập `$ N $` mẫu huấn luyện. Để đưa vào sản xuất, có hai giải pháp kỹ thuật chuẩn mực:
+Mô hình đồ thị như **Label Spreading** không thể tính toán trực tiếp nhãn cho mẫu mới $`x_{\mathrm{new}}`$ vì đồ thị cố định trên tập $`N`$ mẫu huấn luyện. Để đưa vào sản xuất, có hai giải pháp kỹ thuật chuẩn mực:
 
 #### Giải pháp 1: Mở rộng Ngoại suy Điểm Lân cận (Inductive 1-NN / k-NN Extension)
-Dự đoán nhãn của `$ x_{\mathrm{new}} $` dựa trên khoảng cách tới các mẫu trong đồ thị huấn luyện ban đầu có trọng số nhãn phân bố `$ F^* $`:
+Dự đoán nhãn của $`x_{\mathrm{new}}`$ dựa trên khoảng cách tới các mẫu trong đồ thị huấn luyện ban đầu có trọng số nhãn phân bố $`F^*`$:
 
 $$
 p(y = c \mid x_{\mathrm{new}}) = \frac{\sum_{i \in \mathcal{N}_k(x_{\mathrm{new}})} W(x_{\mathrm{new}}, x_i) \cdot F_{i, c}^*}{\sum_{i \in \mathcal{N}_k(x_{\mathrm{new}})} W(x_{\mathrm{new}}, x_i)}
 $$
 
-Trong đó `$ W(x_{\mathrm{new}}, x_i) = \exp\left(-\gamma \|x_{\mathrm{new}} - x_i\|^2\right) $`.
+Trong đó $`W(x_{\mathrm{new}}, x_i) = \exp\left(-\gamma \|x_{\mathrm{new}} - x_i\|^2\right)`$.
 
 #### Giải pháp 2: Chắt Lọc Tri Thức Thành Mô Hình Học Sinh Nhẹ (Student Distillation - Khuyến nghị)
-1. Sử dụng mô hình Label Spreading gán phân phối xác suất `$ F^* $` cho toàn bộ tập dữ liệu không nhãn ban đầu `$ \mathcal{D}_U $`.
+1. Sử dụng mô hình Label Spreading gán phân phối xác suất $`F^*`$ cho toàn bộ tập dữ liệu không nhãn ban đầu $`\mathcal{D}_U`$.
 2. Huấn luyện một mạng nơ-ron nhỏ (Lightweight MLP) hoặc mô hình LightGBM trên toàn bộ dữ liệu kèm nhãn giả đó làm hàm mục tiêu (Soft-target Loss).
-3. Triển khai mô hình Student lên API phục vụ độc lập với độ trễ siêu thấp `$ < 2\text{ ms} $`.
+3. Triển khai mô hình Student lên API phục vụ độc lập với độ trễ siêu thấp $`< 2\text{ ms}`$.
 
 ---
 
@@ -227,3 +227,4 @@ if __name__ == "__main__":
 - [1] Guo, C., Pleiss, G., Sun, Y., & Weinberger, K. Q. (2017). *On calibration of modern neural networks*. Proceedings of the 34th International Conference on Machine Learning (ICML), 1321-1330.
 - [2] Bengio, Y., Delalleau, O., Le Roux, N., Paiement, J. F., Vincent, P., & Ouimet, M. (2004). *Out-of-sample extensions for LLE, Isomap, MDS, Eigenmaps, and Spectral Clustering*. Advances in Neural Information Processing Systems (NeurIPS), 16, 177-184.
 - [3] Hinton, G., Vinyals, O., & Dean, J. (2015). *Distilling the knowledge in a neural network*. arXiv preprint arXiv:1503.02531.
+

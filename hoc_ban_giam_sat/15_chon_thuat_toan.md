@@ -16,14 +16,14 @@ Học bán giám sát không phải là giải pháp vạn năng. Khi áp dụng
 Việc lựa chọn thuật toán đòi hỏi phân tích toàn diện 4 chiều thông tin đầu vào của dự án:
 
 1. **Quy mô và Tỷ lệ Dữ liệu:**
-   - Số lượng mẫu có nhãn `$ N_L $` và số lượng mẫu không nhãn `$ N_U $`.
+   - Số lượng mẫu có nhãn $`N_L`$ và số lượng mẫu không nhãn $`N_U`$.
    - Tỷ lệ gán nhãn:
    
 $$
 \eta = \frac{N_L}{N_L + N_U}
 $$
 
-   - Số chiều đặc trưng `$ d $` (chiều thấp `$ d < 50 $`, chiều trung bình `$ 50 \le d \le 1000 $`, hay siêu cao chiều `$ d > 1000 $`).
+   - Số chiều đặc trưng $`d`$ (chiều thấp $`d < 50`$, chiều trung bình $`50 \le d \le 1000`$, hay siêu cao chiều $`d > 1000`$).
 
 2. **Dạng Thức Dữ liệu (Data Modality):**
    - **Dữ liệu dạng bảng (Tabular):** Chứa các đặc trưng số và phân loại, quan hệ phi tuyến phức tạp nhưng không có cấu trúc không gian/thời gian.
@@ -39,7 +39,7 @@ $$
 
 4. **Chế Độ Phục Vụ Mục Tiêu (Inference Target):**
    - **Quy nạp (Inductive):** Cần phục vụ API thời gian thực dự đoán nhãn cho các mẫu mới chưa từng thấy trong tương lai.
-   - **Quy nạp chuyển vị (Transductive):** Chỉ cần gán nhãn cho chính tập dữ liệu không nhãn `$ \mathcal{D}_U $` hiện có (ví dụ: làm giàu cơ sở dữ liệu nội bộ).
+   - **Quy nạp chuyển vị (Transductive):** Chỉ cần gán nhãn cho chính tập dữ liệu không nhãn $`\mathcal{D}_U`$ hiện có (ví dụ: làm giàu cơ sở dữ liệu nội bộ).
 
 ---
 
@@ -63,10 +63,10 @@ $$
 \Delta_{\mathrm{SSL}} = \mathrm{Metric}(\mathcal{M}_{\mathrm{SSL}}) - \mathrm{Metric}(\mathcal{M}_{\mathrm{Supervised}})
 $$
 
-   Nguyên tắc: Chỉ chấp thuận mô hình bán giám sát nếu `$ \Delta_{\mathrm{SSL}} \ge 2.0\% $` và vượt qua kiểm định t-test với `$ p\text{-value} < 0.05 $`.
+   Nguyên tắc: Chỉ chấp thuận mô hình bán giám sát nếu $`\Delta_{\mathrm{SSL}} \ge 2.0\%`$ và vượt qua kiểm định t-test với $`p\text{-value} < 0.05`$.
 
 2. **Độ ổn định đa mầm ngẫu nhiên (Seed Stability Variance):**
-   Phương sai của điểm số đánh giá qua 5 lần chia dữ liệu độc lập. Mô hình tốt phải có `$ \sigma^2 \le 0.005 $`.
+   Phương sai của điểm số đánh giá qua 5 lần chia dữ liệu độc lập. Mô hình tốt phải có $`\sigma^2 \le 0.005`$.
 
 3. **Hệ số Chi phí Tính toán (Computational Overhead Ratio):**
    
@@ -74,7 +74,7 @@ $$
 \rho_{\mathrm{comp}} = \frac{T_{\mathrm{train}}(\mathcal{M}_{\mathrm{SSL}})}{T_{\mathrm{train}}(\mathcal{M}_{\mathrm{Supervised}})}
 $$
 
-   Nếu `$ \rho_{\mathrm{comp}} > 20 $` nhưng `$ \Delta_{\mathrm{SSL}} < 1\% $`, dự án nên ưu tiên thu thập thêm nhãn thủ công thay vì triển khai SSL phức tạp.
+   Nếu $`\rho_{\mathrm{comp}} > 20`$ nhưng $`\Delta_{\mathrm{SSL}} < 1\%`$, dự án nên ưu tiên thu thập thêm nhãn thủ công thay vì triển khai SSL phức tạp.
 
 ---
 
@@ -267,3 +267,4 @@ if __name__ == "__main__":
 - [1] Zhu, X. (2005). *Semi-supervised learning literature survey*. Computer Sciences Technical Report 1530, University of Wisconsin-Madison.
 - [2] Li, Y. F., & Zhou, Z. H. (2014). *Towards making unlabeled data never hurt*. IEEE Transactions on Pattern Analysis and Machine Intelligence, 37(1), 175-188.
 - [3] Oliver, A., Odena, A., Raffel, C. A., Cubuk, E. D., & Goodfellow, I. (2018). *Realistic evaluation of deep semi-supervised learning algorithms*. Advances in Neural Information Processing Systems (NeurIPS), 31, 3235-3246.
+
