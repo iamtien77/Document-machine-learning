@@ -63,17 +63,17 @@ LDA/QDA: confusion matrix, F1/recall theo lớp, log loss/calibration nếu dùn
 
 Hàm mật độ xác suất của phân phối chuẩn nhiều chiều của lớp $`k`$:
 
-```math
+$$
 P(X = x \mid Y = k) = \frac{1}{(2\pi)^{p/2} \lvert \Sigma_k \rvert^{1/2}} \exp\left( -\frac{1}{2} (x - \mu_k)^\top \Sigma_k^{-1} (x - \mu_k) \right)
-```
+$$
 
 Đại lượng $`D_M^2(x, \mu_k) = (x - \mu_k)^\top \Sigma_k^{-1} (x - \mu_k)`$ chính là **Khoảng cách Mahalanobis bình phương**, đo khoảng cách từ điểm $`x`$ tới tâm $`\mu_k`$ có tính đến hình dạng elip phân tán của ma trận hiệp phương sai $`\Sigma_k`$.
 
 Lấy logarit tự nhiên xác suất hậu nghiệm $`\ln P(Y = k \mid X = x)`$:
 
-```math
+$$
 \delta_k(x) = -\frac{1}{2} \ln \lvert \Sigma_k \rvert - \frac{1}{2} (x - \mu_k)^\top \Sigma_k^{-1} (x - \mu_k) + \ln P(Y=k)
-```
+$$
 
 Đây chính là phương trình bậc hai của **QDA**.
 
@@ -81,17 +81,17 @@ Lấy logarit tự nhiên xác suất hậu nghiệm $`\ln P(Y = k \mid X = x)`$
 Khi $`\Sigma_k = \Sigma`$ với mọi lớp $`k`$:
 Khai triển số hạng Mahalanobis:
 
-```math
+$$
 (x - \mu_k)^\top \Sigma^{-1} (x - \mu_k) = x^\top \Sigma^{-1} x - 2 x^\top \Sigma^{-1} \mu_k + \mu_k^\top \Sigma^{-1} \mu_k
-```
+$$
 
 Khi so sánh ranh giới giữa hai lớp bất kỳ $`k`$ và $`l`$ bằng cách giải phương trình $`\delta_k(x) = \delta_l(x)`$:
 Số hạng bậc hai $`x^\top \Sigma^{-1} x`$ xuất hiện giống hệt nhau ở cả hai vế nên **bị triệt tiêu hoàn toàn**!
 Biểu thức còn lại chỉ chứa các số hạng bậc nhất theo $`x`$:
 
-```math
+$$
 x^\top \Sigma^{-1} (\mu_k - \mu_l) - \frac{1}{2} \mu_k^\top \Sigma^{-1} \mu_k + \frac{1}{2} \mu_l^\top \Sigma^{-1} \mu_l + \ln \frac{\pi_k}{\pi_l} = 0
-```
+$$
 
 Đây chính là phương trình một siêu phẳng tuyến tính trong không gian $`\mathbb{R}^p`$.
 
@@ -107,25 +107,25 @@ Với prior mean bằng 0 và nhiễu Gaussian có phương sai $`\sigma _n^{2}`
 
 Theo định nghĩa của GP, phân phối đồng thời giữa các quan sát đã biết $`y \in \mathbb{R}^n`$ và giá trị hàm chưa biết $`f_*`$ tại điểm mới $`x_*`$ là một phân phối chuẩn đa biến:
 
-```math
+$$
 \begin{bmatrix} y \\ f_* \end{bmatrix} \sim \mathcal{N} \left( \mathbf{0}, \begin{bmatrix} K(X, X) + \sigma_n^2 I & K(X, x_*) \\ K(x_*, X) & k(x_*, x_*) \end{bmatrix} \right)
-```
+$$
 
 Áp dụng quy tắc suy diễn có điều kiện của phân phối chuẩn đa biến (Gaussian Conditioning Rule), ta thu được nghiệm giải tích chính xác:
 
-```math
+$$
 f_* \mid X, y, x_* \sim \mathcal{N}(\mu_*, \mathrm{Var}(f_*))
-```
+$$
 
 Trong đó:
 
-```math
+$$
 \mu_* = K(x_*, X) \left[ K(X, X) + \sigma_n^2 I \right]^{-1} y
-```
+$$
 
-```math
+$$
 \mathrm{Var}(f_*) = k(x_*, x_*) - K(x_*, X) \left[ K(X, X) + \sigma_n^2 I \right]^{-1} K(X, x_*)
-```
+$$
 
 ```text
        y, f(x)
@@ -166,9 +166,9 @@ LDA/QDA hợp khi feature số và giả định Gaussian theo lớp tương đ�
 
 Khi số chiều $`p`$ lớn so với số mẫu $`n`$, ma trận hiệp phương sai mẫu thực nghiệm $`\hat{\Sigma}`$ bị nhiễu nghiêm trọng và có thể không khả nghịch. Kỹ thuật **Ledoit-Wolf Shrinkage** điều chuẩn ma trận bằng cách trộn lồi với ma trận đơn vị:
 
-```math
+$$
 \Sigma_{\text{shrunk}} = (1 - \gamma) \hat{\Sigma} + \gamma \frac{\mathrm{tr}(\hat{\Sigma})}{p} I
-```
+$$
 
 Hệ số $`\gamma \in [0, 1]`$ được tự động ước lượng tối ưu từ dữ liệu, giúp triệt tiêu hoàn toàn nguy cơ ma trận bị suy biến trong LDA.
 

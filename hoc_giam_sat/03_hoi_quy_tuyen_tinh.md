@@ -53,15 +53,15 @@ MAE cho sai số tuyệt đối dễ diễn giải; RMSE phạt lỗi lớn mạ
 
 1. **Kiểm định Student's t-test cho từng hệ số:**
 
-   ```math
-   t_j = \frac{\hat{w}_j}{\mathrm{SE}(\hat{w}_j)}
-   ```
+$$
+t_j = \frac{\hat{w}_j}{\mathrm{SE}(\hat{w}_j)}
+$$
 
    Trong đó sai số chuẩn (Standard Error) của hệ số được xác định bởi:
 
-   ```math
-   \mathrm{SE}(\hat{w}_j) = \sigma \sqrt{[(X^\top X)^{-1}]_{jj}}
-   ```
+$$
+\mathrm{SE}(\hat{w}_j) = \sigma \sqrt{[(X^\top X)^{-1}]_{jj}}
+$$
 
    Nếu giá trị $`p\text{-value} > 0.05`$, biến $`x_j`$ không có ý nghĩa thống kê trong việc dự đoán $`y`$ khi đã có mặt các biến còn lại.
 2. **Khoảng tin cậy cho Dự đoán (Prediction vs Confidence Intervals):**
@@ -83,27 +83,27 @@ Các biểu thức dưới đây viết tường minh intercept `b` không bị 
 
 **OLS** — Khớp bình phương sai số
 
-```math
+$$
 \min_{w,b}\;\lVert Xw+b\mathbf{1}-y\rVert_2^2
-```
+$$
 
 **Ridge** — Co hệ số, ổn định hơn khi feature tương quan
 
-```math
+$$
 \min_{w,b}\;\lVert Xw+b\mathbf{1}-y\rVert_2^2 + \alpha\lVert w\rVert_2^2
-```
+$$
 
 **Lasso** — Có thể đưa hệ số về đúng 0
 
-```math
+$$
 \min_{w,b}\;\frac{1}{2n}\lVert Xw+b\mathbf{1}-y\rVert_2^2 + \alpha\lVert w\rVert_1
-```
+$$
 
 **Elastic Net** — `r=l1_ratio` cân bằng thưa và co hệ số
 
-```math
+$$
 \min_{w,b}\;\frac{1}{2n}\lVert Xw+b\mathbf{1}-y\rVert_2^2 + \alpha r\lVert w\rVert_1 + \frac{\alpha(1-r)}{2}\lVert w\rVert_2^2
-```
+$$
 
 $`\alpha =0`$ trong Ridge tương ứng objective OLS; với Lasso/Elastic Net, không nên đặt $`\alpha =0`$ rồi mong solver có hành vi y hệt LinearRegression. Chọn $`\alpha`$ trong một dải hợp lý bằng CV và dùng scaler **trong** pipeline để penalty tác động công bằng hơn giữa feature. [1]
 
@@ -124,9 +124,9 @@ Các cột của ma trận $`X = [x_1, x_2, \dots, x_p]`$ căng ra một không 
 * Để tối thiểu hóa khoảng cách Euclid $`\|y - \hat{y}\|_2^2`$, điểm $`\hat{y}`$ tốt nhất phải là **hình chiếu trực giao của $`y`$ lên $`\mathrm{Col}(X)`$**.
 * Khi đó, vector phần dư $`e = y - \hat{y}`$ vuông góc (trực giao) với mọi vector cột $`x_j`$:
 
-  ```math
-  X^\top (y - \hat{y}) = 0 \iff X^\top (y - Xw) = 0 \iff X^\top X w = X^\top y
-  ```
+$$
+X^\top (y - \hat{y}) = 0 \iff X^\top (y - Xw) = 0 \iff X^\top X w = X^\top y
+$$
 
   Từ đó suy ra phương trình chuẩn nổi tiếng: $`w = (X^\top X)^{-1} X^\top y`$.
 
@@ -145,9 +145,9 @@ Các cột của ma trận $`X = [x_1, x_2, \dots, x_p]`$ căng ra một không 
 
 Bài toán Regularization có thể viết lại dưới dạng bài toán tối ưu hóa ràng buộc Karush-Kuhn-Tucker (KKT):
 
-```math
+$$
 \min_{w} \|y - Xw\|_2^2 \quad \text{sao cho} \quad \|w\|_p \le t
-```
+$$
 
 ```text
           LASSO (L1 - Khối Kim Cương)                   RIDGE (L2 - Khối Cầu Tròn)
@@ -171,9 +171,9 @@ Bài toán Regularization có thể viết lại dưới dạng bài toán tối
 
 Do hàm chuẩn $`L_1`$ không khả vi tại điểm $`0`$, Lasso không thể giải trực tiếp bằng Gradient Descent thông thường mà sử dụng **Coordinate Descent (Hạ từng tọa độ)**. Tại mỗi bước lặp, thuật toán cố định toàn bộ các tham số khác và tối ưu duy nhất biến $`w_j`$ thông qua toán tử ngưỡng mềm (Soft-Thresholding Operator):
 
-```math
+$$
 w_j^* = \mathcal{S}_{\lambda}(\rho_j) = \mathrm{sign}(\rho_j) \max(0, \lvert \rho_j \rvert - \lambda)
-```
+$$
 
 Trong đó $`\rho_j = x_j^\top (y - \sum_{k \neq j} w_k x_k)`$ là mức độ tương quan giữa biến $`x_j`$ và phần dư còn lại của mô hình. Nếu $`|\rho_j| \le \lambda`$, hệ số $`w_j`$ lập tức bị ép chặt về $`0`$.
 

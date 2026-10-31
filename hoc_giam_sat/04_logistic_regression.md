@@ -32,35 +32,35 @@ Với `n` mẫu và `p` feature, $`X \in \mathbb{R}^{n\times p}`$. Binary target
 
 * **Định nghĩa Tỷ số Cược (Odds):** Là tỷ lệ giữa xác suất biến cố xảy ra và xác suất biến cố không xảy ra:
 
-  ```math
-  \mathrm{Odds} = \frac{p}{1 - p}
-  ```
+$$
+\mathrm{Odds} = \frac{p}{1 - p}
+$$
 
   Ví dụ: nếu xác suất chiến thắng là $`p = 0.8`$, tỷ số cược là $`\mathrm{Odds} = \frac{0.8}{0.2} = 4`$ (tỷ lệ "4 ăn 1").
 * **Hàm Log-Odds (Logit):**
 
-  ```math
-  \mathrm{logit}(p) = \ln\left( \frac{p}{1 - p} \right) = w_0 + w_1 x_1 + \dots + w_p x_p
-  ```
+$$
+\mathrm{logit}(p) = \ln\left( \frac{p}{1 - p} \right) = w_0 + w_1 x_1 + \dots + w_p x_p
+$$
 
   Đảo ngược hàm logit, ta thu được hàm kích hoạt **Sigmoid (Logistic Function)**:
 
-  ```math
-  p = \sigma(z) = \frac{1}{1 + e^{-z}} = \frac{e^z}{1 + e^z}
-  ```
+$$
+p = \sigma(z) = \frac{1}{1 + e^{-z}} = \frac{e^z}{1 + e^z}
+$$
 
 * **Ý nghĩa Diễn giải Hệ số qua Tỷ số Nguy cơ (Odds Ratio - OR):**
   Lấy mũ cơ số tự nhiên hai vế:
 
-  ```math
-  \mathrm{Odds} = e^{w_0} \cdot e^{w_1 x_1} \dots e^{w_j x_j}
-  ```
+$$
+\mathrm{Odds} = e^{w_0} \cdot e^{w_1 x_1} \dots e^{w_j x_j}
+$$
 
   Khi biến độc lập $`x_j`$ tăng thêm 1 đơn vị (các biến khác giữ nguyên):
 
-  ```math
-  \mathrm{OR} = \frac{\mathrm{Odds}(x_j + 1)}{\mathrm{Odds}(x_j)} = e^{w_j}
-  ```
+$$
+\mathrm{OR} = \frac{\mathrm{Odds}(x_j + 1)}{\mathrm{Odds}(x_j)} = e^{w_j}
+$$
 
   * Nếu $`w_j > 0 \implies e^{w_j} > 1`$: Làm tăng tỷ số cược xảy ra lớp dương tính.
   * Nếu $`w_j < 0 \implies e^{w_j} < 1`$: Làm giảm tỷ số cược xảy ra lớp dương tính.
@@ -89,29 +89,29 @@ Với $`p_{i}=\sigma (w^{\top}x_{i}+b)`$ và log loss chưa regularization, grad
 
 Xét hàm mất mát của một mẫu đơn lẻ:
 
-```math
+$$
 L = - \left[ y \ln p + (1 - y) \ln(1 - p) \right]
-```
+$$
 
 Trong đó $`p = \sigma(z)`$ và $`z = w^\top x + b`$.
 
 1. Đạo hàm của hàm Sigmoid:
 
-   ```math
-   \sigma'(z) = \frac{d}{dz} \left( \frac{1}{1 + e^{-z}} \right) = \frac{e^{-z}}{(1 + e^{-z})^2} = \sigma(z) (1 - \sigma(z)) = p(1 - p)
-   ```
+$$
+\sigma'(z) = \frac{d}{dz} \left( \frac{1}{1 + e^{-z}} \right) = \frac{e^{-z}}{(1 + e^{-z})^2} = \sigma(z) (1 - \sigma(z)) = p(1 - p)
+$$
 
 2. Áp dụng quy tắc đạo hàm hàm hợp (Chain Rule) để tìm đạo hàm theo $`z`$:
 
-   ```math
-   \frac{\partial L}{\partial z} = - \left[ \frac{y}{p} \cdot p(1 - p) - \frac{1 - y}{1 - p} \cdot p(1 - p) \right] = - \left[ y(1 - p) - (1 - y)p \right] = p - y
-   ```
+$$
+\frac{\partial L}{\partial z} = - \left[ \frac{y}{p} \cdot p(1 - p) - \frac{1 - y}{1 - p} \cdot p(1 - p) \right] = - \left[ y(1 - p) - (1 - y)p \right] = p - y
+$$
 
 3. Đạo hàm theo từng trọng số $`w_j`$:
 
-   ```math
-   \frac{\partial L}{\partial w_j} = \frac{\partial L}{\partial z} \cdot \frac{\partial z}{\partial w_j} = (p - y) x_j
-   ```
+$$
+\frac{\partial L}{\partial w_j} = \frac{\partial L}{\partial z} \cdot \frac{\partial z}{\partial w_j} = (p - y) x_j
+$$
 
 *Nhận xét sâu sắc:* Kết quả đạo hàm $`(p - y)x_j`$ có dạng đại số **giống hệt như đạo hàm của bài toán Hồi quy Tuyến tính OLS**! Sự sai lệch giữa xác suất dự đoán $`p`$ và nhãn thực tế $`y`$ đóng vai trò như một lực đẩy tuyến tính định hướng cập nhật trọng số.
 
@@ -124,9 +124,9 @@ Với mỗi lớp `k`, tính logit $`z_k=w_k^{\top}x+b_k`$, rồi $`p_k=\frac{\e
 Nếu vector logit có giá trị lớn (ví dụ $`z = [1000, 1001, 1002]`$), phép tính $`e^{1000}`$ sẽ gây ra lỗi tràn số học nghiêm trọng (**Numerical Overflow** dẫn đến giá trị `inf` hoặc `NaN`).
 * Định lý: Hàm Softmax có **tính chất bất biến khi tịnh tiến (Shift Invariance)**:
 
-  ```math
-  \frac{e^{z_k}}{\sum_j e^{z_j}} = \frac{e^{-c} e^{z_k}}{e^{-c} \sum_j e^{z_j}} = \frac{e^{z_k - c}}{\sum_j e^{z_j - c}}
-  ```
+$$
+\frac{e^{z_k}}{\sum_j e^{z_j}} = \frac{e^{-c} e^{z_k}}{e^{-c} \sum_j e^{z_j}} = \frac{e^{z_k - c}}{\sum_j e^{z_j - c}}
+$$
 
 * Do đó, mọi thư viện khoa học chuẩn mực đều chọn $`c = \max_j(z_j)`$, đảm bảo rằng số mũ lớn nhất luôn bằng $`e^0 = 1`$, triệt tiêu hoàn toàn nguy cơ tràn số.
 

@@ -24,9 +24,9 @@ Train và validation đã split đúng; pipeline tiền xử lý; objective/loss
 
 Đầu vào kỹ thuật của giai đoạn này là một bài toán quy hoạch toán học tổng quát:
 
-```math
+$$
 \theta^* = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \;\; \mathcal{J}(\theta; D_{\text{train}}) = \mathop{\mathrm{arg\,min}}_{\theta \in \Theta} \left[ \frac{1}{n} \sum_{i=1}^n L(y_i, f_\theta(x_i)) + \lambda \Omega(\theta) \right]
-```
+$$
 
 Trong đó:
 * $`\Theta`$: Không gian tham số có thể đạt được.
@@ -61,9 +61,9 @@ Một cách viết chung: $`\theta^* = \mathop{\mathrm{arg\,min}}_{\theta} \left
 Tại sao không tối ưu trực tiếp Accuracy hay F1-Score trong lúc train?
 * Xét hàm lỗi 0-1 (Zero-One Loss) đo tỷ lệ phân loại sai:
 
-  ```math
-  L_{0-1}(y, f(x)) = \mathbb{I}(y \neq \mathrm{sign}(f(x)))
-  ```
+$$
+L_{0-1}(y, f(x)) = \mathbb{I}(y \neq \mathrm{sign}(f(x)))
+$$
 
 * Hàm này là hàm bậc thang: đạo hàm tại mọi điểm khả vi đều bằng 0, và không liên tục tại điểm phân chia ranh giới. Do đó, các thuật toán tối ưu hóa dựa trên gradient (Gradient-based Optimization) hoàn toàn bất lực.
 * **Giải pháp học thuật:** Sử dụng một **hàm mất mát thay thế lồi (Convex Surrogate Loss)** chặn trên hàm 0-1:
@@ -117,18 +117,18 @@ Tùy thuộc vào cấu trúc đại số của hàm mục tiêu, thuật toán 
 1. **Nghiệm Đóng Giải tích (Analytical Closed-form Solution):**
    * Tiêu biểu: Hồi quy tuyến tính OLS thông qua phương trình chuẩn (Normal Equation):
 
-     ```math
-     \theta^* = (X^\top X)^{-1} X^\top y
-     ```
+$$
+\theta^* = (X^\top X)^{-1} X^\top y
+$$
 
    * *Ưu điểm:* Nghiệm chính xác tuyệt đối, không cần chọn learning rate hay số vòng lặp.
    * *Nhược điểm:* Độ phức tạp tính toán đảo ma trận cỡ $`\mathcal{O}(p^3)`$, sụp đổ khi số chiều $`p`$ lớn hoặc ma trận bị suy biến (khi đó phải dùng Ridge regularization hoặc phân tích SVD).
 2. **Quy hoạch Tối ưu Dựa trên Gradient (First-Order Gradient Descent):**
    * Cập nhật tham số theo hướng ngược vector đạo hàm riêng:
 
-     ```math
-     \theta^{(t+1)} = \theta^{(t)} - \eta \nabla_\theta \mathcal{J}(\theta^{(t)})
-     ```
+$$
+\theta^{(t+1)} = \theta^{(t)} - \eta \nabla_\theta \mathcal{J}(\theta^{(t)})
+$$
 
    * Biến thể: *Batch GD* (tính trên toàn bộ $`n`$ mẫu), *Stochastic GD (SGD)* (tính trên từng mẫu đơn lẻ), *Mini-batch GD* (tính trên lô nhỏ kích thước $`32, 64, 128`$).
 3. **Phân chia Nhánh Tham lam (Greedy Recursive Partitioning):**

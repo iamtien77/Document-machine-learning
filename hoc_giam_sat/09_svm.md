@@ -11,9 +11,9 @@ Support Vector Machine (SVM) được phát triển bởi Vladimir Vapnik và Co
 Thay vì tiếp cận theo nguyên lý Tối thiểu hóa Rủi ro Thực nghiệm thông thường (Empirical Risk Minimization - ERM, vốn rất dễ dẫn đến Overfitting), Vapnik đã đề xuất **Nguyên lý Tối thiểu hóa Rủi ro Cấu trúc (Structural Risk Minimization - SRM)** dựa trên **Chiều VC (Vapnik-Chervonenkis Dimension)**:
 * Chiều VC đo lường dung lượng hoặc độ linh hoạt của một không gian hàm. Vapnik đã chứng minh rằng: Sai số tổng quát hóa trên dữ liệu mới $`\mathcal{R}(f)`$ được chặn trên bởi sai số huấn luyện thực nghiệm $`\hat{\mathcal{R}}_n(f)`$ cộng với một số hạng tỷ lệ thuận với Chiều VC:
 
-  ```math
-  \mathcal{R}(f) \le \hat{\mathcal{R}}_n(f) + \mathcal{O}\left( \sqrt{\frac{h \ln(n/h) - \ln(\eta)}{n}} \right)
-  ```
+$$
+\mathcal{R}(f) \le \hat{\mathcal{R}}_n(f) + \mathcal{O}\left( \sqrt{\frac{h \ln(n/h) - \ln(\eta)}{n}} \right)
+$$
 
   Trong đó $`h`$ là Chiều VC, $`n`$ là số mẫu, $`1-\eta`$ là độ tin cậy thống kê.
 * **Định lý then chốt của Vapnik:** Trong số tất cả các siêu phẳng phân cách có thể phân chia đúng tập dữ liệu, **siêu phẳng có độ rộng lề (Margin) lớn nhất sẽ có Chiều VC nhỏ nhất**! 
@@ -59,17 +59,17 @@ Do đó, tối đa hóa lề $`\frac{2}{\|w\|_2}`$ tương đương với tối 
 
 1. **Bài toán Gốc (Primal Optimization Problem):**
 
-   ```math
-   \min_{w, b, \xi} \frac{1}{2} \|w\|_2^2 + C \sum_{i=1}^n \xi_i \quad \text{sao cho} \quad y_i (w^\top x_i + b) \ge 1 - \xi_i, \;\; \xi_i \ge 0
-   ```
+$$
+\min_{w, b, \xi} \frac{1}{2} \|w\|_2^2 + C \sum_{i=1}^n \xi_i \quad \text{sao cho} \quad y_i (w^\top x_i + b) \ge 1 - \xi_i, \;\; \xi_i \ge 0
+$$
 
    Trong đó $`\xi_i`$ là các biến bù lỏng (Slack Variables) cho phép một số mẫu vi phạm lề.
 2. **Hàm Lagrange và Điều kiện KKT (Karush-Kuhn-Tucker):**
    Thiết lập hàm Lagrange với các nhân tử $`\alpha_i \ge 0`$ và $`\mu_i \ge 0`$:
 
-   ```math
-   \mathcal{L}(w, b, \xi, \alpha, \mu) = \frac{1}{2}\|w\|_2^2 + C\sum_{i=1}^n \xi_i - \sum_{i=1}^n \alpha_i \left[ y_i (w^\top x_i + b) - 1 + \xi_i \right] - \sum_{i=1}^n \mu_i \xi_i
-   ```
+$$
+\mathcal{L}(w, b, \xi, \alpha, \mu) = \frac{1}{2}\|w\|_2^2 + C\sum_{i=1}^n \xi_i - \sum_{i=1}^n \alpha_i \left[ y_i (w^\top x_i + b) - 1 + \xi_i \right] - \sum_{i=1}^n \mu_i \xi_i
+$$
 
    Lấy đạo hàm riêng theo các biến gốc $`w, b, \xi`$ và cho bằng $`0`$:
    * $`\frac{\partial \mathcal{L}}{\partial w} = 0 \implies w = \sum_{i=1}^n \alpha_i y_i x_i`$
@@ -78,9 +78,9 @@ Do đó, tối đa hóa lề $`\frac{2}{\|w\|_2}`$ tương đương với tối 
 3. **Bài toán Đối ngẫu Lagrange (Dual Problem):**
    Thế các biểu thức trên ngược lại vào hàm Lagrange, ta thu được bài toán đối ngẫu chỉ còn phụ thuộc vào $`\alpha`$:
 
-   ```math
-   \max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j (x_i^\top x_j) \quad \text{sao cho} \quad 0 \le \alpha_i \le C, \;\; \sum_{i=1}^n \alpha_i y_i = 0
-   ```
+$$
+\max_{\alpha} \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j y_i y_j (x_i^\top x_j) \quad \text{sao cho} \quad 0 \le \alpha_i \le C, \;\; \sum_{i=1}^n \alpha_i y_i = 0
+$$
 
 ```text
                   Ý NGHĨA KHOA HỌC THEN CHỐT CỦA BÀI TOÁN ĐỐI NGẪU
@@ -100,16 +100,16 @@ Vì bài toán đối ngẫu chỉ phụ thuộc vào tích vô hướng giữa 
 * Ánh xạ dữ liệu từ không gian gốc $`x \in \mathbb{R}^p`$ lên một Không gian Đặc trưng Hilbert $`\mathcal{H}`$ có số chiều cao hơn (hoặc vô hạn chiều) thông qua hàm phi tuyến $`\phi(x)`$.
 * Thay vì phải tính toán tọa độ cực kỳ phức tạp $`\phi(x)`$, ta sử dụng một **Hàm nhân (Kernel Function)**:
 
-  ```math
-  K(x_i, x_j) = \langle \phi(x_i), \phi(x_j) \rangle
-  ```
+$$
+K(x_i, x_j) = \langle \phi(x_i), \phi(x_j) \rangle
+$$
 
 * **Định lý Mercer (1909):** Bất kỳ hàm nhân đối xứng và nửa xác định dương (Positive Semi-Definite) nào cũng tương ứng với một tích vô hướng trong một không gian Hilbert nào đó.
 * **Kernel RBF (Radial Basis Function / Gaussian Kernel):**
 
-  ```math
-  K(x, z) = \exp(-\gamma \|x - z\|^2)
-  ```
+$$
+K(x, z) = \exp(-\gamma \|x - z\|^2)
+$$
 
   Khai triển chuỗi Taylor của hàm số mũ chứng minh rằng: **Kernel RBF tương ứng với một không gian đặc trưng có số chiều VÔ HẠN ($`\infty`$-dimensions)**! Nhờ đó, SVM có thể dễ dàng phân tách bất kỳ tập dữ liệu phức tạp nào mà chi phí tính toán chỉ dừng lại ở phép tính khoảng cách Euclid giữa hai điểm.
 

@@ -13,9 +13,9 @@ Năm 1967, hai nhà khoa học Thomas Cover và Peter Hart đã công bố một
 * Gọi $`R_{1\text{-NN}}`$ là sai số tiệm cận của thuật toán 1-Láng giềng gần nhất ($`k=1`$) khi kích thước tập huấn luyện tiến ra vô cùng ($`n \to \infty`$).
 * **Định lý Cover & Hart:**
 
-  ```math
-  R^* \le R_{1\text{-NN}} \le 2 R^* (1 - R^*) \le 2 R^*
-  ```
+$$
+R^* \le R_{1\text{-NN}} \le 2 R^* (1 - R^*) \le 2 R^*
+$$
 
 * *Ý nghĩa khoa học sâu sắc:* Ngay cả với phiên bản đơn giản nhất ($`k=1`$), sai số của thuật toán láng giềng gần nhất không bao giờ vượt quá **hai lần sai số tối ưu Bayes**! Đây là minh chứng toán học hùng hồn cho thấy các phương pháp phi tham số cục bộ có khả năng biểu diễn vô cùng mạnh mẽ mà không cần giả định trước bất kỳ dạng phân phối nào của dữ liệu.
 
@@ -34,9 +34,9 @@ kNN dựa trên giả định căn bản: **Các điểm nằm gần nhau trong 
 1. **Sự loãng không gian (Empty Space Phenomenon):** Thể tích của một khối cầu $`p`$-chiều tỷ lệ với $`r^p`$. Để bao phủ một tỷ lệ thể tích cố định (ví dụ $`10\%`$ dữ liệu) nhằm tìm $`k`$ láng giềng, bán kính lân cận $`r`$ phải mở rộng rất nhanh theo công thức $`r = (0.1)^{1/p}`$. Khi $`p = 50`$, $`r \approx 0.95`$, nghĩa là thuật toán buộc phải quét gần như toàn bộ không gian dữ liệu để gom đủ $`k`$ mẫu! Khi đó, các mẫu được gọi là "gần nhất" thực chất lại ở rất xa nhau.
 2. **Sự cô lập khoảng cách (Distance Concentration):** Khi số chiều $`p \to \infty`$, khoảng cách giữa điểm gần nhất ($`d_{\min}`$) và điểm xa nhất ($`d_{\max}`$) từ một điểm truy vấn bất kỳ hội tụ về cùng một giá trị:
 
-   ```math
-   \lim_{p \to \infty} \frac{d_{\max} - d_{\min}}{d_{\min}} = 0
-   ```
+$$
+\lim_{p \to \infty} \frac{d_{\max} - d_{\min}}{d_{\min}} = 0
+$$
 
    Mọi điểm trong không gian đều có khoảng cách gần như bằng nhau tới điểm truy vấn, khiến khái niệm "láng giềng gần nhất" mất hoàn toàn giá trị phân biệt.
 * *Quy tắc vàng:* kNN hoạt động tốt nhất khi $`p < 20`$. Khi $`p`$ lớn, bắt buộc phải giảm chiều dữ liệu (PCA, t-SNE) hoặc chọn lọc đặc trưng trước.
@@ -107,9 +107,9 @@ Nếu dùng tìm kiếm vét cạn thô (Brute-force Search), chi phí cho mỗi
 2. **Ball-Tree:**
    * *Nguyên lý:* Phân chia không gian thành các siêu cầu lồng nhau (Nested Hyperspheres) dựa trên bất đẳng thức tam giác:
 
-     ```math
-     |d(x, c) - d(y, c)| \le d(x, y) \le d(x, c) + d(y, c)
-     ```
+$$
+|d(x, c) - d(y, c)| \le d(x, y) \le d(x, c) + d(y, c)
+$$
 
    * *Ưu điểm:* Vượt trội hơn KD-Tree trong các không gian có cấu trúc hình học phức tạp hoặc số chiều trung bình cao.
 

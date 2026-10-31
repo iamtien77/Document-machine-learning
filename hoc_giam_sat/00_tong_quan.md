@@ -18,23 +18,23 @@ Trong khoa học máy tính truyền thống (Traditional Programming), con ngư
 
 * **Rủi ro kỳ vọng (Expected Risk / Generalization Loss):** Là kỳ vọng toán học của sai số trên toàn bộ phân phối dữ liệu thực tế:
 
-  ```math
-  \mathcal{R}(f) = \mathbb{E}_{(X, Y) \sim P}[L(Y, f(X))] = \int_{\mathcal{X} \times \mathcal{Y}} L(y, f(x)) \, dP(x, y)
-  ```
+$$
+\mathcal{R}(f) = \mathbb{E}_{(X, Y) \sim P}[L(Y, f(X))] = \int_{\mathcal{X} \times \mathcal{Y}} L(y, f(x)) \, dP(x, y)
+$$
 
   Vì phân phối $`P(X, Y)`$ là ẩn số trong thực tế, ta không thể tính toán trực tiếp $`\mathcal{R}(f)`$.
 * **Rủi ro thực nghiệm (Empirical Risk):** Là sai số trung bình tính trên tập dữ liệu huấn luyện mẫu gồm $`n`$ quan sát:
 
-  ```math
-  \hat{\mathcal{R}}_n(f) = \frac{1}{n} \sum_{i=1}^n L(y_i, f(x_i))
-  ```
+$$
+\hat{\mathcal{R}}_n(f) = \frac{1}{n} \sum_{i=1}^n L(y_i, f(x_i))
+$$
 
 * **Nguyên lý Tối thiểu hóa Rủi ro Thực nghiệm (Empirical Risk Minimization - ERM):**
   ERM chọn hàm làm nhỏ nhất $`\hat{\mathcal{R}}_n(f)`$ trong lớp mô hình đang xét. Mô hình quá linh hoạt có thể đạt lỗi train gần 0 nhưng lỗi trên dữ liệu mới vẫn lớn: **overfitting**. Regularization là một cách kiểm soát độ phức tạp, không tự bảo đảm tổng quát hóa tốt. Khoảng cách giữa hai loại rủi ro có thể viết:
 
-  ```math
-  \mathrm{Gap}(f) = \lvert \mathcal{R}(f) - \hat{\mathcal{R}}_n(f) \rvert
-  ```
+$$
+\mathrm{Gap}(f) = \lvert \mathcal{R}(f) - \hat{\mathcal{R}}_n(f) \rvert
+$$
 
   Muốn kết luận khoảng cách này tiến về 0 khi tăng dữ liệu, cần các điều kiện phù hợp về cách lấy mẫu, loss và lớp mô hình. Trong thực hành, dùng validation/test hợp lệ để ước lượng chất lượng trên dữ liệu chưa thấy. [4][14]
 
@@ -75,22 +75,22 @@ Tùy vào kiểu giá trị cần dự đoán, học giám sát có các dạng 
 
 1. **Hồi quy (Regression):** $`\mathcal{Y} \subseteq \mathbb{R}`$ hoặc $`\mathbb{R}^m`$ (multi-output regression). Với squared-error loss và moment bậc hai hữu hạn, dự đoán tối ưu là kỳ vọng có điều kiện; loss khác có thể dẫn đến mục tiêu khác:
 
-   ```math
-   f(x) = \mathbb{E}[Y \mid X = x]
-   ```
+$$
+f(x) = \mathbb{E}[Y \mid X = x]
+$$
 
 2. **Phân loại nhị phân (Binary Classification):** $`\mathcal{Y} = \{0, 1\}`$ hoặc $`\{-1, +1\}`$. Mô hình thường ước lượng xác suất hậu nghiệm:
 
-   ```math
-   \eta(x) = P(Y = 1 \mid X = x)
-   ```
+$$
+\eta(x) = P(Y = 1 \mid X = x)
+$$
 
    Sau đó áp dụng ngưỡng quyết định $`\tau \in (0, 1)`$ để gán nhãn: $`\hat{y} = \mathbb{I}(\eta(x) \ge \tau)`$.
 3. **Phân loại đa lớp (Multi-class Classification):** $`\mathcal{Y} = \{1, 2, \dots, K\}`$ với $`K > 2`$. Mỗi quan sát thuộc về duy nhất một lớp. Mô hình thường xuất ra một vector xác suất thuộc Simplex:
 
-   ```math
-   \Delta^{K-1} = \left\lbrace (p_1, \dots, p_K) \in [0, 1]^K \mid \sum_{k=1}^K p_k = 1 \right\rbrace
-   ```
+$$
+\Delta^{K-1} = \left\lbrace (p_1, \dots, p_K) \in [0, 1]^K \mid \sum_{k=1}^K p_k = 1 \right\rbrace
+$$
 
 4. **Phân loại đa nhãn (Multi-label Classification):** $`\mathcal{Y} = \{0, 1\}^K`$. Một quan sát có thể đồng thời mang nhiều nhãn (ví dụ: một bài báo vừa về "Công nghệ", vừa về "Kinh tế"). Các nhãn có thể liên quan với nhau; định nghĩa multilabel không yêu cầu chúng độc lập.
 
@@ -207,9 +207,9 @@ Bảng là gợi ý các điểm cần kiểm tra, không phải định nghĩa 
 
 **Đọc sâu:** trong regression với squared-error loss, giả sử $`y_0=f_*(x_0)+\epsilon`$, nhiễu có trung bình 0, phương sai $`\sigma^2`$ và độc lập với tập train. Tại $`x_0`$ cố định, kỳ vọng qua các tập train và nhiễu của mẫu mới phân rã như sau; đây không phải công thức cho mọi loại loss. [13]
 
-```math
+$$
 \mathbb{E}[(y_0 - \hat{f}(x_0))^2] = \mathrm{Bias}[\hat{f}(x_0)]^2 + \mathrm{Var}[\hat{f}(x_0)] + \sigma^2
-```
+$$
 
 1. **Bias (Thiên lệch):** Chênh lệch giữa dự đoán trung bình qua các tập train và $`f_*(x_0)`$. Bias cao có thể phản ánh giả định mô hình quá đơn giản.
 2. **Variance (Phương sai):** Độ biến thiên của dự đoán khi thay tập train; variance cao thể hiện mô hình nhạy với dữ liệu huấn luyện.

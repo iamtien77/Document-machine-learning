@@ -29,9 +29,9 @@ Danh sách weak learners $`h_{1},\ldots ,h_M`$ và trọng số đóng góp củ
 
 Dự đoán cuối cùng cho một mẫu mới $`x`$ được tạo ra bằng phép bỏ phiếu có trọng số giữa toàn bộ $`M`$ bộ phân loại yếu:
 
-```math
+$$
 H(x) = \mathrm{sign}\left( \sum_{m=1}^M \alpha_m h_m(x) \right)
-```
+$$
 
 Trong đó $`\alpha_m`$ là "tiếng nói" hay trọng số đóng góp của mô hình cơ sở thứ $`m`$. Mô hình nào có tỷ lệ lỗi thấp hơn sẽ được trao quyền quyết định lớn hơn.
 
@@ -63,35 +63,35 @@ AdaBoost tăng trọng số **mẫu**, còn Gradient Boosting thường fit cây
 
 Năm 2000, Jerome Friedman, Trevor Hastie và Robert Tibshirani đã làm sáng tỏ bản chất của AdaBoost dưới góc độ tối ưu hóa thống kê: **AdaBoost chính là phương pháp khớp mô hình cộng dần từng bước (Forward Stagewise Additive Modeling) để tối thiểu hóa Hàm Mất mát Mũ (Exponential Loss)**:
 
-```math
+$$
 L(y, f(x)) = \exp(-y f(x))
-```
+$$
 
 1. Tại vòng $`m`$, mô hình hiện tại là $`f_m(x) = f_{m-1}(x) + \alpha_m h_m(x)`$.
 2. Hàm mục tiêu cần tối thiểu hóa tại bước $`m`$:
 
-   ```math
-   \mathcal{J}(\alpha, h) = \sum_{i=1}^n \exp\left( -y_i [f_{m-1}(x_i) + \alpha h(x_i)] \right) = \sum_{i=1}^n w_i^{(m)} \exp(-y_i \alpha h(x_i))
-   ```
+$$
+\mathcal{J}(\alpha, h) = \sum_{i=1}^n \exp\left( -y_i [f_{m-1}(x_i) + \alpha h(x_i)] \right) = \sum_{i=1}^n w_i^{(m)} \exp(-y_i \alpha h(x_i))
+$$
 
    Trong đó $`w_i^{(m)} = \exp(-y_i f_{m-1}(x_i))`$ chính là trọng số của mẫu thứ $`i`$ được tích lũy từ các vòng trước!
 3. Phân rã tổng mất mát thành hai nhóm (nhóm phân loại đúng $`y_i h(x_i) = 1`$ và nhóm phân loại sai $`y_i h(x_i) = -1`$):
 
-   ```math
-   \mathcal{J} = e^{-\alpha} \sum_{y_i = h(x_i)} w_i^{(m)} + e^\alpha \sum_{y_i \neq h(x_i)} w_i^{(m)} = (e^\alpha - e^{-\alpha}) \sum_{i=1}^n w_i^{(m)} \mathbb{I}(y_i \neq h(x_i)) + e^{-\alpha} \sum_{i=1}^n w_i^{(m)}
-   ```
+$$
+\mathcal{J} = e^{-\alpha} \sum_{y_i = h(x_i)} w_i^{(m)} + e^\alpha \sum_{y_i \neq h(x_i)} w_i^{(m)} = (e^\alpha - e^{-\alpha}) \sum_{i=1}^n w_i^{(m)} \mathbb{I}(y_i \neq h(x_i)) + e^{-\alpha} \sum_{i=1}^n w_i^{(m)}
+$$
 
 4. Để tìm $`\alpha_m`$ tối ưu, lấy đạo hàm riêng theo $`\alpha`$ và cho bằng $`0`$:
 
-   ```math
-   \frac{\partial \mathcal{J}}{\partial \alpha} = e^\alpha \sum_{y_i \neq h} w_i^{(m)} - e^{-\alpha} \sum_{y_i = h} w_i^{(m)} = 0
-   ```
+$$
+\frac{\partial \mathcal{J}}{\partial \alpha} = e^\alpha \sum_{y_i \neq h} w_i^{(m)} - e^{-\alpha} \sum_{y_i = h} w_i^{(m)} = 0
+$$
 
    Đặt tỷ lệ lỗi có trọng số $`e_m = \frac{\sum_{y_i \neq h} w_i^{(m)}}{\sum_{i=1}^n w_i^{(m)}}`$, phương trình trên trở thành:
 
-   ```math
-   e^\alpha e_m - e^{-\alpha} (1 - e_m) = 0 \iff e^{2\alpha} = \frac{1 - e_m}{e_m} \implies \alpha_m = \frac{1}{2} \ln \left( \frac{1 - e_m}{e_m} \right)
-   ```
+$$
+e^\alpha e_m - e^{-\alpha} (1 - e_m) = 0 \iff e^{2\alpha} = \frac{1 - e_m}{e_m} \implies \alpha_m = \frac{1}{2} \ln \left( \frac{1 - e_m}{e_m} \right)
+$$
 
    Một phép chứng minh giải tích cực kỳ thanh lịch xác nhận rằng công thức trực giác của Freund & Schapire chính là nghiệm tối ưu chính xác của hàm mất mát hàm mũ!
 
@@ -100,9 +100,9 @@ L(y, f(x)) = \exp(-y f(x))
 Trong bài toán đa lớp ($`K > 2`$), một bộ phân loại đoán mò ngẫu nhiên sẽ có tỷ lệ chính xác là $`1/K`$, nghĩa là tỷ lệ sai lên tới $`\frac{K-1}{K}`$. Nếu áp dụng công thức nhị phân cổ điển (đòi hỏi $`e_m < 0.5`$), thuật toán sẽ bị dừng ngay lập tức khi $`K \ge 3`$.
 Thuật toán **SAMME (Stagewise Additive Modeling using a Multi-class Exponential loss function)** mở rộng công thức trọng số mô hình:
 
-```math
+$$
 \alpha_m = \ln \left( \frac{1 - e_m}{e_m} \right) + \ln(K - 1)
-```
+$$
 
 Nhờ số hạng $`\ln(K - 1)`$, thuật toán chỉ yêu cầu weak learner đạt độ chính xác lớn hơn mức ngẫu nhiên $`1/K`$ ($`e_m < \frac{K-1}{K}`$) là đã có thể gán trọng số dương $`\alpha_m > 0`$.
 

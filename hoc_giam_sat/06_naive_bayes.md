@@ -56,21 +56,21 @@ Macro F1 và per-class precision/recall cho lớp không cân bằng; confusion 
 
 **GaussianNB — mật độ có điều kiện:**
 
-```math
+$$
 p(x_j\mid y=c)=\frac{\exp\!\left[-\frac{(x_j-\mu_{cj})^2}{2\sigma_{cj}^2}\right]}{\sqrt{2\pi\sigma_{cj}^2}}
-```
+$$
 
 **MultinomialNB — xác suất token sau smoothing:**
 
-```math
+$$
 \theta_{cj}=\frac{N_{cj}+\alpha}{\sum_t N_{ct}+\alpha V}
-```
+$$
 
 **BernoulliNB — likelihood của một feature:**
 
-```math
+$$
 P(x_j\mid y=c)=\theta_{cj}^{x_j}(1-\theta_{cj})^{1-x_j}
-```
+$$
 
 Ở MultinomialNB, $`N_{cj}`$ là tổng số lần token `j` xuất hiện trong văn bản lớp `c`; `V` là kích thước vocabulary. Công thức trên mô tả Laplace/Lidstone smoothing khi $`\alpha`$ là hằng chung. Từng estimator có quy ước và tham số API riêng; không dùng một công thức Gaussian cho count hoặc Bernoulli. [1]
 
@@ -82,26 +82,26 @@ Khi `V` lớn, nhân nhiều xác suất rất nhỏ dễ underflow; tính $`\lo
 
 Theo Định lý Bayes chính xác tuyệt đối:
 
-```math
+$$
 P(Y = c \mid x_1, x_2, \dots, x_p) = \frac{P(Y = c) \cdot P(x_1, x_2, \dots, x_p \mid Y = c)}{P(x_1, x_2, \dots, x_p)}
-```
+$$
 
 Trong thực tế, việc ước lượng phân phối đồng thời đa biến $`P(x_1, \dots, x_p \mid Y = c)`$ đòi hỏi số lượng tham số khổng lồ cỡ $`2^p`$ (nếu các biến nhị phân), dẫn tới sụp đổ do "Lời nguyền số chiều" (Curse of Dimensionality).
 
 **Giả định Độc lập Có điều kiện (The "Naive" Assumption):**
 Mô hình giả định rằng với điều kiện lớp $`Y = c`$ đã biết, sự xuất hiện của biến $`x_j`$ hoàn toàn độc lập với biến $`x_k`$:
 
-```math
+$$
 P(x_1, x_2, \dots, x_p \mid Y = c) = \prod_{j=1}^p P(x_j \mid Y = c)
-```
+$$
 
 Khi đó, bài toán từ việc ước lượng bảng xác suất $`2^p`$ phần tử được rút gọn xuống chỉ còn ước lượng $`2p`$ tham số đơn biến!
 
 Chuyển sang không gian Logarit để ngăn chặn hiện tượng tràn số dưới (Underflow):
 
-```math
+$$
 \hat{y} = \mathop{\mathrm{arg\,max}}_{c} \left[ \ln P(Y = c) + \sum_{j=1}^p \ln P(x_j \mid Y = c) \right]
-```
+$$
 
 ### Nghịch lý Thú vị: Tại sao Naive Bayes Vẫn Hoạt động Tốt khi Giả định Bị Sai?
 

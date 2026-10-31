@@ -33,9 +33,9 @@ Trong lý thuyết quyết định Bayes (Bayesian Decision Theory), quá trình
 3. **Tầng 3: Quyết định nhị phân / Hành động thực tế ($`\hat{y} \in \{0, 1\}`$):**
    * Áp dụng ngưỡng cắt tối ưu $`\tau^*`$ đã được tính toán từ ma trận chi phí ở giai đoạn đánh giá:
 
-     ```math
-     \hat{y} = \begin{cases} 1 & \text{nếu } \hat{p} \ge \tau^* \\ 0 & \text{nếu } \hat{p} < \tau^* \end{cases}
-     ```
+$$
+\hat{y} = \begin{cases} 1 & \text{nếu } \hat{p} \ge \tau^* \\ 0 & \text{nếu } \hat{p} < \tau^* \end{cases}
+$$
 
 ---
 
@@ -126,9 +126,9 @@ Trong các hệ thống phân tán và ứng dụng phục vụ thời gian th�
 * Giả sử hệ thống xử lý $`1000`$ requests. Có $`990`$ requests trả về siêu nhanh trong $`10\,\text{ms}`$, nhưng có $`10`$ requests bị nghẽn mạng hoặc quá tải bộ nhớ và mất tới $`5000\,\text{ms}`$ ($`5`$ giây).
 * Độ trễ trung bình:
 
-  ```math
-  \text{Mean} \approx \frac{990 \times 10 + 10 \times 5000}{1000} = 59.9\,\text{ms}
-  ```
+$$
+\text{Mean} \approx \frac{990 \times 10 + 10 \times 5000}{1000} = 59.9\,\text{ms}
+$$
 
   Nhìn vào con số $`59.9\,\text{ms}`$, kỹ sư tưởng rằng hệ thống đang hoạt động trơn tru.
 * Nhưng xét theo phân vị:

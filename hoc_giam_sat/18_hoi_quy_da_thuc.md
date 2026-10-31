@@ -13,17 +13,17 @@ Một ngộ nhận kinh điển của người học máy là nghĩ rằng: *"Mu
 Hồi quy Đa thức chứng minh điều ngược lại thông qua phương pháp **Mở rộng Hàm cơ sở (Basis Function Expansion)**:
 * **Tuyến tính trong tham số (Linear in Parameters):** Mặc dù mối quan hệ giữa biến đầu vào $`x`$ và nhãn $`y`$ là đường cong phi tuyến, nhưng hàm mục tiêu vẫn hoàn toàn tuyến tính đối với vector trọng số $`w`$:
 
-  ```math
-  \hat{y} = w_0 + w_1 \phi_1(x) + w_2 \phi_2(x) + \dots + w_M \phi_M(x) = w^\top \phi(x)
-  ```
+$$
+\hat{y} = w_0 + w_1 \phi_1(x) + w_2 \phi_2(x) + \dots + w_M \phi_M(x) = w^\top \phi(x)
+$$
 
   Do đó, toàn bộ các công cụ giải tích mạnh mẽ của Hồi quy Tuyến tính (phương trình chuẩn, tính lồi toàn cục, kiểm định t-test, giải thuật Ridge/Lasso) đều được tái sử dụng nguyên vẹn mà không cần bất kỳ thuật toán tối ưu phi tuyến phức tạp nào.
 * **Định lý Xấp xỉ Weierstrass (1885):**
   Mọi hàm số liên tục $`f(x)`$ xác định trên một đoạn đóng $`[a, b]`$ đều có thể được xấp xỉ đều với độ chính xác tùy ý $`\varepsilon > 0`$ bằng một đa thức bậc $`d`$ đủ lớn:
 
-  ```math
-  \sup_{x \in [a, b]} \lvert f(x) - P_d(x) \rvert < \varepsilon
-  ```
+$$
+\sup_{x \in [a, b]} \lvert f(x) - P_d(x) \rvert < \varepsilon
+$$
 
   Định lý này đặt nền móng lý thuyết cho việc nâng bậc đa thức để nắm bắt mọi cấu trúc cong tiềm ẩn trong dữ liệu.
 
@@ -37,9 +37,9 @@ $`X \in \mathbb{R}^{n\times p}`$, target liên tục `y`, bậc đa thức `d`, 
 
 Số lượng đặc trưng tạo ra sau phép biến đổi đa thức bậc $`d`$ từ $`p`$ biến ban đầu (tính cả số hạng hằng số bias) tuân theo công thức tổ hợp lặp:
 
-```math
+$$
 M = \binom{p + d}{d} = \frac{(p + d)!}{p! \, d!}
-```
+$$
 
 | Số biến gốc ($`p`$) | Bậc đa thức ($`d=1`$) | Bậc đa thức ($`d=2`$) | Bậc đa thức ($`d=3`$) | Bậc đa thức ($`d=5`$) |
 |---|---|---|---|---|
@@ -110,9 +110,9 @@ Sự chênh lệch thang đo hàng triệu lần giữa các cột sẽ gây ra 
 2. **Hỏng cơ chế Regularization:** Số hạng phạt L2 $`\alpha \sum w_j^2`$ sẽ chỉ tập trung co cụm hệ số của các bậc thấp mà bỏ qua bậc cao, hoặc ngược lại.
 * **Chuẩn mực Pipeline bắt buộc:**
 
-  ```math
-  \text{Raw Features } X \longrightarrow \text{PolynomialFeatures} \longrightarrow \mathbf{StandardScaler} \longrightarrow \text{Ridge / Lasso}
-  ```
+$$
+\text{Raw Features } X \longrightarrow \text{PolynomialFeatures} \longrightarrow \mathbf{StandardScaler} \longrightarrow \text{Ridge / Lasso}
+$$
 
   Việc chuẩn hóa (Scaling) bắt buộc phải nằm **sau** bước mở rộng đa thức và **bên trong** từng fold huấn luyện.
 

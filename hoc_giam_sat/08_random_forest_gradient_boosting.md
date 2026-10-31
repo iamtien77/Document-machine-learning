@@ -69,18 +69,18 @@ Dự đoán trung bình của rừng là $`\bar{T}(x) = \frac{1}{B} \sum_{b=1}^B
 
 Phương sai của mô hình tổ hợp được tính chính xác bằng công thức thống kê:
 
-```math
+$$
 \mathrm{Var}(\bar{T}) = \frac{1}{B^2} \left[ \sum_{b=1}^B \mathrm{Var}(T_b) + \sum_{i \neq j} \mathrm{Cov}(T_i, T_j) \right] = \rho \sigma^2 + \frac{1 - \rho}{B} \sigma^2
-```
+$$
 
 * **Phân tích giới hạn tiệm cận:**
   Khi số lượng cây $`B \to \infty`$, số hạng $`\frac{1 - \rho}{B} \sigma^2 \to 0`$. Tuy nhiên, tổng phương sai **tiến về cận dưới cố định là $`\rho \sigma^2`$**!
   * Nếu các cây giống nhau hoàn toàn ($`\rho = 1`$): Việc gộp $`1{,}000`$ cây cũng không làm giảm được dù chỉ $`1\%`$ phương sai!
   * **Đột phá của Leo Breiman (2001):** Để đẩy phương sai xuống mức tối thiểu, **bắt buộc phải làm giảm hệ số tương quan $`\rho`$**. Breiman đưa ra kỹ thuật **Random Feature Subspace Selection**: Tại mỗi nút phân nhánh, chỉ cho phép thuật toán chọn từ một tập con ngẫu nhiên gồm $`m`$ đặc trưng:
 
-    ```math
-    m = \lfloor \sqrt{p} \rfloor \quad (\text{cho phân loại}) \quad \text{hoặc} \quad m = \lfloor p / 3 \rfloor \quad (\text{cho hồi quy})
-    ```
+$$
+m = \lfloor \sqrt{p} \rfloor \quad (\text{cho phân loại}) \quad \text{hoặc} \quad m = \lfloor p / 3 \rfloor \quad (\text{cho hồi quy})
+$$
 
     Nhờ đó, ngay cả khi dữ liệu có một biến chi phối cực mạnh, các cây vẫn bị ép phải khám phá các biến yếu hơn, làm các cây con trở nên đa dạng và độc lập, triệt tiêu mạnh mẽ $`\rho \sigma^2`$.
 
@@ -98,26 +98,26 @@ Jerome Friedman (2001) đã chứng minh rằng Gradient Boosting chính là gi�
 
 Hàm mục tiêu cần tối thiểu hóa:
 
-```math
+$$
 \mathcal{J}(F) = \sum_{i=1}^n L(y_i, F(x_i))
-```
+$$
 
 Coi vector dự đoán $`[F(x_1), F(x_2), \dots, F(x_n)]^\top \in \mathbb{R}^n`$ như các biến số cần tối ưu. Theo giải tích, hướng giảm nhanh nhất của hàm mất mát chính là hướng của **vector gradient âm (Negative Gradient)**.
 
 1. **Tính toán Pseudo-Residuals tại vòng $`m`$:**
 
-   ```math
-   r_{im} = - \left[ \frac{\partial L(y_i, F(x_i))}{\partial F(x_i)} \right]_{F(x) = F_{m-1}(x)}
-   ```
+$$
+r_{im} = - \left[ \frac{\partial L(y_i, F(x_i))}{\partial F(x_i)} \right]_{F(x) = F_{m-1}(x)}
+$$
 
    * *Với hàm Squared Error Loss $`L = \frac{1}{2}(y - F)^2`$:* $`r_{im} = y_i - F_{m-1}(x_i)`$ (chính là phần dư số học).
    * *Với hàm Log Loss (Logistic) $`L = - [y \ln p + (1-y) \ln(1-p)]`$:* $`r_{im} = y_i - p_i`$ (chênh lệch xác suất).
 2. **Khớp cây hồi quy cơ sở:** Huấn luyện cây $`h_m(x)`$ nhận đầu vào là $`X`$ để dự đoán mục tiêu là vector gradient âm $`r_{im}`$.
 3. **Cập nhật Hàm Ensemble:**
 
-   ```math
-   F_m(x) = F_{m-1}(x) + \eta \cdot h_m(x)
-   ```
+$$
+F_m(x) = F_{m-1}(x) + \eta \cdot h_m(x)
+$$
 
    Hệ số co nhỏ $`\eta \in (0, 1]`$ (Learning Rate / Shrinkage) đóng vai trò điều chuẩn, làm chậm tốc độ học để ngăn ngừa hiện tượng overfit.
 

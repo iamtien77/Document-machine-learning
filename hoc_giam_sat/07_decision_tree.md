@@ -90,9 +90,9 @@ Xét bài toán phân loại nhị phân với xác suất lớp dương $`p \in
 
 Để ngăn chặn một cây phát triển quá sâu và học thuộc toàn bộ nhiễu của tập train, CART sử dụng hàm mục tiêu phạt độ phức tạp (Breiman et al., 1984):
 
-```math
+$$
 R_\alpha(T) = R(T) + \alpha |T|
-```
+$$
 
 Trong đó:
 * $`R(T)`$: Tổng sai số trên tập dữ liệu của toàn bộ các lá trong cây $`T`$.
@@ -100,9 +100,9 @@ Trong đó:
 * $`\alpha \ge 0`$: Siêu tham số điều khiển mức độ phạt kích thước cây (`ccp_alpha` trong Scikit-learn).
 * *Quy trình Weakest Link Pruning:* Khi $`\alpha`$ tăng dần từ 0 lên $`+\infty`$, tại mỗi nút con $`t`$, ta tính hệ số hiệu quả:
 
-  ```math
-  \alpha_{\text{eff}}(t) = \frac{R(t) - R(T_t)}{|T_t| - 1}
-  ```
+$$
+\alpha_{\text{eff}}(t) = \frac{R(t) - R(T_t)}{|T_t| - 1}
+$$
 
   Nút có $`\alpha_{\text{eff}}`$ nhỏ nhất sẽ bị cắt bỏ (biến thành lá) đầu tiên. Quá trình này sinh ra một dãy hữu hạn các cây con lồng nhau. Ta dùng K-Fold Cross-Validation để tìm ra giá trị $`\alpha^*`$ tối ưu nhất.
 
